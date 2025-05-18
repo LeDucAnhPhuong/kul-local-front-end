@@ -6,11 +6,14 @@ import {
   SignedOut,
   SignInButton,
   UserButton,
+  useUser,
 } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const { user } = useUser();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -48,9 +51,13 @@ function Header() {
           <Link href="#cta" className="text-sm font-medium hover:text-primary">
             Contact
           </Link>
-          <Button asChild>
-            <Link to="/sign-in">Sign In</Link>
-          </Button>
+          {user ? (
+            <UserButton />
+          ) : (
+            <Button asChild>
+              <Link to="/sign-in">Sign In</Link>
+            </Button>
+          )}
         </nav>
 
         {/* Mobile navigation */}

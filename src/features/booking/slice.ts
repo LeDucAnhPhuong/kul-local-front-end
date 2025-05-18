@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 export interface BookingState {
   value: number;
@@ -10,7 +10,7 @@ const initialState: BookingState = {
 };
 
 export const bookingSlice = createSlice({
-  name: "booking",
+  name: 'booking',
   initialState,
   reducers: {
     increment: (state) => {

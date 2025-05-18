@@ -1,28 +1,25 @@
-import { CheckCircle } from "lucide-react";
+import { CheckCircle } from 'lucide-react';
 
 function FeaturesSection() {
   const features = [
     {
-      title: "Easy Integration",
-      description:
-        "Seamlessly integrates with your existing systems and workflows.",
+      title: 'Easy Integration',
+      description: 'Seamlessly integrates with your existing systems and workflows.',
       icon: <CheckCircle className="h-8 w-8 text-primary" />,
     },
     {
-      title: "Powerful Analytics",
-      description:
-        "Gain valuable insights with our advanced analytics dashboard.",
+      title: 'Powerful Analytics',
+      description: 'Gain valuable insights with our advanced analytics dashboard.',
       icon: <CheckCircle className="h-8 w-8 text-primary" />,
     },
     {
-      title: "Secure Platform",
-      description: "Enterprise-grade security to protect your sensitive data.",
+      title: 'Secure Platform',
+      description: 'Enterprise-grade security to protect your sensitive data.',
       icon: <CheckCircle className="h-8 w-8 text-primary" />,
     },
     {
-      title: "24/7 Support",
-      description:
-        "Our dedicated team is always available to help you succeed.",
+      title: '24/7 Support',
+      description: 'Our dedicated team is always available to help you succeed.',
       icon: <CheckCircle className="h-8 w-8 text-primary" />,
     },
   ];
@@ -36,8 +33,8 @@ function FeaturesSection() {
               Features That Make Us Stand Out
             </h2>
             <p className="max-w-[900px] text-muted-foreground md:text-xl">
-              Our comprehensive set of features is designed to help your
-              business thrive in today's competitive landscape.
+              Our comprehensive set of features is designed to help your business thrive in
+              today&apos;s competitive landscape.
             </p>
           </div>
         </div>

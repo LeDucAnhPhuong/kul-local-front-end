@@ -1,7 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
+import { Link, useLocation } from 'react-router';
 
-import { SearchForm } from "@/components/layouts/dashboard/search-form";
-import { VersionSwitcher } from "@/components/layouts/dashboard/version-switcher";
 import {
   Sidebar,
   SidebarContent,
@@ -13,23 +12,26 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
-} from "@/components/ui/sidebar";
-import { Link, useLocation } from "react-router";
+} from '@/components/ui/sidebar';
+
+import { SearchForm } from '@/components/layouts/dashboard/search-form';
+import { VersionSwitcher } from '@/components/layouts/dashboard/version-switcher';
+
 // This is sample data.
 const data = {
-  versions: ["1.0.1", "1.1.0-alpha", "2.0.0-beta1"],
+  versions: ['1.0.1', '1.1.0-alpha', '2.0.0-beta1'],
   navMain: [
     {
-      title: "Getting Started",
-      url: "#",
+      title: 'Getting Started',
+      url: '#',
       items: [
         {
-          title: "Student Management",
-          url: "/student-management",
+          title: 'Student Management',
+          url: '/student-management',
         },
         {
-          title: "Teacher Management",
-          url: "/teacher-management",
+          title: 'Teacher Management',
+          url: '/teacher-management',
         },
       ],
     },
@@ -149,14 +151,11 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const location = useLocation();
-  console.log("🚀 ~ AppSidebar ~ location:", location);
+  console.log('🚀 ~ AppSidebar ~ location:', location);
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <VersionSwitcher
-          versions={data.versions}
-          defaultVersion={data.versions[0]}
-        />
+        <VersionSwitcher versions={data.versions} defaultVersion={data.versions[0]} />
         <SearchForm />
       </SidebarHeader>
       <SidebarContent>
@@ -168,10 +167,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <SidebarMenu>
                 {item.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton
-                      asChild
-                      isActive={location.pathname === item.url}
-                    >
+                    <SidebarMenuButton asChild isActive={location.pathname === item.url}>
                       <Link to={item.url}>{item.title}</Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>

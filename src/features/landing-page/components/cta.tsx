@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 
 function CtaSection() {
   return (
@@ -10,8 +10,8 @@ function CtaSection() {
               Ready to Get Started?
             </h2>
             <p className="max-w-[900px] text-muted-foreground md:text-xl">
-              Join thousands of satisfied customers who have transformed their
-              businesses with our solution.
+              Join thousands of satisfied customers who have transformed their businesses with our
+              solution.
             </p>
           </div>
           <div className="mx-auto w-full max-w-sm space-y-2">
@@ -25,8 +25,7 @@ function CtaSection() {
               <Button type="submit">Subscribe</Button>
             </form>
             <p className="text-xs text-muted-foreground">
-              By subscribing, you agree to our Terms of Service and Privacy
-              Policy.
+              By subscribing, you agree to our Terms of Service and Privacy Policy.
             </p>
           </div>
         </div>

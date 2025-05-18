@@ -1,5 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
 
 function HeroSection() {
   return (
@@ -12,8 +13,8 @@ function HeroSection() {
                 Transform Your Business with Our Solution
               </h1>
               <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                Our platform helps businesses streamline operations, increase
-                efficiency, and drive growth.
+                Our platform helps businesses streamline operations, increase efficiency, and drive
+                growth.
               </p>
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
@@ -28,7 +29,7 @@ function HeroSection() {
           <div className="flex items-center justify-center">
             <img
               src="/placeholder.svg?height=550&width=550"
-              alt="Hero Image"
+              alt="Hero"
               className="rounded-lg object-cover"
             />
           </div>

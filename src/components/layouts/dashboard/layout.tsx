@@ -1,3 +1,6 @@
+import { Outlet, useNavigate } from 'react-router';
+import { toast } from 'sonner';
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -5,24 +8,21 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { Separator } from "@/components/ui/separator";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
-import { AppSidebar } from "./app-sidebar";
-import { Outlet, useNavigate } from "react-router";
-import { UserButton, useUser } from "@clerk/clerk-react";
-import { toast } from "sonner";
+} from '@/components/ui/breadcrumb';
+import { Separator } from '@/components/ui/separator';
+import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+
+import { UserButton, useUser } from '@clerk/clerk-react';
+
+import { AppSidebar } from './app-sidebar';
 
 export default function DashboardLayout() {
   const { user } = useUser();
+
   const navigate = useNavigate();
   if (!user) {
-    toast.error("You must be logged in to access this page");
-    navigate("/sign-in");
+    toast.error('You must be logged in to access this page');
+    navigate('/sign-in');
   }
 
   return (
@@ -36,9 +36,7 @@ export default function DashboardLayout() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">
-                    Building Your Application
-                  </BreadcrumbLink>
+                  <BreadcrumbLink href="#">Building Your Application</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>

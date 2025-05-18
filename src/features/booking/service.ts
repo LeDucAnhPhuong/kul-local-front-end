@@ -1,6 +1,7 @@
 // Need to use the React-specific entry point to import createApi
-import type { Pokemon } from "./types";
 import { baseApi } from "@/redux/baseApi";
+
+import type { Pokemon } from "./types";
 
 // Define a service using a base URL and expected endpoints
 

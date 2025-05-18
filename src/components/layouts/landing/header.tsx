@@ -1,19 +1,16 @@
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
-import { Link } from "react-router";
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  UserButton,
-  useUser,
-} from "@clerk/clerk-react";
-import { Button } from "@/components/ui/button";
+import { useState } from 'react';
+import { Link } from 'react-router';
+import { Menu, X } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
+
+import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from '@clerk/clerk-react';
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const { user } = useUser();
+  console.log('🚀 ~ Header ~ user:', user);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -23,23 +20,13 @@ function Header() {
         </div>
 
         {/* Mobile menu button */}
-        <button
-          className="block md:hidden"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          {isMenuOpen ? (
-            <X className="h-6 w-6" />
-          ) : (
-            <Menu className="h-6 w-6" />
-          )}
+        <button className="block md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
 
         {/* Desktop navigation */}
         <nav className="hidden md:flex items-center gap-6">
-          <Link
-            href="#features"
-            className="text-sm font-medium hover:text-primary"
-          >
+          <Link href="#features" className="text-sm font-medium hover:text-primary">
             Features
           </Link>
           <Link href="#" className="text-sm font-medium hover:text-primary">

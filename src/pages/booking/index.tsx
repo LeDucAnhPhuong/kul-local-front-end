@@ -1,5 +1,4 @@
-import BookingArea from "@/features/booking/components/booking-area";
-import React from "react";
+import BookingArea from '@/features/booking/components/booking-area';
 
 function BookingPage() {
   return (

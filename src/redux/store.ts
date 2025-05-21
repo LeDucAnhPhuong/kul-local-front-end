@@ -2,13 +2,15 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import { pokemonApi } from '../features/booking/service';
 import bookingReducer from '../features/booking/slice';
+import { rtkQueryErrorLogger } from './midleware';
 
 export const store = configureStore({
   reducer: {
     booking: bookingReducer,
     [pokemonApi.reducerPath]: pokemonApi.reducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(pokemonApi.middleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(pokemonApi.middleware).concat(rtkQueryErrorLogger),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

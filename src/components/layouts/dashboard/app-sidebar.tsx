@@ -33,6 +33,10 @@ const data = {
           title: 'Teacher Management',
           url: '/teacher-management',
         },
+        {
+          title: 'Example UI',
+          url: '/example-ui',
+        },
       ],
     },
     // {

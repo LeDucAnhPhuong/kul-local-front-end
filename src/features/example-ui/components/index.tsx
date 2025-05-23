@@ -1,6 +1,5 @@
 import DataTable from '@/components/data-table/data-table';
 import TitlePage from '@/components/ui/title-page';
-import React from 'react';
 import { exampleScheduelData, exampleUiSampleData } from '../data.example-ui';
 import { columns } from '../columns/example-UI';
 import { columns as columnsSchedule } from '../columns/schedule.comlumns';

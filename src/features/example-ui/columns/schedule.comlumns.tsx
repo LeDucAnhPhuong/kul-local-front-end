@@ -37,8 +37,10 @@ export const columns: ColumnDef<SlotSchedule>[] = [
 
       return (
         <div className="space-y-1">
-          <div className="font-semibold">{cell.courseCode}</div>
-          <div className="text-sm text-muted-foreground">at {cell.location}</div>
+          <div className='md:block flex gap-2 items-center'>
+            <p className="font-semibold">{cell.courseCode}</p>
+            <p className="text-sm text-muted-foreground">at {cell.location}</p>
+          </div>
           <Badge
             className={cn(
               'text-sm text-white',
@@ -53,9 +55,9 @@ export const columns: ColumnDef<SlotSchedule>[] = [
         </div>
       );
     },
-   meta: {
-    sort: false,
-    filter: false,
-   }
+    meta: {
+      sort: false,
+      filter: false,
+    },
   })),
 ];

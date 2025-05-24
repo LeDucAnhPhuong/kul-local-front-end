@@ -4,7 +4,7 @@ import { isRejectedWithValue } from '@reduxjs/toolkit';
 
 import { toast } from 'sonner';
 
-export const rtkQueryErrorLogger: Middleware = (store) => (next) => (action) => {
+export const rtkQueryErrorLogger: Middleware = () => (next) => (action) => {
   if (isRejectedWithValue(action)) {
     const payload = action.payload as {
       status?: number;

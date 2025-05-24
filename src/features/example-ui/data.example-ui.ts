@@ -1,3 +1,5 @@
+import type { SlotSchedule } from './columns/schedule.comlumns';
+
 export interface ExampleUiData {
   id: number;
   name: string;
@@ -77,7 +79,7 @@ export const exampleUiSampleData: ExampleUiData[] = [
     status: 'inactive',
     createdAt: '2024-06-10T17:40:00Z',
   },
-{
+  {
     id: 11,
     name: 'Le Van L',
     email: 'levanl@example.com',
@@ -146,5 +148,91 @@ export const exampleUiSampleData: ExampleUiData[] = [
     email: 'phamthiu@example.com',
     status: 'inactive',
     createdAt: '2024-06-20T21:40:00Z',
-  }
+  },
+];
+
+export const exampleScheduelData: SlotSchedule[] = [
+  {
+    slot: 'Slot 1',
+    t2: {
+      courseCode: 'CS101',
+      location: 'Room A',
+      time: '10:00 AM - 12:00 PM',
+      status: 'Not yet',
+      meetUrl: 'https://meet.example.com/slot1-t2',
+      eduNextUrl: 'https://edunext.example.com/slot1-t2',
+    },
+    t3: {
+      courseCode: 'CS102',
+      location: 'Room B',
+      time: '1:00 PM - 3:00 PM',
+      status: 'Completed',
+    },
+    t4: {
+      courseCode: 'CS103',
+      location: 'Room C',
+      time: '9:00 AM - 11:00 AM',
+      status: 'Not yet',
+    },
+    t5: {
+      courseCode: 'CS104',
+      location: 'Room D',
+      time: '2:00 PM - 4:00 PM',
+      status: 'Completed',
+    },
+    t6: {
+      courseCode: 'CS105',
+      location: 'Room E',
+      time: '11:00 AM - 1:00 PM',
+      status: 'Not yet',
+    },
+  },
+  {
+    slot: 'Slot 2',
+    t2: {
+      courseCode: 'CS201',
+      location: 'Room F',
+      time: '10:00 AM - 12:00 PM',
+      status: 'Completed',
+    },
+    t3: {
+      courseCode: 'CS202',
+      location: 'Room G',
+      time: '1:00 PM - 3:00 PM',
+      status: 'Not yet',
+    },
+    t4: {
+      courseCode: 'CS203',
+      location: 'Room H',
+      time: '9:00 AM - 11:00 AM',
+      status: 'Completed',
+    },
+    t5: {
+      courseCode: 'CS204',
+      location: 'Room I',
+      time: '2:00 PM - 4:00 PM',
+      status: 'Not yet',
+    },
+  },
+  {
+    slot: 'Slot 3',
+    t2: {
+      courseCode: 'CS301',
+      location: 'Room J',
+      time: '10:00 AM - 12:00 PM',
+      status: 'Not yet',
+    },
+    t5: {
+      courseCode: 'CS302',
+      location: 'Room K',
+      time: '1:00 PM - 3:00 PM',
+      status: 'Completed',
+    },
+    cn: {
+      courseCode: 'CS303',
+      location: 'Room L',
+      time: '9:00 AM - 11:00 AM',
+      status: 'Not yet',
+    },
+  },
 ];

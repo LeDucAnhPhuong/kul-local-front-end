@@ -37,6 +37,14 @@ const data = {
           title: 'Example UI',
           url: '/example-ui',
         },
+        {
+          title: "Register Schedule",
+          url: "/ted-management/register",
+        },
+        {
+          title: "Personal Schedule",
+          url: "/ted-management/personal",
+        },
       ],
     },
     // {

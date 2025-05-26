@@ -26,11 +26,11 @@ const data = {
       url: '#',
       items: [
         {
-          title: 'Student Management',
-          url: '/student-management',
+          title: 'Quiz',
+          url: '/view-quiz',
         },
         {
-          title: 'Teacher Management',
+          title: 'Schedule',
           url: '/teacher-management',
         },
         {

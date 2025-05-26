@@ -1,7 +1,19 @@
-import TeacherView from "@/features/teacher-management/components/teacher-view";
-
-function TeacherManagement() {
-  return <TeacherView />;
+import TeacherView from '@/features/teacher-management/components/teacher-view';
+import QuizView from '@/features/teacher-management/components/quiz-view';
+export function TeacherManagement() {
+  return (
+    <>
+      <TeacherView />
+    </>
+  );
 }
 
-export default TeacherManagement;
+export function QuizManagement() {
+  return (
+    <>
+      <QuizView />
+    </>
+  );
+}
+
+

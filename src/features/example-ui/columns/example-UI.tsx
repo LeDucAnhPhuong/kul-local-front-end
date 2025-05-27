@@ -61,7 +61,7 @@ export const columns: ColumnDef<User>[] = [
       return <div>{`${formattedDate}`}</div>;
     },
     meta: {
-      filterVariant: 'dateRange',
+      filterVariant: 'numberRange',
     },
     filterFn: filterDateRange,
   },

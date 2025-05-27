@@ -3,11 +3,12 @@ import { Route, Routes } from 'react-router';
 import DashboardLayout from './components/layouts/dashboard/layout';
 import LandingLayout from './components/layouts/landing/layout';
 import BookingPage from './pages/booking';
-import { TeacherManagement, QuizManagement } from './pages/dashboard/teacher-management';
+import { Schedule } from './pages/dashboard/teacher/schedule';
+import { Quiz } from './pages/dashboard/teacher/quiz';
 import HomePage from './pages/home';
 import SignInPage from './pages/sign-in';
 import ExampleUI from './features/example-ui/components';
-import AddQuestion from './features/teacher-management/components/addQuestion';
+import AddQuestion from './features/teacher/components/addQuestion';
 function Router() {
   return (
     <>
@@ -19,9 +20,9 @@ function Router() {
         </Route>
         <Route element={<DashboardLayout />}>
           <Route path="/example-ui" element={<ExampleUI />} />
-          <Route path="/view-quiz" element={<QuizManagement />} />
+          <Route path="/view-quiz" element={<Quiz />} />
           <Route path="/addquestion" element={<AddQuestion />} />
-          <Route path="/teacher-management" element={<TeacherManagement />} />
+          <Route path="/teacher-management" element={<Schedule />} />
         </Route>
         <Route path="/sign-in" element={<SignInPage />} />
       </Routes>

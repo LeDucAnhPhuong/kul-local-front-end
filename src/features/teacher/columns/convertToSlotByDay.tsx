@@ -1,12 +1,13 @@
-import type { SlotSchedule } from '../columns/schedule.columns';
-import type { ScheduleCell } from '../columns/schedule.columns';
+import type { SlotSchedule } from './schedule.columns';
+import type { ScheduleCell } from './schedule.columns';
 
 type SlotByDay = {
   day: string;
   [slotName: string]: ScheduleCell | string | undefined;
 };
 
-const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+// Các key tương ứng với thứ trong tuần theo cấu trúc mới
+const days = ['t2', 't3', 't4', 't5', 't6', 't7', 'cn'];
 
 export function convertToSlotByDay(data: SlotSchedule[]): SlotByDay[] {
   return days.map((day) => {

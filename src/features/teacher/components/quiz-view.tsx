@@ -38,14 +38,7 @@ function QuizView() {
   return (
     <div className="bg-white dark:bg-background p-4 rounded-xl border-[1px] border-stone-50 dark:border-stone-800">
       <TitlePage title="Schedule" contentHref="Create quiz" onClick={() => setOpen(true)} />
-      <div
-        className="mb-4"
-        onClick={() => {
-          navigate('/addquestion');
-        }}
-      >
-        <DataCard data={quizzes} columns={ContestColumns(handleDeleteClick)} />
-      </div>
+      <DataCard onRowClick={() => navigate(`/AddQuestion`)} data={quizzes} columns={ContestColumns(handleDeleteClick)} />
       <CreateQuizDialog
         open={open}
         setOpen={setOpen}
@@ -54,13 +47,13 @@ function QuizView() {
           setQuizzes(updated);
           localStorage.setItem('quizzes', JSON.stringify(updated));
         }}
-      />
+      /><div onClick={(e) => e.stopPropagation()}>
       <ConfirmDialog
         open={confirmOpen}
         title={`Delete quiz "${quizToDelete?.title}"?`}
         onCancel={() => setConfirmOpen(false)}
         onConfirm={handleDeleteConfirm}
-      />
+      /></div>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from './textarea';
 import { useParams } from 'react-router-dom';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Select,
   SelectContent,
@@ -34,6 +35,25 @@ export default function AddQuestion() {
     { text: '', isCorrect: false },
     { text: '', isCorrect: false },
   ]);
+
+  // Ensure only one answer can be correct
+  const handleAnswerChange = (index: number, field: keyof Answer, value: string | boolean) => {
+    let updated = [...answers];
+    if (field === 'text' && typeof value === 'string') {
+      updated[index].text = value;
+    } else if (field === 'isCorrect' && typeof value === 'boolean') {
+      if (value) {
+        // Set only this answer as correct, others as false
+        updated = updated.map((ans, i) => ({
+          ...ans,
+          isCorrect: i === index,
+        }));
+      } else {
+        updated[index].isCorrect = false;
+      }
+    }
+    setAnswers(updated);
+  };
   const [timeLimit, setTimeLimit] = useState('20');
   const [questionList, setQuestionList] = useState<QuestionItem[]>([]);
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
@@ -58,15 +78,15 @@ export default function AddQuestion() {
     localStorage.setItem(QUIZ_STORAGE_KEY, JSON.stringify(questionList));
   }, [questionList]);
 
-  const handleAnswerChange = (index: number, field: keyof Answer, value: string | boolean) => {
-    const updated = [...answers];
-    if (field === 'text' && typeof value === 'string') {
-      updated[index].text = value;
-    } else if (field === 'isCorrect' && typeof value === 'boolean') {
-      updated[index].isCorrect = value;
-    }
-    setAnswers(updated);
-  };
+  // const handleAnswerChange = (index: number, field: keyof Answer, value: string | boolean) => {
+  //   const updated = [...answers];
+  //   if (field === 'text' && typeof value === 'string') {
+  //     updated[index].text = value;
+  //   } else if (field === 'isCorrect' && typeof value === 'boolean') {
+  //     updated[index].isCorrect = value;
+  //   }
+  //   setAnswers(updated);
+  // };
 
   const resetForm = () => {
     setQuestionText('');
@@ -112,15 +132,20 @@ export default function AddQuestion() {
       timeLimit: 20,
     };
 
-    // Cập nhật list và chọn câu hỏi mới
-    setQuestionList((prevList) => {
+    if (
+      questionText.trim().length !== 0 &&
+      answers.filter((ans) => ans.text.trim() !== '').length >= 2 &&
+      answers.some((ans) => ans.isCorrect)
+    ) {
+      setQuestionList((prevList) => {
       const newList = [...prevList, newQuestion];
       setSelectedIndex(newList.length - 1);
       setQuestionText('');
       setAnswers(newQuestion.answers);
       setTimeLimit('20');
       return newList;
-    });
+      });
+    }
   };
 
   const handleSelectQuestion = (index: number) => {
@@ -158,30 +183,34 @@ export default function AddQuestion() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-50">
-      {/* Sidebar: Danh sách câu hỏi */}
-      <div className="w-64 bg-white border-r border-gray-200 p-4 flex flex-col shadow-sm">
-        <Button
-          className="mb-4 bg-red-500 hover:bg-red-600 text-white"
-          onClick={() => navigate('/view-quiz')}
-        >
-          Exit
-        </Button>
-        <div className="flex-1 overflow-y-auto space-y-2">
-          {questionList.map((_, idx) => (
-            <Button
-              key={idx}
-              variant={idx === selectedIndex ? 'default' : 'outline'}
-              className={`w-full justify-start ${
-                idx === selectedIndex
-                  ? 'bg-blue-500 hover:bg-blue-600 text-white border-blue-500'
-                  : 'bg-white hover:bg-gray-50 text-gray-700 border-gray-300'
-              }`}
-              onClick={() => handleSelectQuestion(idx)}
-            >
-              Question {idx + 1}
-            </Button>
-          ))}
+    <div className="flex bg-white  text-gray-800 h-3/4 max-h-screen">
+      {/* Sidebar trái */}
+      <div className="w-56  border-r border-gray-200 p-4 flex !flex-col justify-between shadow-sm ">
+        <ScrollArea className="h-4/5 w-full rounded-md border p-4">
+          <div className="space-y-2 overflow-y-auto mb-2">
+            {questionList.map((_, idx) => (
+              <Button
+                key={idx}
+                variant={idx === selectedIndex ? 'default' : 'outline'}
+                className={`w-full justify-start ${
+                  idx === selectedIndex
+                    ? 'bg-blue-500 hover:bg-blue-600 text-white border-blue-500'
+                    : 'bg-white hover:bg-gray-50 text-gray-700 border-gray-300'
+                }`}
+                onClick={() => handleSelectQuestion(idx)}
+              >
+                Question {idx + 1}
+              </Button>
+            ))}
+          </div>
+        </ScrollArea>
+        <div>
+          <Button
+            className="bg-red-500 hover:bg-red-600 text-white w-full"
+            onClick={() => navigate('/view-quiz')}
+          >
+            Exit
+          </Button>
         </div>
       </div>
 
@@ -209,31 +238,29 @@ export default function AddQuestion() {
                 type="checkbox"
                 checked={ans.isCorrect}
                 onChange={(e) => handleAnswerChange(index, 'isCorrect', e.target.checked)}
-                className="w-5 h-5 accent-green-500 rounded"
+                className="w-5 h-5 accent-green-500"
                 title="Correct answer"
               />
             </div>
           ))}
         </div>
-        <div className="flex gap-2">
+        <div className="flex justify-end gap-2">
           <Button onClick={handleSave} className="bg-blue-500 hover:bg-blue-600 text-white">
             Save Question
           </Button>
-          <Button
-            variant="destructive"
-            onClick={handleDelete}
-            className="bg-red-500 hover:bg-red-600 text-white"
-          >
+          <Button onClick={handleDelete} className="bg-red-500 hover:bg-red-600 text-white">
             Delete Question
-          </Button>
-          <Button className=" bg-green-500 hover:bg-green-600 text-white" onClick={handleAddNew}>
-            Add Question
           </Button>
         </div>
       </div>
 
       {/* Sidebar phải */}
       <div className="w-64 bg-white border-l border-gray-200 p-4 space-y-4 shadow-sm">
+        <div className="flex justify-end mb-2">
+          <Button className="bg-green-500 hover:bg-green-600 text-white" onClick={handleAddNew}>
+            Add Question
+          </Button>
+        </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Time Limit</label>
           <Select value={timeLimit} onValueChange={setTimeLimit}>

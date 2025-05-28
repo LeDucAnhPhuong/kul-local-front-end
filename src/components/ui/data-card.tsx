@@ -35,14 +35,12 @@ export default function CardList<TData, TValue>({
   data,
   isLoading,
   onRowClick,
-  
 }: DataTableProps<TData, TValue>) {
   'use no memo';
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = React.useState('');
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
 
- 
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({
     location: false,
     otherInformation: false,
@@ -125,7 +123,7 @@ export default function CardList<TData, TValue>({
                 <div className="space-y-2 h-full flex flex-col justify-between">
                   {row?.getVisibleCells()?.map((cell) => {
                     return (
-                      <div key={cell.id} className="flex justify-between " >
+                      <div key={cell.id} className="flex justify-between ">
                         {typeof cell.column.columnDef.header === 'string' && (
                           <div className="flex-1 text-base font-bold">
                             {cell.column.columnDef.header} :

@@ -8,7 +8,7 @@ import { Quiz } from './pages/dashboard/teacher/quiz';
 import HomePage from './pages/home';
 import SignInPage from './pages/sign-in';
 import ExampleUI from './features/example-ui/components';
-import AddQuestion from './features/teacher/components/addQuestion';
+import AddQuestion from './features/teacher/components/quiz/addQuestion';
 function Router() {
   return (
     <>
@@ -21,7 +21,7 @@ function Router() {
         <Route element={<DashboardLayout />}>
           <Route path="/example-ui" element={<ExampleUI />} />
           <Route path="/view-quiz" element={<Quiz />} />
-          <Route path="/addquestion" element={<AddQuestion />} />
+          <Route path="/AddQuestion/:quizId" element={<AddQuestion />} />
           <Route path="/teacher-management" element={<Schedule />} />
         </Route>
         <Route path="/sign-in" element={<SignInPage />} />

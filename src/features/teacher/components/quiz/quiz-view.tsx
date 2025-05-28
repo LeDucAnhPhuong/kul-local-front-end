@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import TitlePage from '@/components/ui/title-page';
-import { contests } from '../data.quiz-ui';
-import { ContestColumns } from '../columns/quiz.columns';
+import { contests } from '../../data.quiz-ui';
+import { ContestColumns } from '../../columns/quiz.columns';
 import DataCard from '@/components/ui/data-card';
-import type { Contest } from '../columns/quiz.columns';
+import type { Contest } from '../../columns/quiz.columns';
 import CreateQuizDialog from './createQuiz';
 import ConfirmDialog from './confirmDialog';
 import { useNavigate } from 'react-router-dom';
@@ -38,7 +38,12 @@ function QuizView() {
   return (
     <div className="bg-white dark:bg-background p-4 rounded-xl border-[1px] border-stone-50 dark:border-stone-800">
       <TitlePage title="Schedule" contentHref="Create quiz" onClick={() => setOpen(true)} />
-      <DataCard onRowClick={() => navigate(`/AddQuestion`)} data={quizzes} columns={ContestColumns(handleDeleteClick)} />
+      <DataCard
+        onRowClick={({ data }) => navigate(`/AddQuestion/${data.id}`)}
+        data={quizzes}
+        columns={ContestColumns(handleDeleteClick)}
+      />
+
       <CreateQuizDialog
         open={open}
         setOpen={setOpen}
@@ -47,13 +52,15 @@ function QuizView() {
           setQuizzes(updated);
           localStorage.setItem('quizzes', JSON.stringify(updated));
         }}
-      /><div onClick={(e) => e.stopPropagation()}>
-      <ConfirmDialog
-        open={confirmOpen}
-        title={`Delete quiz "${quizToDelete?.title}"?`}
-        onCancel={() => setConfirmOpen(false)}
-        onConfirm={handleDeleteConfirm}
-      /></div>
+      />
+      <div onClick={(e) => e.stopPropagation()}>
+        <ConfirmDialog
+          open={confirmOpen}
+          title={`Delete quiz "${quizToDelete?.title}"?`}
+          onCancel={() => setConfirmOpen(false)}
+          onConfirm={handleDeleteConfirm}
+        />
+      </div>
     </div>
   );
 }

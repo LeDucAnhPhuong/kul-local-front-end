@@ -20,12 +20,12 @@ export type Contest = {
 export const ContestColumns = (onDelete: (quiz: Contest) => void): ColumnDef<Contest>[] => [
   {
     accessorKey: 'title',
-    header: 'Title',
+    header: 'TITLE',
     cell: ({ row }) => row.getValue('title'),
   },
   {
     accessorKey: 'status',
-    header: 'Status',
+    header: 'STATUS',
     cell: ({ row }) => {
       const statusMarkup = {
         ongoing: {

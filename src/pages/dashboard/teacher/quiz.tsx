@@ -1,4 +1,4 @@
-import QuizView from '@/features/teacher/components/quiz-view';
+import QuizView from '@/features/teacher/components/quiz/quiz-view';
 
 export function Quiz() {
   return (

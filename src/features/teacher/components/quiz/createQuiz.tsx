@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import type { Contest } from '../columns/quiz.columns';
+import type { Contest } from '../../columns/quiz.columns';
 
 type Props = {
   open: boolean;
@@ -35,6 +35,7 @@ function CreateQuizDialog({ open, setOpen, onCreate }: Props) {
       date: now,
       isActive: true,
       created_by: 'admin',
+      topic: 'Speaking',
       updated_by: 'admin',
       created_at: now,
       updated_at: now,

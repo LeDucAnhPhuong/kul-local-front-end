@@ -1,18 +1,20 @@
+import type { strict } from "assert";
+
 export interface QuestionProps {
   _id?: string;
   quiz_id: string;
   content: string;
-  options: string[];              // Danh sách đáp án
-  correct_answer: string;         // Đáp án đúng
+  options: string[]; // Danh sách đáp án
+  correct_answer: string; // Đáp án đúng
   score: number;
   isActive: boolean;
   created_by: string;
   updated_by?: string;
-  created_at?: Date;
-  updated_at?: Date;
+  created_at?: string;
+  updated_at?: string;
 }
 
-export class Question implements QuestionProps {
+export class Question   {
   _id?: string;
   quiz_id: string;
   content: string;
@@ -35,8 +37,8 @@ export class Question implements QuestionProps {
     this.isActive = data.isActive;
     this.created_by = data.created_by;
     this.updated_by = data.updated_by;
-    this.created_at = data.created_at ?? new Date();
-    this.updated_at = data.updated_at ?? new Date();
+    this.created_at = data.created_at ? new Date(data.created_at) : undefined;
+    this.updated_at = data.updated_at ? new Date(data.updated_at) : undefined;
   }
 
   // Cập nhật nội dung câu hỏi
@@ -63,7 +65,7 @@ export class Question implements QuestionProps {
 
   // Xoá lựa chọn
   removeOption(option: string) {
-    this.options = this.options.filter(o => o !== option);
+    this.options = this.options.filter((o) => o !== option);
     if (this.correct_answer === option) {
       this.correct_answer = '';
     }

@@ -44,7 +44,7 @@ export const columns: ColumnDef<SlotSchedule>[] = [
     },
   },
 
-  ...['Slot1', 'Slot2', 'Slot3', 'Slot4', 'Slot5', 'Slot6'].map((slotKey) => ({
+  ...['Slot1', 'Slot2', 'Slot3'].map((slotKey) => ({
     accessorKey: slotKey,
     header: slotKey,
     cell: ({ row }: { row: Row<SlotSchedule> }) => {

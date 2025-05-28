@@ -11,8 +11,8 @@ export const questions: Question[] = [
     isActive: true,
     created_by: 'admin',
     updated_by: 'admin',
-    created_at: new Date('2025-05-10T09:00:00Z'),
-    updated_at: new Date('2025-05-11T08:30:00Z'),
+    created_at: '2025-05-10T09:00:00Z',
+    updated_at: '2025-05-11T08:30:00Z',
   }),
   new Question({
     _id: 'q002',
@@ -24,8 +24,8 @@ export const questions: Question[] = [
     isActive: true,
     created_by: 'admin',
     updated_by: 'admin',
-    created_at: new Date('2025-05-10T09:30:00Z'),
-    updated_at: new Date('2025-05-10T10:00:00Z'),
+    created_at:'2025-05-10T09:30:00Z',
+    updated_at: '2025-05-10T10:00:00Z',
   }),
   // Thêm các câu hỏi khác tương tự
 ];

@@ -22,7 +22,11 @@ const formSchema = z.object({
   email: z.string(),
 });
 
-export default function MyForm() {
+interface MyFormProps {
+  onAdd: (data: z.infer<typeof formSchema>) => void;
+}
+
+export default function MyForm({ onAdd }: MyFormProps) {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
     });
@@ -30,10 +34,12 @@ export default function MyForm() {
   const navigate = useNavigate();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    navigate('/account-management');
+    onAdd({ email: values.email });
+
     try {
       console.log(values);
       toast(<code className="text-black">{JSON.stringify(values, null, 2)}</code>);
+      navigate('/account-management');
     } catch (error) {
       console.error('Form submission error', error);
       toast.error('Failed to submit the form. Please try again.');

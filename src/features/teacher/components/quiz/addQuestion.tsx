@@ -25,8 +25,9 @@ export default function AddQuestion() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   // const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const mapQuestionToState = (q: typeof defaultQuestions[0]): QuestionItem => {
-    const options = q.options.length === 4 ? q.options : [...q.options, ...Array(4 - q.options.length).fill('')];
+  const mapQuestionToState = (q: (typeof defaultQuestions)[0]): QuestionItem => {
+    const options =
+      q.options.length === 4 ? q.options : [...q.options, ...Array(4 - q.options.length).fill('')];
     const answersMapped = options.map((opt) => ({
       text: opt,
       isCorrect: opt === q.correct_answer,
@@ -99,14 +100,14 @@ export default function AddQuestion() {
       setQuestionList(updatedList);
     }
   };
-useEffect(() => {
-  console.log('quizId:', quizId);
-  console.log('defaultQuestions:', defaultQuestions);
-  if (quizId) {
-    const filtered = defaultQuestions.filter((q) => q.quiz_id === quizId);
-    console.log('filtered questions:', filtered);
-  }
-}, [quizId]);
+  useEffect(() => {
+    console.log('quizId:', quizId);
+    console.log('defaultQuestions:', defaultQuestions);
+    if (quizId) {
+      const filtered = defaultQuestions.filter((q) => q.quiz_id === quizId);
+      console.log('filtered questions:', filtered);
+    }
+  }, [quizId]);
 
   const handleAddNew = () => {
     if (
@@ -327,20 +328,20 @@ useEffect(() => {
       {/* Mobile */}
       <div className="block md:hidden">
         <div className="flex flex-col bg-white p-4 space-y-4">
-          <ScrollArea className="max-h-40 rounded-md border p-2">
-            <div className="space-y-2 overflow-y-auto mb-2">
+          <ScrollArea className="max-w-full rounded-md border p-2 overflow-x-auto">
+            <div className="flex space-x-2 mb-2">
               {questionList.map((_, idx) => (
                 <Button
                   key={idx}
                   variant={idx === selectedIndex ? 'default' : 'outline'}
-                  className={`w-full justify-start ${
+                  className={` justify-start ${
                     idx === selectedIndex
                       ? 'bg-blue-500 hover:bg-blue-600 text-white border-blue-500'
                       : 'bg-white hover:bg-gray-50 text-gray-700 border-gray-300'
                   }`}
                   onClick={() => handleSelectQuestion(idx)}
                 >
-                  Question {idx + 1}
+                   {idx + 1}
                 </Button>
               ))}
             </div>
@@ -376,13 +377,22 @@ useEffect(() => {
           </div>
 
           <div className="flex justify-between gap-2">
-            <Button onClick={handleSave} className="bg-blue-500 hover:bg-blue-600 text-white flex-1">
+            <Button
+              onClick={handleSave}
+              className="bg-blue-500 hover:bg-blue-600 text-white flex-1"
+            >
               Save
             </Button>
-            <Button onClick={handleDelete} className="bg-red-500 hover:bg-red-600 text-white flex-1">
+            <Button
+              onClick={handleDelete}
+              className="bg-red-500 hover:bg-red-600 text-white flex-1"
+            >
               Delete
             </Button>
-            <Button onClick={handleAddNew} className="bg-green-500 hover:bg-green-600 text-white flex-1">
+            <Button
+              onClick={handleAddNew}
+              className="bg-green-500 hover:bg-green-600 text-white flex-1"
+            >
               Add
             </Button>
           </div>

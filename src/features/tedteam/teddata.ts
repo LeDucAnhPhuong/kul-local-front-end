@@ -16,12 +16,12 @@ export const attendanceDummyData: AttendanceData[] = [
     isActive: true,
     created_by: 1,
     updated_by: 1,
-    created_at: new Date("2025-05-27T08:00:00Z"),
-    updated_at: new Date("2025-05-27T08:00:00Z"),
+    created_at: "2025-05-27T08:00:00Z",
+    updated_at: "2025-05-27T08:00:00Z",
     classCalendar: {
       _id: 1,
       class_id: 101,
-      date: new Date("2025-06-02"),
+      date: "2025-06-02",
       slot_id: 1,
       room_id: 201,
       coach_id: 301,
@@ -30,8 +30,8 @@ export const attendanceDummyData: AttendanceData[] = [
       isActive: true,
       created_by: 1,
       updated_by: 1,
-      created_at: new Date("2025-05-20T08:00:00Z"),
-      updated_at: new Date("2025-05-20T08:00:00Z"),
+      created_at: "2025-05-20T08:00:00Z",
+      updated_at: "2025-05-20T08:00:00Z",
       classes: {
         _id: 101,
         name: "IELTS Speaking Intensive",
@@ -41,8 +41,8 @@ export const attendanceDummyData: AttendanceData[] = [
         isActive: true,
         created_by: 1,
         updated_by: 1,
-        created_at: new Date("2025-05-15T08:00:00Z"),
-        updated_at: new Date("2025-05-20T08:00:00Z"),
+        created_at: "2025-05-15T08:00:00Z",
+        updated_at: "2025-05-20T08:00:00Z",
       },
     },
   },
@@ -54,12 +54,12 @@ export const attendanceDummyData: AttendanceData[] = [
     isActive: true,
     created_by: 1,
     updated_by: 1,
-    created_at: new Date("2025-05-27T08:00:00Z"),
-    updated_at: new Date("2025-05-27T08:00:00Z"),
+    created_at: "2025-05-27T08:00:00Z",
+    updated_at: "2025-05-27T08:00:00Z",
     classCalendar: {
       _id: 2,
       class_id: 102,
-      date: new Date("2025-06-04"),
+      date: "2025-06-04",
       slot_id: 2,
       room_id: 202,
       coach_id: 302,
@@ -68,8 +68,8 @@ export const attendanceDummyData: AttendanceData[] = [
       isActive: true,
       created_by: 1,
       updated_by: 1,
-      created_at: new Date("2025-05-20T08:00:00Z"),
-      updated_at: new Date("2025-05-20T08:00:00Z"),
+      created_at: "2025-05-20T08:00:00Z",
+      updated_at: "2025-05-20T08:00:00Z",
       classes: {
         _id: 102,
         name: "IELTS Writing Mastery",
@@ -79,8 +79,8 @@ export const attendanceDummyData: AttendanceData[] = [
         isActive: true,
         created_by: 1,
         updated_by: 1,
-        created_at: new Date("2025-05-15T08:00:00Z"),
-        updated_at: new Date("2025-05-20T08:00:00Z"),
+        created_at: "2025-05-15T08:00:00Z",
+        updated_at: "2025-05-20T08:00:00Z",
       },
     },
   },
@@ -92,12 +92,12 @@ export const attendanceDummyData: AttendanceData[] = [
     isActive: true,
     created_by: 1,
     updated_by: 1,
-    created_at: new Date("2025-05-27T08:00:00Z"),
-    updated_at: new Date("2025-05-27T08:00:00Z"),
+    created_at: "2025-05-27T08:00:00Z",
+    updated_at: "2025-05-27T08:00:00Z",
     classCalendar: {
       _id: 3,
       class_id: 103,
-      date: new Date("2025-06-06"),
+      date: "2025-06-06",
       slot_id: 3,
       room_id: 203,
       coach_id: 303,
@@ -106,8 +106,8 @@ export const attendanceDummyData: AttendanceData[] = [
       isActive: true,
       created_by: 1,
       updated_by: 1,
-      created_at: new Date("2025-05-20T08:00:00Z"),
-      updated_at: new Date("2025-05-20T08:00:00Z"),
+      created_at: "2025-05-20T08:00:00Z",
+      updated_at: "2025-05-20T08:00:00Z",
       classes: {
         _id: 103,
         name: "IELTS Listening Skills",
@@ -117,13 +117,12 @@ export const attendanceDummyData: AttendanceData[] = [
         isActive: true,
         created_by: 1,
         updated_by: 1,
-        created_at: new Date("2025-05-15T08:00:00Z"),
-        updated_at: new Date("2025-05-20T08:00:00Z"),
+        created_at: "2025-05-15T08:00:00Z",
+        updated_at: "2025-05-20T08:00:00Z",
       },
     },
   },
 ]
-
 export const registerScheduleDummyData: RegisterScheduleCell[] = [
   {
     id: "1",
@@ -302,8 +301,8 @@ const getSlotName = (slotId: number): string => {
   }
 }
 
-const getDayKey = (date: Date): DayKey => {
-  const dayOfWeek = date.getDay()
+const getDayKey = (date: string): DayKey => {
+  const dayOfWeek = new Date(date).getDay()
   const dayKeyMap = {
     0: "cn" as const, // Sunday
     1: "t2" as const, // Monday
@@ -317,8 +316,7 @@ const getDayKey = (date: Date): DayKey => {
 }
 
 const getDayKeyFromDateString = (dateString: string): DayKey => {
-  const date = new Date(dateString)
-  return getDayKey(date)
+  return getDayKey(dateString)
 }
 
 const getSlotTime = (slotId: number): string => {
@@ -354,7 +352,7 @@ export const transformAttendanceData = (data: AttendanceData[]): SlotSchedule[] 
       location: `Room ${item.classCalendar.room_id}`,
       time: getSlotTime(item.classCalendar.slot_id),
       status: item.status,
-      date: item.classCalendar.date.toISOString().split('T')[0],
+      date: item.classCalendar.date, // Kept as string
       class_id: item.classCalendar.class_id,
       room_id: item.classCalendar.room_id,
       coach_id: item.classCalendar.coach_id,
@@ -388,11 +386,8 @@ export const transformRegisterScheduleData = (data: RegisterScheduleCell[]): Reg
 }
 
 // Utility functions
-export const getAttendanceByDate = (data: AttendanceData[], date: Date): AttendanceData[] => {
-  return data.filter(item => {
-    const itemDate = new Date(item.classCalendar.date)
-    return itemDate.toDateString() === date.toDateString()
-  })
+export const getAttendanceByDate = (data: AttendanceData[], date: string): AttendanceData[] => {
+  return data.filter(item => item.classCalendar.date === date)
 }
 
 export const getAttendanceByStatus = (data: AttendanceData[], status: "not yet" | "present" | "absent"): AttendanceData[] => {
@@ -428,8 +423,8 @@ export const getRegisterScheduleByStatus = (data: RegisterScheduleCell[], status
 }
 
 // Format date utilities
-export const formatDate = (date: Date): string => {
-  return date.toLocaleDateString("vi-VN", {
+export const formatDate = (date: string): string => {
+  return new Date(date).toLocaleDateString("vi-VN", {
     weekday: "long",
     year: "numeric",
     month: "long",

@@ -138,7 +138,7 @@ export const registerScheduleDummyData: RegisterScheduleCell[] = [
       created_at: "2025-05-20T08:00:00Z",
       updated_at: "2025-05-20T08:00:00Z",
     },
-    date: "2025-06-02",
+    date: "2025-06-02T08:00:00Z",
     time: "07:30-09:30",
     status: "register",
   },
@@ -156,7 +156,7 @@ export const registerScheduleDummyData: RegisterScheduleCell[] = [
       created_at: "2025-05-20T08:00:00Z",
       updated_at: "2025-05-20T08:00:00Z",
     },
-    date: "2025-06-02",
+    date: "2025-06-02T08:00:00Z",
     time: "09:45-11:45",
     status: "registered",
   },
@@ -174,7 +174,7 @@ export const registerScheduleDummyData: RegisterScheduleCell[] = [
       created_at: "2025-05-20T08:00:00Z",
       updated_at: "2025-05-20T08:00:00Z",
     },
-    date: "2025-06-02",
+    date: "2025-06-02T08:00:00Z",
     time: "13:00-15:00",
     status: "full",
   },
@@ -192,7 +192,7 @@ export const registerScheduleDummyData: RegisterScheduleCell[] = [
       created_at: "2025-05-20T08:00:00Z",
       updated_at: "2025-05-20T08:00:00Z",
     },
-    date: "2025-06-03",
+    date: "2025-06-03T08:00:00Z",
     time: "07:30-09:30",
     status: "unregistered",
   },
@@ -210,7 +210,7 @@ export const registerScheduleDummyData: RegisterScheduleCell[] = [
       created_at: "2025-05-20T08:00:00Z",
       updated_at: "2025-05-20T08:00:00Z",
     },
-    date: "2025-06-03",
+    date: "2025-06-03T08:00:00Z",
     time: "09:45-11:45",
     status: "register",
   },
@@ -228,7 +228,7 @@ export const registerScheduleDummyData: RegisterScheduleCell[] = [
       created_at: "2025-05-20T08:00:00Z",
       updated_at: "2025-05-20T08:00:00Z",
     },
-    date: "2025-06-04",
+    date: "2025-06-04T08:00:00Z",
     time: "07:30-09:30",
     status: "register",
   },
@@ -246,7 +246,7 @@ export const registerScheduleDummyData: RegisterScheduleCell[] = [
       created_at: "2025-05-20T08:00:00Z",
       updated_at: "2025-05-20T08:00:00Z",
     },
-    date: "2025-06-04",
+    date: "2025-06-04T08:00:00Z",
     time: "13:00-15:00",
     status: "registered",
   },
@@ -264,7 +264,7 @@ export const registerScheduleDummyData: RegisterScheduleCell[] = [
       created_at: "2025-05-20T08:00:00Z",
       updated_at: "2025-05-20T08:00:00Z",
     },
-    date: "2025-06-05",
+    date: "2025-06-05T08:00:00Z",
     time: "09:45-11:45",
     status: "full",
   },
@@ -282,7 +282,7 @@ export const registerScheduleDummyData: RegisterScheduleCell[] = [
       created_at: "2025-05-20T08:00:00Z",
       updated_at: "2025-05-20T08:00:00Z",
     },
-    date: "2025-06-06",
+    date: "2025-06-06T08:00:00Z",
     time: "07:30-09:30",
     status: "register",
   },
@@ -304,13 +304,13 @@ const getSlotName = (slotId: number): string => {
 const getDayKey = (date: string): DayKey => {
   const dayOfWeek = new Date(date).getDay()
   const dayKeyMap = {
-    0: "cn" as const, // Sunday
-    1: "t2" as const, // Monday
-    2: "t3" as const, // Tuesday
-    3: "t4" as const, // Wednesday
-    4: "t5" as const, // Thursday
-    5: "t6" as const, // Friday
-    6: "t7" as const, // Saturday
+    0: "cn" as const, 
+    1: "t2" as const, 
+    2: "t3" as const, 
+    3: "t4" as const, 
+    4: "t5" as const, 
+    5: "t6" as const, 
+    6: "t7" as const, 
   }
   return dayKeyMap[dayOfWeek as keyof typeof dayKeyMap]
 }
@@ -352,7 +352,7 @@ export const transformAttendanceData = (data: AttendanceData[]): SlotSchedule[] 
       location: `Room ${item.classCalendar.room_id}`,
       time: getSlotTime(item.classCalendar.slot_id),
       status: item.status,
-      date: item.classCalendar.date, // Kept as string
+      date: item.classCalendar.date, 
       class_id: item.classCalendar.class_id,
       room_id: item.classCalendar.room_id,
       coach_id: item.classCalendar.coach_id,
@@ -385,7 +385,6 @@ export const transformRegisterScheduleData = (data: RegisterScheduleCell[]): Reg
   return Array.from(slotMap.values())
 }
 
-// Utility functions
 export const getAttendanceByDate = (data: AttendanceData[], date: string): AttendanceData[] => {
   return data.filter(item => item.classCalendar.date === date)
 }
@@ -422,7 +421,6 @@ export const getRegisterScheduleByStatus = (data: RegisterScheduleCell[], status
   return data.filter(item => item.status === status)
 }
 
-// Format date utilities
 export const formatDate = (date: string): string => {
   return new Date(date).toLocaleDateString("vi-VN", {
     weekday: "long",

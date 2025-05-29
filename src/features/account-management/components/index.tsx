@@ -5,7 +5,6 @@ import { TedTeamSampleData } from '../data.tedTeam';
 import { CoachSampleData } from '../data.coach';
 import { AdminSampleData } from '../data.admin';
 import { columns } from '../columns/account-management';
-import { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/custom-tabs';
 
 const AccountManagement = () => {

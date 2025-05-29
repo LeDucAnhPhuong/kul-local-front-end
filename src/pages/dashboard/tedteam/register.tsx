@@ -1,4 +1,4 @@
-import RegisterSchedule from "../../../features/ted-management/components/register-schedule"
+import RegisterSchedule from "../../../features/tedteam/components/register-schedule"
 
 function TedRegisterPage() {
   return (

@@ -1,4 +1,4 @@
-import PersonalSchedule from "../../../features/ted-management/components/personal-schedule"
+import PersonalSchedule from "../../../features/tedteam/components/personal-schedule"
 
 function TedPersonalPage() {
   return (

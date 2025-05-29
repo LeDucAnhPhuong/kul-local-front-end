@@ -39,11 +39,11 @@ const data = {
         },
         {
           title: "Register Schedule",
-          url: "/ted-management/register",
+          url: "/tedteam/register",
         },
         {
           title: "Personal Schedule",
-          url: "/ted-management/personal",
+          url: "/tedteam/personal",
         },
       ],
     },

@@ -1,11 +1,12 @@
 import React from "react"
-import { personalWorkScheduleData } from "../teddata"
+import { attendanceDummyData, transformAttendanceData } from "../teddata"
 import { personalWorkColumns } from "../columns/personal-schedule"
 import { PersonalScheduleMobileView } from "../columns/personal-mobile"
 import { TedDataTable } from "./ted-data"
 
 export default function PersonalSchedule() {
   const [isMobile, setIsMobile] = React.useState(false)
+  const scheduleData = transformAttendanceData(attendanceDummyData)
 
   React.useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768)
@@ -24,9 +25,9 @@ export default function PersonalSchedule() {
       </div>
 
       {isMobile ? (
-        <PersonalScheduleMobileView data={personalWorkScheduleData} />
+        <PersonalScheduleMobileView data={scheduleData} />
       ) : (
-        <TedDataTable data={personalWorkScheduleData} columns={personalWorkColumns} onRowClick={() => {}} />
+        <TedDataTable data={scheduleData} columns={personalWorkColumns} onRowClick={() => { }} />
       )}
 
       <div className="mt-4 text-sm text-muted-foreground">
@@ -44,7 +45,6 @@ export default function PersonalSchedule() {
             <span>Not Yet</span>
           </div>
         </div>
-        <div className="mt-2 text-xs">Total approved shifts: 6 | Completed: 4 | Upcoming: 2</div>
       </div>
     </div>
   )

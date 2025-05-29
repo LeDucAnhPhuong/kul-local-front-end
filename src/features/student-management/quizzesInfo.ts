@@ -1,12 +1,12 @@
 export interface QuizData {
   _id: number;
   title: string;
-  date: Date;
+  date: string;
   isActive: boolean;
   created_by: number;
   updated_by: number;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
   questions: QuestionData[];
 }
 
@@ -18,8 +18,8 @@ export interface QuestionData {
   isActive: boolean;
   created_by: number;
   updated_by: number;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
   options: string[];
   type: 'multiple_choice' | 'true_false' | 'fill_blank';
   points: number;
@@ -28,13 +28,13 @@ export interface QuestionData {
 export const quizSampleData: QuizData[] = [
   {
     _id: 1,
-    title: 'IELTS Reading: Academic Text Comprehension',
-    date: new Date('2025-06-10'),
+    title: 'Academic Text Comprehension',
+    date: '2025-06-10',
     isActive: true,
     created_by: 1,
     updated_by: 1,
-    created_at: new Date('2025-05-20T08:00:00Z'),
-    updated_at: new Date('2025-05-25T10:30:00Z'),
+    created_at: '2025-05-20T08:00:00Z',
+    updated_at: '2025-05-25T10:30:00Z',
     questions: [
       {
         _id: 1,
@@ -44,8 +44,8 @@ export const quizSampleData: QuizData[] = [
         isActive: true,
         created_by: 1,
         updated_by: 1,
-        created_at: new Date('2025-05-20T08:15:00Z'),
-        updated_at: new Date('2025-05-20T08:15:00Z'),
+        created_at: '2025-05-20T08:15:00Z',
+        updated_at: '2025-05-20T08:15:00Z',
         options: [
           'Formal vocabulary and complex sentence structures',
           'Objective tone and evidence-based arguments',
@@ -63,8 +63,8 @@ export const quizSampleData: QuizData[] = [
         isActive: true,
         created_by: 1,
         updated_by: 1,
-        created_at: new Date('2025-05-20T08:20:00Z'),
-        updated_at: new Date('2025-05-20T08:20:00Z'),
+        created_at: '2025-05-20T08:20:00Z',
+        updated_at: '2025-05-20T08:20:00Z',
         options: [],
         type: 'fill_blank',
         points: 15
@@ -77,8 +77,8 @@ export const quizSampleData: QuizData[] = [
         isActive: true,
         created_by: 1,
         updated_by: 1,
-        created_at: new Date('2025-05-20T08:25:00Z'),
-        updated_at: new Date('2025-05-20T08:25:00Z'),
+        created_at: '2025-05-20T08:25:00Z',
+        updated_at: '2025-05-20T08:25:00Z',
         options: ['true', 'false'],
         type: 'true_false',
         points: 5
@@ -88,13 +88,13 @@ export const quizSampleData: QuizData[] = [
   
   {
     _id: 2,
-    title: 'IELTS Writing Task 1: Data Description',
-    date: new Date('2025-06-12'),
+    title: 'Data Description',
+    date: '2025-06-12',
     isActive: true,
     created_by: 2,
     updated_by: 2,
-    created_at: new Date('2025-05-22T09:00:00Z'),
-    updated_at: new Date('2025-05-28T14:20:00Z'),
+    created_at: '2025-05-22T09:00:00Z',
+    updated_at: '2025-05-28T14:20:00Z',
     questions: [
       {
         _id: 4,
@@ -104,8 +104,8 @@ export const quizSampleData: QuizData[] = [
         isActive: true,
         created_by: 2,
         updated_by: 2,
-        created_at: new Date('2025-05-22T09:15:00Z'),
-        updated_at: new Date('2025-05-22T09:15:00Z'),
+        created_at: '2025-05-22T09:15:00Z',
+        updated_at: '2025-05-22T09:15:00Z',
         options: ['120 words', '150 words', '200 words', '250 words'],
         type: 'multiple_choice',
         points: 10
@@ -118,8 +118,8 @@ export const quizSampleData: QuizData[] = [
         isActive: true,
         created_by: 2,
         updated_by: 2,
-        created_at: new Date('2025-05-22T09:20:00Z'),
-        updated_at: new Date('2025-05-22T09:20:00Z'),
+        created_at: '2025-05-22T09:20:00Z',
+        updated_at: '2025-05-22T09:20:00Z',
         options: [],
         type: 'fill_blank',
         points: 15
@@ -132,8 +132,8 @@ export const quizSampleData: QuizData[] = [
         isActive: true,
         created_by: 2,
         updated_by: 2,
-        created_at: new Date('2025-05-22T09:25:00Z'),
-        updated_at: new Date('2025-05-22T09:25:00Z'),
+        created_at: '2025-05-22T09:25:00Z',
+        updated_at: '2025-05-22T09:25:00Z',
         options: ['true', 'false'],
         type: 'true_false',
         points: 5
@@ -143,13 +143,13 @@ export const quizSampleData: QuizData[] = [
 
   {
     _id: 3,
-    title: 'IELTS Speaking Part 2: Long Turn',
-    date: new Date('2025-06-15'),
+    title: 'Long Turn',
+    date: '2025-06-15',
     isActive: false,
     created_by: 1,
     updated_by: 3,
-    created_at: new Date('2025-05-25T10:00:00Z'),
-    updated_at: new Date('2025-06-01T16:45:00Z'),
+    created_at: '2025-05-25T10:00:00Z',
+    updated_at: '2025-06-01T16:45:00Z',
     questions: [
       {
         _id: 7,
@@ -159,8 +159,8 @@ export const quizSampleData: QuizData[] = [
         isActive: true,
         created_by: 1,
         updated_by: 1,
-        created_at: new Date('2025-05-25T10:15:00Z'),
-        updated_at: new Date('2025-05-25T10:15:00Z'),
+        created_at: '2025-05-25T10:15:00Z',
+        updated_at: '2025-05-25T10:15:00Z',
         options: ['30 seconds - 1 minute', '1-2 minutes', '2-3 minutes', '3-4 minutes'],
         type: 'multiple_choice',
         points: 20
@@ -173,8 +173,8 @@ export const quizSampleData: QuizData[] = [
         isActive: true,
         created_by: 1,
         updated_by: 1,
-        created_at: new Date('2025-05-25T10:20:00Z'),
-        updated_at: new Date('2025-05-25T10:20:00Z'),
+        created_at: '2025-05-25T10:20:00Z',
+        updated_at: '2025-05-25T10:20:00Z',
         options: [],
         type: 'fill_blank',
         points: 15
@@ -187,8 +187,8 @@ export const quizSampleData: QuizData[] = [
         isActive: true,
         created_by: 1,
         updated_by: 1,
-        created_at: new Date('2025-05-25T10:25:00Z'),
-        updated_at: new Date('2025-05-25T10:25:00Z'),
+        created_at: '2025-05-25T10:25:00Z',
+        updated_at: '2025-05-25T10:25:00Z',
         options: ['true', 'false'],
         type: 'true_false',
         points: 10
@@ -198,13 +198,13 @@ export const quizSampleData: QuizData[] = [
 
   {
     _id: 4,
-    title: 'IELTS Listening: Section Types and Strategies',
-    date: new Date('2025-06-18'),
+    title: 'Section Types and Strategies',
+    date: '2025-06-18',
     isActive: true,
     created_by: 3,
     updated_by: 1,
-    created_at: new Date('2025-05-28T13:45:00Z'),
-    updated_at: new Date('2025-06-02T09:20:00Z'),
+    created_at: '2025-05-28T13:45:00Z',
+    updated_at: '2025-06-02T09:20:00Z',
     questions: [
       {
         _id: 10,
@@ -214,8 +214,8 @@ export const quizSampleData: QuizData[] = [
         isActive: true,
         created_by: 3,
         updated_by: 3,
-        created_at: new Date('2025-05-28T14:00:00Z'),
-        updated_at: new Date('2025-05-28T14:00:00Z'),
+        created_at: '2025-05-28T14:00:00Z',
+        updated_at: '2025-05-28T14:00:00Z',
         options: ['Section 1', 'Section 2', 'Section 3', 'Section 4'],
         type: 'multiple_choice',
         points: 10
@@ -228,8 +228,8 @@ export const quizSampleData: QuizData[] = [
         isActive: true,
         created_by: 3,
         updated_by: 3,
-        created_at: new Date('2025-05-28T14:05:00Z'),
-        updated_at: new Date('2025-05-28T14:05:00Z'),
+        created_at: '2025-05-28T14:05:00Z',
+        updated_at: '2025-05-28T14:05:00Z',
         options: [],
         type: 'fill_blank',
         points: 20
@@ -242,8 +242,8 @@ export const quizSampleData: QuizData[] = [
         isActive: true,
         created_by: 3,
         updated_by: 3,
-        created_at: new Date('2025-05-28T14:10:00Z'),
-        updated_at: new Date('2025-05-28T14:10:00Z'),
+        created_at: '2025-05-28T14:10:00Z',
+        updated_at: '2025-05-28T14:10:00Z',
         options: ['true', 'false'],
         type: 'true_false',
         points: 5
@@ -253,13 +253,13 @@ export const quizSampleData: QuizData[] = [
 
   {
     _id: 5,
-    title: 'IELTS Grammar: Complex Sentences and Cohesion',
-    date: new Date('2025-06-20'),
+    title: 'Complex Sentences and Cohesion',
+    date: '2025-06-20',
     isActive: true,
     created_by: 2,
     updated_by: 2,
-    created_at: new Date('2025-05-30T15:30:00Z'),
-    updated_at: new Date('2025-06-03T10:15:00Z'),
+    created_at: '2025-05-30T15:30:00Z',
+    updated_at: '2025-06-03T10:15:00Z',
     questions: [
       {
         _id: 13,
@@ -269,8 +269,8 @@ export const quizSampleData: QuizData[] = [
         isActive: true,
         created_by: 2,
         updated_by: 2,
-        created_at: new Date('2025-05-30T15:45:00Z'),
-        updated_at: new Date('2025-05-30T15:45:00Z'),
+        created_at: '2025-05-30T15:45:00Z',
+        updated_at: '2025-05-30T15:45:00Z',
         options: ['However', 'Therefore', 'Although', 'Furthermore'],
         type: 'multiple_choice',
         points: 10
@@ -283,8 +283,8 @@ export const quizSampleData: QuizData[] = [
         isActive: true,
         created_by: 2,
         updated_by: 2,
-        created_at: new Date('2025-05-30T15:50:00Z'),
-        updated_at: new Date('2025-05-30T15:50:00Z'),
+        created_at: '2025-05-30T15:50:00Z',
+        updated_at: '2025-05-30T15:50:00Z',
         options: [],
         type: 'fill_blank',
         points: 15
@@ -297,8 +297,8 @@ export const quizSampleData: QuizData[] = [
         isActive: true,
         created_by: 2,
         updated_by: 2,
-        created_at: new Date('2025-05-30T15:55:00Z'),
-        updated_at: new Date('2025-05-30T15:55:00Z'),
+        created_at: '2025-05-30T15:55:00Z',
+        updated_at: '2025-05-30T15:55:00Z',
         options: ['true', 'false'],
         type: 'true_false',
         points: 5
@@ -308,13 +308,13 @@ export const quizSampleData: QuizData[] = [
 
   {
     _id: 6,
-    title: 'IELTS Vocabulary: Academic Word List',
-    date: new Date('2025-06-22'),
+    title: 'Academic Word List',
+    date: '2025-06-22',
     isActive: true,
     created_by: 1,
     updated_by: 1,
-    created_at: new Date('2025-06-01T11:00:00Z'),
-    updated_at: new Date('2025-06-05T09:30:00Z'),
+    created_at: '2025-06-01T11:00:00Z',
+    updated_at: '2025-06-05T09:30:00Z',
     questions: [
       {
         _id: 16,
@@ -324,8 +324,8 @@ export const quizSampleData: QuizData[] = [
         isActive: true,
         created_by: 1,
         updated_by: 1,
-        created_at: new Date('2025-06-01T11:15:00Z'),
-        updated_at: new Date('2025-06-01T11:15:00Z'),
+        created_at: '2025-06-01T11:15:00Z',
+        updated_at: '2025-06-01T11:15:00Z',
         options: [
           'To destroy or eliminate',
           'To form or make up',
@@ -343,8 +343,8 @@ export const quizSampleData: QuizData[] = [
         isActive: true,
         created_by: 1,
         updated_by: 1,
-        created_at: new Date('2025-06-01T11:20:00Z'),
-        updated_at: new Date('2025-06-01T11:20:00Z'),
+        created_at: '2025-06-01T11:20:00Z',
+        updated_at: '2025-06-01T11:20:00Z',
         options: [],
         type: 'fill_blank',
         points: 15
@@ -357,8 +357,8 @@ export const quizSampleData: QuizData[] = [
         isActive: true,
         created_by: 1,
         updated_by: 1,
-        created_at: new Date('2025-06-01T11:25:00Z'),
-        updated_at: new Date('2025-06-01T11:25:00Z'),
+        created_at: '2025-06-01T11:25:00Z',
+        updated_at: '2025-06-01T11:25:00Z',
         options: ['true', 'false'],
         type: 'true_false',
         points: 5
@@ -368,13 +368,13 @@ export const quizSampleData: QuizData[] = [
 
   {
     _id: 7,
-    title: 'IELTS Writing Task 2: Essay Structure',
-    date: new Date('2025-06-25'),
+    title: 'Essay Structure',
+    date: '2025-06-25',
     isActive: true,
     created_by: 3,
     updated_by: 2,
-    created_at: new Date('2025-06-03T14:00:00Z'),
-    updated_at: new Date('2025-06-07T10:45:00Z'),
+    created_at: '2025-06-03T14:00:00Z',
+    updated_at: '2025-06-07T10:45:00Z',
     questions: [
       {
         _id: 19,
@@ -384,8 +384,8 @@ export const quizSampleData: QuizData[] = [
         isActive: true,
         created_by: 3,
         updated_by: 3,
-        created_at: new Date('2025-06-03T14:15:00Z'),
-        updated_at: new Date('2025-06-03T14:15:00Z'),
+        created_at: '2025-06-03T14:15:00Z',
+        updated_at: '2025-06-03T14:15:00Z',
         options: ['200 words', '250 words', '300 words', '350 words'],
         type: 'multiple_choice',
         points: 10
@@ -398,8 +398,8 @@ export const quizSampleData: QuizData[] = [
         isActive: true,
         created_by: 3,
         updated_by: 3,
-        created_at: new Date('2025-06-03T14:20:00Z'),
-        updated_at: new Date('2025-06-03T14:20:00Z'),
+        created_at: '2025-06-03T14:20:00Z',
+        updated_at: '2025-06-03T14:20:00Z',
         options: [],
         type: 'fill_blank',
         points: 15
@@ -412,8 +412,8 @@ export const quizSampleData: QuizData[] = [
         isActive: true,
         created_by: 3,
         updated_by: 3,
-        created_at: new Date('2025-06-03T14:25:00Z'),
-        updated_at: new Date('2025-06-03T14:25:00Z'),
+        created_at: '2025-06-03T14:25:00Z',
+        updated_at: '2025-06-03T14:25:00Z',
         options: ['true', 'false'],
         type: 'true_false',
         points: 5

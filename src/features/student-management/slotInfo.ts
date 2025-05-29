@@ -1,8 +1,22 @@
-export interface ClassSlotData {
-  _id: number; 
+// Interfaces
+export interface Classes {
+  _id: number;
+  name: string;
+  schedule: string;
+  room_id: number;
+  members: number;
+  isActive: boolean;
+  created_by: number;
+  updated_by: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ClassCalendar {
+  _id: number;
   class_id: number;
-  date: Date; 
-  slot_id: number; 
+  date: string;
+  slot_id: number;
   room_id: number;
   coach_id: number;
   TedTeam_id: number;
@@ -10,271 +24,481 @@ export interface ClassSlotData {
   isActive: boolean;
   created_by: number;
   updated_by: number;
-  created_at: Date;
-  updated_at: Date;
-  slot: {
-    _id: number; 
-    name: string; 
-    start_time: string; 
-    end_time: string; 
-    description: string;
-    isActive: boolean;
-    created_by: number;
-    updated_by: number;
-    created_at: Date;
-    updated_at: Date;
-  };
-  topic: string;
-  instructor: string;
-  status: 'not yet' | 'present' | 'absent';
+  created_at: string;
+  updated_at: string;
+  classes: Classes;
 }
 
-export const classSlotSampleData: ClassSlotData[] = [
-  
+export interface AttendanceData {
+  _id: number;
+  calendar_id: number;
+  user_id: number;
+  status: 'not yet' | 'present' | 'absent';
+  isActive: boolean;
+  created_by: number;
+  updated_by: number;
+  created_at: string;
+  updated_at: string;
+  classCalendar: ClassCalendar;
+}
+
+// Dummy Data
+export const attendanceDummyData: AttendanceData[] = [
   {
     _id: 1,
-    class_id: 101,
-    date: new Date('2025-06-02'),
-    slot_id: 1,
-    room_id: 201,
-    coach_id: 301,
-    TedTeam_id: 401,
-    note: 'Focus on pronunciation and fluency',
+    calendar_id: 1,
+    user_id: 1001,
+    status: 'present',
     isActive: true,
     created_by: 1,
     updated_by: 1,
-    created_at: new Date('2025-05-20T08:00:00Z'),
-    updated_at: new Date('2025-05-20T08:00:00Z'),
-    slot: {
+    created_at: '2025-05-27T08:00:00Z',
+    updated_at: '2025-05-27T08:00:00Z',
+    classCalendar: {
       _id: 1,
-      name: 'Slot 1',
-      start_time: '07:30:00',
-      end_time: '09:30:00',
-      description: 'Early morning intensive session',
+      class_id: 101,
+      date: '2025-06-02',
+      slot_id: 1,
+      room_id: 201,
+      coach_id: 301,
+      TedTeam_id: 401,
+      note: 'Focus on pronunciation and fluency',
       isActive: true,
       created_by: 1,
       updated_by: 1,
-      created_at: new Date('2025-05-15T08:00:00Z'),
-      updated_at: new Date('2025-05-15T08:00:00Z')
-    },
-    topic: 'Speaking Part 1',
-    instructor: 'John Smith',
-    status: 'present'
-  },
- 
-  {
-    _id: 2,
-    class_id: 102,
-    date: new Date('2025-06-02'),
-    slot_id: 2,
-    room_id: 202,
-    coach_id: 302,
-    TedTeam_id: 402,
-    note: 'Bring writing samples for review',
-    isActive: true,
-    created_by: 1,
-    updated_by: 1,
-    created_at: new Date('2025-05-20T08:00:00Z'),
-    updated_at: new Date('2025-05-20T08:00:00Z'),
-    slot: {
-      _id: 2,
-      name: 'Slot 2',
-      start_time: '09:45:00',
-      end_time: '11:45:00',
-      description: 'Mid-morning focused session',
-      isActive: true,
-      created_by: 1,
-      updated_by: 1,
-      created_at: new Date('2025-05-15T08:00:00Z'),
-      updated_at: new Date('2025-05-15T08:00:00Z')
-    },
-    topic: 'Writing Task 1',
-    instructor: 'Emily Johnson',
-    status: 'present'
+      created_at: '2025-05-20T08:00:00Z',
+      updated_at: '2025-05-20T08:00:00Z',
+      classes: {
+        _id: 101,
+        name: "IELTS Speaking Intensive",
+        schedule: "Mon, Wed, Fri - 07:30-09:30",
+        room_id: 201,
+        members: 15,
+        isActive: true,
+        created_by: 1,
+        updated_by: 1,
+        created_at: '2025-05-15T08:00:00Z',
+        updated_at: '2025-05-20T08:00:00Z'
+      }
+    }
   },
   {
     _id: 2,
-    class_id: 102,
-    date: new Date('2025-06-03'),
-    slot_id: 2,
-    room_id: 202,
-    coach_id: 302,
-    TedTeam_id: 402,
-    note: 'Bring writing samples for review',
+    calendar_id: 1,
+    user_id: 1002,
+    status: 'present',
     isActive: true,
     created_by: 1,
     updated_by: 1,
-    created_at: new Date('2025-05-20T08:00:00Z'),
-    updated_at: new Date('2025-05-20T08:00:00Z'),
-    slot: {
-      _id: 2,
-      name: 'Slot 2',
-      start_time: '09:45:00',
-      end_time: '11:45:00',
-      description: 'Mid-morning focused session',
+    created_at: '2025-05-27T08:00:00Z',
+    updated_at: '2025-05-27T08:00:00Z',
+    classCalendar: {
+      _id: 1,
+      class_id: 101,
+      date: '2025-06-02',
+      slot_id: 1,
+      room_id: 201,
+      coach_id: 301,
+      TedTeam_id: 401,
+      note: 'Focus on pronunciation and fluency',
       isActive: true,
       created_by: 1,
       updated_by: 1,
-      created_at: new Date('2025-05-15T08:00:00Z'),
-      updated_at: new Date('2025-05-15T08:00:00Z')
-    },
-    topic: 'Writing Task 1',
-    instructor: 'Emily Johnson',
-    status: 'absent'
+      created_at: '2025-05-20T08:00:00Z',
+      updated_at: '2025-05-20T08:00:00Z',
+      classes: {
+        _id: 101,
+        name: "IELTS Speaking Intensive",
+        schedule: "Mon, Wed, Fri - 07:30-09:30",
+        room_id: 201,
+        members: 15,
+        isActive: true,
+        created_by: 1,
+        updated_by: 1,
+        created_at: '2025-05-15T08:00:00Z',
+        updated_at: '2025-05-20T08:00:00Z'
+      }
+    }
   },
   {
     _id: 3,
-    class_id: 103,
-    date: new Date('2025-06-03'),
-    slot_id: 3,
-    room_id: 203,
-    coach_id: 303,
-    TedTeam_id: 403,
-    note: 'Audio equipment needed',
+    calendar_id: 1,
+    user_id: 1003,
+    status: 'absent',
     isActive: true,
     created_by: 1,
     updated_by: 1,
-    created_at: new Date('2025-05-20T08:00:00Z'),
-    updated_at: new Date('2025-05-20T08:00:00Z'),
-    slot: {
-      _id: 3,
-      name: 'Slot 3',
-      start_time: '12:00:00',
-      end_time: '14:00:00',
-      description: 'Post-lunch afternoon session',
+    created_at: '2025-05-27T08:00:00Z',
+    updated_at: '2025-05-27T08:00:00Z',
+    classCalendar: {
+      _id: 1,
+      class_id: 101,
+      date: '2025-06-02',
+      slot_id: 1,
+      room_id: 201,
+      coach_id: 301,
+      TedTeam_id: 401,
+      note: 'Focus on pronunciation and fluency',
       isActive: true,
       created_by: 1,
       updated_by: 1,
-      created_at: new Date('2025-05-15T08:00:00Z'),
-      updated_at: new Date('2025-05-15T08:00:00Z')
-    },
-    topic: 'Listening Strategies',
-    instructor: 'Michael Brown',
-    status: 'absent'
+      created_at: '2025-05-20T08:00:00Z',
+      updated_at: '2025-05-20T08:00:00Z',
+      classes: {
+        _id: 101,
+        name: "IELTS Speaking Intensive",
+        schedule: "Mon, Wed, Fri - 07:30-09:30",
+        room_id: 201,
+        members: 15,
+        isActive: true,
+        created_by: 1,
+        updated_by: 1,
+        created_at: '2025-05-15T08:00:00Z',
+        updated_at: '2025-05-20T08:00:00Z'
+      }
+    }
   },
-  // Thứ Năm
   {
     _id: 4,
-    class_id: 104,
-    date: new Date('2025-06-04'),
-    slot_id: 4,
-    room_id: 204,
-    coach_id: 304,
-    TedTeam_id: 404,
-    note: 'Practice materials provided',
+    calendar_id: 2,
+    user_id: 1004,
+    status: 'present',
     isActive: true,
     created_by: 1,
     updated_by: 1,
-    created_at: new Date('2025-05-20T08:00:00Z'),
-    updated_at: new Date('2025-05-20T08:00:00Z'),
-    slot: {
-      _id: 4,
-      name: 'Slot 4',
-      start_time: '14:15:00',
-      end_time: '16:15:00',
-      description: 'Late afternoon intensive session',
+    created_at: '2025-05-27T08:00:00Z',
+    updated_at: '2025-05-27T08:00:00Z',
+    classCalendar: {
+      _id: 2,
+      class_id: 102,
+      date: '2025-06-02',
+      slot_id: 2,
+      room_id: 202,
+      coach_id: 302,
+      TedTeam_id: 402,
+      note: 'Bring writing samples for review',
       isActive: true,
       created_by: 1,
       updated_by: 1,
-      created_at: new Date('2025-05-15T08:00:00Z'),
-      updated_at: new Date('2025-05-15T08:00:00Z')
-    },
-    topic: 'Reading Comprehension',
-    instructor: 'Sarah Davis',
-    status: 'not yet'
+      created_at: '2025-05-20T08:00:00Z',
+      updated_at: '2025-05-20T08:00:00Z',
+      classes: {
+        _id: 102,
+        name: "IELTS Writing Mastery",
+        schedule: "Tue, Thu - 09:45-11:45",
+        room_id: 202,
+        members: 12,
+        isActive: true,
+        created_by: 1,
+        updated_by: 1,
+        created_at: '2025-05-15T08:00:00Z',
+        updated_at: '2025-05-20T08:00:00Z'
+      }
+    }
   },
-  // Thứ Sáu
   {
     _id: 5,
-    class_id: 105,
-    date: new Date('2025-06-05'),
-    slot_id: 1,
-    room_id: 205,
-    coach_id: 305,
-    TedTeam_id: 405,
-    note: 'Essay topic will be announced',
+    calendar_id: 2,
+    user_id: 1005,
+    status: 'present',
     isActive: true,
     created_by: 1,
     updated_by: 1,
-    created_at: new Date('2025-05-20T08:00:00Z'),
-    updated_at: new Date('2025-05-20T08:00:00Z'),
-    slot: {
-      _id: 1,
-      name: 'Slot 1',
-      start_time: '07:30:00',
-      end_time: '09:30:00',
-      description: 'Early morning intensive session',
+    created_at: '2025-05-27T08:00:00Z',
+    updated_at: '2025-05-27T08:00:00Z',
+    classCalendar: {
+      _id: 2,
+      class_id: 102,
+      date: '2025-06-02',
+      slot_id: 2,
+      room_id: 202,
+      coach_id: 302,
+      TedTeam_id: 402,
+      note: 'Bring writing samples for review',
       isActive: true,
       created_by: 1,
       updated_by: 1,
-      created_at: new Date('2025-05-15T08:00:00Z'),
-      updated_at: new Date('2025-05-15T08:00:00Z')
-    },
-    topic: 'Essay Writing Techniques',
-    instructor: 'David Wilson',
-    status: 'not yet'
+      created_at: '2025-05-20T08:00:00Z',
+      updated_at: '2025-05-20T08:00:00Z',
+      classes: {
+        _id: 102,
+        name: "IELTS Writing Mastery",
+        schedule: "Tue, Thu - 09:45-11:45",
+        room_id: 202,
+        members: 12,
+        isActive: true,
+        created_by: 1,
+        updated_by: 1,
+        created_at: '2025-05-15T08:00:00Z',
+        updated_at: '2025-05-20T08:00:00Z'
+      }
+    }
   },
-  // Thứ Bảy
   {
     _id: 6,
-    class_id: 106,
-    date: new Date('2025-06-06'),
-    slot_id: 2,
-    room_id: 206,
-    coach_id: 306,
-    TedTeam_id: 406,
-    note: 'Individual feedback session',
+    calendar_id: 3,
+    user_id: 1004,
+    status: 'absent',
     isActive: true,
     created_by: 1,
     updated_by: 1,
-    created_at: new Date('2025-05-20T08:00:00Z'),
-    updated_at: new Date('2025-05-20T08:00:00Z'),
-    slot: {
-      _id: 2,
-      name: 'Slot 2',
-      start_time: '09:45:00',
-      end_time: '11:45:00',
-      description: 'Mid-morning focused session',
+    created_at: '2025-05-27T08:00:00Z',
+    updated_at: '2025-05-27T08:00:00Z',
+    classCalendar: {
+      _id: 3,
+      class_id: 102,
+      date: '2025-06-03',
+      slot_id: 2,
+      room_id: 202,
+      coach_id: 302,
+      TedTeam_id: 402,
+      note: 'Writing Task 1 practice session',
       isActive: true,
       created_by: 1,
       updated_by: 1,
-      created_at: new Date('2025-05-15T08:00:00Z'),
-      updated_at: new Date('2025-05-15T08:00:00Z')
-    },
-    topic: 'Mock Speaking Test',
-    instructor: 'Linda Martinez',
-    status: 'not yet'
+      created_at: '2025-05-20T08:00:00Z',
+      updated_at: '2025-05-20T08:00:00Z',
+      classes: {
+        _id: 102,
+        name: "IELTS Writing Mastery",
+        schedule: "Tue, Thu - 09:45-11:45",
+        room_id: 202,
+        members: 12,
+        isActive: true,
+        created_by: 1,
+        updated_by: 1,
+        created_at: '2025-05-15T08:00:00Z',
+        updated_at: '2025-05-20T08:00:00Z'
+      }
+    }
   },
-  // Chủ Nhật
   {
     _id: 7,
-    class_id: 107,
-    date: new Date('2025-06-07'),
-    slot_id: 3,
-    room_id: 207,
-    coach_id: 307,
-    TedTeam_id: 407,
-    note: 'Comprehensive grammar review',
+    calendar_id: 3,
+    user_id: 1005,
+    status: 'present',
     isActive: true,
     created_by: 1,
     updated_by: 1,
-    created_at: new Date('2025-05-20T08:00:00Z'),
-    updated_at: new Date('2025-05-20T08:00:00Z'),
-    slot: {
+    created_at: '2025-05-27T08:00:00Z',
+    updated_at: '2025-05-27T08:00:00Z',
+    classCalendar: {
       _id: 3,
-      name: 'Slot 3',
-      start_time: '12:00:00',
-      end_time: '14:00:00',
-      description: 'Post-lunch afternoon session',
+      class_id: 102,
+      date: '2025-06-03',
+      slot_id: 2,
+      room_id: 202,
+      coach_id: 302,
+      TedTeam_id: 402,
+      note: 'Writing Task 1 practice session',
       isActive: true,
       created_by: 1,
       updated_by: 1,
-      created_at: new Date('2025-05-15T08:00:00Z'),
-      updated_at: new Date('2025-05-15T08:00:00Z')
-    },
-    topic: 'Grammar Review',
-    instructor: 'James Taylor',
-    status: 'not yet'
+      created_at: '2025-05-20T08:00:00Z',
+      updated_at: '2025-05-20T08:00:00Z',
+      classes: {
+        _id: 102,
+        name: "IELTS Writing Mastery",
+        schedule: "Tue, Thu - 09:45-11:45",
+        room_id: 202,
+        members: 12,
+        isActive: true,
+        created_by: 1,
+        updated_by: 1,
+        created_at: '2025-05-15T08:00:00Z',
+        updated_at: '2025-05-20T08:00:00Z'
+      }
+    }
+  },
+  {
+    _id: 8,
+    calendar_id: 4,
+    user_id: 1006,
+    status: 'not yet',
+    isActive: true,
+    created_by: 1,
+    updated_by: 1,
+    created_at: '2025-05-27T08:00:00Z',
+    updated_at: '2025-05-27T08:00:00Z',
+    classCalendar: {
+      _id: 4,
+      class_id: 103,
+      date: '2025-06-04',
+      slot_id: 3,
+      room_id: 203,
+      coach_id: 303,
+      TedTeam_id: 403,
+      note: 'Audio equipment needed for listening practice',
+      isActive: true,
+      created_by: 1,
+      updated_by: 1,
+      created_at: '2025-05-20T08:00:00Z',
+      updated_at: '2025-05-20T08:00:00Z',
+      classes: {
+        _id: 103,
+        name: "IELTS Listening Focus",
+        schedule: "Wed - 12:00-14:00",
+        room_id: 203,
+        members: 18,
+        isActive: true,
+        created_by: 1,
+        updated_by: 1,
+        created_at: '2025-05-15T08:00:00Z',
+        updated_at: '2025-05-20T08:00:00Z'
+      }
+    }
+  },
+  {
+    _id: 9,
+    calendar_id: 4,
+    user_id: 1007,
+    status: 'not yet',
+    isActive: true,
+    created_by: 1,
+    updated_by: 1,
+    created_at: '2025-05-27T08:00:00Z',
+    updated_at: '2025-05-27T08:00:00Z',
+    classCalendar: {
+      _id: 4,
+      class_id: 103,
+      date: '2025-06-04',
+      slot_id: 3,
+      room_id: 203,
+      coach_id: 303,
+      TedTeam_id: 403,
+      note: 'Audio equipment needed for listening practice',
+      isActive: true,
+      created_by: 1,
+      updated_by: 1,
+      created_at: '2025-05-20T08:00:00Z',
+      updated_at: '2025-05-20T08:00:00Z',
+      classes: {
+        _id: 103,
+        name: "IELTS Listening Focus",
+        schedule: "Wed - 12:00-14:00",
+        room_id: 203,
+        members: 18,
+        isActive: true,
+        created_by: 1,
+        updated_by: 1,
+        created_at: '2025-05-15T08:00:00Z',
+        updated_at: '2025-05-20T08:00:00Z'
+      }
+    }
+  },
+  {
+    _id: 10,
+    calendar_id: 5,
+    user_id: 1008,
+    status: 'not yet',
+    isActive: true,
+    created_by: 1,
+    updated_by: 1,
+    created_at: '2025-05-27T08:00:00Z',
+    updated_at: '2025-05-27T08:00:00Z',
+    classCalendar: {
+      _id: 5,
+      class_id: 104,
+      date: '2025-06-05',
+      slot_id: 4,
+      room_id: 204,
+      coach_id: 304,
+      TedTeam_id: 404,
+      note: 'Practice materials provided for reading comprehension',
+      isActive: true,
+      created_by: 1,
+      updated_by: 1,
+      created_at: '2025-05-20T08:00:00Z',
+      updated_at: '2025-05-20T08:00:00Z',
+      classes: {
+        _id: 104,
+        name: "IELTS Reading Comprehension",
+        schedule: "Thu - 14:15-16:15",
+        room_id: 204,
+        members: 14,
+        isActive: true,
+        created_by: 1,
+        updated_by: 1,
+        created_at: '2025-05-15T08:00:00Z',
+        updated_at: '2025-05-20T08:00:00Z'
+      }
+    }
+  },
+  {
+    _id: 11,
+    calendar_id: 5,
+    user_id: 1009,
+    status: 'not yet',
+    isActive: true,
+    created_by: 1,
+    updated_by: 1,
+    created_at: '2025-05-27T08:00:00Z',
+    updated_at: '2025-05-27T08:00:00Z',
+    classCalendar: {
+      _id: 5,
+      class_id: 104,
+      date: '2025-06-05',
+      slot_id: 4,
+      room_id: 204,
+      coach_id: 304,
+      TedTeam_id: 404,
+      note: 'Practice materials provided for reading comprehension',
+      isActive: true,
+      created_by: 1,
+      updated_by: 1,
+      created_at: '2025-05-20T08:00:00Z',
+      updated_at: '2025-05-20T08:00:00Z',
+      classes: {
+        _id: 104,
+        name: "IELTS Reading Comprehension",
+        schedule: "Thu - 14:15-16:15",
+        room_id: 204,
+        members: 14,
+        isActive: true,
+        created_by: 1,
+        updated_by: 1,
+        created_at: '2025-05-15T08:00:00Z',
+        updated_at: '2025-05-20T08:00:00Z'
+      }
+    }
+  },
+  {
+    _id: 12,
+    calendar_id: 6,
+    user_id: 1010,
+    status: 'not yet',
+    isActive: true,
+    created_by: 1,
+    updated_by: 1,
+    created_at: '2025-05-27T08:00:00Z',
+    updated_at: '2025-05-27T08:00:00Z',
+    classCalendar: {
+      _id: 6,
+      class_id: 105,
+      date: '2025-06-06',
+      slot_id: 1,
+      room_id: 205,
+      coach_id: 305,
+      TedTeam_id: 405,
+      note: 'Essay topic will be announced at the beginning',
+      isActive: true,
+      created_by: 1,
+      updated_by: 1,
+      created_at: '2025-05-20T08:00:00Z',
+      updated_at: '2025-05-20T08:00:00Z',
+      classes: {
+        _id: 105,
+        name: "IELTS Essay Writing Workshop",
+        schedule: "Fri - 07:30-09:30",
+        room_id: 205,
+        members: 16,
+        isActive: true,
+        created_by: 1,
+        updated_by: 1,
+        created_at: '2025-05-15T08:00:00Z',
+        updated_at: '2025-05-20T08:00:00Z'
+      }
+    }
   }
 ];
-
+ 

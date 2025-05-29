@@ -22,7 +22,9 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { DataTablePagination } from '@/components/data-table/data-table-pagination';
 import { cn } from '@/lib/utils';
-import { useMediaQuery } from '@/hooks/use-media-query'; // <-- Custom hook cần có
+import { useMediaQuery } from '../../hooks/use-media-query'; // tùy theo vị trí file
+
+
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

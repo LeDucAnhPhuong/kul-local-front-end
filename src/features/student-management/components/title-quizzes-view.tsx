@@ -12,10 +12,7 @@ const QuizzesUI = () => {
 
   return (
     <div className="bg-white dark:bg-background p-4 rounded-xl border-[1px] border-stone-50 dark:border-stone-800">
-      <TitlePage title="List Quizzes Title" href="/student-management" contentHref="Student Management" />
-
-  
-
+      <TitlePage title="List Quizzes Title"/>
       <DataCard data={quizSampleData} columns={columns} />
     </div>
   );

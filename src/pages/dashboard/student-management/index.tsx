@@ -1,14 +1,8 @@
-import ScheduleView from "@/features/student-management/components/schedule-view";
-import QuizzesUI from "@/features/student-management/components/title-quizzes-view";
+import TeacherView from '@/features/teacher-management/components/teacher-view';
 
 
-function ScheduleManagement() {
-  return <ScheduleView />;
+function StudentManagement() {
+    return <TeacherView />;
 }
 
-export default ScheduleManagement;
-
-function QuizzesManagement() {
-  return <QuizzesUI />;
-} 
-export { QuizzesManagement };
+export default StudentManagement;

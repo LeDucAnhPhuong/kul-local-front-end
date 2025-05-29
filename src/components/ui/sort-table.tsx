@@ -22,7 +22,7 @@ function SortModal({ opener, table }: { opener: ReactNode; table: Table<any> }) 
       <DialogTrigger asChild>{opener}</DialogTrigger>
       <DialogContent className="flex h-[80vh] flex-col sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Sắp xếp theo</DialogTitle>
+          <DialogTitle>Sort for</DialogTitle>
         </DialogHeader>
         <ScrollArea className="flex-grow">
           {table.getHeaderGroups().map((headerEl) => {
@@ -34,19 +34,19 @@ function SortModal({ opener, table }: { opener: ReactNode; table: Table<any> }) 
                     return (
                       <Button
                         key={columnEl.id}
-                        className="w-full justify-between font-normal"
+                        className="justify-between w-full font-normal"
                         variant="ghost"
                         onClick={columnEl.column.getToggleSortingHandler()}
                       >
                         <span className="font-medium">
                           {flexRender(columnEl.column.columnDef.header, columnEl.getContext())}
                         </span>
-                        {!columnEl.column.getIsSorted() && <ArrowUpDown className="ml-2 h-4 w-4" />}
+                        {!columnEl.column.getIsSorted() && <ArrowUpDown className="w-4 h-4 ml-2" />}
                         {columnEl.column.getIsSorted() === 'asc' && (
-                          <ArrowUpNarrowWide className="ml-2 h-4 w-4" />
+                          <ArrowUpNarrowWide className="w-4 h-4 ml-2" />
                         )}
                         {columnEl.column.getIsSorted() === 'desc' && (
-                          <ArrowDownNarrowWide className="ml-2 h-4 w-4" />
+                          <ArrowDownNarrowWide className="w-4 h-4 ml-2" />
                         )}
                       </Button>
                     );
@@ -58,7 +58,7 @@ function SortModal({ opener, table }: { opener: ReactNode; table: Table<any> }) 
 
         <DialogFooter>
           <DialogClose asChild>
-            <Button>Đóng</Button>
+            <Button>Close</Button>
           </DialogClose>
         </DialogFooter>
       </DialogContent>

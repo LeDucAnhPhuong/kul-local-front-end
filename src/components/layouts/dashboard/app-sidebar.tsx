@@ -37,6 +37,16 @@ const data = {
           title: 'Example UI',
           url: '/example-ui',
         },
+          {
+          title: 'Student Schedule',
+          url: '/student-management/schedule',
+      
+        },
+          {
+          title: 'Student Title Quizzes',
+          url: '/student-management/quizzes',
+        
+        },
       ],
     },
     // {

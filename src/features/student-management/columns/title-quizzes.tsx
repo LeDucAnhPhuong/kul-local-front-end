@@ -1,6 +1,6 @@
 import type { ColumnDef, Row } from '@tanstack/react-table';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
-import { Eye } from 'lucide-react';
+import { CalendarDays, Eye } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,33 +12,44 @@ import { Link } from 'react-router';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { filterDateRange } from '@/utils/table';
+import type { QuestionData } from '../quizzesInfo';
+
 
 export type Quiz = {
   _id: number;
   title: string;
-  date: Date;
+  date: string;
   isActive: boolean;
   created_by: number;
   updated_by: number;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string; 
+  updated_at: string; 
+  questions: QuestionData[]; 
 };
 
 export const columns: ColumnDef<Quiz>[] = [
   {
     accessorKey: 'title',
-    header: 'Title',
-    cell: ({ row }) => <div className="font-medium">{row.getValue('title')}</div>,
+    cell: ({ row }) => (
+      <div className="w-full text-center font-semibold text-base min-h-[60px] flex justify-center items-center">
+        {row.getValue('title')}
+      </div>
+    ),
   },
   {
     accessorKey: 'date',
-    header: 'Date',
     cell: ({ row }) => {
-      const date = row.getValue('date');
-      const formattedDate = date instanceof Date 
-        ? date.toLocaleDateString('vi-VN')
-        : new Date(date as string).toLocaleDateString('vi-VN');
-      return <div>{formattedDate}</div>;
+      const dateValue = row.getValue('date') as string;
+      // Vì date trong data là string, ta parse nó thành Date
+      const date = new Date(dateValue);
+      const formattedDate = date.toLocaleDateString('vi-VN');
+      
+      return (
+        <div className='flex items-center w-full gap-1 text-sm text-left text-blue-600'>
+          <CalendarDays className="inline-block size-3" /> 
+          {formattedDate}
+        </div>
+      );
     },
     meta: {
       filterVariant: 'numberRange',
@@ -47,7 +58,6 @@ export const columns: ColumnDef<Quiz>[] = [
   },
   {
     accessorKey: 'isActive',
-    header: 'Status',
     cell: ({ row }) => {
       const isActive: boolean = row.getValue('isActive');
       const status = isActive ? 'Completed' : 'Pending';
@@ -56,8 +66,9 @@ export const columns: ColumnDef<Quiz>[] = [
       return (
         <Badge
           className={cn(
-            statusColor === 'completed' 
-              ? 'bg-green-500 hover:bg-green-600 text-white' 
+            'w-full block text-center text-white py-1 rounded',
+            statusColor === 'completed'
+              ? 'bg-green-500 hover:bg-green-600 text-white'
               : 'bg-yellow-500 hover:bg-yellow-600 text-white',
           )}
         >
@@ -88,7 +99,7 @@ const Action = ({ row }: { row: Row<Quiz> }) => {
         <DropdownMenuItem>
           <Link className="flex w-full gap-2" to={`/quiz/${row.original?._id}`}>
             <Eye className="w-4 h-4 text-blue-500" />
-            <span>Xem chi tiết</span>
+            <span>View details</span>
           </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>

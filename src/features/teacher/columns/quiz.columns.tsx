@@ -1,6 +1,6 @@
 import type { ColumnDef } from '@tanstack/react-table';
 import { PlayCircle, Clock, CheckCircle, Trash } from 'lucide-react';
-import type { Question } from './question';
+import type { Question } from '../functionaly/question';
 export type Contest = {
   id: string;
   title: string;

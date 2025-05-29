@@ -1,4 +1,4 @@
-import { Question } from './columns/question';
+import { Question } from './functionaly/question';
 
 export const questions: Question[] = [
   new Question({

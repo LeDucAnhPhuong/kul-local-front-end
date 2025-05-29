@@ -27,7 +27,7 @@ const data = {
       items: [
         {
           title: 'Quiz',
-          url: '/view-quiz',
+          url: '/quiz',
         },
         {
           title: 'Schedule',

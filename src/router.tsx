@@ -20,7 +20,7 @@ function Router() {
         </Route>
         <Route element={<DashboardLayout />}>
           <Route path="/example-ui" element={<ExampleUI />} />
-          <Route path="/view-quiz" element={<Quiz />} />
+          <Route path="/quiz" element={<Quiz />} />
           <Route path="/AddQuestion/:quizId" element={<AddQuestion />} />
           <Route path="/schedule" element={<Schedule />} />
         </Route>

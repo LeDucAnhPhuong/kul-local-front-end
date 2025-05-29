@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Textarea } from './textarea';
+import { Textarea } from '../../../../components/ui/textarea';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { questions as defaultQuestions } from '../../data.question';
 import { useNavigate } from 'react-router-dom';
@@ -182,7 +182,7 @@ useEffect(() => {
             <div>
               <Button
                 className="bg-red-500 hover:bg-red-600 text-white w-full"
-                onClick={() => navigate('/view-quiz')}
+                onClick={() => navigate('/quiz')}
               >
                 Exit
               </Button>
@@ -266,7 +266,7 @@ useEffect(() => {
             <div>
               <Button
                 className="bg-red-500 hover:bg-red-600 text-white w-full"
-                onClick={() => navigate('/view-quiz')}
+                onClick={() => navigate('/quiz')}
               >
                 Exit
               </Button>
@@ -389,7 +389,7 @@ useEffect(() => {
 
           <Button
             className="bg-red-500 hover:bg-red-600 text-white w-full"
-            onClick={() => navigate('/view-quiz')}
+            onClick={() => navigate('/quiz')}
           >
             Exit
           </Button>

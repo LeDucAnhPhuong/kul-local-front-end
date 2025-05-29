@@ -44,7 +44,7 @@ function CreateQuizDialog({ open, setOpen, onCreate }: Props) {
     onCreate(newQuiz);        // Gửi dữ liệu ra component cha
     setOpen(false);           // Đóng dialog
     setTimeout(() => {        // Tránh navigate quá sớm khi dialog chưa unmount
-      navigate('/view-quiz');
+      navigate('/quiz');
     }, 100);
   };
 

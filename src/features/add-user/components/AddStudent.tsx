@@ -1,5 +1,5 @@
 import TitlePage from '@/components/ui/title-page';
-import MyForm from '@/components/ui/add-account-form';
+import MyForm from '@/features/add-user/components/add-account-form';
 import { StudentSampleData } from '@/features/account-management/data.student';
 
 const AddStudent = () => {

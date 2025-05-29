@@ -1,7 +1,5 @@
-// import { Badge } from '@/components/ui/badge';
-// import { cn } from '@/lib/utils';
 import type { ColumnDef, Row } from '@tanstack/react-table';
-import { CalendarDays, Hourglass } from 'lucide-react';
+import { CalendarDays } from 'lucide-react';
 
 export type DayKey = 't2' | 't3' | 't4' | 't5' | 't6' | 't7' | 'cn';
 
@@ -102,7 +100,11 @@ export const columns: ColumnDef<SlotSchedule>[] = [
           {/* Date */}
           <div className="flex items-center gap-1 text-xs font-medium leading-tight text-blue-600">
             <CalendarDays className="inline-block size-3" />
-            {new Date(cell.date).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+            {new Date(cell.date).toLocaleDateString('vi-VN', {
+              day: '2-digit',
+              month: '2-digit',
+              year: 'numeric',
+            })}
           </div>
         </div>
       );

@@ -23,7 +23,7 @@ export default function AddQuestion() {
   ]);
   const [questionList, setQuestionList] = useState<QuestionItem[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  // const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const mapQuestionToState = (q: typeof defaultQuestions[0]): QuestionItem => {
     const options = q.options.length === 4 ? q.options : [...q.options, ...Array(4 - q.options.length).fill('')];
@@ -63,7 +63,7 @@ export default function AddQuestion() {
     setSelectedIndex(index);
     setQuestionText(questionList[index].question);
     setAnswers(questionList[index].answers);
-    setSidebarOpen(false); // ẩn sidebar trên mobile khi chọn câu hỏi
+    // setSidebarOpen(false); // ẩn sidebar trên mobile khi chọn câu hỏi
   };
 
   const handleAnswerChange = (index: number, field: keyof Answer, value: string | boolean) => {

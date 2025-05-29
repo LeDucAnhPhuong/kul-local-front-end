@@ -90,7 +90,7 @@ export const columns: ColumnDef<SlotSchedule>[] = [
           <div className="text-xs font-medium leading-tight text-green-700">{cell.time}</div>
 
           {/* Date */}
-          <div className=" gap-1 text-xs font-medium leading-tight text-blue-600">
+          <div className="flex items-center gap-1 text-xs font-medium leading-tight text-blue-600">
             <CalendarDays className="inline-block size-3" />
             {new Date(cell.date).toLocaleDateString('vi-VN', {
               day: '2-digit',

@@ -1,5 +1,3 @@
-import type { strict } from "assert";
-
 export interface QuestionProps {
   _id?: string;
   quiz_id: string;

@@ -1,4 +1,5 @@
 import type { ColumnDef, Row } from '@tanstack/react-table';
+import { CalendarDays } from 'lucide-react';
 
 export type SlotSchedule = {
   day: string; // 'Mon', 'Tue', ...
@@ -89,7 +90,14 @@ export const columns: ColumnDef<SlotSchedule>[] = [
           <div className="text-xs font-medium leading-tight text-green-700">{cell.time}</div>
 
           {/* Date */}
-          <div className="text-xs font-medium leading-tight text-blue-600">{cell.date}</div>
+          <div className=" gap-1 text-xs font-medium leading-tight text-blue-600">
+            <CalendarDays className="inline-block size-3" />
+            {new Date(cell.date).toLocaleDateString('vi-VN', {
+              day: '2-digit',
+              month: '2-digit',
+              year: 'numeric',
+            })}
+          </div>
         </div>
       );
     },

@@ -31,7 +31,7 @@ const data = {
         },
         {
           title: 'Schedule',
-          url: '/teacher-management',
+          url: '/schedule',
         },
         {
           title: 'Example UI',

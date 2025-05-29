@@ -20,10 +20,10 @@ export default function DashboardLayout() {
   const { user } = useUser();
 
   const navigate = useNavigate();
-  // if (!user) {
-  //   toast.error('You must be logged in to access this page');
-  //   navigate('/sign-in');
-  // }
+  if (!user) {
+    toast.error('You must be logged in to access this page');
+    navigate('/sign-in');
+  }
 
   return (
     <SidebarProvider>

@@ -1,6 +1,7 @@
 // import { Badge } from '@/components/ui/badge';
 // import { cn } from '@/lib/utils';
 import type { ColumnDef, Row } from '@tanstack/react-table';
+import { CalendarDays, Hourglass } from 'lucide-react';
 
 export type DayKey = 't2' | 't3' | 't4' | 't5' | 't6' | 't7' | 'cn';
 
@@ -69,9 +70,7 @@ export const columns: ColumnDef<SlotSchedule>[] = [
             <p className="text-xs font-semibold leading-tight md:text-sm line-clamp-2">
               {cell.topic}
             </p>
-            <p className="text-xs leading-tight text-muted-foreground">
-              by {cell.instructor}
-            </p>
+            <p className="text-xs leading-tight text-muted-foreground">by {cell.instructor}</p>
           </div>
 
           {/* Room and Class Info */}
@@ -98,13 +97,12 @@ export const columns: ColumnDef<SlotSchedule>[] = [
           </Badge> */}
 
           {/* Time */}
-          <div className="text-xs font-medium leading-tight text-green-600">
-            {cell.time}
-          </div>
+          <div className="text-xs font-medium leading-tight text-green-600">{cell.time}</div>
 
           {/* Date */}
-          <div className="text-xs font-medium leading-tight text-blue-600">
-            {cell.date}
+          <div className="flex items-center gap-1 text-xs font-medium leading-tight text-blue-600">
+            <CalendarDays className="inline-block size-3" />
+            {new Date(cell.date).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })}
           </div>
         </div>
       );
@@ -115,4 +113,3 @@ export const columns: ColumnDef<SlotSchedule>[] = [
     },
   })),
 ];
-

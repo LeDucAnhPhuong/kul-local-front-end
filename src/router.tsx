@@ -22,7 +22,7 @@ function Router() {
           <Route path="/example-ui" element={<ExampleUI />} />
           <Route path="/view-quiz" element={<Quiz />} />
           <Route path="/AddQuestion/:quizId" element={<AddQuestion />} />
-          <Route path="/teacher-management" element={<Schedule />} />
+          <Route path="/schedule" element={<Schedule />} />
         </Route>
         <Route path="/sign-in" element={<SignInPage />} />
       </Routes>

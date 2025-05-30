@@ -21,19 +21,19 @@ export default function DashboardLayout() {
   
 
   const navigate = useNavigate();
-  if (!user) {
-    toast.error('You must be logged in to access this page');
-    navigate('/sign-in');
-  }
+  // if (!user) {
+  //   toast.error('You must be logged in to access this page');
+  //   navigate('/sign-in');
+  // }
 
   return (
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4 justify-between">
+        <header className="flex items-center justify-between h-16 gap-2 px-4 border-b shrink-0">
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
+            <Separator orientation="vertical" className="h-4 mr-2" />
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
@@ -50,7 +50,7 @@ export default function DashboardLayout() {
             <UserButton />
           </div>
         </header>
-        <div className="flex flex-1 bg-primary/5 flex-col gap-4 p-4">
+        <div className="flex flex-col flex-1 gap-4 p-4 bg-primary/5">
           <Outlet />
         </div>
       </SidebarInset>

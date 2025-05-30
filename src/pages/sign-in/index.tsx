@@ -9,7 +9,7 @@ function SignInPage() {
 
   useEffect(() => {
     if (session) {
-      router.replace('/');
+      router.replace('/dashboard');
     }
   }, [session]);
 

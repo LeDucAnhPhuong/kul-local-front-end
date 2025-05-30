@@ -13,6 +13,8 @@ import AddTedTeamPage from './pages/dashboard/account-management/ted-team/ted-te
 import AddCoachPage from './pages/dashboard/account-management/coach/coach.add';
 import AddAdminPage from './pages/dashboard/account-management/admin/admin.add';
 import DashBoardHome from './pages/dashboard/DashBoardHome';
+import QuizzesView from './pages/dashboard/student/Quizzes/QuizzesView';
+import ScheduleView from './features/student-management/components/schedule-view';
 
 function Router() {
   return (

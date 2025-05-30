@@ -36,12 +36,15 @@ import SortModal from '../ui/sort-table';
 import { Spinner } from '../ui/spinner';
 import { Card } from '../ui/card';
 import { cn } from '@/lib/utils';
+import { useMediaQuery } from '@/hooks/use-media-query';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   isLoading?: boolean;
   onRowClick?: ({ data }: { data: TData }) => void;
+  isUseToolbar?: boolean;
+  isUsePagination?: boolean;
 }
 
 export const LoadingTable = ({ length }: { length: number }) => (
@@ -49,7 +52,7 @@ export const LoadingTable = ({ length }: { length: number }) => (
     <TableCell className="h-24 text-center" colSpan={length}>
       <div className="flex items-center justify-center">
         <svg
-          className="animate-spin h-5 w-5 mr-3 text-primary"
+          className="w-5 h-5 mr-3 animate-spin text-primary"
           fill="none"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +71,7 @@ export const LoadingTable = ({ length }: { length: number }) => (
             fill="currentColor"
           />
         </svg>
-        đang tải...
+        Downloading...
       </div>
     </TableCell>
   </TableRow>
@@ -79,8 +82,10 @@ export default function DataTable<TData, TValue>({
   data,
   isLoading = false,
   onRowClick,
+  isUseToolbar = true,
+  isUsePagination = true,
 }: DataTableProps<TData, TValue>) {
-  'use no memo';
+  const isMobile = useMediaQuery('(max-width: 1024px)');
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({
@@ -113,58 +118,59 @@ export default function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="">
-      <div className="lg:block hidden space-y-4">
-        {!isLoading && <DataTableToolbar table={table} />}
-        <div className="rounded-md border">
-          <Table>
-            <TableHeader>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => {
-                    return (
+    <div>
+      {!isMobile && (
+        <div className="hidden space-y-4 lg:block">
+          {!isLoading && isUseToolbar && <DataTableToolbar table={table} />}
+          <div className="border rounded-md">
+            <Table>
+              <TableHeader>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <TableRow key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => (
                       <TableHead key={header.id}>
                         <DataTableColumnHeader
                           column={header.column}
                           title={header.column.columnDef.header as string}
                         />
                       </TableHead>
-                    );
-                  })}
-                </TableRow>
-              ))}
-            </TableHeader>
-            <TableBody>
-              {isLoading ? (
-                <LoadingTable length={columns.length} />
-              ) : table.getRowModel().rows?.length ? (
-                table.getRowModel().rows.map((row) => (
-                  <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      </TableCell>
                     ))}
                   </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell className="h-24 text-center" colSpan={columns.length}>
-                    {'No data results'}
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+                ))}
+              </TableHeader>
+              <TableBody>
+                {isLoading ? (
+                  <LoadingTable length={columns.length} />
+                ) : table.getRowModel().rows?.length ? (
+                  table.getRowModel().rows.map((row) => (
+                    <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                      {row.getVisibleCells().map((cell) => (
+                        <TableCell key={cell.id}>
+                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell className="h-24 text-center" colSpan={columns.length}>
+                      No data results
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
+          {!isLoading && isUsePagination && <DataTablePagination table={table} />}
         </div>
-        {!isLoading && <DataTablePagination table={table} />}
-      </div>
-      <div className="block lg:hidden">
-        <div>
-          <div className="mb-4 flex items-end justify-between gap-4">
+      )}
+
+      {isMobile && (
+        <div className="block lg:hidden">
+          <div className="flex items-end justify-between gap-4 mb-4">
             <Input
               className="flex-1 max-w-96"
-              placeholder="Tìm kiếm..."
+              placeholder="Enter search..."
               type="search"
               value={globalFilter}
               onChange={(e) => setGlobalFilter(e.target.value)}
@@ -173,7 +179,7 @@ export default function DataTable<TData, TValue>({
               <FilterModal
                 opener={
                   <Button variant={columnFilters?.length ? 'default' : 'secondary'}>
-                    <Filter className="h-4 w-4" />
+                    <Filter className="w-4 h-4" />
                   </Button>
                 }
                 table={table}
@@ -181,7 +187,7 @@ export default function DataTable<TData, TValue>({
               <SortModal
                 opener={
                   <Button variant={sorting?.length ? 'default' : 'secondary'}>
-                    <ArrowDownUp className="h-4 w-4" />
+                    <ArrowDownUp className="w-4 h-4" />
                   </Button>
                 }
                 table={table}
@@ -189,14 +195,13 @@ export default function DataTable<TData, TValue>({
             </div>
           </div>
           {isLoading ? (
-            <div className="flex w-full items-center justify-center py-10">
+            <div className="flex items-center justify-center w-full py-10">
               <Spinner className="size-24" color="primary" />
             </div>
           ) : table?.getRowModel()?.rows?.length ? (
-            <div className="grid mb-8 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {table?.getRowModel()?.rows?.map((row) => {
+            <div className="grid gap-6 mb-8 md:grid-cols-2 lg:grid-cols-3">
+              {table.getRowModel().rows.map((row) => {
                 const record = row.original;
-
                 return (
                   <Card
                     key={row.id}
@@ -204,45 +209,40 @@ export default function DataTable<TData, TValue>({
                     onClick={(event) => {
                       if (onRowClick) {
                         const isInteractiveElement = (event.target as HTMLElement).closest(
-                          'a, button',
+                          'a, button'
                         );
-
                         if (!isInteractiveElement) {
-                          onRowClick({
-                            data: record,
-                          });
+                          onRowClick({ data: record });
                         }
                       }
                     }}
                   >
-                    <div className="space-y-2 h-full flex flex-col justify-between">
-                      {row?.getVisibleCells()?.map((cell) => {
-                        return (
-                          <div key={cell.id} className="flex justify-between ">
-                            {typeof cell.column.columnDef.header === 'string' && (
-                              <div className="flex-1 text-base font-bold">
-                                {cell.column.columnDef.header} :
-                              </div>
-                            )}
-                            <div className="flex flex-1 justify-end text-end text-base">
-                              {flexRender(cell?.column?.columnDef?.cell, cell?.getContext())}
+                    <div className="flex flex-col justify-between h-full space-y-2">
+                      {row.getVisibleCells().map((cell) => (
+                        <div key={cell.id} className="flex justify-between">
+                          {typeof cell.column.columnDef.header === 'string' && (
+                            <div className="flex-1 text-base font-bold">
+                              {cell.column.columnDef.header}:
                             </div>
+                          )}
+                          <div className="flex justify-end flex-1 text-base text-end">
+                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
                           </div>
-                        );
-                      })}
+                        </div>
+                      ))}
                     </div>
                   </Card>
                 );
               })}
             </div>
           ) : (
-            <p className="text-center text-muted-foreground mt-4">Không tìm thấy dữ liệu</p>
+            <p className="mt-4 text-center text-muted-foreground">Data not found</p>
           )}
-          {!isLoading && table?.getRowModel()?.rows?.length !== 0 && (
+          {!isLoading && isUsePagination && table.getRowModel().rows?.length !== 0 && (
             <DataTablePagination table={table} />
           )}
         </div>
-      </div>
+      )}
     </div>
   );
 }

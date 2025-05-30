@@ -1,12 +1,9 @@
-import { Route, Routes } from 'react-router';
+import { Route, Routes } from "react-router"
 
 import DashboardLayout from './components/layouts/dashboard/layout';
 import LandingLayout from './components/layouts/landing/layout';
-import StudentManagement from './pages/dashboard/student-management';
-import TeacherManagement from './pages/dashboard/teacher-management';
 import HomePage from './pages/home';
 import SignInPage from './pages/sign-in';
-import ExampleUI from './features/example-ui/components';
 import AccountManagementPage from './pages/dashboard/account-management';
 import AddStudentPage from './pages/dashboard/account-management/student/student.add';
 import AddTedTeamPage from './pages/dashboard/account-management/ted-team/ted-team.add';
@@ -25,6 +22,9 @@ function Router() {
         </Route>
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<DashBoardHome />} />
+          <Route path="/schedule-student" element={<ScheduleView />} />
+          <Route path="/quizzes-student" element={<QuizzesView />} />
+          {/* Uncomment the following lines if you want to include these routes */}
           {/* <Route path="/example-ui" element={<ExampleUI />} />
           <Route path="/student-management" element={<StudentManagement />} />
           <Route path="/teacher-management" element={<TeacherManagement />} /> */}
@@ -39,7 +39,7 @@ function Router() {
         <Route path="/sign-in" element={<SignInPage />} />
       </Routes>
     </>
-  );
+  )
 }
 
-export default Router;
+export default Router

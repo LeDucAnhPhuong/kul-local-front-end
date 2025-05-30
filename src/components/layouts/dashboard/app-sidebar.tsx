@@ -14,7 +14,6 @@ import {
   SidebarRail,
 } from '@/components/ui/sidebar';
 
-import { SearchForm } from '@/components/layouts/dashboard/search-form';
 import { VersionSwitcher } from '@/components/layouts/dashboard/version-switcher';
 
 
@@ -41,7 +40,19 @@ const data = {
         {
           title: 'Account Management',
           url: '/account-management',
-        }
+        },
+        {
+          title: 'Dashboard Home',
+          url: '/dashboard',
+        },
+        {
+          title: 'Schedule Student',
+          url: '/schedule-student',
+        },
+        {
+          title: 'Quizzes Student',
+          url: '/quizzes-student',
+        },
       ],
     },
     // {

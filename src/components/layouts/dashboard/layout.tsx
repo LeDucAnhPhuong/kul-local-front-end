@@ -12,19 +12,19 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 
-import { UserButton, useUser } from '@clerk/clerk-react';
+import { UserButton, useSession, useUser } from '@clerk/clerk-react';
 
 import { AppSidebar } from './app-sidebar';
 
 export default function DashboardLayout() {
-  const { user } = useUser();
+  const { session } = useSession();
   
 
   const navigate = useNavigate();
-  // if (!user) {
-  //   toast.error('You must be logged in to access this page');
-  //   navigate('/sign-in');
-  // }
+  if (!session) {
+    toast.error('You must be logged in to access this page');
+    navigate('/sign-in');
+  }
 
   return (
     <SidebarProvider>

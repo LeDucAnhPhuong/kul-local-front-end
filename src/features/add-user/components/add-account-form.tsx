@@ -21,12 +21,13 @@ const formSchema = z.object({
 
 interface MyFormProps {
   onAdd: (data: z.infer<typeof formSchema>) => void;
+  isLoading?: boolean;
 }
 
-export default function MyForm({ onAdd }: MyFormProps) {
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-    });
+export default function MyForm({ onAdd, isLoading }: MyFormProps) {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+  });
 
   const navigate = useNavigate();
 

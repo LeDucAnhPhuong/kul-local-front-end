@@ -7,7 +7,8 @@
   "compilerOptions": {
     "baseUrl": ".",             // <- Giữ nguyên
     "paths": {
-      "@/*": ["src/*"]          // <- Quan trọng: src/*
+      "@/*": ["./src/*"],
+      "@img/*": ["./public/*"],
     }
   }
 }

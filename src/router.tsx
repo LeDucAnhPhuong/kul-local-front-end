@@ -25,11 +25,9 @@ function Router() {
         </Route>
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<DashBoardHome />} />
-          <Route path="/example-ui" element={<ExampleUI />} />
+          {/* <Route path="/example-ui" element={<ExampleUI />} />
           <Route path="/student-management" element={<StudentManagement />} />
-          <Route path="/student-management/schedule" element={<ScheduleView />} />
-          <Route path="/student-management/quizzes" element={<QuizzesView />} />
-          <Route path="/teacher-management" element={<TeacherManagement />} />
+          <Route path="/teacher-management" element={<TeacherManagement />} /> */}
           <Route path="/account-management">
             <Route path="" element={<AccountManagementPage />} />
             <Route path="student/add" element={<AddStudentPage />} />

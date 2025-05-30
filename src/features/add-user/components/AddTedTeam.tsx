@@ -1,20 +1,25 @@
 import TitlePage from '@/components/ui/title-page';
 import MyForm from '@/features/add-user/components/add-account-form';
-import { TedTeamSampleData } from '@/features/account-management/data.tedTeam';
+import { toast } from 'sonner';
+import { useCreateTedTeamMutation } from '@/features/account-management/api.user';
 
 const AddTedTeam = () => {
-  function onAddTedTeam(data: { email: string }) {
-    TedTeamSampleData.push({
-      id: TedTeamSampleData.length + 1,
-      email: data.email,
-      name: 'new ted team member',
-      isActive: true,
-      createdAt: new Date().toISOString(),
-      createdBy: 'admin',
-      updatedAt: new Date().toISOString(),
-      updatedBy: 'admin',
-      role: 'tedTeam',
-    });
+  const [addTedTeam] = useCreateTedTeamMutation();
+
+  async function onAddTedTeam(data: { email: string }) {
+    const idToast = toast.loading('Adding student...');
+    try {
+      await addTedTeam({
+        email: data.email,
+      }).unwrap;
+      toast.success('student added successfully', {
+        id: idToast,
+      });
+    } catch (error) {
+      toast.error('Failed to add student', {
+        id: idToast,
+      });
+    }
   }
 
   return (

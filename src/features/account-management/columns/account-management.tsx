@@ -25,6 +25,22 @@ export type User = {
 };
 export const columns: ColumnDef<User>[] = [
   {
+    accessorKey: 'profile_image',
+    header: 'Avatar',
+    cell: ({ row }) => (
+      <div className="text-muted-foreground">
+        <img
+          src={row.getValue('profile_image') || '/default-avatar.png'}
+          alt="Avatar"
+          className="w-10 h-10 rounded-full"
+        />
+      </div>
+    ),
+    meta: {
+      filterVariant: 'text',
+    },
+  },
+  {
     accessorKey: 'name',
     header: 'Name',
     cell: ({ row }) => <div className="font-medium">{row.getValue('name')}</div>,
@@ -52,10 +68,10 @@ export const columns: ColumnDef<User>[] = [
     },
   },
   {
-    accessorKey: 'createdAt',
-    header: 'Create At',
+    accessorKey: 'created_at',
+    header: 'Create Date',
     cell: ({ row }) => {
-      const createdAt = row.getValue('createdAt');
+      const createdAt = row.getValue('created_at');
       const formattedDate =
         typeof createdAt === 'string' ? new Date(createdAt).toLocaleDateString() : createdAt;
       return <div>{`${formattedDate}`}</div>;

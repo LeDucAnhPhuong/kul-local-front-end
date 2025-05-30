@@ -1,0 +1,32 @@
+import DataTable from '@/components/data-table/data-table';
+import TitlePage from '@/components/ui/title-page';
+import { columns } from '../columns/account-management';
+import { useGetCoachesQuery } from '../api.user';
+import type { TedTeamData } from '../data.tedTeam';
+
+const CoachManagement = () => {
+  const { coaches } = useGetCoachesQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      coaches:
+        data?.data?.map((item: TedTeamData) => ({
+          ...item,
+          name:
+            item.first_name || item.last_name
+              ? `${item.last_name ?? ''} ${item.first_name ?? ''}`
+              : 'N/A',
+        })) || [],
+    }),
+  });
+  return (
+    <div className="bg-white dark:bg-background p-4 rounded-xl border-[1px] border-stone-50 dark:border-stone-800">
+      <TitlePage
+        title="Manage Students"
+        href="/account-management/student/add"
+        contentHref="Add Student"
+      />
+      <DataTable data={coaches} columns={columns} />
+    </div>
+  );
+};
+
+export default CoachManagement;

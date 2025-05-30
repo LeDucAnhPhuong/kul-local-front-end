@@ -1,20 +1,25 @@
 import TitlePage from '@/components/ui/title-page';
+import { useCreateStudentMutation } from '@/features/account-management/api.user';
 import MyForm from '@/features/add-user/components/add-account-form';
-import { StudentSampleData } from '@/features/account-management/data.student';
+import { toast } from 'sonner';
 
 const AddStudent = () => {
-  function onAddStudent(data: { email: string }) {
-    StudentSampleData.push({
-      id: StudentSampleData.length + 1,
-      email: data.email,
-      name: 'new student',
-      isActive: true,
-      createdAt: new Date().toISOString(),
-      createdBy: 'admin',
-      updatedAt: new Date().toISOString(),
-      updatedBy: 'admin',
-      role: 'student',
-    });
+  const [addStudent] = useCreateStudentMutation();
+
+  async function onAddStudent(data: { email: string }) {
+    const idToast = toast.loading('Adding student...');
+    try {
+      await addStudent({
+        email: data.email,
+      }).unwrap;
+      toast.success('student added successfully', {
+        id: idToast,
+      });
+    } catch (error) {
+      toast.error('Failed to add student', {
+        id: idToast,
+      });
+    }
   }
 
   return (

@@ -3,7 +3,10 @@ import { Route, Routes } from 'react-router';
 import DashboardLayout from './components/layouts/dashboard/layout';
 import LandingLayout from './components/layouts/landing/layout';
 import StudentManagement from './pages/dashboard/student-management';
-import TeacherManagement from './pages/dashboard/teacher-management';
+// import TeacherManagement from './pages/dashboard/teacher';
+import BookingPage from './pages/booking';
+import { Schedule } from './pages/dashboard/teacher/schedule';
+import { Quiz } from './pages/dashboard/teacher/quiz';
 import HomePage from './pages/home';
 import SignInPage from './pages/sign-in';
 import ExampleUI from './features/example-ui/components';
@@ -14,6 +17,7 @@ import AddCoachPage from './pages/dashboard/account-management/coach/coach.add';
 import AddAdminPage from './pages/dashboard/account-management/admin/admin.add';
 import DashBoardHome from './pages/dashboard/DashBoardHome';
 
+import AddQuestion from './features/teacher/components/quiz/addQuestion';
 function Router() {
   return (
     <>
@@ -24,8 +28,18 @@ function Router() {
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<DashBoardHome />} />
           <Route path="/example-ui" element={<ExampleUI />} />
+          <Route path="/quiz" element={<Quiz />} />
+          <Route path="/AddQuestion/:quizId" element={<AddQuestion />} />
+          <Route path="/schedule" element={<Schedule />} />
           <Route path="/student-management" element={<StudentManagement />} />
-          <Route path="/teacher-management" element={<TeacherManagement />} />
+          {/* <Route path="/teacher-management" element={<TeacherManagement />} /> */}
+          <Route path="/account-management">
+            <Route path="" element={<AccountManagementPage />} />
+            <Route path="student/add" element={<AddStudentPage />} />
+            <Route path="ted-team/add" element={<AddTedTeamPage />} />
+            <Route path="coach/add" element={<AddCoachPage />} />
+            <Route path="admin/add" element={<AddAdminPage />} />
+          </Route>
         </Route>
         <Route path="/sign-in" element={<SignInPage />} />
       </Routes>

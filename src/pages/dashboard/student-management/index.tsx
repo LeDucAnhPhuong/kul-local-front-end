@@ -1,7 +1,8 @@
-import StudentView from "@/features/student-management/components/student-view";
+import TeacherView from '@/features/teacher-management/components/teacher-view';
+
 
 function StudentManagement() {
-  return <StudentView />;
+    return <TeacherView />;
 }
 
 export default StudentManagement;

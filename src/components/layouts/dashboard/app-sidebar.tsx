@@ -14,8 +14,8 @@ import {
   SidebarRail,
 } from '@/components/ui/sidebar';
 
-import { SearchForm } from '@/components/layouts/dashboard/search-form';
 import { VersionSwitcher } from '@/components/layouts/dashboard/version-switcher';
+
 
 // This is sample data.
 const data = {
@@ -25,25 +25,33 @@ const data = {
       title: 'Getting Started',
       url: '#',
       items: [
+        // {
+        //   title: 'Student Management',
+        //   url: '/student-management',
+        // },
+        // {
+        //   title: 'Teacher Management',
+        //   url: '/teacher-management',
+        // },
+        // {
+        //   title: 'Example UI',
+        //   url: '/example-ui',
+        // },
         {
-          title: 'Student Management',
-          url: '/student-management',
+          title: 'Account Management',
+          url: '/account-management',
         },
         {
-          title: 'Teacher Management',
-          url: '/teacher-management',
+          title: 'Dashboard Home',
+          url: '/dashboard',
         },
         {
-          title: 'Example UI',
-          url: '/example-ui',
+          title: 'Schedule Student',
+          url: '/schedule-student',
         },
         {
-          title: "Register Schedule",
-          url: "/tedteam/register",
-        },
-        {
-          title: "Personal Schedule",
-          url: "/tedteam/personal",
+          title: 'Quizzes Student',
+          url: '/quizzes-student',
         },
       ],
     },
@@ -168,7 +176,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar {...props}>
       <SidebarHeader>
         <VersionSwitcher versions={data.versions} defaultVersion={data.versions[0]} />
-        <SearchForm />
+        {/* <SearchForm /> */}
       </SidebarHeader>
       <SidebarContent>
         {/* We create a SidebarGroup for each parent. */}

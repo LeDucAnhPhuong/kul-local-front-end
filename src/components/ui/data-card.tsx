@@ -22,12 +22,17 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { DataTablePagination } from '@/components/data-table/data-table-pagination';
 import { cn } from '@/lib/utils';
+import { useMediaQuery } from '../../hooks/use-media-query'; // tùy theo vị trí file
+
+
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   isLoading?: boolean;
   onRowClick?: ({ data }: { data: TData }) => void;
+  isUseToolbar?: boolean;
+  isUsePagination?: boolean;
 }
 
 export default function CardList<TData, TValue>({
@@ -35,8 +40,9 @@ export default function CardList<TData, TValue>({
   data,
   isLoading,
   onRowClick,
+  isUseToolbar = true,
+  isUsePagination = true,
 }: DataTableProps<TData, TValue>) {
-  'use no memo';
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = React.useState('');
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
@@ -45,6 +51,8 @@ export default function CardList<TData, TValue>({
     location: false,
     otherInformation: false,
   });
+
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const table = useReactTable({
     data,
@@ -68,40 +76,48 @@ export default function CardList<TData, TValue>({
 
   return (
     <div>
-      <div className="mb-4 flex items-end justify-between gap-4">
-        <Input
-          className="flex-1 max-w-96"
-          placeholder="Tìm kiếm..."
-          type="search"
-          value={globalFilter}
-          onChange={(e) => setGlobalFilter(e.target.value)}
-        />
-        <div className="flex gap-2">
-          <FilterModal
-            opener={
-              <Button variant={columnFilters?.length ? 'default' : 'secondary'}>
-                <Filter className="h-4 w-4" />
-              </Button>
-            }
-            table={table}
+      {isUseToolbar && (
+        <div className="flex flex-col items-end justify-between gap-4 mb-4 md:flex-row">
+          <Input
+            className="flex-1 max-w-96"
+            placeholder="Tìm kiếm..."
+            type="search"
+            value={globalFilter}
+            onChange={(e) => setGlobalFilter(e.target.value)}
           />
-          <SortModal
-            opener={
-              <Button variant={sorting?.length ? 'default' : 'secondary'}>
-                <ArrowDownUp className="h-4 w-4" />
-              </Button>
-            }
-            table={table}
-          />
+          <div className="flex gap-2">
+            <FilterModal
+              opener={
+                <Button variant={columnFilters?.length ? 'default' : 'secondary'}>
+                  <Filter className="w-4 h-4" />
+                </Button>
+              }
+              table={table}
+            />
+            <SortModal
+              opener={
+                <Button variant={sorting?.length ? 'default' : 'secondary'}>
+                  <ArrowDownUp className="w-4 h-4" />
+                </Button>
+              }
+              table={table}
+            />
+          </div>
         </div>
-      </div>
+      )}
+
       {isLoading ? (
-        <div className="flex w-full items-center justify-center py-10">
+        <div className="flex items-center justify-center w-full py-10">
           <Spinner className="size-24" color="primary" />
         </div>
-      ) : table?.getRowModel()?.rows?.length ? (
-        <div className="grid mb-8 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {table?.getRowModel()?.rows?.map((row) => {
+      ) : table.getRowModel().rows.length ? (
+        <div
+          className={cn(
+            'mb-8 gap-6',
+            isMobile ? 'space-y-4' : 'grid md:grid-cols-2 lg:grid-cols-3'
+          )}
+        >
+          {table.getRowModel().rows.map((row) => {
             const record = row.original;
 
             return (
@@ -110,40 +126,36 @@ export default function CardList<TData, TValue>({
                 className={cn('p-4', onRowClick && 'cursor-pointer')}
                 onClick={(event) => {
                   if (onRowClick) {
-                    const isInteractiveElement = (event.target as HTMLElement).closest('a, button');
-
-                    if (!isInteractiveElement) {
-                      onRowClick({
-                        data: record,
-                      });
+                    const isInteractive = (event.target as HTMLElement).closest('a, button');
+                    if (!isInteractive) {
+                      onRowClick({ data: record });
                     }
                   }
                 }}
               >
-                <div className="space-y-2 h-full flex flex-col justify-between">
-                  {row?.getVisibleCells()?.map((cell) => {
-                    return (
-                      <div key={cell.id} className="flex justify-between ">
-                        {typeof cell.column.columnDef.header === 'string' && (
-                          <div className="flex-1 text-base font-bold">
-                            {cell.column.columnDef.header} :
-                          </div>
-                        )}
-                        <div className="flex flex-1 justify-end text-end text-base">
-                          {flexRender(cell?.column?.columnDef?.cell, cell?.getContext())}
+                <div className="flex flex-col justify-between h-full space-y-2">
+                  {row.getVisibleCells().map((cell) => (
+                    <div key={cell.id} className="flex justify-between">
+                      {typeof cell.column.columnDef.header === 'string' && (
+                        <div className="flex-1 text-base font-bold">
+                          {cell.column.columnDef.header}:
                         </div>
+                      )}
+                      <div className="flex justify-end flex-1 text-base text-end">
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
                       </div>
-                    );
-                  })}
+                    </div>
+                  ))}
                 </div>
               </Card>
             );
           })}
         </div>
       ) : (
-        <p className="text-center text-muted-foreground mt-4">Không tìm thấy dữ liệu</p>
+        <p className="mt-4 text-center text-muted-foreground">Không tìm thấy dữ liệu</p>
       )}
-      {!isLoading && table?.getRowModel()?.rows?.length !== 0 && (
+
+      {!isLoading && table.getRowModel().rows.length !== 0 && isUsePagination && (
         <DataTablePagination table={table} />
       )}
     </div>

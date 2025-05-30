@@ -4,7 +4,7 @@ import DashboardLayout from './components/layouts/dashboard/layout';
 import LandingLayout from './components/layouts/landing/layout';
 import StudentManagement from './pages/dashboard/student-management';
 // import TeacherManagement from './pages/dashboard/teacher';
-import BookingPage from './pages/booking';
+// import BookingPage from './pages/booking';
 import { Schedule } from './pages/dashboard/teacher/schedule';
 import { Quiz } from './pages/dashboard/teacher/quiz';
 import HomePage from './pages/home';

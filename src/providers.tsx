@@ -16,7 +16,7 @@ function Providers({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Provider store={store}>
-        <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+        <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/sign-in" signUpFallbackRedirectUrl={'/sign-in'}>
           {children}
         </ClerkProvider>
         <Toaster />

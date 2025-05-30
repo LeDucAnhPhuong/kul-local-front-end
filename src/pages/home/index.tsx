@@ -1,15 +1,14 @@
-"use client";
+'use client';
 
-import CtaSection from "@/features/landing-page/components/cta";
-import FeaturesSection from "@/features/landing-page/components/features";
-import HeroSection from "@/features/landing-page/components/hero";
+import useRouter from '@/hooks/use-router';
+import { useLayoutEffect } from 'react';
 
 export default function LandingPage() {
-  return (
-    <>
-      <HeroSection />
-      <FeaturesSection />
-      <CtaSection />
-    </>
-  );
+  const router = useRouter();
+  useLayoutEffect(() => {
+    router.replace('/dashboard');
+    window.location.reload();
+  }, []);
+
+  return <div>...loading</div>;
 }

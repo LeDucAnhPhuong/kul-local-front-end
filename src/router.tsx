@@ -3,7 +3,10 @@ import { Route, Routes } from 'react-router';
 import DashboardLayout from './components/layouts/dashboard/layout';
 import LandingLayout from './components/layouts/landing/layout';
 import StudentManagement from './pages/dashboard/student-management';
-import TeacherManagement from './pages/dashboard/teacher-management';
+// import TeacherManagement from './pages/dashboard/teacher';
+// import BookingPage from './pages/booking';
+import { Schedule } from './pages/dashboard/teacher/schedule';
+import { Quiz } from './pages/dashboard/teacher/quiz';
 import HomePage from './pages/home';
 import SignInPage from './pages/sign-in';
 import ExampleUI from './features/example-ui/components';
@@ -16,6 +19,7 @@ import DashBoardHome from './pages/dashboard/DashBoardHome';
 import QuizzesView from './pages/dashboard/student/Quizzes/QuizzesView';
 import ScheduleView from './features/student-management/components/schedule-view';
 
+import AddQuestion from './features/teacher/components/quiz/addQuestion';
 function Router() {
   return (
     <>

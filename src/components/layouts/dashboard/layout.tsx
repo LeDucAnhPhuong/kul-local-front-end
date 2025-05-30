@@ -18,6 +18,7 @@ import { AppSidebar } from './app-sidebar';
 
 export default function DashboardLayout() {
   const { user } = useUser();
+  
 
   const navigate = useNavigate();
   // if (!user) {

@@ -1,19 +1,24 @@
 import TitlePage from '@/components/ui/title-page';
 import MyForm from '@/features/add-user/components/add-account-form';
-import { AdminSampleData } from '@/features/account-management/data.admin';
+import { useCreateAdminMutation } from '@/features/account-management/api.user';
+import { toast } from 'sonner';
 const AddAdmin = () => {
-  function onAddAdmin(data: { email: string }) {
-    AdminSampleData.push({
-      id: AdminSampleData.length + 1,
-      email: data.email,
-      name: 'new admin',
-      isActive: true,
-      createdAt: new Date().toISOString(),
-      createdBy: 'admin',
-      updatedAt: new Date().toISOString(),
-      updatedBy: 'admin',
-      role: 'admin',
-    });
+  const [addAdmin] = useCreateAdminMutation();
+
+  async function onAddAdmin(data: { email: string }) {
+    const idToast = toast.loading('Adding admin...');
+    try {
+      await addAdmin({
+        email: data.email,
+      }).unwrap;
+      toast.success('Admin added successfully', {
+        id: idToast,
+      });
+    } catch (error) {
+      toast.error('Failed to add admin', {
+        id: idToast,
+      });
+    }
   }
   return (
     <div className="bg-white dark:bg-background p-4 rounded-xl border-[1px] border-stone-50 dark:border-stone-800">

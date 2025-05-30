@@ -26,18 +26,18 @@ const data = {
       title: 'Getting Started',
       url: '#',
       items: [
-        {
-          title: 'Student Management',
-          url: '/student-management',
-        },
-        {
-          title: 'Teacher Management',
-          url: '/teacher-management',
-        },
-        {
-          title: 'Example UI',
-          url: '/example-ui',
-        },
+        // {
+        //   title: 'Student Management',
+        //   url: '/student-management',
+        // },
+        // {
+        //   title: 'Teacher Management',
+        //   url: '/teacher-management',
+        // },
+        // {
+        //   title: 'Example UI',
+        //   url: '/example-ui',
+        // },
         {
           title: 'Account Management',
           url: '/account-management',
@@ -165,7 +165,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar {...props}>
       <SidebarHeader>
         <VersionSwitcher versions={data.versions} defaultVersion={data.versions[0]} />
-        <SearchForm />
+        {/* <SearchForm /> */}
       </SidebarHeader>
       <SidebarContent>
         {/* We create a SidebarGroup for each parent. */}

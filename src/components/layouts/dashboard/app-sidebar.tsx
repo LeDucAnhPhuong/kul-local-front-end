@@ -17,6 +17,7 @@ import {
 import { SearchForm } from '@/components/layouts/dashboard/search-form';
 import { VersionSwitcher } from '@/components/layouts/dashboard/version-switcher';
 
+
 // This is sample data.
 const data = {
   versions: ['1.0.1', '1.1.0-alpha', '2.0.0-beta1'],
@@ -37,6 +38,10 @@ const data = {
           title: 'Example UI',
           url: '/example-ui',
         },
+        {
+          title: 'Account Management',
+          url: '/account-management',
+        }
       ],
     },
     // {

@@ -2,27 +2,30 @@ import { Route, Routes } from 'react-router';
 
 import DashboardLayout from './components/layouts/dashboard/layout';
 import LandingLayout from './components/layouts/landing/layout';
-import BookingPage from './pages/booking';
-import { Schedule } from './pages/dashboard/teacher/schedule';
-import { Quiz } from './pages/dashboard/teacher/quiz';
+import StudentManagement from './pages/dashboard/student-management';
+import TeacherManagement from './pages/dashboard/teacher-management';
 import HomePage from './pages/home';
 import SignInPage from './pages/sign-in';
 import ExampleUI from './features/example-ui/components';
-import AddQuestion from './features/teacher/components/quiz/addQuestion';
+import AccountManagementPage from './pages/dashboard/account-management';
+import AddStudentPage from './pages/dashboard/account-management/student/student.add';
+import AddTedTeamPage from './pages/dashboard/account-management/ted-team/ted-team.add';
+import AddCoachPage from './pages/dashboard/account-management/coach/coach.add';
+import AddAdminPage from './pages/dashboard/account-management/admin/admin.add';
+import DashBoardHome from './pages/dashboard/DashBoardHome';
+
 function Router() {
   return (
     <>
       <Routes>
-        <Route element={<LandingLayout />}>
+         <Route element={<LandingLayout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/booking" element={<BookingPage />} />
         </Route>
         <Route element={<DashboardLayout />}>
+          <Route path="/dashboard" element={<DashBoardHome />} />
           <Route path="/example-ui" element={<ExampleUI />} />
-          <Route path="/quiz" element={<Quiz />} />
-          <Route path="/AddQuestion/:quizId" element={<AddQuestion />} />
-          <Route path="/schedule" element={<Schedule />} />
+          <Route path="/student-management" element={<StudentManagement />} />
+          <Route path="/teacher-management" element={<TeacherManagement />} />
         </Route>
         <Route path="/sign-in" element={<SignInPage />} />
       </Routes>

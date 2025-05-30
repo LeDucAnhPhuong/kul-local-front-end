@@ -2,7 +2,6 @@ import { Route, Routes } from 'react-router';
 
 import DashboardLayout from './components/layouts/dashboard/layout';
 import LandingLayout from './components/layouts/landing/layout';
-import BookingPage from './pages/booking';
 import StudentManagement from './pages/dashboard/student-management';
 import TeacherManagement from './pages/dashboard/teacher-management';
 import HomePage from './pages/home';
@@ -13,17 +12,17 @@ import AddStudentPage from './pages/dashboard/account-management/student/student
 import AddTedTeamPage from './pages/dashboard/account-management/ted-team/ted-team.add';
 import AddCoachPage from './pages/dashboard/account-management/coach/coach.add';
 import AddAdminPage from './pages/dashboard/account-management/admin/admin.add';
+import DashBoardHome from './pages/dashboard/DashBoardHome';
 
 function Router() {
   return (
     <>
       <Routes>
-        <Route element={<LandingLayout />}>
+         <Route element={<LandingLayout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/booking" element={<BookingPage />} />
         </Route>
         <Route element={<DashboardLayout />}>
+          <Route path="/dashboard" element={<DashBoardHome />} />
           <Route path="/example-ui" element={<ExampleUI />} />
           <Route path="/student-management" element={<StudentManagement />} />
           <Route path="/teacher-management" element={<TeacherManagement />} />

@@ -14,7 +14,6 @@ import {
   SidebarRail,
 } from '@/components/ui/sidebar';
 
-import { SearchForm } from '@/components/layouts/dashboard/search-form';
 import { VersionSwitcher } from '@/components/layouts/dashboard/version-switcher';
 
 // This is sample data.
@@ -54,6 +53,19 @@ const data = {
           url: '/assignment',
         },
         
+        
+        {
+          title: 'Dashboard Home',
+          url: '/dashboard',
+        },
+        {
+          title: 'Schedule Student',
+          url: '/schedule-student',
+        },
+        {
+          title: 'Quizzes Student',
+          url: '/quizzes-student',
+        },
       ],
     },
     // {

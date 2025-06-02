@@ -2,14 +2,14 @@ import { Route, Routes } from 'react-router';
 
 import DashboardLayout from './components/layouts/dashboard/layout';
 import LandingLayout from './components/layouts/landing/layout';
-import StudentManagement from './pages/dashboard/student-management';
+import ScheduleView from './pages/dashboard/student/Schedule/ScheduleView';
+import QuizzesView from './pages/dashboard/student/Quizzes/QuizzesView';
 // import TeacherManagement from './pages/dashboard/teacher';
 // import BookingPage from './pages/booking';
 import { Schedule } from './pages/dashboard/teacher/schedule';
 import { Quiz } from './pages/dashboard/teacher/quiz';
 import HomePage from './pages/home';
 import SignInPage from './pages/sign-in';
-import ExampleUI from './features/example-ui/components';
 import AccountManagementPage from './pages/dashboard/account-management';
 import AddStudentPage from './pages/dashboard/account-management/student/student.add';
 import AddTedTeamPage from './pages/dashboard/account-management/ted-team/ted-team.add';
@@ -17,8 +17,7 @@ import AddCoachPage from './pages/dashboard/account-management/coach/coach.add';
 import AddAdminPage from './pages/dashboard/account-management/admin/admin.add';
 import DashBoardHome from './pages/dashboard/DashBoardHome';
 import Assignment from './pages/dashboard/teacher/assignment';
-
-
+import SubmissionDetailPageWrapper from './pages/dashboard/teacher/submission-detail';
 import AddQuestion from './features/teacher/components/quiz/addQuestion';
 function Router() {
   return (
@@ -29,6 +28,9 @@ function Router() {
         </Route>
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<DashBoardHome />} />
+          <Route path="/schedule-student" element={<ScheduleView />} />
+          <Route path="/quizzes-student" element={<QuizzesView />} />
+          {/* Uncomment the following lines if you want to include these routes */}
           {/* <Route path="/example-ui" element={<ExampleUI />} />
           <Route path="/student-management" element={<StudentManagement />} />
           <Route path="/teacher-management" element={<TeacherManagement />} /> */}
@@ -36,6 +38,7 @@ function Router() {
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/AddQuestion/:quizId" element={<AddQuestion />} />
           <Route path="/assignment" element={<Assignment />} />
+          <Route path="/submissions/:id" element={<SubmissionDetailPageWrapper />} />
           <Route path="/account-management">
             <Route path="" element={<AccountManagementPage />} />
             <Route path="student/add" element={<AddStudentPage />} />

@@ -15,6 +15,8 @@ import ScheduleView from './features/student-management/components/schedule-view
 import ClassManagementPage from './pages/dashboard/admin/class-management';
 import AddClassPage from './pages/dashboard/admin/class-management/class.add';
 import ClassDetailPage from "./pages/dashboard/admin/class-management/class.detail";
+import SlotManagementPage from "./pages/dashboard/admin/slot-management";
+import AddSlotPage from "./pages/dashboard/admin/slot-management/slot.add";
 
 function Router() {
   return (
@@ -35,6 +37,10 @@ function Router() {
             <Route path="" element={<ClassManagementPage />} />
             <Route path="add" element={<AddClassPage />} />
             <Route path="class/:id" element={<ClassDetailPage />} />
+          </Route>
+          <Route path="/slot-management">
+            <Route path="" element={<SlotManagementPage />} />
+            <Route path="add" element={<AddSlotPage />} />
           </Route>
           <Route path="/account-management">
             <Route path="" element={<AccountManagementPage />} />

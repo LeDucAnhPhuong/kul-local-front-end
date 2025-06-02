@@ -57,6 +57,10 @@ const data = {
           title: 'Class Management',
           url: '/class-management',
         },
+        {
+          title: 'Slot Management',
+          url: '/slot-management',
+        },
       ],
     },
     // {

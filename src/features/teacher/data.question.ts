@@ -13,6 +13,7 @@ export const questions: Question[] = [
     updated_by: 'admin',
     created_at: '2025-05-10T09:00:00Z',
     updated_at: '2025-05-11T08:30:00Z',
+    time_limit: 30, // Thời gian làm bài cho câu hỏi này là 30 giây
   }),
   new Question({
     _id: 'q002',
@@ -26,6 +27,7 @@ export const questions: Question[] = [
     updated_by: 'admin',
     created_at:'2025-05-10T09:30:00Z',
     updated_at: '2025-05-10T10:00:00Z',
+    time_limit: 30, // Thời gian làm bài cho câu hỏi này là 30 giây
   }),
   // Thêm các câu hỏi khác tương tự
 ];

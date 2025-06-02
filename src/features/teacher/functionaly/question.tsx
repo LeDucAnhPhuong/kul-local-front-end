@@ -10,9 +10,10 @@ export interface QuestionProps {
   updated_by?: string;
   created_at?: string;
   updated_at?: string;
+  time_limit?: number;
 }
 
-export class Question   {
+export class Question {
   _id?: string;
   quiz_id: string;
   content: string;
@@ -24,6 +25,7 @@ export class Question   {
   updated_by?: string;
   created_at?: Date;
   updated_at?: Date;
+  time_limit?: number;
 
   constructor(data: QuestionProps) {
     this._id = data._id;
@@ -37,6 +39,7 @@ export class Question   {
     this.updated_by = data.updated_by;
     this.created_at = data.created_at ? new Date(data.created_at) : undefined;
     this.updated_at = data.updated_at ? new Date(data.updated_at) : undefined;
+    this.time_limit = data.time_limit;
   }
 
   // Cập nhật nội dung câu hỏi
@@ -74,5 +77,13 @@ export class Question   {
   toggleActive() {
     this.isActive = !this.isActive;
     this.updated_at = new Date();
+  }
+  setTimeLimit(seconds: number) {
+    if (seconds >= 0) {
+      this.time_limit = seconds;
+      this.updated_at = new Date();
+    } else {
+      throw new Error('Time limit must be a non-negative number');
+    }
   }
 }

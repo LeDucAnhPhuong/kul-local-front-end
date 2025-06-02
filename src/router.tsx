@@ -16,15 +16,15 @@ import AddTedTeamPage from './pages/dashboard/account-management/ted-team/ted-te
 import AddCoachPage from './pages/dashboard/account-management/coach/coach.add';
 import AddAdminPage from './pages/dashboard/account-management/admin/admin.add';
 import DashBoardHome from './pages/dashboard/DashBoardHome';
-import QuizzesView from './pages/dashboard/student/Quizzes/QuizzesView';
-import ScheduleView from './features/student-management/components/schedule-view';
+import Assignment from './pages/dashboard/teacher/assignment';
+
 
 import AddQuestion from './features/teacher/components/quiz/addQuestion';
 function Router() {
   return (
     <>
       <Routes>
-         <Route element={<LandingLayout />}>
+        <Route element={<LandingLayout />}>
           <Route path="/" element={<HomePage />} />
         </Route>
         <Route element={<DashboardLayout />}>
@@ -32,6 +32,10 @@ function Router() {
           {/* <Route path="/example-ui" element={<ExampleUI />} />
           <Route path="/student-management" element={<StudentManagement />} />
           <Route path="/teacher-management" element={<TeacherManagement />} /> */}
+          <Route path="/view-quiz" element={<Quiz />} />
+          <Route path="/schedule" element={<Schedule />} />
+          <Route path="/AddQuestion/:quizId" element={<AddQuestion />} />
+          <Route path="/assignment" element={<Assignment />} />
           <Route path="/account-management">
             <Route path="" element={<AccountManagementPage />} />
             <Route path="student/add" element={<AddStudentPage />} />

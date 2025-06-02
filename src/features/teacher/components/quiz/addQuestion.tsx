@@ -13,6 +13,7 @@ export default function AddQuestion() {
   const { quizId } = useParams();
   const QUIZ_STORAGE_KEY = `quiz_questions_${quizId}`;
   const navigate = useNavigate();
+  // const [endAt, setEndAt] = useState('');
 
   const [questionText, setQuestionText] = useState('');
   const [answers, setAnswers] = useState<Answer[]>([
@@ -23,7 +24,6 @@ export default function AddQuestion() {
   ]);
   const [questionList, setQuestionList] = useState<QuestionItem[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  // const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const mapQuestionToState = (q: (typeof defaultQuestions)[0]): QuestionItem => {
     const options =
@@ -81,9 +81,6 @@ export default function AddQuestion() {
     setQuestionList(updatedList);
   };
 
-  useEffect(() => {
-    localStorage.setItem(QUIZ_STORAGE_KEY, JSON.stringify(questionList));
-  }, [questionList]);
 
   const handleChangeQuestionText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setQuestionText(e.target.value);
@@ -110,11 +107,7 @@ export default function AddQuestion() {
   }, [quizId]);
 
   const handleAddNew = () => {
-    if (
-      questionText.trim() !== '' &&
-      answers.filter((ans) => ans.text.trim() !== '').length >= 2 &&
-      answers.some((ans) => ans.isCorrect)
-    ) {
+  
       handleSave();
 
       const newQuestion: QuestionItem = {
@@ -131,7 +124,7 @@ export default function AddQuestion() {
       setSelectedIndex(questionList.length);
       setQuestionText('');
       setAnswers(newQuestion.answers);
-    }
+    
   };
 
   const handleDelete = () => {
@@ -183,7 +176,7 @@ export default function AddQuestion() {
             <div>
               <Button
                 className="bg-red-500 hover:bg-red-600 text-white w-full"
-                onClick={() => navigate('/quiz')}
+                onClick={() => navigate('/view-quiz')}
               >
                 Exit
               </Button>
@@ -232,8 +225,13 @@ export default function AddQuestion() {
 
           {/* Sidebar phải */}
           <div className="w-64 bg-white border-l border-gray-200 p-4 space-y-4 shadow-sm">
-            <div className="flex justify-end mb-2">
-              <Button className="bg-green-500 hover:bg-green-600 text-white" onClick={handleAddNew}>
+            <div className="flex flex-col  justify-end mb-2">
+              {/* <Input
+              type="date"
+              value={endAt}
+              onChange={(e) => setEndAt(e.target.value)}
+            /> */}
+              <Button className="bg-green-500 hover:bg-green-600 text-white mt-3" onClick={handleAddNew}>
                 Add Question
               </Button>
             </div>
@@ -267,7 +265,7 @@ export default function AddQuestion() {
             <div>
               <Button
                 className="bg-red-500 hover:bg-red-600 text-white w-full"
-                onClick={() => navigate('/quiz')}
+                onClick={() => navigate('/view-quiz')}
               >
                 Exit
               </Button>
@@ -341,7 +339,7 @@ export default function AddQuestion() {
                   }`}
                   onClick={() => handleSelectQuestion(idx)}
                 >
-                   {idx + 1}
+                  {idx + 1}
                 </Button>
               ))}
             </div>
@@ -399,7 +397,7 @@ export default function AddQuestion() {
 
           <Button
             className="bg-red-500 hover:bg-red-600 text-white w-full"
-            onClick={() => navigate('/quiz')}
+            onClick={() => navigate('/view-quiz')}
           >
             Exit
           </Button>

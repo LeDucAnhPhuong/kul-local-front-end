@@ -1,5 +1,5 @@
 import TitlePage from '@/components/ui/title-page';
-import MyForm from '@/features/add-user/components/add-account-form';
+import MyForm from '@/features/account-management/add-user/components/add-account-form';
 import { useCreateAdminMutation } from '@/features/account-management/api.user';
 import { toast } from 'sonner';
 const AddAdmin = () => {

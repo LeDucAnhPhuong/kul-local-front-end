@@ -16,7 +16,7 @@ import { Input } from '@/components/ui/input';
 import { useNavigate } from 'react-router-dom';
 
 const formSchema = z.object({
-  email: z.string(),
+  name: z.string(),
 });
 
 interface MyFormProps {
@@ -32,12 +32,12 @@ export default function MyForm({ onAdd, isLoading }: MyFormProps) {
   const navigate = useNavigate();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    onAdd({ email: values.email });
+    onAdd({ name: values.name });
 
     try {
       console.log(values);
       toast(<code className="text-black">{JSON.stringify(values, null, 2)}</code>);
-      navigate('/account-management');
+      navigate('/class-management');
     } catch (error) {
       console.error('Form submission error', error);
       toast.error('Failed to submit the form. Please try again.');
@@ -49,12 +49,12 @@ export default function MyForm({ onAdd, isLoading }: MyFormProps) {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 max-w-3xl mx-auto py-10">
         <FormField
           control={form.control}
-          name="email"
+          name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Class Name</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your email..." type="email" {...field} />
+                <Input placeholder="Enter class name..." type="text" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

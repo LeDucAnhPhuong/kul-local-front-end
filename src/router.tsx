@@ -4,14 +4,17 @@ import DashboardLayout from './components/layouts/dashboard/layout';
 import LandingLayout from './components/layouts/landing/layout';
 import HomePage from './pages/home';
 import SignInPage from './pages/sign-in';
-import AccountManagementPage from './pages/dashboard/account-management';
-import AddStudentPage from './pages/dashboard/account-management/student/student.add';
-import AddTedTeamPage from './pages/dashboard/account-management/ted-team/ted-team.add';
-import AddCoachPage from './pages/dashboard/account-management/coach/coach.add';
-import AddAdminPage from './pages/dashboard/account-management/admin/admin.add';
+import AccountManagementPage from './pages/dashboard/admin/account-management';
+import AddStudentPage from './pages/dashboard/admin/account-management/student/student.add';
+import AddTedTeamPage from './pages/dashboard/admin/account-management/ted-team/ted-team.add';
+import AddCoachPage from './pages/dashboard/admin/account-management/coach/coach.add';
+import AddAdminPage from './pages/dashboard/admin/account-management/admin/admin.add';
 import DashBoardHome from './pages/dashboard/DashBoardHome';
 import QuizzesView from './pages/dashboard/student/Quizzes/QuizzesView';
 import ScheduleView from './features/student-management/components/schedule-view';
+import ClassManagementPage from './pages/dashboard/admin/class-management';
+import AddClassPage from './pages/dashboard/admin/class-management/class.add';
+import ClassDetailPage from "./pages/dashboard/admin/class-management/class.detail";
 
 function Router() {
   return (
@@ -28,6 +31,11 @@ function Router() {
           {/* <Route path="/example-ui" element={<ExampleUI />} />
           <Route path="/student-management" element={<StudentManagement />} />
           <Route path="/teacher-management" element={<TeacherManagement />} /> */}
+          <Route path="/class-management">
+            <Route path="" element={<ClassManagementPage />} />
+            <Route path="add" element={<AddClassPage />} />
+            <Route path="class/:id" element={<ClassDetailPage />} />
+          </Route>
           <Route path="/account-management">
             <Route path="" element={<AccountManagementPage />} />
             <Route path="student/add" element={<AddStudentPage />} />

@@ -1,4 +1,4 @@
-import AddTedTeam from "@/features/add-user/components/AddTedTeam";
+import AddTedTeam from "@/features/account-management/add-user/components/AddTedTeam";
 
 function AddTedTeamPage() {
   return <AddTedTeam />;

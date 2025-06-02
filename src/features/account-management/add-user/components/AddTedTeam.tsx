@@ -1,15 +1,15 @@
 import TitlePage from '@/components/ui/title-page';
-import { useCreateStudentMutation } from '@/features/account-management/api.user';
-import MyForm from '@/features/add-user/components/add-account-form';
+import MyForm from '@/features/account-management/add-user/components/add-account-form';
 import { toast } from 'sonner';
+import { useCreateTedTeamMutation } from '@/features/account-management/api.user';
 
-const AddStudent = () => {
-  const [addStudent] = useCreateStudentMutation();
+const AddTedTeam = () => {
+  const [addTedTeam] = useCreateTedTeamMutation();
 
-  async function onAddStudent(data: { email: string }) {
+  async function onAddTedTeam(data: { email: string }) {
     const idToast = toast.loading('Adding student...');
     try {
-      await addStudent({
+      await addTedTeam({
         email: data.email,
       }).unwrap;
       toast.success('student added successfully', {
@@ -24,10 +24,10 @@ const AddStudent = () => {
 
   return (
     <div className="bg-white dark:bg-background p-4 rounded-xl border-[1px] border-stone-50 dark:border-stone-800">
-      <TitlePage title="Add Student" />
-      <MyForm onAdd={onAddStudent} />
+      <TitlePage title="Add Ted" />
+      <MyForm onAdd={onAddTedTeam} />
     </div>
   );
 };
 
-export default AddStudent;
+export default AddTedTeam;

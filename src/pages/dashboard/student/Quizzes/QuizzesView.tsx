@@ -1,5 +1,4 @@
-import QuizzesUI from "@/features/student-management/components/title-quizzes-view";
-import { de } from "date-fns/locale";
+import QuizzesUI from '@/features/student-management/components/title-quizzes-view';
 
 function QuizzesView() {
   return <QuizzesUI />;

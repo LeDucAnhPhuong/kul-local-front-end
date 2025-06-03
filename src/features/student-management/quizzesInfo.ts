@@ -136,7 +136,7 @@ export const quizSampleData: QuizData[] = [
         updated_at: '2025-05-22T09:25:00Z',
         options: ['true', 'false'],
         type: 'true_false',
-        points: 5
+        points: 5,
       }
     ]
   },

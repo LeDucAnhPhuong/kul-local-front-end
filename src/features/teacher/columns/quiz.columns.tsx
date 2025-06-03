@@ -1,5 +1,5 @@
 import type { ColumnDef } from '@tanstack/react-table';
-import { PlayCircle, Clock, CheckCircle, Trash } from 'lucide-react';
+import { PlayCircle, Clock, CheckCircle, Trash, Settings } from 'lucide-react';
 import type { Question } from '../functionaly/question';
 export type Contest = {
   id: string;
@@ -17,7 +17,7 @@ export type Contest = {
   questions?: Question[];
 };
 
-export const ContestColumns = (onDelete: (quiz: Contest) => void): ColumnDef<Contest>[] => [
+export const ContestColumns = (onDelete: (quiz: Contest) => void, onUpdate: (quiz: Contest) => void): ColumnDef<Contest>[] => [
   {
     accessorKey: 'title',
     header: 'TITLE',
@@ -79,6 +79,13 @@ export const ContestColumns = (onDelete: (quiz: Contest) => void): ColumnDef<Con
     id: 'actions',
     cell: ({ row }) => (
       <div className="flex space-x-2">
+        <Settings
+          className="text-gray-500 hover:text-gray-700 cursor-pointer"
+          onClick={(e) => {
+            e.stopPropagation();
+            onUpdate(row.original);
+          }}
+        />
         <Trash
           className="text-red-500 hover:text-red-700 cursor-pointer"
           onClick={(e) => {
@@ -86,6 +93,7 @@ export const ContestColumns = (onDelete: (quiz: Contest) => void): ColumnDef<Con
             onDelete(row.original);
           }}
         />
+        
       </div>
     ),
   },

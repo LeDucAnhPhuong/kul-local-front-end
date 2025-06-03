@@ -6,13 +6,15 @@ import DataCard from '@/components/ui/data-card';
 import type { Contest } from '../../columns/quiz.columns';
 import CreateQuizDialog from './createQuiz';
 import ConfirmDialog from './confirmDialog';
+import SettingDialog from './setingDialog';
 import { useNavigate } from 'react-router-dom';
 function QuizView() {
   const [quizzes, setQuizzes] = useState<Contest[]>([]);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const [confirmOpen, setConfirmOpen] = useState(false);
-  const [quizToDelete, setQuizToDelete] = useState<Contest | null>(null);
+  const [quizToDOU, setQuizToDelete] = useState<Contest | null>(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem('quizzes');
@@ -24,10 +26,13 @@ function QuizView() {
     setQuizToDelete(quiz);
     setConfirmOpen(true);
   };
-
+  const handleUpdateClick = (quiz: Contest) => {
+    setQuizToDelete(quiz);
+    setDialogOpen(true);
+  };
   const handleDeleteConfirm = () => {
-    if (quizToDelete) {
-      const updated = quizzes.filter((q) => q.id !== quizToDelete.id);
+    if (quizToDOU) {
+      const updated = quizzes.filter((q) => q.id !== quizToDOU.id);
       setQuizzes(updated);
       localStorage.setItem('quizzes', JSON.stringify(updated));
       setQuizToDelete(null);
@@ -41,7 +46,7 @@ function QuizView() {
       <DataCard
         onRowClick={({ data }) => navigate(`/AddQuestion/${data.id}`)}
         data={quizzes}
-        columns={ContestColumns(handleDeleteClick)}
+        columns={ContestColumns(handleDeleteClick,handleUpdateClick)}
       />
 
       <CreateQuizDialog
@@ -56,9 +61,16 @@ function QuizView() {
       <div onClick={(e) => e.stopPropagation()}>
         <ConfirmDialog
           open={confirmOpen}
-          title={`Delete quiz "${quizToDelete?.title}"?`}
+          title={`Delete quiz "${quizToDOU?.title}"?`}
           onCancel={() => setConfirmOpen(false)}
           onConfirm={handleDeleteConfirm}
+        />
+      </div>
+      <div onClick={(e) => e.stopPropagation()}>
+        <SettingDialog
+          open={dialogOpen}
+          setOpen={setDialogOpen}
+          title={`Update quiz "${quizToDOU?.title}"?`}
         />
       </div>
     </div>

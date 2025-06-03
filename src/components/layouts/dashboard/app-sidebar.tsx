@@ -16,7 +16,6 @@ import {
 
 import { VersionSwitcher } from '@/components/layouts/dashboard/version-switcher';
 
-
 // This is sample data.
 const data = {
   versions: ['1.0.1', '1.1.0-alpha', '2.0.0-beta1'],
@@ -38,12 +37,12 @@ const data = {
         //   url: '/example-ui',
         // },
         {
-          title: 'Account Management',
-          url: '/account-management',
-        },
-        {
           title: 'Dashboard Home',
           url: '/dashboard',
+        },
+        {
+          title: 'Account Management',
+          url: '/account-management',
         },
         {
           title: 'Schedule Student',
@@ -52,6 +51,14 @@ const data = {
         {
           title: 'Quizzes Student',
           url: '/quizzes-student',
+        },
+        {
+          title: 'Personal Ted Team',
+          url: '/personal-tedteam',
+        },
+        {
+          title: 'Register Ted Team',
+          url: '/register-tedteam',
         },
       ],
     },

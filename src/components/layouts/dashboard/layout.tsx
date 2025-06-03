@@ -12,7 +12,7 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 
-import { UserButton, useSession, useUser } from '@clerk/clerk-react';
+import { UserButton, useSession} from '@clerk/clerk-react';
 
 import { AppSidebar } from './app-sidebar';
 

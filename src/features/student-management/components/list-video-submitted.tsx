@@ -1,8 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Video, Play, Download, Eye } from 'lucide-react';
-import React from 'react';
+import { ArrowLeft, Video, Play, Eye } from 'lucide-react';
 
 interface ListVideoSubmittedProps {
   onBack: () => void;

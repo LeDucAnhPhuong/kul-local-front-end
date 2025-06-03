@@ -3,6 +3,7 @@ export interface QuizData {
   title: string;
   date: string;
   isActive: boolean;
+  status: 'Done' | 'Not started' | 'Can not be started'; // Optional status field
   created_by: number;
   updated_by: number;
   created_at: string;
@@ -14,14 +15,13 @@ export interface QuestionData {
   _id: number;
   quiz_id: number;
   content: string;
-  correct_answer: string;
   isActive: boolean;
   created_by: number;
   updated_by: number;
   created_at: string;
   updated_at: string;
   options: string[];
-  type: 'multiple_choice' | 'true_false' | 'fill_blank';
+  timeLimit: number; // Optional time limit for answering the question 10s 20s 30s 
   points: number;
 }
 
@@ -31,6 +31,7 @@ export const quizSampleData: QuizData[] = [
     title: 'Academic Text Comprehension',
     date: '2025-06-10',
     isActive: true,
+    status: 'Can not be started',
     created_by: 1,
     updated_by: 1,
     created_at: '2025-05-20T08:00:00Z',
@@ -40,7 +41,6 @@ export const quizSampleData: QuizData[] = [
         _id: 1,
         quiz_id: 1,
         content: 'Which of the following is NOT a typical feature of academic texts?',
-        correct_answer: 'Emotional language and personal opinions',
         isActive: true,
         created_by: 1,
         updated_by: 1,
@@ -52,35 +52,33 @@ export const quizSampleData: QuizData[] = [
           'Emotional language and personal opinions',
           'Citations and references to other sources'
         ],
-        type: 'multiple_choice',
+        timeLimit: 30,
         points: 10
       },
       {
         _id: 2,
         quiz_id: 1,
         content: 'Complete the sentence: "The research _____ that climate change is accelerating faster than previously predicted."',
-        correct_answer: 'indicates',
         isActive: true,
         created_by: 1,
         updated_by: 1,
         created_at: '2025-05-20T08:20:00Z',
         updated_at: '2025-05-20T08:20:00Z',
-        options: [],
-        type: 'fill_blank',
+        options: ['suggests', 'proves', 'denies', 'ignores'],
+        timeLimit: 20,
         points: 15
       },
       {
         _id: 3,
         quiz_id: 1,
         content: 'Skimming and scanning are both effective reading strategies for IELTS Reading tasks.',
-        correct_answer: 'true',
         isActive: true,
         created_by: 1,
         updated_by: 1,
         created_at: '2025-05-20T08:25:00Z',
         updated_at: '2025-05-20T08:25:00Z',
         options: ['true', 'false'],
-        type: 'true_false',
+        timeLimit: 10,
         points: 5
       }
     ]
@@ -91,6 +89,7 @@ export const quizSampleData: QuizData[] = [
     title: 'Data Description',
     date: '2025-06-12',
     isActive: true,
+    status: 'Not started',
     created_by: 2,
     updated_by: 2,
     created_at: '2025-05-22T09:00:00Z',
@@ -100,42 +99,39 @@ export const quizSampleData: QuizData[] = [
         _id: 4,
         quiz_id: 2,
         content: 'What is the minimum word count requirement for IELTS Writing Task 1?',
-        correct_answer: '150 words',
         isActive: true,
         created_by: 2,
         updated_by: 2,
         created_at: '2025-05-22T09:15:00Z',
         updated_at: '2025-05-22T09:15:00Z',
         options: ['120 words', '150 words', '200 words', '250 words'],
-        type: 'multiple_choice',
+        timeLimit: 20,
         points: 10
       },
       {
         _id: 5,
         quiz_id: 2,
         content: 'Fill in the blank: "The graph shows a _____ increase in unemployment rates from 2020 to 2021."',
-        correct_answer: 'significant',
         isActive: true,
         created_by: 2,
         updated_by: 2,
         created_at: '2025-05-22T09:20:00Z',
         updated_at: '2025-05-22T09:20:00Z',
-        options: [],
-        type: 'fill_blank',
+        options: ['significant', 'slight', 'dramatic', 'steady'],
+        timeLimit: 25,
         points: 15
       },
       {
         _id: 6,
         quiz_id: 2,
         content: 'In IELTS Writing Task 1, you should give your personal opinion about the data presented.',
-        correct_answer: 'false',
         isActive: true,
         created_by: 2,
         updated_by: 2,
         created_at: '2025-05-22T09:25:00Z',
         updated_at: '2025-05-22T09:25:00Z',
         options: ['true', 'false'],
-        type: 'true_false',
+        timeLimit: 15,
         points: 5
       }
     ]
@@ -146,6 +142,7 @@ export const quizSampleData: QuizData[] = [
     title: 'Long Turn',
     date: '2025-06-15',
     isActive: false,
+    status: 'Done',
     created_by: 1,
     updated_by: 3,
     created_at: '2025-05-25T10:00:00Z',
@@ -155,42 +152,39 @@ export const quizSampleData: QuizData[] = [
         _id: 7,
         quiz_id: 3,
         content: 'How long should you speak for in IELTS Speaking Part 2?',
-        correct_answer: '1-2 minutes',
         isActive: true,
         created_by: 1,
         updated_by: 1,
         created_at: '2025-05-25T10:15:00Z',
         updated_at: '2025-05-25T10:15:00Z',
         options: ['30 seconds - 1 minute', '1-2 minutes', '2-3 minutes', '3-4 minutes'],
-        type: 'multiple_choice',
+        timeLimit: 30,
         points: 20
       },
       {
         _id: 8,
         quiz_id: 3,
         content: 'Complete the phrase: "I\'d like to talk about a time when I _____ a difficult decision."',
-        correct_answer: 'had to make',
         isActive: true,
         created_by: 1,
         updated_by: 1,
         created_at: '2025-05-25T10:20:00Z',
         updated_at: '2025-05-25T10:20:00Z',
-        options: [],
-        type: 'fill_blank',
+        options: ['made', 'took', 'had', 'faced'],
+        timeLimit: 20,
         points: 15
       },
       {
         _id: 9,
         quiz_id: 3,
         content: 'You get 1 minute to prepare notes before speaking in IELTS Speaking Part 2.',
-        correct_answer: 'true',
         isActive: true,
         created_by: 1,
         updated_by: 1,
         created_at: '2025-05-25T10:25:00Z',
         updated_at: '2025-05-25T10:25:00Z',
         options: ['true', 'false'],
-        type: 'true_false',
+        timeLimit: 10,
         points: 10
       }
     ]
@@ -201,6 +195,7 @@ export const quizSampleData: QuizData[] = [
     title: 'Section Types and Strategies',
     date: '2025-06-18',
     isActive: true,
+    status: 'Can not be started',
     created_by: 3,
     updated_by: 1,
     created_at: '2025-05-28T13:45:00Z',
@@ -210,42 +205,39 @@ export const quizSampleData: QuizData[] = [
         _id: 10,
         quiz_id: 4,
         content: 'Which section of IELTS Listening typically features an academic lecture?',
-        correct_answer: 'Section 4',
         isActive: true,
         created_by: 3,
         updated_by: 3,
         created_at: '2025-05-28T14:00:00Z',
         updated_at: '2025-05-28T14:00:00Z',
         options: ['Section 1', 'Section 2', 'Section 3', 'Section 4'],
-        type: 'multiple_choice',
+        timeLimit: 20,
         points: 10
       },
       {
         _id: 11,
         quiz_id: 4,
         content: 'Fill in the gap: "The total number of questions in IELTS Listening is _____."',
-        correct_answer: '40',
         isActive: true,
         created_by: 3,
         updated_by: 3,
         created_at: '2025-05-28T14:05:00Z',
         updated_at: '2025-05-28T14:05:00Z',
         options: [],
-        type: 'fill_blank',
+        timeLimit: 15,
         points: 20
       },
       {
         _id: 12,
         quiz_id: 4,
         content: 'You can listen to each recording twice in the IELTS Listening test.',
-        correct_answer: 'false',
         isActive: true,
         created_by: 3,
         updated_by: 3,
         created_at: '2025-05-28T14:10:00Z',
         updated_at: '2025-05-28T14:10:00Z',
         options: ['true', 'false'],
-        type: 'true_false',
+        timeLimit: 10,
         points: 5
       }
     ]
@@ -256,6 +248,7 @@ export const quizSampleData: QuizData[] = [
     title: 'Complex Sentences and Cohesion',
     date: '2025-06-20',
     isActive: true,
+    status: 'Can not be started',
     created_by: 2,
     updated_by: 2,
     created_at: '2025-05-30T15:30:00Z',
@@ -265,42 +258,39 @@ export const quizSampleData: QuizData[] = [
         _id: 13,
         quiz_id: 5,
         content: 'Which of the following is a subordinating conjunction?',
-        correct_answer: 'Although',
         isActive: true,
         created_by: 2,
         updated_by: 2,
         created_at: '2025-05-30T15:45:00Z',
         updated_at: '2025-05-30T15:45:00Z',
         options: ['However', 'Therefore', 'Although', 'Furthermore'],
-        type: 'multiple_choice',
+        timeLimit: 20,
         points: 10
       },
       {
         _id: 14,
         quiz_id: 5,
         content: 'Complete the sentence: "_____ the weather was terrible, we decided to go hiking."',
-        correct_answer: 'Despite',
         isActive: true,
         created_by: 2,
         updated_by: 2,
         created_at: '2025-05-30T15:50:00Z',
         updated_at: '2025-05-30T15:50:00Z',
-        options: [],
-        type: 'fill_blank',
+        options: ['Although', 'Despite', 'In spite of', 'While'],
+        timeLimit: 25,
         points: 15
       },
       {
         _id: 15,
         quiz_id: 5,
         content: 'Using a variety of sentence structures can improve your IELTS Writing score.',
-        correct_answer: 'true',
         isActive: true,
         created_by: 2,
         updated_by: 2,
         created_at: '2025-05-30T15:55:00Z',
         updated_at: '2025-05-30T15:55:00Z',
         options: ['true', 'false'],
-        type: 'true_false',
+        timeLimit: 15,
         points: 5
       }
     ]
@@ -311,6 +301,7 @@ export const quizSampleData: QuizData[] = [
     title: 'Academic Word List',
     date: '2025-06-22',
     isActive: true,
+    status: 'Not started',
     created_by: 1,
     updated_by: 1,
     created_at: '2025-06-01T11:00:00Z',
@@ -320,7 +311,6 @@ export const quizSampleData: QuizData[] = [
         _id: 16,
         quiz_id: 6,
         content: 'What does "constitute" mean?',
-        correct_answer: 'To form or make up',
         isActive: true,
         created_by: 1,
         updated_by: 1,
@@ -332,35 +322,33 @@ export const quizSampleData: QuizData[] = [
           'To question or doubt',
           'To separate or divide'
         ],
-        type: 'multiple_choice',
+        timeLimit: 25,
         points: 10
       },
       {
         _id: 17,
         quiz_id: 6,
         content: 'Fill in the blank: "The data _____ a clear pattern of economic growth."',
-        correct_answer: 'reveals',
         isActive: true,
         created_by: 1,
         updated_by: 1,
         created_at: '2025-06-01T11:20:00Z',
         updated_at: '2025-06-01T11:20:00Z',
-        options: [],
-        type: 'fill_blank',
+        options: ['shows', 'illustrates', 'indicates', 'demonstrates'],
+        timeLimit: 20,
         points: 15
       },
       {
         _id: 18,
         quiz_id: 6,
         content: 'Academic vocabulary is more important for IELTS Writing than Speaking.',
-        correct_answer: 'false',
         isActive: true,
         created_by: 1,
         updated_by: 1,
         created_at: '2025-06-01T11:25:00Z',
         updated_at: '2025-06-01T11:25:00Z',
         options: ['true', 'false'],
-        type: 'true_false',
+        timeLimit: 15,
         points: 5
       }
     ]
@@ -371,6 +359,7 @@ export const quizSampleData: QuizData[] = [
     title: 'Essay Structure',
     date: '2025-06-25',
     isActive: true,
+    status: 'Can not be started',
     created_by: 3,
     updated_by: 2,
     created_at: '2025-06-03T14:00:00Z',
@@ -380,42 +369,39 @@ export const quizSampleData: QuizData[] = [
         _id: 19,
         quiz_id: 7,
         content: 'What is the recommended minimum word count for IELTS Writing Task 2?',
-        correct_answer: '250 words',
         isActive: true,
         created_by: 3,
         updated_by: 3,
         created_at: '2025-06-03T14:15:00Z',
         updated_at: '2025-06-03T14:15:00Z',
         options: ['200 words', '250 words', '300 words', '350 words'],
-        type: 'multiple_choice',
+        timeLimit: 20,
         points: 10
       },
       {
         _id: 20,
         quiz_id: 7,
         content: 'Complete the thesis statement: "This essay will _____ both sides of the argument before reaching a conclusion."',
-        correct_answer: 'examine',
         isActive: true,
         created_by: 3,
         updated_by: 3,
         created_at: '2025-06-03T14:20:00Z',
         updated_at: '2025-06-03T14:20:00Z',
         options: [],
-        type: 'fill_blank',
+        timeLimit: 30,
         points: 15
       },
       {
         _id: 21,
         quiz_id: 7,
         content: 'A strong conclusion should introduce new arguments not mentioned in the body paragraphs.',
-        correct_answer: 'false',
         isActive: true,
         created_by: 3,
         updated_by: 3,
         created_at: '2025-06-03T14:25:00Z',
         updated_at: '2025-06-03T14:25:00Z',
         options: ['true', 'false'],
-        type: 'true_false',
+        timeLimit: 15,
         points: 5
       }
     ]

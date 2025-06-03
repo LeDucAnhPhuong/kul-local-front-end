@@ -10,6 +10,7 @@ function SignInPage() {
   useEffect(() => {
     if (session) {
       router.replace('/dashboard');
+      window.location.reload();
     }
   }, [session]);
 

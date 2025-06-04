@@ -31,11 +31,8 @@ export const columns: ColumnDef<Slot>[] = [
     header: 'Start Time',
     cell: ({ row }) => {
       const startTime = row.getValue('start_time') as string;
-      const date = new Date(startTime);
-      const formattedDate = date.toLocaleDateString('en-US', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
+      const date = new Date(`1970-01-01T${startTime}`);
+      const formattedDate = date.toLocaleTimeString('en-US', {
         hour: '2-digit',
         minute: '2-digit',
         hour12: true,
@@ -48,11 +45,8 @@ export const columns: ColumnDef<Slot>[] = [
     header: 'End Time',
     cell: ({ row }) => {
       const endTime = row.getValue('end_time') as string;
-      const date = new Date(endTime);
-      const formattedDate = date.toLocaleDateString('en-US', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
+      const date = new Date(`1970-01-01T${endTime}`);
+      const formattedDate = date.toLocaleTimeString('en-US', {
         hour: '2-digit',
         minute: '2-digit',
         hour12: true,

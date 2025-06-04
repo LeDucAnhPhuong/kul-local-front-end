@@ -83,7 +83,7 @@ const Action = ({ row }: { row: Row<Class> }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem>
-          <Link className="flex gap-2 w-full" to={`/class-management/class/${row.original?.id}`}>
+          <Link className="flex gap-2 w-full" to={`/class-management/${row.original?.name}`}>
             <Eye className="w-4 h-4 text-blue-500" />
             <span>View Information</span>
           </Link>

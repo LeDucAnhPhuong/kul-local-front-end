@@ -16,15 +16,39 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { SmartDatetimeInput } from '@/components/ui/smart-datetime-input';
+import { SmartTimeInput } from "./smart-time-input"
 import { useNavigate } from 'react-router';
 
-const formSchema = z.object({
-  name: z.string(),
-  description: z.string().optional(),
-  start_time: z.date(),
-  end_time: z.date(),
-});
+const formSchema = z
+  .object({
+    name: z.string(),
+    description: z.string().optional(),
+    start_time: z
+      .string()
+      .min(1, {
+        message: "Start time is required",
+      })
+      .regex(/^\d{2}:\d{2}:\d{2}$/, {
+        message: "Invalid time format",
+      }),
+    end_time: z
+      .string()
+      .min(1, {
+        message: "End time is required",
+      })
+      .regex(/^\d{2}:\d{2}:\d{2}$/, {
+        message: "Invalid time format",
+      }),
+  })
+  .refine(
+    (data) => {
+      return data.end_time >= data.start_time;
+    },
+    {
+      message: "End time must be greater than start time",
+      path: ["end_time"],
+    }
+  );
 
 interface MyFormProps {
   onAdd: (data: z.infer<typeof formSchema>) => void;
@@ -34,10 +58,6 @@ interface MyFormProps {
 export default function MyForm({ onAdd, isLoading }: MyFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      start_time: new Date(),
-      end_time: new Date(),
-    },
   });
   const navigate = useNavigate();
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -103,15 +123,11 @@ export default function MyForm({ onAdd, isLoading }: MyFormProps) {
                 <FormItem>
                   <FormLabel>Start Time</FormLabel>
                   <FormControl>
-                    <SmartDatetimeInput
-                      value={
-                        field.value.getTime() >= new Date().getTime() - 100
-                          ? field.value
-                          : undefined
-                      }
-                      onValueChange={field.onChange}
-                      placeholder="e.g. Tomorrow morning 9am"
-                    />
+                    <SmartTimeInput
+                    value={field.value}
+                    onValueChange={field.onChange}
+                    placeholder="e.g. 9:00 AM or 14:30"
+                  />
                   </FormControl>
 
                   <FormMessage />
@@ -128,13 +144,12 @@ export default function MyForm({ onAdd, isLoading }: MyFormProps) {
                 <FormItem>
                   <FormLabel>End Time</FormLabel>
                   <FormControl>
-                    <SmartDatetimeInput
-                      value={field.value >= form.getValues('start_time') ? field.value : undefined}
-                      onValueChange={field.onChange}
-                      placeholder="e.g. Tomorrow morning 9am"
-                    />
+                    <SmartTimeInput
+                    value={field.value}
+                    onValueChange={field.onChange}
+                    placeholder="e.g. 9:00 AM or 14:30"
+                  />
                   </FormControl>
-
                   <FormMessage />
                 </FormItem>
               )}

@@ -1,7 +1,8 @@
-import TitlePage from '@/components/ui/title-page';
+
 import DataCard from '@/components/ui/data-card';
 import { ClassSampleData } from '../data.class';
 import { columns } from '../columns/class-management';
+import TitlePage from '@/components/ui/title-page';
 
 const ClassListUI = () => {
   return (

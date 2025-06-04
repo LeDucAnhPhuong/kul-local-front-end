@@ -17,6 +17,8 @@ import AddClassPage from './pages/dashboard/admin/class-management/class.add';
 import ClassDetailPage from "./pages/dashboard/admin/class-management/class.detail";
 import SlotManagementPage from "./pages/dashboard/admin/slot-management";
 import AddSlotPage from "./pages/dashboard/admin/slot-management/slot.add";
+import AddStudentIntoClassPage from "./pages/dashboard/admin/class-management/AddStudentIntoClassPage";
+
 
 function Router() {
   return (
@@ -36,7 +38,8 @@ function Router() {
           <Route path="/class-management">
             <Route path="" element={<ClassManagementPage />} />
             <Route path="add" element={<AddClassPage />} />
-            <Route path="class/:id" element={<ClassDetailPage />} />
+            <Route path=":name" element={<ClassDetailPage />} />
+            <Route path=":name/add-student" element={<AddStudentIntoClassPage />} />
           </Route>
           <Route path="/slot-management">
             <Route path="" element={<SlotManagementPage />} />

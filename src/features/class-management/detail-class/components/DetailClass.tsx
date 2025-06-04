@@ -5,10 +5,14 @@ import { columns } from '../columns/student-list';
 import { StudentSampleData } from '../data.student';
 
 const DetailClass = () => {
-  const { id } = useParams();
+  const { name } = useParams();
   return (
     <div className="bg-white dark:bg-background p-4 rounded-xl border-[1px] border-stone-50 dark:border-stone-800">
-      <TitlePage title={`Detail Class ${id}`} />
+      <TitlePage
+        title={`Detail ${name}`}
+        contentHref="Add Student"
+        href={`/class-management/${name}/add-student`}
+      />
       <DataTable data={StudentSampleData} columns={columns} />
     </div>
   );

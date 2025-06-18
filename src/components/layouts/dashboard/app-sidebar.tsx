@@ -57,6 +57,10 @@ const StudentData = {
           title: 'Quizzes Student',
           url: '/quizzes-student',
         },
+          {
+          title: 'List News',
+          url: '/list-news',
+        },
       ],
     },
   ],

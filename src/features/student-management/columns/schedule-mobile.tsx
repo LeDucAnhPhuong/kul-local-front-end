@@ -2,7 +2,7 @@ import React from 'react';
 import type { SlotSchedule, DayKey } from './schedule';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-import { CalendarDays, Hourglass } from 'lucide-react';
+import { Hourglass } from 'lucide-react';
 
 const dayHeaderMap: Record<DayKey, string> = {
   t2: 'Monday',

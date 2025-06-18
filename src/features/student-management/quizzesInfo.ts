@@ -131,8 +131,13 @@ export const quizSampleData: QuizData[] = [
         created_at: '2025-05-22T09:25:00Z',
         updated_at: '2025-05-22T09:25:00Z',
         options: ['true', 'false'],
+<<<<<<< HEAD
         timeLimit: 15,
         points: 5
+=======
+        type: 'true_false',
+        points: 5,
+>>>>>>> 47587092c86767bf086bd6fb33744cc9322cd01f
       }
     ]
   },

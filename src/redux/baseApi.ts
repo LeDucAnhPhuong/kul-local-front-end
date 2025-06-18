@@ -14,7 +14,7 @@ const baseQuery = fetchBaseQuery({
     const accessToken = getClientCookie(constants.ACCESS_TOKEN);
 
     headers.set('Content-Type', 'application/json');
-
+    headers.set('ngrok-skip-browser-warning', 'true');
     if (accessToken) {
       headers.set('Authorization', `Bearer ${accessToken}`);
     }
@@ -68,5 +68,5 @@ export const baseQueryWithReauth: typeof baseQuery = async (
 export const baseApi = createApi({
   baseQuery: baseQuery,
   endpoints: () => ({}),
-  tagTypes: ['Pokemon'],
+  tagTypes: ['Pokemon', 'User'],
 });

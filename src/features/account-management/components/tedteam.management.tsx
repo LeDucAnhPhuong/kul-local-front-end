@@ -5,8 +5,8 @@ import { useGetTedTeamQuery } from '../api.user';
 import type { StudentData } from '../data.student';
 
 const TedTeamManagement = () => {
-  const { tedTeam } = useGetTedTeamQuery(undefined, {
-    selectFromResult: ({ data }) => ({
+  const { tedTeam, isFetching } = useGetTedTeamQuery(undefined, {
+    selectFromResult: ({ data, isFetching }) => ({
       tedTeam:
         data?.data?.map((item: StudentData) => ({
           ...item,
@@ -15,17 +15,18 @@ const TedTeamManagement = () => {
               ? `${item.first_name ?? ''} ${item.last_name ?? ''}`
               : 'N/A',
         })) || [],
+      isFetching,
     }),
   });
 
   return (
     <div className="bg-white dark:bg-background p-4 rounded-xl border-[1px] border-stone-50 dark:border-stone-800">
       <TitlePage
-        title="Manage Students"
-        href="/account-management/student/add"
-        contentHref="Add Student"
+        title="Manage TedTeam"
+        href="/account-management/ted-team/add"
+        contentHref="Add TedTeam"
       />
-      <DataTable data={tedTeam} columns={columns} />
+      <DataTable data={tedTeam} columns={columns} isLoading={isFetching} />
     </div>
   );
 };

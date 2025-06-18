@@ -5,8 +5,8 @@ import { useGetCoachesQuery } from '../api.user';
 import type { TedTeamData } from '../data.tedTeam';
 
 const CoachManagement = () => {
-  const { coaches } = useGetCoachesQuery(undefined, {
-    selectFromResult: ({ data }) => ({
+  const { coaches, isFetching } = useGetCoachesQuery(undefined, {
+    selectFromResult: ({ data, isFetching }) => ({
       coaches:
         data?.data?.map((item: TedTeamData) => ({
           ...item,
@@ -15,16 +15,17 @@ const CoachManagement = () => {
               ? `${item.last_name ?? ''} ${item.first_name ?? ''}`
               : 'N/A',
         })) || [],
+      isFetching,
     }),
   });
   return (
     <div className="bg-white dark:bg-background p-4 rounded-xl border-[1px] border-stone-50 dark:border-stone-800">
       <TitlePage
-        title="Manage Students"
-        href="/account-management/student/add"
-        contentHref="Add Student"
+        title="Manage Coach"
+        href="/account-management/coach/add"
+        contentHref="Add Coach"
       />
-      <DataTable data={coaches} columns={columns} />
+      <DataTable data={coaches} columns={columns} isLoading={isFetching} />
     </div>
   );
 };

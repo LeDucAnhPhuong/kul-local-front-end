@@ -1,14 +1,7 @@
 import type { ColumnDef, Row } from '@tanstack/react-table';
-import { DotsHorizontalIcon } from '@radix-ui/react-icons';
-import { CalendarDays, Eye } from 'lucide-react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { CalendarDays } from 'lucide-react';
+
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { filterDateRange } from '@/utils/table';
@@ -118,21 +111,11 @@ export const columns: ColumnDef<Quiz>[] = [
 
 const Action = ({ row }: { row: Row<Quiz> }) => {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button className="flex h-8 w-8 p-0 data-[state=open]:bg-muted" variant="ghost">
-          <DotsHorizontalIcon className="w-4 h-4" />
-          <span className="sr-only">Open Menu</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem>
-          <Link className="flex w-full gap-2" to={`/quiz/${row.original?._id}`}>
-            <Eye className="w-4 h-4 text-blue-500" />
-            <span>View details</span>
-          </Link>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <Button
+      disabled={row.original.isActive}
+      className="w-full bg-blue-500 hover:bg-blue-600 text-white"
+    >
+      Làm
+    </Button>
   );
 };

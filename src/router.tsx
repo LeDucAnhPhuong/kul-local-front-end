@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router"
+import { Route, Routes } from 'react-router';
 
 import DashboardLayout from './components/layouts/dashboard/layout';
 import LandingLayout from './components/layouts/landing/layout';
@@ -15,18 +15,24 @@ import ScheduleView from './features/student-management/components/schedule-view
 import DoQuiz from "./pages/dashboard/student/Quizzes/DoQuiz";
 import QuizInterface from "./features/student-management/components/DoQuizView";
 import NewsView from "./pages/dashboard/student/News/NewsView";
+import TedPersonalPage from './pages/dashboard/tedteam/personal';
+import TedRegisterPage from './pages/dashboard/tedteam/register';
+import SignOut from './pages/sign-out';
 
 function Router() {
   return (
     <>
       <Routes>
-         <Route element={<LandingLayout />}>
+        <Route element={<LandingLayout />}>
           <Route path="/" element={<HomePage />} />
         </Route>
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<DashBoardHome />} />
           <Route path="/schedule-student" element={<ScheduleView />} />
           <Route path="/quizzes-student" element={<QuizzesView />} />
+          <Route path="/personal-tedteam" element={<TedPersonalPage />} />
+          <Route path="/register-tedteam" element={<TedRegisterPage />} />
+
           <Route path="/list-news" element={<NewsView />} />
 
           {/* Uncomment the following lines if you want to include these routes */}
@@ -43,9 +49,10 @@ function Router() {
         </Route>
         <Route path="/quiz/:id" element={<QuizInterface />} />
         <Route path="/sign-in" element={<SignInPage />} />
+        <Route path="/sign-out" element={<SignOut />} />
       </Routes>
     </>
-  )
+  );
 }
 
-export default Router
+export default Router;

@@ -5,8 +5,8 @@ import { useGetAdminQuery } from '../api.user';
 import type { StudentData } from '../data.student';
 
 const AdminManagement = () => {
-  const { admin } = useGetAdminQuery(undefined, {
-    selectFromResult: ({ data }) => ({
+  const { admin, isFetching } = useGetAdminQuery(undefined, {
+    selectFromResult: ({ data, isFetching }) => ({
       admin:
         data?.data?.map((item: StudentData) => ({
           ...item,
@@ -15,17 +15,18 @@ const AdminManagement = () => {
               ? `${item.last_name ?? ''} ${item.first_name ?? ''}`
               : 'N/A',
         })) || [],
+      isFetching,
     }),
   });
 
   return (
     <div className="bg-white dark:bg-background p-4 rounded-xl border-[1px] border-stone-50 dark:border-stone-800">
       <TitlePage
-        title="Manage Students"
-        href="/account-management/student/add"
-        contentHref="Add Student"
+        title="Manage Admin"
+        href="/account-management/admin/add"
+        contentHref="Add Admin"
       />
-      <DataTable data={admin} columns={columns} />
+      <DataTable data={admin} columns={columns} isLoading={isFetching} />
     </div>
   );
 };

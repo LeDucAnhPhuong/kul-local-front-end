@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router"
+import { Route, Routes } from 'react-router';
 
 import DashboardLayout from './components/layouts/dashboard/layout';
 import LandingLayout from './components/layouts/landing/layout';
@@ -13,18 +13,24 @@ import DashBoardHome from './pages/dashboard/DashBoardHome';
 import QuizzesView from './pages/dashboard/student/Quizzes/QuizzesView';
 import ScheduleView from './features/student-management/components/schedule-view';
 import ClassManagementPage from "./pages/dashboard/tedteam/classList";
+import TedPersonalPage from './pages/dashboard/tedteam/personal';
+import TedRegisterPage from './pages/dashboard/tedteam/register';
+import SignOut from './pages/sign-out';
 
 function Router() {
   return (
     <>
       <Routes>
-         <Route element={<LandingLayout />}>
+        <Route element={<LandingLayout />}>
           <Route path="/" element={<HomePage />} />
         </Route>
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<DashBoardHome />} />
           <Route path="/schedule-student" element={<ScheduleView />} />
           <Route path="/quizzes-student" element={<QuizzesView />} />
+          <Route path="/personal-tedteam" element={<TedPersonalPage />} />
+          <Route path="/register-tedteam" element={<TedRegisterPage />} />
+
           {/* Uncomment the following lines if you want to include these routes */}
           {/* <Route path="/example-ui" element={<ExampleUI />} />
           <Route path="/student-management" element={<StudentManagement />} />
@@ -39,9 +45,10 @@ function Router() {
           </Route>
         </Route>
         <Route path="/sign-in" element={<SignInPage />} />
+        <Route path="/sign-out" element={<SignOut />} />
       </Routes>
     </>
-  )
+  );
 }
 
-export default Router
+export default Router;

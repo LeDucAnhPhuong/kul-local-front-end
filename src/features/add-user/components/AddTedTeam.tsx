@@ -1,3 +1,4 @@
+'use client';
 import TitlePage from '@/components/ui/title-page';
 import MyForm from '@/features/add-user/components/add-account-form';
 import { toast } from 'sonner';
@@ -11,7 +12,7 @@ const AddTedTeam = () => {
     try {
       await addTedTeam({
         email: data.email,
-      }).unwrap;
+      }).unwrap();
       toast.success('student added successfully', {
         id: idToast,
       });

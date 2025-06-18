@@ -53,6 +53,10 @@ const data = {
           title: 'Quizzes Student',
           url: '/quizzes-student',
         },
+       {
+          title: 'View Classes',
+          url: '/ClassList',
+        },  
       ],
     },
     // {

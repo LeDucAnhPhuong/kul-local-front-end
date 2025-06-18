@@ -1,3 +1,4 @@
+'use client';
 import TitlePage from '@/components/ui/title-page';
 import MyForm from '@/features/account-management/add-user/components/add-account-form';
 import { useCreateAdminMutation } from '@/features/account-management/api.user';
@@ -10,7 +11,7 @@ const AddAdmin = () => {
     try {
       await addAdmin({
         email: data.email,
-      }).unwrap;
+      }).unwrap();
       toast.success('Admin added successfully', {
         id: idToast,
       });

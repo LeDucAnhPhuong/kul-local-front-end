@@ -1,5 +1,4 @@
 'use client';
-import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -13,7 +12,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useNavigate } from 'react-router-dom';
 
 const formSchema = z.object({
   email: z.string(),
@@ -24,24 +22,14 @@ interface MyFormProps {
   isLoading?: boolean;
 }
 
-export default function MyForm({ onAdd, isLoading }: MyFormProps) {
+export default function MyForm({ onAdd }: MyFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
 
-  const navigate = useNavigate();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     onAdd({ email: values.email });
-
-    try {
-      console.log(values);
-      toast(<code className="text-black">{JSON.stringify(values, null, 2)}</code>);
-      navigate('/account-management');
-    } catch (error) {
-      console.error('Form submission error', error);
-      toast.error('Failed to submit the form. Please try again.');
-    }
   }
 
   return (

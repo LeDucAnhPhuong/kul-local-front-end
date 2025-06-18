@@ -18,6 +18,7 @@ import ClassDetailPage from "./pages/dashboard/admin/class-management/class.deta
 import SlotManagementPage from "./pages/dashboard/admin/slot-management";
 import AddSlotPage from "./pages/dashboard/admin/slot-management/slot.add";
 import AddStudentIntoClassPage from "./pages/dashboard/admin/class-management/AddStudentIntoClassPage";
+import SlotExamplePage from "./pages/dashboard/admin/slot-management/example";
 
 
 function Router() {
@@ -44,6 +45,7 @@ function Router() {
           <Route path="/slot-management">
             <Route path="" element={<SlotManagementPage />} />
             <Route path="add" element={<AddSlotPage />} />
+            <Route path="example" element={<SlotExamplePage />} />
           </Route>
           <Route path="/account-management">
             <Route path="" element={<AccountManagementPage />} />

@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from 'react-router';
+import { Outlet } from 'react-router';
 import { toast } from 'sonner';
 
 import {
@@ -12,18 +12,40 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 
-import { UserButton, useSession} from '@clerk/clerk-react';
+import { useAuth, UserButton, useSession } from '@clerk/clerk-react';
 
 import { AppSidebar } from './app-sidebar';
+import useRouter from '@/hooks/use-router';
+import { useEffect } from 'react';
+import { getClientCookie, setClientCookie } from '@/lib/jsCookies';
 
 export default function DashboardLayout() {
   const { session } = useSession();
-  
+  const { getToken } = useAuth();
 
-  const navigate = useNavigate();
+  const getAccessToken = async () => {
+    try {
+      const token = await getToken({ template: 'access_token' });
+      if (!token) {
+        throw new Error('Failed to retrieve token');
+      }
+
+      setClientCookie('access_token', token);
+      window.location.reload();
+    } catch (error) {
+      console.error('Error retrieving token:', error);
+    }
+  };
+
+  useEffect(() => {
+    const accessToken = getClientCookie('access_token');
+    if (!accessToken) getAccessToken();
+  }, [getToken]);
+
+  const router = useRouter();
   if (!session) {
     toast.error('You must be logged in to access this page');
-    navigate('/sign-in');
+    router.push('/sign-in');
   }
 
   return (
@@ -47,7 +69,7 @@ export default function DashboardLayout() {
             </Breadcrumb>
           </div>
           <div className="flex items-center gap-2">
-            <UserButton />
+            <UserButton afterSignOutUrl="/sign-out" />
           </div>
         </header>
         <div className="flex flex-col flex-1 gap-4 p-4 bg-primary/5">

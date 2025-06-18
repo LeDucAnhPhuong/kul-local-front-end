@@ -5,8 +5,8 @@ import { useGetCoachesQuery } from '../api.user';
 import type { TedTeamData } from '../data.tedTeam';
 
 const CoachManagement = () => {
-  const { coaches } = useGetCoachesQuery(undefined, {
-    selectFromResult: ({ data }) => ({
+  const { coaches, isFetching } = useGetCoachesQuery(undefined, {
+    selectFromResult: ({ data, isFetching }) => ({
       coaches:
         data?.data?.map((item: TedTeamData) => ({
           ...item,
@@ -15,6 +15,7 @@ const CoachManagement = () => {
               ? `${item.last_name ?? ''} ${item.first_name ?? ''}`
               : 'N/A',
         })) || [],
+      isFetching,
     }),
   });
   return (
@@ -24,7 +25,7 @@ const CoachManagement = () => {
         href="/account-management/coach/add"
         contentHref="Add Coach"
       />
-      <DataTable data={coaches} columns={columns} />
+      <DataTable data={coaches} columns={columns} isLoading={isFetching} />
     </div>
   );
 };

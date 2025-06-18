@@ -14,6 +14,7 @@ import QuizzesView from './pages/dashboard/student/Quizzes/QuizzesView';
 import ScheduleView from './features/student-management/components/schedule-view';
 import TedPersonalPage from './pages/dashboard/tedteam/personal';
 import TedRegisterPage from './pages/dashboard/tedteam/register';
+import SignOut from './pages/sign-out';
 
 function Router() {
   return (
@@ -42,6 +43,7 @@ function Router() {
           </Route>
         </Route>
         <Route path="/sign-in" element={<SignInPage />} />
+        <Route path="/sign-out" element={<SignOut />} />
       </Routes>
     </>
   );

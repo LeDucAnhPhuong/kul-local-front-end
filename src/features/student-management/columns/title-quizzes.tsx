@@ -80,7 +80,10 @@ export const columns: ColumnDef<Quiz>[] = [
 
 const Action = ({ row }: { row: Row<Quiz> }) => {
   return (
-    <Button disabled={row.original.isActive} className="w-full bg-blue-500 hover:bg-blue-600 text-white">
+    <Button
+      disabled={row.original.isActive}
+      className="w-full bg-blue-500 hover:bg-blue-600 text-white"
+    >
       Làm
     </Button>
   );

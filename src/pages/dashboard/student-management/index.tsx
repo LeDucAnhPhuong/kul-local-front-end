@@ -1,4 +1,4 @@
-import TeacherView from '@/features/teacher-management/components/teacher-view';
+import TeacherView from '@/features/teacher/components/schedule-view';
 
 
 function StudentManagement() {

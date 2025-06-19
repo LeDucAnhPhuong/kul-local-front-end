@@ -34,6 +34,18 @@ const AdminData = {
           title: 'Account Management',
           url: '/account-management',
         },
+         {
+          title: 'Class Management',
+          url: '/class-management',
+        },
+        {
+          title: 'Slot Management',
+          url: '/slot-management',
+        },
+        {
+          title: 'Schedule Management',
+          url: '/schedule-management',
+        },
       ],
     },
   ],
@@ -45,6 +57,7 @@ const StudentData = {
       title: 'Getting Started',
       url: '#',
       items: [
+        
         {
           title: 'Dashboard Home',
           url: '/dashboard',
@@ -57,6 +70,7 @@ const StudentData = {
           title: 'Quizzes Student',
           url: '/quizzes-student',
         },
+       
           {
           title: 'List News',
           url: '/list-news',
@@ -75,6 +89,18 @@ const CoachData = {
         {
           title: 'Dashboard Home',
           url: '/dashboard',
+        },
+        {
+          title: 'Quiz',
+          url: '/view-quiz',
+        },
+        {
+          title: 'Schedule',
+          url: '/schedule',
+        },
+        {
+          title: 'Assignment',
+          url: '/assignment',
         },
       ],
     },
@@ -99,6 +125,10 @@ const TedTeamData = {
           title: 'Register Ted Team',
           url: '/register-tedteam',
         },
+        {
+          title: 'View Classes',
+          url: '/ClassList',
+        },  
       ],
     },
   ],
@@ -143,7 +173,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       case 'Student':
         setData(StudentData);
         break;
-      case 'TedTeam':
+      case 'Tedteam':
         setData(TedTeamData);
         break;
     }

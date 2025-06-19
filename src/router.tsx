@@ -2,14 +2,23 @@ import { Route, Routes } from 'react-router';
 
 import DashboardLayout from './components/layouts/dashboard/layout';
 import LandingLayout from './components/layouts/landing/layout';
+  // import ScheduleView from './pages/dashboard/student/Schedule/ScheduleView';
+  // import QuizzesView from './pages/dashboard/student/Quizzes/QuizzesView';
+// import TeacherManagement from './pages/dashboard/teacher';
+// import BookingPage from './pages/booking';
+import { Schedule } from './pages/dashboard/teacher/schedule';
+import { Quiz } from './pages/dashboard/teacher/quiz';
 import HomePage from './pages/home';
 import SignInPage from './pages/sign-in';
-import AccountManagementPage from './pages/dashboard/account-management';
-import AddStudentPage from './pages/dashboard/account-management/student/student.add';
-import AddTedTeamPage from './pages/dashboard/account-management/ted-team/ted-team.add';
-import AddCoachPage from './pages/dashboard/account-management/coach/coach.add';
-import AddAdminPage from './pages/dashboard/account-management/admin/admin.add';
+import AccountManagementPage from './pages/dashboard/admin/account-management';
+import AddStudentPage from './pages/dashboard/admin/account-management/student/student.add';
+import AddTedTeamPage from './pages/dashboard/admin/account-management/ted-team/ted-team.add';
+import AddCoachPage from './pages/dashboard/admin/account-management/coach/coach.add';
+import AddAdminPage from './pages/dashboard/admin/account-management/admin/admin.add';
 import DashBoardHome from './pages/dashboard/DashBoardHome';
+import Assignment from './pages/dashboard/teacher/assignment';
+import SubmissionDetailPageWrapper from './pages/dashboard/teacher/submission-detail';
+import AddQuestion from './features/teacher/components/quiz/addQuestion';
 import QuizzesView from './pages/dashboard/student/Quizzes/QuizzesView';
 import ScheduleView from './features/student-management/components/schedule-view';
 import DoQuiz from "./pages/dashboard/student/Quizzes/DoQuiz";
@@ -18,6 +27,15 @@ import NewsView from "./pages/dashboard/student/News/NewsView";
 import TedPersonalPage from './pages/dashboard/tedteam/personal';
 import TedRegisterPage from './pages/dashboard/tedteam/register';
 import SignOut from './pages/sign-out';
+import ClassManagementPage from './pages/dashboard/admin/class-management';
+import AddClassPage from './pages/dashboard/admin/class-management/class.add';
+import ClassDetailPage from "./pages/dashboard/admin/class-management/class.detail";
+import SlotManagementPage from "./pages/dashboard/admin/slot-management";
+import AddSlotPage from "./pages/dashboard/admin/slot-management/slot.add";
+import AddStudentIntoClassPage from "./pages/dashboard/admin/class-management/AddStudentIntoClassPage";
+import ScheduleManagementPage from './pages/dashboard/admin/schedule-management';
+import AddSchedulePage from './pages/dashboard/admin/schedule-management/schedule.add';
+
 
 function Router() {
   return (
@@ -39,6 +57,26 @@ function Router() {
           {/* <Route path="/example-ui" element={<ExampleUI />} />
           <Route path="/student-management" element={<StudentManagement />} />
           <Route path="/teacher-management" element={<TeacherManagement />} /> */}
+          <Route path="/view-quiz" element={<Quiz />} />
+          <Route path="/schedule" element={<Schedule />} />
+          <Route path="/AddQuestion/:quizId" element={<AddQuestion />} />
+          <Route path="/assignment" element={<Assignment />} />
+          <Route path="/submissions/:id" element={<SubmissionDetailPageWrapper />} />
+          <Route path="ClassList" element={<ClassManagementPage />} />
+          <Route path="/class-management">
+            <Route path="" element={<ClassManagementPage />} />
+            <Route path="add" element={<AddClassPage />} />
+            <Route path=":id" element={<ClassDetailPage />} />
+            <Route path=":id/add-student" element={<AddStudentIntoClassPage />} />
+          </Route>
+          <Route path="/schedule-management">
+            <Route path="" element={<ScheduleManagementPage />} />
+            <Route path="add" element={<AddSchedulePage />} />
+          </Route>
+          <Route path="/slot-management">
+            <Route path="" element={<SlotManagementPage />} />
+            <Route path="add" element={<AddSlotPage />} />
+          </Route>
           <Route path="/account-management">
             <Route path="" element={<AccountManagementPage />} />
             <Route path="student/add" element={<AddStudentPage />} />

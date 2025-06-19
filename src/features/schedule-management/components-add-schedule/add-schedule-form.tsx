@@ -1,0 +1,270 @@
+'use client';
+import { useState } from 'react';
+import { toast } from 'sonner';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { format } from 'date-fns';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
+import { Calendar as CalendarIcon } from 'lucide-react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
+import { useGetClassesQuery } from '@/features/class-management/api.class';
+import { useGetSlotsQuery } from '@/features/slot-management/api.slot';
+import { useGetRoomsQuery } from '../api.room';
+import type { RoomData } from '../data.type';
+import type { SlotData } from '@/features/slot-management/data.slot';
+import type { ClassData } from '@/features/class-management/data.class';
+import { useNavigate } from 'react-router';
+
+const formSchema = z.object({
+  classDate: z.date(),
+  roomId: z.string(),
+  slotIds: z.string(),
+  classId: z.string(),
+  coachEmail: z.string(),
+});
+
+interface MyFormProps {
+  onAdd: (data: z.infer<typeof formSchema>) => void;
+  isLoading?: boolean;
+}
+
+export default function MyForm({ onAdd, isLoading }: MyFormProps) {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      classDate: new Date(),
+    },
+  });
+
+  const navigate = useNavigate();
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    onAdd(values);
+    try {
+      console.log(values);
+      toast(
+        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+          <code className="text-white">{JSON.stringify(values, null, 2)}</code>
+        </pre>,
+      );
+      navigate('/schedule-management');
+    } catch (error) {
+      console.error('Form submission error', error);
+      toast.error('Failed to submit the form. Please try again.');
+    }
+  }
+
+  const { roomList, isFetching_rooms } = useGetRoomsQuery(undefined, {
+    selectFromResult: ({ data, isFetching }) => ({
+      roomList: data?.data || [],
+      isFetching_rooms: isFetching,
+    }),
+  });
+
+  const { slotList, isFetching_slots } = useGetSlotsQuery(undefined, {
+    selectFromResult: ({ data, isFetching }) => ({
+      slotList: data || [],
+      isFetching_slots: isFetching,
+    }),
+  });
+
+  const { classList, isFetching_classes } = useGetClassesQuery(undefined, {
+    selectFromResult: ({ data, isFetching }) => ({
+      classList: data?.data || [],
+      isFetching_classes: isFetching,
+    }),
+  });
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 max-w-3xl mx-auto py-10">
+        <div className="grid grid-cols-12 gap-4">
+          <div className="col-span-6">
+            <FormField
+              control={form.control}
+              name="classDate"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Class Date</FormLabel>
+                  <Popover>
+                    <PopoverTrigger>
+                      <FormControl>
+                        <Button
+                          variant={'outline'}
+                          type="button"
+                          className={cn(
+                            'w-full pl-3 text-left font-normal',
+                            !field.value && 'text-muted-foreground',
+                          )}
+                        >
+                          {field.value ? format(field.value, 'PPP') : <span>Pick a date</span>}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div className="col-span-6">
+            <FormField
+              control={form.control}
+              name="roomId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Room Name</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a room name ..." />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {isFetching_rooms ? (
+                        <div className="p-2 text-gray-400">Loading rooms...</div>
+                      ) : roomList.length === 0 ? (
+                        <div className="p-2 text-gray-400">No rooms found</div>
+                      ) : (
+                        roomList.map((room: RoomData) => (
+                          <SelectItem key={room._id} value={room._id}>
+                            {room.name} - {room.location}
+                          </SelectItem>
+                        ))
+                      )}
+                    </SelectContent>
+                  </Select>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-12 gap-4">
+          <div className="col-span-6">
+            <FormField
+              control={form.control}
+              name="slotIds"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Slot Name</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a slot name ..." />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {isFetching_slots ? (
+                        <div className="p-2 text-gray-400">Loading slots...</div>
+                      ) : slotList.length === 0 ? (
+                        <div className="p-2 text-gray-400">No slots found</div>
+                      ) : (
+                        slotList.map((slot: SlotData) => (
+                          <SelectItem key={slot._id} value={slot._id}>
+                            {slot.name} ({slot.startTime} - {slot.endTime})
+                          </SelectItem>
+                        ))
+                      )}
+                    </SelectContent>
+                  </Select>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div className="col-span-6">
+            <FormField
+              control={form.control}
+              name="classId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Class Name</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a class name ..." />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {isFetching_classes ? (
+                        <div className="p-2 text-gray-400">Loading classes...</div>
+                      ) : classList.length === 0 ? (
+                        <div className="p-2 text-gray-400">No classes found</div>
+                      ) : (
+                        classList.map((classItem: ClassData) => (
+                          <SelectItem key={classItem._id} value={classItem._id}>
+                            {classItem.name}
+                          </SelectItem>
+                        ))
+                      )}
+                    </SelectContent>
+                  </Select>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
+
+        <FormField
+          control={form.control}
+          name="coachEmail"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Coach Email</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter email of coach ..." type="email" {...field} />
+              </FormControl>
+
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <div className="flex gap-4 justify-center">
+          <Button variant="secondary" type="button" onClick={() => window.history.back()}>
+            Cancel
+          </Button>
+          <Button variant="default" type="submit">
+            Submit
+          </Button>
+        </div>
+      </form>
+    </Form>
+  );
+}

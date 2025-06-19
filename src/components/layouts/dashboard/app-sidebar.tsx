@@ -70,6 +70,10 @@ const StudentData = {
           url: '/quizzes-student',
         },
        
+          {
+          title: 'List News',
+          url: '/list-news',
+        },
       ],
     },
   ],
@@ -108,6 +112,10 @@ const TedTeamData = {
           title: 'Register Ted Team',
           url: '/register-tedteam',
         },
+        {
+          title: 'View Classes',
+          url: '/ClassList',
+        },  
       ],
     },
   ],
@@ -152,7 +160,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       case 'Student':
         setData(StudentData);
         break;
-      case 'TedTeam':
+      case 'Tedteam':
         setData(TedTeamData);
         break;
     }

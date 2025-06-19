@@ -129,10 +129,14 @@ export default function DataTable<TData, TValue>({
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
                       <TableHead key={header.id}>
-                        <DataTableColumnHeader
-                          column={header.column}
-                          title={header.column.columnDef.header as string}
-                        />
+                        {typeof header.column.columnDef.header === 'function' ? (
+                          header.column.columnDef.header(header.getContext())
+                        ) : (
+                          <DataTableColumnHeader
+                            column={header.column}
+                            title={header.column.columnDef.header as string}
+                          />
+                        )}
                       </TableHead>
                     ))}
                   </TableRow>
@@ -209,7 +213,7 @@ export default function DataTable<TData, TValue>({
                     onClick={(event) => {
                       if (onRowClick) {
                         const isInteractiveElement = (event.target as HTMLElement).closest(
-                          'a, button'
+                          'a, button',
                         );
                         if (!isInteractiveElement) {
                           onRowClick({ data: record });

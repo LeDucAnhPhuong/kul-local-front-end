@@ -11,9 +11,10 @@ export type TypeTitlePage = {
   contentHref?: string;
   startIcon?: React.ReactNode;
   isReplace?: boolean;
+  onClick?: () => void;
 };
 
-const TitlePage = ({ title, href, contentHref, startIcon, isReplace = false }: TypeTitlePage) => {
+const TitlePage = ({ title, href, contentHref, startIcon, isReplace = false, onClick }: TypeTitlePage) => {
   const router = useRouter();
 
   return (
@@ -24,6 +25,7 @@ const TitlePage = ({ title, href, contentHref, startIcon, isReplace = false }: T
           className="h-8 px-2 lg:px-3"
           variant="outline"
           onClick={() => {
+            if (onClick) return onClick();
             if (!href) return;
             if (isReplace) router.replace(href);
             else router.push(href);

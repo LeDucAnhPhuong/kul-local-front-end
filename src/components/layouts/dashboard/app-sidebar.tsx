@@ -57,6 +57,7 @@ const StudentData = {
       title: 'Getting Started',
       url: '#',
       items: [
+        
         {
           title: 'Dashboard Home',
           url: '/dashboard',
@@ -88,6 +89,18 @@ const CoachData = {
         {
           title: 'Dashboard Home',
           url: '/dashboard',
+        },
+        {
+          title: 'Quiz',
+          url: '/view-quiz',
+        },
+        {
+          title: 'Schedule',
+          url: '/schedule',
+        },
+        {
+          title: 'Assignment',
+          url: '/assignment',
         },
       ],
     },

@@ -1,49 +1,59 @@
-import React from "react"
-import { attendanceDummyData, transformAttendanceData } from "../teddata"
-import { personalWorkColumns } from "../columns/personal-schedule"
-import { PersonalScheduleMobileView } from "../columns/personal-mobile"
-import { TedDataTable } from "./ted-data"
-import { useGetTedTeamScheduleByDateRangeQuery } from "../api.tedteam"
+import React from 'react';
+import { attendanceDummyData, transformAttendanceData } from '../teddata';
+import { personalWorkColumns } from '../columns/personal-schedule';
+import { PersonalScheduleMobileView } from '../columns/personal-mobile';
+import { TedDataTable } from './ted-data';
+import { useGetAllSlotQuery, useGetTedTeamScheduleByDateRangeQuery } from '../api.tedteam';
+import type { Slot } from '../slotInfo';
 
 export default function PersonalSchedule() {
-  const [isMobile, setIsMobile] = React.useState(false)
+  const [isMobile, setIsMobile] = React.useState(false);
   const { data, isFetching } = useGetTedTeamScheduleByDateRangeQuery({
-    startDate: "2025-06-01T00:00:00Z",
-    endDate: "2025-06-30T23:59:59Z",
-  })
+    startDate: '2025-06-01T00:00:00Z',
+    endDate: '2025-06-30T23:59:59Z',
+  });
+  const { slots } = useGetAllSlotQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      slots: data
+        ? (Array.from(data) as Slot[])?.sort((a: Slot, b: Slot) => {
+            const toMinutes = (time: string) => {
+              const [h, m] = time.split(':').map(Number);
+              return h * 60 + m;
+            };
+            return toMinutes(a.startTime) - toMinutes(b.startTime);
+          })
+        : [],
+    }),
+  });
 
-  const scheduleData = transformAttendanceData(data?.data || [])
+  const scheduleData = transformAttendanceData(data?.data || [], slots ?? []);
 
   React.useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener("resize", checkMobile)
-    return () => window.removeEventListener("resize", checkMobile)
-    
-  }, [])
-  
-  // const scheduleData = transformAttendanceData(attendanceDummyData)
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
-  // React.useEffect(() => {
-  //   const checkMobile = () => setIsMobile(window.innerWidth < 768)
-  //   checkMobile()
-  //   window.addEventListener("resize", checkMobile)
-  //   return () => window.removeEventListener("resize", checkMobile)
-  // }, [])
-
-   return (
+  return (
     <div className="bg-white dark:bg-background p-6 rounded-xl border border-stone-200 dark:border-stone-800">
       <div className="mb-6">
         <h2 className="text-2xl font-bold mb-2">Personal Work Schedule</h2>
         <p className="text-muted-foreground">
-          Your approved work shifts and attendance tracking. Please arrive on time for your scheduled shifts.
+          Your approved work shifts and attendance tracking. Please arrive on time for your
+          scheduled shifts.
         </p>
       </div>
 
       {isMobile ? (
         <PersonalScheduleMobileView data={scheduleData} />
       ) : (
-        <TedDataTable data={scheduleData} columns={personalWorkColumns} isLoading={isFetching} onRowClick={() => {}} />
+        <TedDataTable
+          data={scheduleData}
+          columns={personalWorkColumns}
+          isLoading={isFetching}
+          onRowClick={() => {}}
+        />
       )}
 
       <div className="mt-4 text-sm text-muted-foreground">
@@ -63,5 +73,5 @@ export default function PersonalSchedule() {
         </div>
       </div>
     </div>
-  )
+  );
 }

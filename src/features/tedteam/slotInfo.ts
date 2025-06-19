@@ -93,22 +93,21 @@ export type ScheduleCell = {
 }
 
 export type RegisterScheduleCell = {
-  id: string
-  slot_id: {
-    _id: number
-    name: "Slot 1" | "Slot 2" | "Slot 3"
-    start_time: string
-    end_time: string
+  _id: string
+  slot: {
+    _id: string
+    name: string
+    startTime: string
+    endTime: string
     description: string
     isActive: boolean
-    created_by: number
-    updated_by: number
+    created_by: string | null
+    updated_by: string | null
     created_at: string
     updated_at: string
   }
   date: string
-  time: string
-  status: "register" | "registered" | "unregistered" | "full"
+  status: number
 }
 
 export type SlotSchedule = {

@@ -12,7 +12,7 @@ export default function PersonalSchedule() {
     endDate: "2025-06-30T23:59:59Z",
   })
 
-  const scheduleData = transformAttendanceData(attendanceDummyData || [])
+  const scheduleData = transformAttendanceData(data?.data || [])
 
   React.useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768)

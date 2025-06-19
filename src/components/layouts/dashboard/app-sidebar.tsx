@@ -34,6 +34,18 @@ const AdminData = {
           title: 'Account Management',
           url: '/account-management',
         },
+         {
+          title: 'Class Management',
+          url: '/class-management',
+        },
+        {
+          title: 'Slot Management',
+          url: '/slot-management',
+        },
+        {
+          title: 'Schedule Management',
+          url: '/schedule-management',
+        },
       ],
     },
   ],

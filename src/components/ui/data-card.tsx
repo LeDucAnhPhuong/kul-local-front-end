@@ -152,7 +152,7 @@ export default function CardList<TData, TValue>({
           })}
         </div>
       ) : (
-        <p className="mt-4 text-center text-muted-foreground">Không tìm thấy dữ liệu</p>
+        <p className="mt-4 text-center text-muted-foreground">No data found</p>
       )}
 
       {!isLoading && table.getRowModel().rows.length !== 0 && isUsePagination && (

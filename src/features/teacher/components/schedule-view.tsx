@@ -1,112 +1,182 @@
-import DataTable from '@/components/data-table/data-table';
+'use client';
+
+import { useMemo, useState } from 'react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Button } from '@/components/ui/button';
 import TitlePage from '@/components/ui/title-page';
-import { exampleScheduleData } from '../data.teacher-ui';
+import DataTable from '@/components/data-table/data-table';
+import DataCard from '@/components/ui/data-card';
+import { convertToMobileSchedule } from '../columns/convertToMobileSchedule';
 import { convertToSlotByDay } from '../columns/convertToSlotByDay';
 import { columns as desktopColumns } from '../columns/schedule.columns';
 import { columns as mobileColumns } from '../columns/schedule.columnsmobile';
-import DataCard from '@/components/ui/data-card';
-import { useMemo, useState } from 'react';
-// Utility function to get Monday of a given week
-const getMondayOfWeek = (date: Date): Date => {
-  const day = date.getDay();
-  const diff = date.getDate() - day + (day === 0 ? -6 : 1);
-  return new Date(date.setDate(diff));
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useGetTeacherScheduleQuery, useGetSlotsQuery } from '../api.teacher';
+
+const getMonday = (date: Date) => {
+  const d = new Date(date);
+  const day = d.getDay();
+  const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+  d.setDate(diff);
+  d.setHours(0, 0, 0, 0);
+  return d;
 };
 
-// Utility function to get Sunday of a given week
-const getSundayOfWeek = (monday: Date): Date => {
-  const sunday = new Date(monday);
-  sunday.setDate(monday.getDate() + 6);
-  return sunday;
+const getSunday = (monday: Date) => {
+  const d = new Date(monday);
+  d.setDate(d.getDate() + 6);
+  return d;
 };
 
-// Generate all weeks from 2000 to 2050
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
+
 const generateWeekOptions = () => {
   const weeks = [];
-  const startYear = 2000;
-  const endYear = 2050;
+  const start = getMonday(new Date(2000, 0, 1));
+  const end = new Date(2050, 11, 31);
+  const current = new Date(start);
 
-  for (let year = startYear; year <= endYear; year++) {
-    let currentDate = new Date(year, 0, 1);
-    const firstMonday = getMondayOfWeek(new Date(currentDate));
-
-    if (firstMonday.getFullYear() < year) {
-      currentDate = new Date(firstMonday);
-      currentDate.setDate(firstMonday.getDate() + 7);
-    } else {
-      currentDate = firstMonday;
-    }
-
-    while (currentDate.getFullYear() === year) {
-      const monday = new Date(currentDate);
-      const sunday = getSundayOfWeek(new Date(monday));
-
-      const mondayStr = monday.toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: '2-digit',
-      });
-      const sundayStr = sunday.toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-      });
-
-      weeks.push({
-        value: monday.toISOString().split('T')[0],
-        label: `${mondayStr} - ${sundayStr}`,
-        monday: monday,
-        sunday: sunday,
-      });
-
-      currentDate.setDate(currentDate.getDate() + 7);
-    }
+  while (current <= end) {
+    const monday = getMonday(current);
+    const sunday = getSunday(monday);
+    weeks.push({
+      value: monday.toISOString().split('T')[0],
+      label: `${formatDate(monday)} - ${formatDate(sunday)}`,
+    });
+    current.setDate(current.getDate() + 7);
   }
 
   return weeks;
 };
+
 function TeacherView() {
   const weekOptions = useMemo(() => generateWeekOptions(), []);
+  const todayMonday = getMonday(new Date()).toISOString().split('T')[0];
 
-  const getCurrentWeek = () => {
-    const today = new Date();
-    const monday = getMondayOfWeek(new Date(today));
-    return monday.toISOString().split('T')[0];
+  const [selectedWeek, setSelectedWeek] = useState(() => {
+    const match = weekOptions.find((w) => w.value === todayMonday);
+    return match ? match.value : weekOptions[0]?.value || '';
+  });
+
+  const currentIndex = weekOptions.findIndex((w) => w.value === selectedWeek);
+
+  const goToPreviousWeek = () => {
+    if (currentIndex > 0) {
+      setSelectedWeek(weekOptions[currentIndex - 1].value);
+    }
   };
 
-  const [selectedWeek, setSelectedWeek] = useState<string>(getCurrentWeek());
+  const goToNextWeek = () => {
+    if (currentIndex < weekOptions.length - 1) {
+      setSelectedWeek(weekOptions[currentIndex + 1].value);
+    }
+  };
+
+  const { slot, isFetching_slot } = useGetSlotsQuery(undefined, {
+    selectFromResult: ({ data, isFetching }) => ({
+      slot: data || [],
+      isFetching_slot: isFetching,
+    }),
+  });
+
+  const { week, isFetching } = useGetTeacherScheduleQuery(
+    {
+      startDate: new Date(selectedWeek).toISOString(),
+      endDate: getSunday(new Date(selectedWeek)).toISOString(),
+    },
+    {
+      selectFromResult: ({ data, isFetching }) => ({
+        week: data?.data || [],
+        isFetching,
+      }),
+    },
+  );
+
+  console.log('week', week);
+  console.log('slot', slot);
+
+  // Truyền danh sách tất cả slot vào hàm convertToSlotByDay
+  const deskdata = useMemo(() => convertToSlotByDay(week, slot), [week, slot]);
+  const mobiledata = useMemo(() => convertToMobileSchedule(week, slot), [week, slot]);
+
   return (
     <>
-      <div className="bg-white dark:bg-background p-4 rounded-xl border-[1px] border-stone-50 dark:border-stone-800">
-        <TitlePage title="Schedule" />
-        <p className="mb-4 text-sm text-gray-500 dark:text-gray-400 margin-left-5 parding-left-5">
-          Select a week.
-        </p>
-        <select
-          name="date"
-          value={selectedWeek}
-          onChange={(e) => setSelectedWeek(e.target.value)}
-          className="px-3 py-2 mb-4 text-gray-900 bg-white border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
-        >
-          {weekOptions.map((week) => (
-            <option key={week.value} value={week.value}>
-              {week.label}
-            </option>
-          ))}
-        </select>
-        <div className="lg:hidden block">
+      <div className="bg-white dark:bg-background p-4 rounded-xl border border-stone-200 dark:border-stone-800">
+        <TitlePage title="Teacher Schedule" />
+        <div className="flex flex-wrap gap-2 justify-start items-center mb-4">
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={goToPreviousWeek}
+              disabled={currentIndex <= 0}
+            >
+              <ChevronLeft />
+            </Button>
+
+            <div className="w-[200px]">
+              <Select value={selectedWeek} onValueChange={setSelectedWeek}>
+                <SelectTrigger className="w-full px-3 py-2 text-sm">
+                  <SelectValue placeholder="Select week" className="text-center" />
+                </SelectTrigger>
+                <SelectContent className="max-h-[300px] overflow-auto">
+                  {weekOptions.map((week) => (
+                    <SelectItem
+                      key={week.value}
+                      value={week.value}
+                      className="text-center justify-center"
+                    >
+                      {week.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={goToNextWeek}
+              disabled={currentIndex >= weekOptions.length - 1}
+            >
+              <ChevronRight />
+            </Button>
+          </div>
+          <div>
+            <Button variant="outline" size="sm" onClick={() => setSelectedWeek(todayMonday)}>
+              Today
+            </Button>
+          </div>
+        </div>
+
+        <div className="lg:hidden block px-4">
           <DataCard
             isUsePagination={false}
             isUseToolbar={false}
-            data={convertToSlotByDay(exampleScheduleData)}
+            data={mobiledata}
             columns={mobileColumns}
+            isLoading={isFetching || isFetching_slot}
           />
         </div>
+
         <div className="hidden lg:block">
           <DataTable
             isUsePagination={false}
             isUseToolbar={false}
-            data={exampleScheduleData}
+            data={deskdata}
             columns={desktopColumns}
+            isLoading={isFetching || isFetching_slot}
           />
         </div>
       </div>

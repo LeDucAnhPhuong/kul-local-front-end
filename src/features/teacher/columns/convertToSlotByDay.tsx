@@ -1,21 +1,47 @@
-import type { SlotSchedule } from './schedule.columns';
-import type { ScheduleCell } from './schedule.columns';
+import type { ScheduleItem } from '../types/schedule';
 
-type SlotByDay = {
-  day: string;
-  [slotName: string]: ScheduleCell | string | undefined;
-};
+const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+export function getDayKeyFromDateString(dateStr: string): string {
+  const date = new Date(dateStr);
+  return days[date.getDay() === 0 ? 6 : date.getDay() - 1];
+}
+export function convertToSlotByDay(data: ScheduleItem[], allSlots: any[] = []) {
+  const slotMap: Record<string, any> = {};
 
-// Các key tương ứng với thứ trong tuần theo cấu trúc mới
-const days = ['t2', 't3', 't4', 't5', 't6', 't7', 'cn'];
+  // Đầu tiên, tạo tất cả các slot từ danh sách allSlots
+  allSlots.forEach((slot) => {
+    const slotName = slot.name || 'Unknown Slot';
+    if (!slotMap[slotName]) {
+      slotMap[slotName] = {
+        slotName,
+        slotId: slot._id,
+        startTime: slot.startTime,
+        endTime: slot.endTime,
+      };
+      // Khởi tạo tất cả các ngày với null
+      days.forEach((day) => {
+        slotMap[slotName][day] = null;
+      });
+    }
+  });
 
-export function convertToSlotByDay(data: SlotSchedule[]): SlotByDay[] {
-  return days.map((day) => {
-    const row: SlotByDay = { day };
-    data.forEach((slotRow) => {
-      const slotKey = slotRow.slot.replace(/\s/g, ''); // "Slot 1" => "Slot1"
-      row[slotKey] = slotRow[day as keyof SlotSchedule];
-    });
-    return row;
+  data.forEach((item) => {
+    const slotName = item.slot?.name || 'Unknown Slot';
+    const date = new Date(item.date);
+    const dayName = days[date.getDay() === 0 ? 6 : date.getDay() - 1];
+
+    if (!slotMap[slotName]) {
+      slotMap[slotName] = { slotName };
+      days.forEach((day) => {
+        slotMap[slotName][day] = null;
+      });
+    }
+    slotMap[slotName][dayName] = item;
+  });
+
+  return Object.values(slotMap).sort((a: any, b: any) => {
+    const timeA = a.startTime || '00:00';
+    const timeB = b.startTime || '00:00';
+    return timeA.localeCompare(timeB);
   });
 }

@@ -4,22 +4,27 @@ export const pokemonApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAdmin: builder.query({
       query: () => `/api/Users/admins`,
+      providesTags: ['User'],
     }),
     getStudent: builder.query({
       query: () => `/api/Users/students`,
+      providesTags: ['User'],
     }),
     getCoaches: builder.query({
       query: () => `/api/Users/coaches`,
+      providesTags: ['User'],
     }),
     getTedTeam: builder.query({
       query: () => `/api/Users/tedteams`,
+      providesTags: ['User'],
     }),
     createStudent: builder.mutation({
       query: (newStudent) => ({
-        url: `students`,
+        url: `/student`,
         method: 'POST',
         body: newStudent,
       }),
+      invalidatesTags: ['User'],
     }),
     createCoach: builder.mutation({
       query: (newCoach) => ({
@@ -27,6 +32,7 @@ export const pokemonApi = baseApi.injectEndpoints({
         method: 'POST',
         body: newCoach,
       }),
+      invalidatesTags: ['User'],
     }),
     createTedTeam: builder.mutation({
       query: (newTedTeam) => ({
@@ -34,6 +40,7 @@ export const pokemonApi = baseApi.injectEndpoints({
         method: 'POST',
         body: newTedTeam,
       }),
+      invalidatesTags: ['User'],
     }),
     createAdmin: builder.mutation({
       query: (newAdmin) => ({
@@ -41,6 +48,7 @@ export const pokemonApi = baseApi.injectEndpoints({
         method: 'POST',
         body: newAdmin,
       }),
+      invalidatesTags: ['User'],
     }),
   }),
 });

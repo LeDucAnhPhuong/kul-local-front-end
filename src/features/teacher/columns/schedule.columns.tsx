@@ -1,117 +1,49 @@
-import type { ColumnDef, Row } from '@tanstack/react-table';
-import { CalendarDays } from 'lucide-react';
+import type { ColumnDef, Row } from "@tanstack/react-table"
+import type { ScheduleItem } from "../types/schedule"
+import { CalendarDays } from "lucide-react"
 
-export type DayKey = 't2' | 't3' | 't4' | 't5' | 't6' | 't7' | 'cn';
+function renderScheduleCell(schedule?: ScheduleItem | null) {
+  if (!schedule) return <div className="text-amber-700 text-sm ml-2 text-center">-</div>
+  return (
+    <div className="text-sm">
+      <div className="text-blue-400">{schedule.classInfo?.name}</div>
+      <div className="text-xs text-gray-600 dark:text-gray-400">
+        at {schedule.room?.name} | {schedule.room?.location}
+      </div>
+      <div className="flex items-center gap-x-1 text-xs text-emerald-600">
+        <CalendarDays className="w-3.5 h-3.5" /> {schedule.slot?.startTime} - {schedule.slot?.endTime}
+      </div>
+    </div>
+  )
+}
 
-export type SlotSchedule = {
-  slot: string;
-  t2?: ScheduleCell;
-  t3?: ScheduleCell;
-  t4?: ScheduleCell;
-  t5?: ScheduleCell;
-  t6?: ScheduleCell;
-  t7?: ScheduleCell;
-  cn?: ScheduleCell;
-};
+type ScheduleRow = {
+  slotName: string
+  slotId?: string
+  startTime?: string
+  endTime?: string
+} & {
+  [key in "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday"]?: ScheduleItem | null
+}
 
-export type ScheduleCell = {
-  topic: string;
-  instructor: string;
-  location: string;
-  time: string;
-  status: 'not yet' | 'present' | 'absent';
-  date: string;
-  class_id: number;
-  room_id: number;
-  coach_id: number;
-  TedTeam_id: number;
-};
-
-export const columns: ColumnDef<SlotSchedule>[] = [
+export const columns: ColumnDef<ScheduleRow>[] = [
   {
-    accessorKey: 'slot',
-    header: 'Slot',
+    accessorKey: "slotName",
+    header: "Slot",
     cell: ({ row }) => (
-      <div className="text-sm font-medium md:text-base whitespace-nowrap">
-        {row.getValue('slot')}
+      <div className="font-medium capitalize">
+        <div>{row.original.slotName}</div>
+        {row.original.startTime && row.original.endTime && (
+          <div className="text-xs text-gray-500">
+            {row.original.startTime} - {row.original.endTime}
+          </div>
+        )}
       </div>
     ),
   },
-  ...['t2', 't3', 't4', 't5', 't6', 't7', 'cn'].map((dayKey) => ({
-    accessorKey: dayKey,
-    header: (() => {
-      const dayHeaderMap: Record<string, string> = {
-        t2: 'MON',
-        t3: 'TUE',
-        t4: 'WED',
-        t5: 'THU',
-        t6: 'FRI',
-        t7: 'SAT',
-        cn: 'SUN',
-      };
-      return dayHeaderMap[dayKey] || dayKey.toUpperCase();
-    })(),
-    cell: ({ row }: { row: Row<SlotSchedule> }) => {
-      const cell: ScheduleCell | undefined = row.getValue(dayKey);
-      if (!cell) {
-        return (
-          <div className="flex items-center justify-center py-2 text-lg text-red-500 md:text-2xl">
-            -
-          </div>
-        );
-      }
-
-      return (
-        <div className="space-y-1 p-1 min-w-[120px] max-w-[160px]">
-          {/* Topic and Instructor */}
-          <div className="space-y-1">
-            <p className="text-xs font-semibold leading-tight md:text-sm line-clamp-2">
-              {cell.topic}
-            </p>
-            <p className="text-xs leading-tight text-muted-foreground">by {cell.instructor}</p>
-          </div>
-
-          {/* Room and Class Info */}
-          <div className="text-xs leading-tight text-gray-600">
-            Room {cell.room_id} | Class {cell.class_id}
-          </div>
-
-          {/* Status Badge */}
-          {/* <Badge
-            className={cn(
-              'text-xs px-2 py-1 w-fit',
-              cell.status === 'not yet'
-                ? 'bg-orange-500 hover:bg-orange-600'
-                : cell.status === 'absent'
-                ? 'bg-red-500 hover:bg-red-600'
-                : 'bg-green-500 hover:bg-green-600'
-            )}
-          >
-            {cell.status === 'not yet'
-              ? 'Not Yet'
-              : cell.status === 'absent'
-              ? 'Absent'
-              : 'Present'}
-          </Badge> */}
-
-          {/* Time */}
-          <div className="text-xs font-medium leading-tight text-green-600">{cell.time}</div>
-
-          {/* Date */}
-          <div className="flex items-center gap-1 text-xs font-medium leading-tight text-blue-600">
-            <CalendarDays className="inline-block size-3" />
-            {new Date(cell.date).toLocaleDateString('vi-VN', {
-              day: '2-digit',
-              month: '2-digit',
-              year: 'numeric',
-            })}
-          </div>
-        </div>
-      );
-    },
-    meta: {
-      sort: false,
-      filter: false,
-    },
+  ...(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] as const).map((day) => ({
+    accessorKey: day,
+    header: day,
+    cell: ({ row }: { row: Row<ScheduleRow> }) => renderScheduleCell(row.original[day]),
   })),
-];
+]

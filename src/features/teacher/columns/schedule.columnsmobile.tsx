@@ -1,109 +1,75 @@
-import type { ColumnDef, Row } from '@tanstack/react-table';
-import { CalendarDays } from 'lucide-react';
+import type { ColumnDef } from '@tanstack/react-table';
+import type { ScheduleItem } from '../types/schedule';
+import { CalendarDays, MapPin } from 'lucide-react';
 
-export type SlotSchedule = {
-  day: string; // 'Mon', 'Tue', ...
-  Slot1?: ScheduleCell;
-  Slot2?: ScheduleCell;
-  Slot3?: ScheduleCell;
-  Slot4?: ScheduleCell;
-  Slot5?: ScheduleCell;
-  Slot6?: ScheduleCell;
-};
-
-export type ScheduleCell = {
-  topic: string;
-  instructor: string;
-  location: string;
-  time: string;
-  status: 'not yet' | 'present' | 'absent';
+type MobileRow = {
   date: string;
-  class_id: number;
-  room_id: number;
-  coach_id: number;
-  TedTeam_id: number;
+  dayName: string;
+  slots: (ScheduleItem & { isEmpty?: boolean })[];
 };
 
-export const columns: ColumnDef<SlotSchedule>[] = [
+export const columns: ColumnDef<MobileRow>[] = [
   {
-    accessorKey: 'day',
-    header: 'Day',
-    cell: ({ row }) => {
-      const dayCode = row.getValue('day') as string;
-
-      const dayMap: Record<string, string> = {
-        t2: 'Mon',
-        t3: 'Tue',
-        t4: 'Wed',
-        t5: 'Thu',
-        t6: 'Fri',
-        t7: 'Sat',
-        cn: 'Sun',
-      };
-
-      return <div className="font-semibold text-base md:text-lg">{dayMap[dayCode] || dayCode}</div>;
-    },
-  },
-
-  ...['Slot1', 'Slot2', 'Slot3'].map((slotKey) => ({
-    accessorKey: slotKey,
-    header: slotKey,
-    cell: ({ row }: { row: Row<SlotSchedule> }) => {
-      const cell: ScheduleCell | undefined = row.getValue(slotKey);
-      if (!cell) {
-        return <div className="text-red-500 text-center text-base">-</div>;
-      }
-
-      return (
-        <div className="flex flex-col gap-1 px-1 py-2 rounded-md bg-muted/20 min-w-[120px] max-w-[160px]">
-          {/* Topic and Instructor */}
-          <div>
-            <p className="text-xs font-semibold leading-tight md:text-sm line-clamp-2">
-              {cell.topic}
-            </p>
-            <p className="text-xs text-muted-foreground">by {cell.instructor}</p>
-          </div>
-
-          {/* Room and Class */}
-          <div className="text-xs leading-tight text-gray-600">
-            Room {cell.room_id} | Class {cell.class_id}
-          </div>
-
-          {/* Status Badge */}
-          {/* <div
-            className={`text-xs w-fit px-2 py-1 rounded-md text-white ${
-              cell.status === 'not yet'
-                ? 'bg-orange-500'
-                : cell.status === 'absent'
-                ? 'bg-red-500'
-                : 'bg-green-500'
-            }`}
-          >
-            {cell.status === 'not yet'
-              ? 'Not Yet'
-              : cell.status === 'absent'
-              ? 'Absent'
-              : 'Present'}
-          </div> */}
-
-          {/* Time */}
-          <div className="text-xs font-medium leading-tight text-green-700">{cell.time}</div>
-
-          {/* Date */}
-          <div className="flex items-center gap-1 text-xs font-medium leading-tight text-blue-600">
-            <CalendarDays className="inline-block size-3" />
-            {new Date(cell.date).toLocaleDateString('vi-VN', {
-              day: '2-digit',
-              month: '2-digit',
-              year: 'numeric',
-            })}
+    accessorKey: 'date',
+    cell: ({ row }) => (
+      <div className="space-y-3">
+        <div className="border-b pb-2 mb-3">
+          <div className="font-semibold text-lg text-blue-600">{row.original.dayName}</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400">
+            {row.original.date.split(' ').slice(1).join(' ')}
           </div>
         </div>
-      );
-    },
-    meta: {
-      sort: false,
-      filter: false,
-    },
-  })),
+      </div>
+    ),
+  },
+  {
+    id: 'slots',
+    cell: ({ row }) => (
+      <div>
+        <div className="space-y-3 px-3">
+          {row.original.slots.map((slot, index) => (
+            <div
+              key={slot._id || `slot-${index}`}
+              className={`pt-3 !flex-1 rounded-lg border ${
+                slot.isEmpty
+                  ? 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700'
+                  : 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800'
+              }`}
+            >
+              <div className="flex justify-between mb-2 items-start w-full p-4">
+                  <div className="font-semibold text-sm capitalize text-gray-700 dark:text-gray-300">
+                    {slot.slot?.name || 'Unknown Slot'}
+                  </div>
+                <div>
+                  {slot.isEmpty ? (
+                    <div className="text-center py-2">
+                      <div className="text-gray-400 text-sm">-</div>
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      <div className="text-blue-600 dark:text-blue-400 font-medium">
+                        {slot.classInfo?.name}
+                      </div>
+                      <div className="flex items-center gap-1 text-xs text-emerald-600">
+                        <CalendarDays className="w-3.5 h-3.5" />
+                        {slot.slot?.startTime} - {slot.slot?.endTime}
+                      </div>
+                      <div className="flex items-center gap-1 text-xs text-gray-600 dark:text-gray-400">
+                        <MapPin className="w-3.5 h-3.5" />
+                        <span>
+                          {slot.room?.name} | {slot.room?.location}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ),
+  },
 ];
+
+export type { MobileRow };

@@ -5,8 +5,8 @@ import { useGetStudentQuery } from '../api.user';
 import type { StudentData } from '../data.student';
 
 const StudentManagement = () => {
-  const { students } = useGetStudentQuery(undefined, {
-    selectFromResult: ({ data }) => ({
+  const { students, isFetching } = useGetStudentQuery(undefined, {
+    selectFromResult: ({ data, isFetching }) => ({
       students:
         data?.data?.map((item: StudentData) => ({
           ...item,
@@ -15,6 +15,7 @@ const StudentManagement = () => {
               ? `${item.last_name ?? ''} ${item.first_name ?? ''}`
               : 'N/A',
         })) || [],
+      isFetching,
     }),
   });
 
@@ -25,7 +26,7 @@ const StudentManagement = () => {
         href="/account-management/student/add"
         contentHref="Add Student"
       />
-      <DataTable data={students} columns={columns} />
+      <DataTable data={students} columns={columns} isLoading={isFetching} />
     </div>
   );
 };

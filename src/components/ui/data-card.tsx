@@ -80,7 +80,7 @@ export default function CardList<TData, TValue>({
         <div className="flex flex-col items-end justify-between gap-4 mb-4 md:flex-row">
           <Input
             className="flex-1 max-w-96"
-            placeholder="Tìm kiếm..."
+            placeholder="Search..."
             type="search"
             value={globalFilter}
             onChange={(e) => setGlobalFilter(e.target.value)}

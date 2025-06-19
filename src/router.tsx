@@ -12,6 +12,7 @@ import AddAdminPage from './pages/dashboard/account-management/admin/admin.add';
 import DashBoardHome from './pages/dashboard/DashBoardHome';
 import QuizzesView from './pages/dashboard/student/Quizzes/QuizzesView';
 import ScheduleView from './features/student-management/components/schedule-view';
+import ClassManagementPage from "./pages/dashboard/tedteam/classList";
 import DoQuiz from "./pages/dashboard/student/Quizzes/DoQuiz";
 import QuizInterface from "./features/student-management/components/DoQuizView";
 import NewsView from "./pages/dashboard/student/News/NewsView";
@@ -39,6 +40,7 @@ function Router() {
           {/* <Route path="/example-ui" element={<ExampleUI />} />
           <Route path="/student-management" element={<StudentManagement />} />
           <Route path="/teacher-management" element={<TeacherManagement />} /> */}
+          <Route path="ClassList" element={<ClassManagementPage />} />
           <Route path="/account-management">
             <Route path="" element={<AccountManagementPage />} />
             <Route path="student/add" element={<AddStudentPage />} />

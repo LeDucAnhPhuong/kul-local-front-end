@@ -3,19 +3,35 @@ import { attendanceDummyData, transformAttendanceData } from "../teddata"
 import { personalWorkColumns } from "../columns/personal-schedule"
 import { PersonalScheduleMobileView } from "../columns/personal-mobile"
 import { TedDataTable } from "./ted-data"
+import { useGetTedTeamScheduleByDateRangeQuery } from "../api.tedteam"
 
 export default function PersonalSchedule() {
   const [isMobile, setIsMobile] = React.useState(false)
-  const scheduleData = transformAttendanceData(attendanceDummyData)
+  const { data, isFetching } = useGetTedTeamScheduleByDateRangeQuery({
+    startDate: "2025-06-01T00:00:00Z",
+    endDate: "2025-06-30T23:59:59Z",
+  })
+
+  const scheduleData = transformAttendanceData(data?.data || [])
 
   React.useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768)
     checkMobile()
     window.addEventListener("resize", checkMobile)
     return () => window.removeEventListener("resize", checkMobile)
+    
   }, [])
+  
+  // const scheduleData = transformAttendanceData(attendanceDummyData)
 
-  return (
+  // React.useEffect(() => {
+  //   const checkMobile = () => setIsMobile(window.innerWidth < 768)
+  //   checkMobile()
+  //   window.addEventListener("resize", checkMobile)
+  //   return () => window.removeEventListener("resize", checkMobile)
+  // }, [])
+
+   return (
     <div className="bg-white dark:bg-background p-6 rounded-xl border border-stone-200 dark:border-stone-800">
       <div className="mb-6">
         <h2 className="text-2xl font-bold mb-2">Personal Work Schedule</h2>
@@ -27,7 +43,7 @@ export default function PersonalSchedule() {
       {isMobile ? (
         <PersonalScheduleMobileView data={scheduleData} />
       ) : (
-        <TedDataTable data={scheduleData} columns={personalWorkColumns} onRowClick={() => { }} />
+        <TedDataTable data={scheduleData} columns={personalWorkColumns} isLoading={isFetching} onRowClick={() => {}} />
       )}
 
       <div className="mt-4 text-sm text-muted-foreground">

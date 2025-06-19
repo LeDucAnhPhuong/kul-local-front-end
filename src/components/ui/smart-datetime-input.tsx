@@ -601,7 +601,7 @@ const DateTimeLocalInput = ({
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" sideOffset={8}>
         <div className="flex gap-1">
-          <Calendar
+          {/* <Calendar
             disabled={disabled}
             {...props}
             id={"calendar"}
@@ -610,8 +610,8 @@ const DateTimeLocalInput = ({
             selected={value}
             onSelect={formateSelectedDate}
             initialFocus
-          />
-          <TimePicker />
+          /> */}
+          <TimePicker  />
         </div>
       </PopoverContent>
     </Popover>

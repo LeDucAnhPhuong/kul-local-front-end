@@ -16,38 +16,24 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { SmartTimeInput } from "./smart-time-input"
 import { useNavigate } from 'react-router';
+import { SmartDatetimeInput } from '@/components/ui/smart-datetime-input';
+import { TimeOnlyInput } from './time-only-input';
 
 const formSchema = z
   .object({
     name: z.string(),
-    description: z.string().optional(),
-    start_time: z
-      .string()
-      .min(1, {
-        message: "Start time is required",
-      })
-      .regex(/^\d{2}:\d{2}:\d{2}$/, {
-        message: "Invalid time format",
-      }),
-    end_time: z
-      .string()
-      .min(1, {
-        message: "End time is required",
-      })
-      .regex(/^\d{2}:\d{2}:\d{2}$/, {
-        message: "Invalid time format",
-      }),
+    startTime: z.date({ message: 'Start time is required' }),
+    endTime: z.date({ message: 'Invalid time format' }),
   })
   .refine(
     (data) => {
-      return data.end_time >= data.start_time;
+      return data.endTime >= data.startTime;
     },
     {
-      message: "End time must be greater than start time",
-      path: ["end_time"],
-    }
+      message: 'End time must be greater than start time',
+      path: ['endTime'],
+    },
   );
 
 interface MyFormProps {
@@ -63,9 +49,8 @@ export default function MyForm({ onAdd, isLoading }: MyFormProps) {
   function onSubmit(values: z.infer<typeof formSchema>) {
     onAdd({
       name: values.name,
-      description: values.description,
-      start_time: values.start_time,
-      end_time: values.end_time,
+      startTime: values.startTime,
+      endTime: values.endTime,
     });
     try {
       console.log(values);
@@ -80,6 +65,18 @@ export default function MyForm({ onAdd, isLoading }: MyFormProps) {
       toast.error('Failed to submit the form. Please try again.');
     }
   }
+
+  const getThresholdTime = (date?: Date): string => {
+    if (!date) return '12:00 AM';
+    return date.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+      timeZone: 'UTC',
+    });
+  };
+
+  const startTime = form.watch('startTime');
 
   return (
     <Form {...form}>
@@ -99,35 +96,21 @@ export default function MyForm({ onAdd, isLoading }: MyFormProps) {
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Description</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter description..." type="text" {...field} />
-              </FormControl>
-
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-6">
             <FormField
               control={form.control}
-              name="start_time"
+              name="startTime"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Start Time</FormLabel>
                   <FormControl>
-                    <SmartTimeInput
-                    value={field.value}
-                    onValueChange={field.onChange}
-                    placeholder="e.g. 9:00 AM or 14:30"
-                  />
+                    <TimeOnlyInput
+                      value={field.value}
+                      onValueChange={field.onChange}
+                      thresholdTime={'12:00 AM'}
+                      placeholder="Enter start time (e.g. 5:00 AM)"
+                    />
                   </FormControl>
 
                   <FormMessage />
@@ -139,16 +122,20 @@ export default function MyForm({ onAdd, isLoading }: MyFormProps) {
           <div className="col-span-6">
             <FormField
               control={form.control}
-              name="end_time"
+              name="endTime"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>End Time</FormLabel>
+                  <FormLabel className={cn(startTime ?? 'text-muted-foreground')}>
+                    End Time
+                  </FormLabel>
                   <FormControl>
-                    <SmartTimeInput
-                    value={field.value}
-                    onValueChange={field.onChange}
-                    placeholder="e.g. 9:00 AM or 14:30"
-                  />
+                    <TimeOnlyInput
+                      value={field.value}
+                      onValueChange={field.onChange}
+                      thresholdTime={getThresholdTime(startTime)}
+                      placeholder="Enter end time (e.g. 5:00 PM)"
+                      disabled={!startTime}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

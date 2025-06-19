@@ -21,7 +21,8 @@ import ClassDetailPage from "./pages/dashboard/admin/class-management/class.deta
 import SlotManagementPage from "./pages/dashboard/admin/slot-management";
 import AddSlotPage from "./pages/dashboard/admin/slot-management/slot.add";
 import AddStudentIntoClassPage from "./pages/dashboard/admin/class-management/AddStudentIntoClassPage";
-import SlotExamplePage from "./pages/dashboard/admin/slot-management/example";
+import ScheduleManagementPage from './pages/dashboard/admin/schedule-management';
+import AddSchedulePage from './pages/dashboard/admin/schedule-management/schedule.add';
 
 
 function Router() {
@@ -45,13 +46,16 @@ function Router() {
           <Route path="/class-management">
             <Route path="" element={<ClassManagementPage />} />
             <Route path="add" element={<AddClassPage />} />
-            <Route path=":name" element={<ClassDetailPage />} />
-            <Route path=":name/add-student" element={<AddStudentIntoClassPage />} />
+            <Route path=":id" element={<ClassDetailPage />} />
+            <Route path=":id/add-student" element={<AddStudentIntoClassPage />} />
+          </Route>
+          <Route path="/schedule-management">
+            <Route path="" element={<ScheduleManagementPage />} />
+            <Route path="add" element={<AddSchedulePage />} />
           </Route>
           <Route path="/slot-management">
             <Route path="" element={<SlotManagementPage />} />
             <Route path="add" element={<AddSlotPage />} />
-            <Route path="example" element={<SlotExamplePage />} />
           </Route>
           <Route path="/account-management">
             <Route path="" element={<AccountManagementPage />} />

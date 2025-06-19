@@ -3,11 +3,26 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { SlotSampleData } from '../data.slot';
+import TitlePage from '@/components/ui/title-page';
 
-const SlotExample = () => {
+const ScheduleManagement = () => {
+  function parseTime(timeStr: string): string {
+    const date = new Date(`2025-06-19T${timeStr}`);
+    return date.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+      timeZone: 'UTC',
+    });
+  }
+
   return (
     <div className="bg-white dark:bg-background p-4 rounded-xl border-[1px] border-stone-50 dark:border-stone-800">
+      <TitlePage
+        title="Manage Schedule"
+        contentHref="Add schedule"
+        href="/schedule-management/add"
+      />
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         headerToolbar={{
@@ -32,31 +47,9 @@ const SlotExample = () => {
         locale="en"
         allDaySlot={false}
         initialDate={new Date().toISOString().split('T')[0]} // Set initial date to today
-        events={[
-          {
-            title: 'Sample Slot 1',
-            start: '2025-06-18T10:00:00',
-            end: '2025-06-18T12:00:00',
-          },
-          {
-            title: 'Sample Slot 2',
-            start: '2025-06-18T11:00:00',
-            end: '2025-06-18T13:00:00',
-          },
-          {
-            title: 'Sample Slot 3',
-            start: '2025-06-18T10:00:00',
-            end: '2025-06-18T12:00:00',
-          },
-          {
-            title: 'Sample Slot 4',
-            start: '2025-06-18T14:00:00',
-            end: '2025-06-18T16:00:00',
-          },
-        ]}
       />
     </div>
   );
 };
 
-export default SlotExample;
+export default ScheduleManagement;

@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 const formSchema = z.object({
   email: z.string(),
@@ -28,12 +29,9 @@ export default function MyForm({ onAdd, isLoading }: MyFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
-
   const navigate = useNavigate();
-
   function onSubmit(values: z.infer<typeof formSchema>) {
     onAdd({ email: values.email });
-
     try {
       console.log(values);
       toast(<code className="text-black">{JSON.stringify(values, null, 2)}</code>);

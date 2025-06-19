@@ -14,10 +14,10 @@ import { cn } from '@/lib/utils';
 import { filterDateRange } from '@/utils/table';
 
 export type Class = {
-  id: number;
+  _id: string;
   name: string;
   isActive: boolean;
-  createdAt?: string;
+  created_at?: string;
 };
 export const columns: ColumnDef<Class>[] = [
   {
@@ -30,10 +30,10 @@ export const columns: ColumnDef<Class>[] = [
     ),
   },
   {
-    accessorKey: 'createdAt',
+    accessorKey: 'created_at',
     header: 'Created At',
     cell: ({ row }) => {
-      const dateValue = row.getValue('createdAt') as string;
+      const dateValue = row.getValue('created_at') as string;
       const date = new Date(dateValue);
       const formattedDate = date.toLocaleDateString('vi-VN');
       
@@ -83,7 +83,7 @@ const Action = ({ row }: { row: Row<Class> }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem>
-          <Link className="flex gap-2 w-full" to={`/class-management/${row.original?.name}`}>
+          <Link className="flex gap-2 w-full" to={`/class-management/${row.original?._id}`}>
             <Eye className="w-4 h-4 text-blue-500" />
             <span>View Information</span>
           </Link>

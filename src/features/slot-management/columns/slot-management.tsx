@@ -16,8 +16,8 @@ import { CheckCircledIcon, CrossCircledIcon } from '@radix-ui/react-icons';
 export type Slot = {
   id: number;
   name: string;
-  start_time: string;
-  end_time: string;
+  startTime: string;
+  endTime: string;
   isActive: boolean;
 };
 export const columns: ColumnDef<Slot>[] = [
@@ -27,10 +27,10 @@ export const columns: ColumnDef<Slot>[] = [
     cell: ({ row }) => <div className="font-medium">{row.getValue('name')}</div>,
   },
   {
-    accessorKey: 'start_time',
+    accessorKey: 'startTime',
     header: 'Start Time',
     cell: ({ row }) => {
-      const startTime = row.getValue('start_time') as string;
+      const startTime = row.getValue('startTime') as string;
       const date = new Date(`1970-01-01T${startTime}`);
       const formattedDate = date.toLocaleTimeString('en-US', {
         hour: '2-digit',
@@ -41,10 +41,10 @@ export const columns: ColumnDef<Slot>[] = [
     },
   },
   {
-    accessorKey: 'end_time',
+    accessorKey: 'endTime',
     header: 'End Time',
     cell: ({ row }) => {
-      const endTime = row.getValue('end_time') as string;
+      const endTime = row.getValue('endTime') as string;
       const date = new Date(`1970-01-01T${endTime}`);
       const formattedDate = date.toLocaleTimeString('en-US', {
         hour: '2-digit',

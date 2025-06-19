@@ -20,7 +20,7 @@ export const pokemonApi = baseApi.injectEndpoints({
     }),
     createStudent: builder.mutation({
       query: (newStudent) => ({
-        url: `/student`,
+        url: `/api/Users/student`,
         method: 'POST',
         body: newStudent,
       }),
@@ -28,7 +28,7 @@ export const pokemonApi = baseApi.injectEndpoints({
     }),
     createCoach: builder.mutation({
       query: (newCoach) => ({
-        url: `/coach`,
+        url: `/api/Users/coach`,
         method: 'POST',
         body: newCoach,
       }),
@@ -36,7 +36,7 @@ export const pokemonApi = baseApi.injectEndpoints({
     }),
     createTedTeam: builder.mutation({
       query: (newTedTeam) => ({
-        url: `/ted-team`,
+        url: `/api/Users/ted-team`,
         method: 'POST',
         body: newTedTeam,
       }),
@@ -44,7 +44,7 @@ export const pokemonApi = baseApi.injectEndpoints({
     }),
     createAdmin: builder.mutation({
       query: (newAdmin) => ({
-        url: `/admin`,
+        url: `/api/Users/admin`,
         method: 'POST',
         body: newAdmin,
       }),

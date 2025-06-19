@@ -1,6 +1,6 @@
 import DataTable from '@/components/data-table/data-table'
 import TitlePage from '@/components/ui/title-page'
-import type { ClassListView } from '../classData' // Import type từ classData
+import type { ClassListView } from '../classData' 
 
 interface SlotClassListProps {
   classes: ClassListView[];

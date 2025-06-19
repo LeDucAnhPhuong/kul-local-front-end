@@ -2,6 +2,7 @@ import type { ColumnDef, Row } from "@tanstack/react-table"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 import type { SlotSchedule, ScheduleCell } from "../slotInfo"
+import { format } from "date-fns"
 
 export const personalWorkColumns: ColumnDef<SlotSchedule>[] = [
   {
@@ -31,31 +32,35 @@ export const personalWorkColumns: ColumnDef<SlotSchedule>[] = [
       }
 
       return (
-        <div className="space-y-1 p-1 min-w-[120px] max-w-[160px]">
+        <div className="space-y-1 p-1 min-w-[120px] w-full flex flex-col justify-center">
           <div className="space-y-1">
             <p className="text-xs font-semibold leading-tight md:text-sm line-clamp-2">{cell.topic}</p>
-            <p className="text-xs leading-tight text-muted-foreground">by {cell.instructor}</p>
           </div>
 
           <div className="text-xs leading-tight text-gray-600">
-            Room {cell.room_id} | Class {cell.class_id}
+            {cell.location} | {cell.class_id}
           </div>
-          <Badge
-            className={cn(
-              "text-xs px-2 py-1 w-fit",
-              cell.status === "not yet"
-                ? "bg-orange-500 hover:bg-orange-600"
-                : cell.status === "absent"
-                  ? "bg-red-500 hover:bg-red-600"
-                  : "bg-green-500 hover:bg-green-600",
-            )}
-          >
-            {cell.status === "not yet" ? "Not Yet" : cell.status === "absent" ? "Absent" : "Present"}
-          </Badge>
+          <div>
+
+            <Badge
+              className={cn(
+                "text-xs px-2 py-1 w-fit",
+                cell.status === "not yet"
+                  ? "bg-orange-500 hover:bg-orange-600"
+                  : cell.status === "absent"
+                    ? "bg-red-500 hover:bg-red-600"
+                    : "bg-green-500 hover:bg-green-600",
+              )}
+            >
+              {cell.status === "not yet" ? "Not Yet" : cell.status === "absent" ? "Absent" : "Present"}
+            </Badge>
+          </div>
+          <p className="text-xs leading-tight text-muted-foreground">by {cell.instructor}</p>
+
 
           <div className="text-xs font-medium leading-tight text-green-600">{cell.time}</div>
 
-          <div className="text-xs font-medium leading-tight text-blue-600">{cell.date}</div>
+          <div className="text-xs font-medium leading-tight text-blue-600">{format(cell.date, "dd-MM-yyyy")}</div>
         </div>
       )
     },

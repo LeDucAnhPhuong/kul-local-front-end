@@ -13,6 +13,9 @@ import DashBoardHome from './pages/dashboard/DashBoardHome';
 import QuizzesView from './pages/dashboard/student/Quizzes/QuizzesView';
 import ScheduleView from './features/student-management/components/schedule-view';
 import ClassManagementPage from "./pages/dashboard/tedteam/classList";
+import DoQuiz from "./pages/dashboard/student/Quizzes/DoQuiz";
+import QuizInterface from "./features/student-management/components/DoQuizView";
+import NewsView from "./pages/dashboard/student/News/NewsView";
 import TedPersonalPage from './pages/dashboard/tedteam/personal';
 import TedRegisterPage from './pages/dashboard/tedteam/register';
 import SignOut from './pages/sign-out';
@@ -31,6 +34,8 @@ function Router() {
           <Route path="/personal-tedteam" element={<TedPersonalPage />} />
           <Route path="/register-tedteam" element={<TedRegisterPage />} />
 
+          <Route path="/list-news" element={<NewsView />} />
+
           {/* Uncomment the following lines if you want to include these routes */}
           {/* <Route path="/example-ui" element={<ExampleUI />} />
           <Route path="/student-management" element={<StudentManagement />} />
@@ -44,6 +49,7 @@ function Router() {
             <Route path="admin/add" element={<AddAdminPage />} />
           </Route>
         </Route>
+        <Route path="/quiz/:id" element={<QuizInterface />} />
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/sign-out" element={<SignOut />} />
       </Routes>

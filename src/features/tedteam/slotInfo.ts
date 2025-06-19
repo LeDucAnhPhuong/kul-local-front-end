@@ -1,16 +1,95 @@
 export type DayKey = "t2" | "t3" | "t4" | "t5" | "t6" | "t7" | "cn"
 
+export interface Room {
+  name: string;
+  capacity: number;
+  location: string;
+  description: string;
+  _id: string;
+  isActive: boolean;
+  created_by: string | null;
+  updated_by: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface User {
+  email: string;
+  role: string;
+  profile_image: string;
+  first_name: string;
+  last_name: string;
+  _id: string;
+  isActive: boolean;
+   created_by: string | null;
+  updated_by: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ClassInfo {
+  name: string;
+  startTime: string; // ISO string
+  endTime: string;
+  _id: string;
+  isActive: boolean;
+   created_by: string | null;
+  updated_by: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Slot {
+  name: string;
+  startTime: string; // format: HH:mm
+  endTime: string;
+  _id: string;
+  isActive: boolean;
+   created_by: string | null;
+  updated_by: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ScheduleItem {
+  room: Room;
+  coach: User;
+  classInfo: ClassInfo | null;
+  slot: Slot;
+  date: string; // ISO date string
+  _id: string;
+  tedTeamId: string | null;
+  isActive: boolean;
+   created_by: string | null;
+  updated_by: string | null;
+  created_at: string;
+  updated_at: string;
+}
+export interface UserSchedule {
+  userId: string | null;
+  schedule: ScheduleItem;
+  status: number;
+  user: User;
+  scheduleId: string | null;
+  _id: string;
+  created_at: string;
+  updated_at: string;
+  created_by: string | null;
+  updated_by: string | null;
+  isActive: boolean;
+}
+
 export type ScheduleCell = {
-  topic: string
+  topic?: string
   instructor: string
   location: string
   time: string
   status: "not yet" | "present" | "absent"
   date: string
-  class_id: number
-  room_id: number
-  coach_id: number
-  TedTeam_id: number
+  class_id?: string | null
+  room_id?: string | null
+  coach_id?: string | null
+  tedTeam_id?: string | null
 }
 
 export type RegisterScheduleCell = {
@@ -85,16 +164,16 @@ interface ClassCalendar {
 }
 
 export interface AttendanceData {
-  _id: number
-  calendar_id: number
-  user_id: number
-  status: "not yet" | "present" | "absent"
+  _id: string
+  schedule_id: string 
+  user_id: string
+  status: number
   isActive: boolean
-  created_by: number
-  updated_by: number
+  created_by: number | null
+  updated_by: number| null
   created_at: string
   updated_at: string
-  classCalendar: ClassCalendar
+  schedule: ClassCalendar
 }
 
 export type RegistrationStatus = "register" | "registered" | "unregistered" | "full"

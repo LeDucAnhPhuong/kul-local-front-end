@@ -40,7 +40,7 @@ export const MobileScheduleView: React.FC<Props> = ({ data }) => {
               <div key={idx} className="pb-2 mb-2 border-b last:border-none last:mb-0 dark:border-gray-700">
                 {/* Slot Name */}
                 <div className="text-sm font-semibold text-gray-700 dark:text-gray-300">
-                  {slotName}:  {cell!.topic}
+                  {slotName}:  {cell!.roomName}
                 </div>
                 
                 {/* Room and Class Info */}

@@ -1,7 +1,6 @@
-import type { ColumnDef, Row } from '@tanstack/react-table';
+import type { ColumnDef } from '@tanstack/react-table';
 import { CalendarDays } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { filterDateRange } from '@/utils/table';
@@ -11,12 +10,12 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '../components/alert-dialog';
+import { Link } from 'react-router-dom';
 
 export type Quiz = {
   _id: number;
@@ -103,19 +102,21 @@ export const columns: ColumnDef<Quiz>[] = [
   },
 },
 
-  {
-    id: 'actions',
-    cell: ({ row }) => <Action row={row} />,
-  },
+  // {
+  //   id: 'actions',
+  //   cell: ({ row }) => <Action row={row} />,
+  // },
 ];
 
-const Action = ({ row }: { row: Row<Quiz> }) => {
-  return (
-    <Button
-      disabled={row.original.isActive}
-      className="w-full bg-blue-500 hover:bg-blue-600 text-white"
-    >
-      Làm
-    </Button>
-  );
-};
+// const Action = ({ row }: { row: Row<Quiz> }) => {
+//   return (
+//     <>
+//     </>
+//     // <Button
+//     //   disabled={row.original.isActive}
+//     //   className="w-full bg-blue-500 hover:bg-blue-600 text-white"
+//     // >
+//     //   Làm
+//     // </Button>
+//   );
+// };

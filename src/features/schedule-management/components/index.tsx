@@ -168,42 +168,42 @@ export function CustomSlotCalendar({ slots }: { slots: Slot[] }) {
 
   const handleDatesSet = (arg: any) => {
     const newDate = arg.startStr.split('T')[0];
-    setSelectedDate(newDate);
     setCurrentView(arg.view.type);
-
-    const visibleDates =
-      arg.view.type === 'timeGridWeek'
-        ? getWeekDates(arg.view.currentStart.toISOString())
-        : [newDate];
 
     switch (arg.view.type) {
       case 'timeGridDay':
+        setSelectedDate(newDate);
         setCurrentDateRange({
           startDate: startOfDay(new Date(newDate)),
           endDate: endOfDay(new Date(newDate)),
         });
-
         break;
       case 'timeGridWeek':
+        // Lấy ngày đầu tuần
+        const weekStart = arg.view.currentStart;
+        setSelectedDate(weekStart.toISOString().split('T')[0]);
         setCurrentDateRange({
-          startDate: startOfWeek(arg.view.currentStart),
-          endDate: endOfWeek(arg.view.currentStart),
+          startDate: startOfWeek(weekStart),
+          endDate: endOfWeek(weekStart),
         });
-        setSelectedDate(new Date().toISOString().split('T')[0]);
         break;
       case 'dayGridMonth':
+        // Lấy ngày đầu tháng
+        const monthStart = arg.view.currentStart;
+        setSelectedDate(monthStart.toISOString().split('T')[0]);
         setCurrentDateRange({
-          startDate: startOfMonth(arg.view.currentStart),
-          endDate: endOfMonth(arg.view.currentStart),
+          startDate: startOfMonth(monthStart),
+          endDate: endOfMonth(monthStart),
         });
-        setSelectedDate(new Date().toISOString().split('T')[0]);
         break;
       case 'listWeek':
+        // Lấy ngày đầu tuần
+        const listWeekStart = arg.view.currentStart;
+        setSelectedDate(listWeekStart.toISOString().split('T')[0]);
         setCurrentDateRange({
-          startDate: startOfWeek(arg.view.currentStart),
-          endDate: endOfWeek(arg.view.currentStart),
+          startDate: startOfWeek(listWeekStart),
+          endDate: endOfWeek(listWeekStart),
         });
-        setSelectedDate(new Date().toISOString().split('T')[0]);
         break;
     }
 
@@ -272,6 +272,22 @@ export function CustomSlotCalendar({ slots }: { slots: Slot[] }) {
               >
                 <ChevronRight className="h-4 w-4" />
               </Button>
+            </div>
+            <Separator orientation="vertical" className="h-6" />
+            <div className="flex items-center">
+              {currentView === 'timeGridDay' ? (
+                <span className="text-sm text-gray-500">{selectedDate}</span>
+              ) : currentView === 'timeGridWeek' || currentView === 'listWeek' ? (
+                <span className="text-sm text-gray-500">
+                  {startOfWeek(selectedDate).toLocaleDateString()} -{' '}
+                  {endOfWeek(selectedDate).toLocaleDateString()}
+                </span>
+              ) : currentView === 'dayGridMonth' ? (
+                <span className="text-sm text-gray-500">
+                  {startOfMonth(selectedDate).toLocaleDateString()} -{' '}
+                  {endOfMonth(selectedDate).toLocaleDateString()}
+                </span>
+              ) : null}
             </div>
           </div>
 

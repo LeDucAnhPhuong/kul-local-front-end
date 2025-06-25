@@ -12,6 +12,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { toast } from 'sonner';
 
 const formSchema = z.object({
   email: z.string(),
@@ -27,9 +28,14 @@ export default function MyForm({ onAdd }: MyFormProps) {
     resolver: zodResolver(formSchema),
   });
 
-
   function onSubmit(values: z.infer<typeof formSchema>) {
     onAdd({ email: values.email });
+    try {
+      console.log(values);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast.error('Failed to submit the form. Please try again.');
+    }
   }
 
   return (

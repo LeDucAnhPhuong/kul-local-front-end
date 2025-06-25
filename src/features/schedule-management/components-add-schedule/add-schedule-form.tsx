@@ -33,7 +33,6 @@ import { useGetRoomsQuery } from '../api.room';
 import type { RoomData } from '../data.type';
 import type { SlotData } from '@/features/slot-management/data.slot';
 import type { ClassData } from '@/features/class-management/data.class';
-import { useNavigate } from 'react-router';
 
 const formSchema = z.object({
   classDate: z.date(),
@@ -56,11 +55,9 @@ export default function MyForm({ onAdd, isLoading }: MyFormProps) {
     },
   });
 
-  const navigate = useNavigate();
   function onSubmit(values: z.infer<typeof formSchema>) {
-    onAdd(values);
     try {
-      navigate('/schedule-management');
+      onAdd(values);
     } catch (error) {
       console.error('Form submission error', error);
       toast.error('Failed to submit the form. Please try again.');

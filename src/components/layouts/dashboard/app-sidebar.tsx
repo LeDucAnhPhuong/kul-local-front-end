@@ -31,20 +31,24 @@ const AdminData = {
           url: '/dashboard',
         },
         {
+          title: 'Schedule Management',
+          url: '/schedule-management',
+        },
+        {
           title: 'Account Management',
           url: '/account-management',
         },
         {
-          title: 'Class Management',
-          url: '/class-management',
+          title: 'Room Management',
+          url: '/room-management',
         },
         {
           title: 'Slot Management',
           url: '/slot-management',
         },
         {
-          title: 'Schedule Management',
-          url: '/schedule-management',
+          title: 'Class Management',
+          url: '/class-management',
         },
         {
           title: 'Ted Team Registrations',

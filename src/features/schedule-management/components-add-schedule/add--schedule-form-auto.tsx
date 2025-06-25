@@ -18,7 +18,6 @@ import {
 import { MultiSelect } from '@/components/ui/multi-select';
 import { useGetClassesQuery } from '@/features/class-management/api.class';
 import type { ClassData } from '@/features/class-management/data.class';
-import { useNavigate } from 'react-router';
 
 const formSchema = z.object({
   dayOfWeek: z.array(z.string()).nonempty('Please at least one item'),
@@ -45,11 +44,9 @@ export default function MyFormAuto({ onAdd, isLoading }: MyFormProps) {
       classId: [classList[0]?._id || ''],
     },
   });
-  const navigate = useNavigate();
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      await onAdd(values);
-      navigate('/schedule-management');
+      onAdd(values);
     } catch (error) {
       console.error('Form submission error', error);
       toast.error('Failed to submit the form. Please try again.');

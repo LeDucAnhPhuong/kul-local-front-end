@@ -3,9 +3,11 @@ import TitlePage from '@/components/ui/title-page';
 import MyForm from '@/features/account-management/add-user/components/add-account-form';
 import { toast } from 'sonner';
 import { useCreateTedTeamMutation } from '@/features/account-management/api.user';
+import { useNavigate } from 'react-router';
 
 const AddTedTeam = () => {
   const [addTedTeam] = useCreateTedTeamMutation();
+  const navigate = useNavigate();
 
   async function onAddTedTeam(data: { email: string }) {
     const idToast = toast.loading('Adding student...');
@@ -16,6 +18,7 @@ const AddTedTeam = () => {
       toast.success('student added successfully', {
         id: idToast,
       });
+      navigate('/account-management');
     } catch (error) {
       toast.error('Failed to add student', {
         id: idToast,

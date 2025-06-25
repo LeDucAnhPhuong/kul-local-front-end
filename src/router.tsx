@@ -36,6 +36,8 @@ import AddStudentIntoClassPage from './pages/dashboard/admin/class-management/Ad
 import ScheduleManagementPage from './pages/dashboard/admin/schedule-management';
 import AddSchedulePage from './pages/dashboard/admin/schedule-management/schedule.add';
 import TedTeamRegistrationsPage from './features/register-management/rgister-management';
+import RoomManagementPage from './pages/dashboard/admin/room-management';
+import AddRoomPage from './pages/dashboard/admin/room-management/room.add';
 
 function Router() {
   return (
@@ -72,6 +74,10 @@ function Router() {
           <Route path="/schedule-management">
             <Route path="" element={<ScheduleManagementPage />} />
             <Route path="add" element={<AddSchedulePage />} />
+          </Route>
+          <Route path="/room-management">
+            <Route path="" element={<RoomManagementPage />} />
+            <Route path="add" element={<AddRoomPage />} />
           </Route>
           <Route path="/register-management">
             <Route path="" element={<TedTeamRegistrationsPage />} />

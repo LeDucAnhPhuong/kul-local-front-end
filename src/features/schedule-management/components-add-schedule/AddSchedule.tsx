@@ -4,10 +4,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import MyFormAuto from './add--schedule-form-auto';
 import { toast } from 'sonner';
 import { useCreateScheduleMutation, useCreateScheduleAutoMutation } from '../api.schedule';
+import { useNavigate } from 'react-router';
 
 const AddSchedule = () => {
   const [createSchedule] = useCreateScheduleMutation();
   const [createScheduleAuto] = useCreateScheduleAutoMutation();
+  const navigate = useNavigate();
 
   async function onAddSchedule(data: {
     classDate: Date;
@@ -28,6 +30,7 @@ const AddSchedule = () => {
       toast.success('Schedule created successfully', {
         id: idToast,
       });
+      navigate('/schedule-management');
     } catch (error) {
       toast.error('Failed to create schedule', {
         id: idToast,
@@ -45,6 +48,7 @@ const AddSchedule = () => {
       toast.success('Schedule created successfully', {
         id: idToast,
       });
+      navigate('/schedule-management');
     } catch (error) {
       toast.error('Failed to create schedule', {
         id: idToast,

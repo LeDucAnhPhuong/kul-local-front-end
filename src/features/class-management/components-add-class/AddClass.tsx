@@ -2,8 +2,11 @@ import TitlePage from '@/components/ui/title-page';
 import { toast } from 'sonner';
 import MyForm from './add-class-form';
 import { useCreateClassMutation } from '../api.class';
+import { useNavigate } from 'react-router';
+
 const AddClass = () => {
   const [createClass] = useCreateClassMutation();
+  const navigate = useNavigate();
 
   async function onAddClass(data: { name: string; start_time: Date; end_time: Date }) {
     const idToast = toast.loading('Creating class...');
@@ -16,6 +19,7 @@ const AddClass = () => {
       toast.success('Class created successfully', {
         id: idToast,
       });
+      navigate('/class-management');
     } catch (error) {
       toast.error('Failed to create class', {
         id: idToast,

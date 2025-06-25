@@ -2,8 +2,8 @@ import { Route, Routes } from 'react-router';
 
 import DashboardLayout from './components/layouts/dashboard/layout';
 import LandingLayout from './components/layouts/landing/layout';
-  // import ScheduleView from './pages/dashboard/student/Schedule/ScheduleView';
-  // import QuizzesView from './pages/dashboard/student/Quizzes/QuizzesView';
+// import ScheduleView from './pages/dashboard/student/Schedule/ScheduleView';
+// import QuizzesView from './pages/dashboard/student/Quizzes/QuizzesView';
 // import TeacherManagement from './pages/dashboard/teacher';
 // import BookingPage from './pages/booking';
 import { Schedule } from './pages/dashboard/teacher/schedule';
@@ -21,21 +21,21 @@ import SubmissionDetailPageWrapper from './pages/dashboard/teacher/submission-de
 import AddQuestion from './features/teacher/components/quiz/addQuestion';
 import QuizzesView from './pages/dashboard/student/Quizzes/QuizzesView';
 import ScheduleView from './features/student-management/components/schedule-view';
-import DoQuiz from "./pages/dashboard/student/Quizzes/DoQuiz";
-import QuizInterface from "./features/student-management/components/DoQuizView";
-import NewsView from "./pages/dashboard/student/News/NewsView";
+import DoQuiz from './pages/dashboard/student/Quizzes/DoQuiz';
+import QuizInterface from './features/student-management/components/DoQuizView';
+import NewsView from './pages/dashboard/student/News/NewsView';
 import TedPersonalPage from './pages/dashboard/tedteam/personal';
 import TedRegisterPage from './pages/dashboard/tedteam/register';
 import SignOut from './pages/sign-out';
 import ClassManagementPage from './pages/dashboard/admin/class-management';
 import AddClassPage from './pages/dashboard/admin/class-management/class.add';
-import ClassDetailPage from "./pages/dashboard/admin/class-management/class.detail";
-import SlotManagementPage from "./pages/dashboard/admin/slot-management";
-import AddSlotPage from "./pages/dashboard/admin/slot-management/slot.add";
-import AddStudentIntoClassPage from "./pages/dashboard/admin/class-management/AddStudentIntoClassPage";
+import ClassDetailPage from './pages/dashboard/admin/class-management/class.detail';
+import SlotManagementPage from './pages/dashboard/admin/slot-management';
+import AddSlotPage from './pages/dashboard/admin/slot-management/slot.add';
+import AddStudentIntoClassPage from './pages/dashboard/admin/class-management/AddStudentIntoClassPage';
 import ScheduleManagementPage from './pages/dashboard/admin/schedule-management';
 import AddSchedulePage from './pages/dashboard/admin/schedule-management/schedule.add';
-
+import TedTeamRegistrationsPage from './features/register-management/rgister-management';
 
 function Router() {
   return (
@@ -72,6 +72,9 @@ function Router() {
           <Route path="/schedule-management">
             <Route path="" element={<ScheduleManagementPage />} />
             <Route path="add" element={<AddSchedulePage />} />
+          </Route>
+          <Route path="/register-management">
+            <Route path="" element={<TedTeamRegistrationsPage />} />
           </Route>
           <Route path="/slot-management">
             <Route path="" element={<SlotManagementPage />} />

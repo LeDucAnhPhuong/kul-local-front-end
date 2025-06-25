@@ -43,8 +43,8 @@ const formatDate = (date: Date) =>
 
 const generateWeekOptions = () => {
   const weeks = [];
-  const start = getMonday(new Date(2000, 0, 1));
-  const end = new Date(2050, 11, 31);
+  const start = getMonday(new Date(2010, 0, 1));
+  const end = new Date(2030, 11, 31);
   const current = new Date(start);
 
   while (current <= end) {
@@ -103,9 +103,6 @@ function TeacherView() {
     },
   );
 
-  console.log('week', week);
-  console.log('slot', slot);
-
   // Truyền danh sách tất cả slot vào hàm convertToSlotByDay
   const deskdata = useMemo(() => convertToSlotByDay(week, slot), [week, slot]);
   const mobiledata = useMemo(() => convertToMobileSchedule(week, slot), [week, slot]);
@@ -154,7 +151,12 @@ function TeacherView() {
             </Button>
           </div>
           <div>
-            <Button variant="outline" size="sm" onClick={() => setSelectedWeek(todayMonday)}>
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={selectedWeek === todayMonday}
+              onClick={() => setSelectedWeek(todayMonday)}
+            >
               Today
             </Button>
           </div>

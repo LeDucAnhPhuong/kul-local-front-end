@@ -130,7 +130,7 @@ export const columns: ColumnDef<RegisterSlotSchedule>[] = [
       return (
         <div className="space-y-1 p-1 min-w-[120px] w-full flex flex-col items-center">
           <div className="text-xs font-medium leading-tight text-green-600">
-            {cell.slot.startTime} - {cell.slot.endTime}
+            {cell.slot?.startTime} - {cell.slot?.endTime}
           </div>
           <div className="text-xs font-medium leading-tight text-blue-600">
             {formatDate(cell.date, 'dd-MM-yyyy')}

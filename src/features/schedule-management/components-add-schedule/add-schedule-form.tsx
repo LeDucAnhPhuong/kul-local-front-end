@@ -60,12 +60,6 @@ export default function MyForm({ onAdd, isLoading }: MyFormProps) {
   function onSubmit(values: z.infer<typeof formSchema>) {
     onAdd(values);
     try {
-      console.log(values);
-      toast(
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(values, null, 2)}</code>
-        </pre>,
-      );
       navigate('/schedule-management');
     } catch (error) {
       console.error('Form submission error', error);

@@ -241,20 +241,22 @@ export const transformRegisterScheduleData = (
   const slotMap = new Map<string, RegisterSlotSchedule>();
 
   slots?.forEach((slot) => {
-    slotMap.set(slot.name, {
-      slot: slot.name,
+    slotMap.set(slot?.name, {
+      slot: slot?.name,
     });
   });
 
   data.forEach((item) => {
-    const slotName = item.slot.name;
-    const dayKey = getDayKeyFromDateString(item.date);
+    const slotName = item?.slot?.name;
+    const dayKey = getDayKeyFromDateString(item?.date);
 
-    const schedule = slotMap.get(slotName)!;
+    const schedule = slotMap.get(slotName) || {
+      slot: slotName,
+    };
     schedule[dayKey] = item;
   });
 
-  return Array.from(slotMap.values());
+  return Array.from(slotMap?.values());
 };
 
 export const getAttendanceByDate = (data: AttendanceData[], date: string): AttendanceData[] => {

@@ -34,7 +34,7 @@ const AdminData = {
           title: 'Account Management',
           url: '/account-management',
         },
-         {
+        {
           title: 'Class Management',
           url: '/class-management',
         },
@@ -45,6 +45,10 @@ const AdminData = {
         {
           title: 'Schedule Management',
           url: '/schedule-management',
+        },
+        {
+          title: 'Ted Team Registrations',
+          url: '/register-management',
         },
       ],
     },
@@ -57,7 +61,6 @@ const StudentData = {
       title: 'Getting Started',
       url: '#',
       items: [
-        
         {
           title: 'Dashboard Home',
           url: '/dashboard',
@@ -70,8 +73,8 @@ const StudentData = {
           title: 'Quizzes Student',
           url: '/quizzes-student',
         },
-       
-          {
+
+        {
           title: 'List News',
           url: '/list-news',
         },
@@ -128,7 +131,7 @@ const TedTeamData = {
         {
           title: 'View Classes',
           url: '/ClassList',
-        },  
+        },
       ],
     },
   ],

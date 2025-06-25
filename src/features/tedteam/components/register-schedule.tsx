@@ -9,11 +9,9 @@ import {
 import { transformRegisterScheduleData } from '../teddata';
 import { columns } from '../columns/register-schedule-columns';
 import { RegisterMobileView } from '../columns/register-mobile';
-import { TedDataTable } from './ted-data';
-import type { RegisterSlotSchedule, Slot } from '../slotInfo';
+import type { Slot } from '../slotInfo';
 import { useGetAllSlotQuery, useGetRegisterScheduleQuery } from '../api.tedteam';
 import DataTable from '@/components/data-table/data-table';
-import { format } from 'date-fns';
 
 // === Week Selection Utils ===
 const getMonday = (date: Date) => {
@@ -81,10 +79,6 @@ export default function RegisterSchedule() {
     }),
   });
 
-  console.log('slots :>> ', slots);
-
-  console.log('data :>> ', new Date());
-
   const data = transformRegisterScheduleData(register, slots);
 
   useEffect(() => {
@@ -93,8 +87,6 @@ export default function RegisterSchedule() {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
-
-  console.log('data :>> ', data);
 
   return (
     <div className="bg-white dark:bg-background p-6 rounded-xl border border-stone-200 dark:border-stone-800">

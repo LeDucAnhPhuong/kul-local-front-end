@@ -15,7 +15,7 @@ const dayHeaderMap: Record<DayKey, string> = {
 };
 
 type Props = {
-  data: SlotSchedule[];
+  data?: SlotSchedule[];
 };
 
 export const MobileScheduleView: React.FC<Props> = ({ data }) => {
@@ -24,19 +24,18 @@ export const MobileScheduleView: React.FC<Props> = ({ data }) => {
   return (
     <div className="space-y-4">
       {dayKeys.map((dayKey) => {
-        const slotsWithDay = data
-          .map((slot) => ({ slotName: slot.slot, cell: slot[dayKey] }))
+        const slotsWithDay = data?.map((slot) => ({ slotName: slot.slot, cell: slot[dayKey] }))
           .filter((item) => item.cell);
 
-        if (slotsWithDay.length === 0) return null;
+        if (slotsWithDay?.length === 0) return null;
 
         return (
           <div key={dayKey} className="p-3 bg-white shadow rounded-xl dark:bg-gray-800">
             <h3 className="mb-2 text-lg font-bold text-blue-600 dark:text-blue-400">
-              {dayHeaderMap[dayKey]} | {slotsWithDay[0].cell!.date}
+              {dayHeaderMap[dayKey]} | {slotsWithDay?.[0].cell!.date}
             </h3>
 
-            {slotsWithDay.map(({ slotName, cell }, idx) => (
+            {slotsWithDay?.map(({ slotName, cell }, idx) => (
               <div key={idx} className="pb-2 mb-2 border-b last:border-none last:mb-0 dark:border-gray-700">
                 {/* Slot Name */}
                 <div className="text-sm font-semibold text-gray-700 dark:text-gray-300">

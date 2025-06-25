@@ -144,7 +144,7 @@ export default function DataTable<TData, TValue>({
               </TableHeader>
               <TableBody>
                 {isLoading ? (
-                  <LoadingTable length={columns.length} />
+                  <LoadingTable length={columns?.length} />
                 ) : table.getRowModel().rows?.length ? (
                   table.getRowModel().rows.map((row) => (
                     <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
@@ -157,7 +157,7 @@ export default function DataTable<TData, TValue>({
                   ))
                 ) : (
                   <TableRow>
-                    <TableCell className="h-24 text-center" colSpan={columns.length}>
+                    <TableCell className="h-24 text-center" colSpan={columns?.length}>
                       No data results
                     </TableCell>
                   </TableRow>

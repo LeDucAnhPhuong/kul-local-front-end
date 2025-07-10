@@ -85,7 +85,7 @@ function TeacherView() {
 
   const { slot, isFetching_slot } = useGetSlotsQuery(undefined, {
     selectFromResult: ({ data, isFetching }) => ({
-      slot: data || [],
+      slot: data?.data || [],
       isFetching_slot: isFetching,
     }),
   });

@@ -32,10 +32,9 @@ type ScheduleCell = {
   slot_id: string;
 };
 
-// Updated API data structure based on the provided data
 export type APIAttendanceData = {
   _id: string;
-  status: number; // 0 = not yet, 1 = present, 2 = absent
+  status: number;
   userId: string | null;
   created_at: string;
   created_by: any | null;
@@ -122,45 +121,86 @@ export type APIAttendanceData = {
   };
 };
 
-// Define all possible slots (1-5)
+export function transformAttendanceData(apiData: APIAttendanceData[]): SlotSchedule[] {
+  const slotGroups: { [slotName: string]: { [dayKey: string]: ScheduleCell } } = {};
+  for (let i = 1; i <= 5; i++) slotGroups[`Slot ${i}`] = {};
+
+  apiData.forEach((item) => {
+    try {
+      const slotName = item.schedule?.slot?.name || 'Unknown Slot';
+      const dayKey = getDayKey(item.schedule.date);
+      if (slotGroups[slotName] !== undefined) {
+        const scheduleCell: ScheduleCell = {
+          roomName: item.schedule?.classInfo?.name || 'No Class',
+          locationAndClass: `${item.schedule?.room?.location || 'No Location'} | ${
+            item.schedule?.room?.name || 'No Room'
+          }`,
+          coachName:
+            `${item.schedule?.coach?.first_name || ''} ${
+              item.schedule?.coach?.last_name || ''
+            }`.trim() || 'No Coach',
+          time: `${item.schedule?.slot?.startTime || ''} - ${item.schedule?.slot?.endTime || ''}`,
+          status: getAttendanceStatus(item.status),
+          date: formatDateDisplay(item.schedule.date),
+          class_id: item.schedule?.classId || '',
+          room_id: item.schedule?.roomId || '',
+          coach_id: item.schedule?.coachId || '',
+          TedTeam_id: item.schedule?.tedTeamId || null,
+          user_id: item.userId || '',
+          calendar_id: item._id,
+          slot_id: item.schedule?.slotId || '',
+        };
+        slotGroups[slotName][dayKey] = scheduleCell;
+      }
+    } catch (error) {
+      console.error('Error processing item:', item, error);
+    }
+  });
+
+  return Object.entries(slotGroups)
+    .map(([slot, days]) => ({ slot, ...days }))
+    .sort((a, b) => getSlotNumber(a.slot) - getSlotNumber(b.slot));
+}
+
+const dayHeaders: { [key in DayKey]: string } = {
+  t2: 'MON',
+  t3: 'TUE',
+  t4: 'WED',
+  t5: 'THUR',
+  t6: 'FRI',
+  t7: 'SAT',
+  cn: 'SUN',
+};
 
 export const columns: ColumnDef<SlotSchedule>[] = [
   {
     accessorKey: 'slot',
-    header: 'Slot',
+    header: 'SLOT',
     cell: ({ row }) => (
       <div className="text-sm font-medium md:text-base whitespace-nowrap">
         {row.getValue('slot')}
       </div>
     ),
   },
-  ...['t2', 't3', 't4', 't5', 't6', 't7', 'cn'].map((dayKey) => ({
+  ...(['t2', 't3', 't4', 't5', 't6', 't7', 'cn'] as DayKey[]).map((dayKey) => ({
     accessorKey: dayKey,
-    header: "dădawdawda",
+    header: dayHeaders[dayKey],
     cell: ({ row }: { row: Row<SlotSchedule> }) => {
       const cell: ScheduleCell | undefined = row.getValue(dayKey);
       if (!cell) {
         return (
-          <div className="flex items-center justify-center py-2 text-lg text-red-500 md:text-2xl">
-            -
+          <div className="flex items-start pt-2 justify-left">
+            <span className="text-lg font-medium text-red-500 md:text-2xl">  -</span>
           </div>
         );
       }
-
       return (
         <div className="space-y-1 p-1 min-w-[120px] max-w-[160px]">
-          {/* Class Name - Dòng đầu tiên */}
           <p className="text-xs font-semibold leading-tight md:text-sm line-clamp-2">
             {cell.roomName}
           </p>
-
-          {/* Room Location | Room Name - Dòng thứ hai */}
           <p className="text-xs leading-tight text-muted-foreground">{cell.locationAndClass}</p>
-
-          {/* Coach Name - Dòng thứ ba */}
           <p className="text-xs leading-tight text-gray-600">{cell.coachName}</p>
-
-          {/* Status Badge - Dòng thứ tư */}
           <Badge
             className={cn(
               'text-xs px-2 py-1 w-fit',
@@ -177,14 +217,10 @@ export const columns: ColumnDef<SlotSchedule>[] = [
               ? 'Absent'
               : 'Present'}
           </Badge>
-
-          {/* Time */}
           <div className="flex items-center gap-1 text-xs font-medium leading-tight text-green-600">
             <Hourglass className="inline-block size-3" />
             {cell.time}
           </div>
-
-          {/* Date */}
           <div className="flex items-center gap-1 text-xs font-medium leading-tight text-blue-600">
             <CalendarDays className="inline-block size-3" />
             {cell.date}
@@ -195,8 +231,6 @@ export const columns: ColumnDef<SlotSchedule>[] = [
   })),
 ];
 
-
-// Helper function to determine status based on API status code
 function getAttendanceStatus(status: number): 'not yet' | 'present' | 'absent' {
   switch (status) {
     case 0:
@@ -210,6 +244,38 @@ function getAttendanceStatus(status: number): 'not yet' | 'present' | 'absent' {
   }
 }
 
+function getDayKey(date: string): DayKey {
+  const dayOfWeek = new Date(date).getDay();
+  switch (dayOfWeek) {
+    case 1:
+      return 't2';
+    case 2:
+      return 't3';
+    case 3:
+      return 't4';
+    case 4:
+      return 't5';
+    case 5:
+      return 't6';
+    case 6:
+      return 't7';
+    case 0:
+      return 'cn';
+    default:
+      throw new Error('Invalid day of week');
+  }
+}
+
+function formatDateDisplay(date: string): string {
+  return new Date(date).toLocaleDateString();
+}
+
+function getSlotNumber(slotName: string): number {
+  const match = slotName.match(/Slot (\d+)/);
+  if (match && match[1]) return Number.parseInt(match[1], 10);
+  throw new Error('Invalid slot name');
+}
+
 export function getUserAttendanceStatus(
   userId: string,
   scheduleId: string,
@@ -221,7 +287,6 @@ export function getUserAttendanceStatus(
   return attendance ? getAttendanceStatus(attendance.status) : 'not yet';
 }
 
-// Function to get all attendance records for a specific user
 export function getUserAttendanceRecords(
   userId: string,
   attendanceData: APIAttendanceData[],
@@ -229,19 +294,15 @@ export function getUserAttendanceRecords(
   return attendanceData.filter((item) => item.userId === userId);
 }
 
-// Function to get attendance summary for a class
 export function getClassAttendanceSummary(classId: string, attendanceData: APIAttendanceData[]) {
   const classAttendance = attendanceData.filter((item) => item.schedule.classId === classId);
-
   const summary = {
-    total: classAttendance?.length,
+    total: classAttendance.length,
     present: classAttendance.filter((item) => getAttendanceStatus(item.status) === 'present')
-      ?.length,
-    absent: classAttendance.filter((item) => getAttendanceStatus(item.status) === 'absent')?.length,
-    notYet: classAttendance.filter((item) => getAttendanceStatus(item.status) === 'not yet')
-      ?.length,
+      .length,
+    absent: classAttendance.filter((item) => getAttendanceStatus(item.status) === 'absent').length,
+    notYet: classAttendance.filter((item) => getAttendanceStatus(item.status) === 'not yet').length,
   };
-
   return {
     ...summary,
     attendanceRate:
@@ -249,18 +310,14 @@ export function getClassAttendanceSummary(classId: string, attendanceData: APIAt
   };
 }
 
-// Function to get attendance summary for a specific room
 export function getRoomAttendanceSummary(roomId: string, attendanceData: APIAttendanceData[]) {
   const roomAttendance = attendanceData.filter((item) => item.schedule.roomId === roomId);
-
   const summary = {
-    total: roomAttendance?.length,
-    present: roomAttendance.filter((item) => getAttendanceStatus(item.status) === 'present')
-      ?.length,
-    absent: roomAttendance.filter((item) => getAttendanceStatus(item.status) === 'absent')?.length,
-    notYet: roomAttendance.filter((item) => getAttendanceStatus(item.status) === 'not yet')?.length,
+    total: roomAttendance.length,
+    present: roomAttendance.filter((item) => getAttendanceStatus(item.status) === 'present').length,
+    absent: roomAttendance.filter((item) => getAttendanceStatus(item.status) === 'absent').length,
+    notYet: roomAttendance.filter((item) => getAttendanceStatus(item.status) === 'not yet').length,
   };
-
   return {
     ...summary,
     attendanceRate:
@@ -268,19 +325,15 @@ export function getRoomAttendanceSummary(roomId: string, attendanceData: APIAtte
   };
 }
 
-// Function to get attendance summary for a specific coach
 export function getCoachAttendanceSummary(coachId: string, attendanceData: APIAttendanceData[]) {
   const coachAttendance = attendanceData.filter((item) => item.schedule.coachId === coachId);
-
   const summary = {
-    total: coachAttendance?.length,
+    total: coachAttendance.length,
     present: coachAttendance.filter((item) => getAttendanceStatus(item.status) === 'present')
-      ?.length,
-    absent: coachAttendance.filter((item) => getAttendanceStatus(item.status) === 'absent')?.length,
-    notYet: coachAttendance.filter((item) => getAttendanceStatus(item.status) === 'not yet')
-      ?.length,
+      .length,
+    absent: coachAttendance.filter((item) => getAttendanceStatus(item.status) === 'absent').length,
+    notYet: coachAttendance.filter((item) => getAttendanceStatus(item.status) === 'not yet').length,
   };
-
   return {
     ...summary,
     attendanceRate:

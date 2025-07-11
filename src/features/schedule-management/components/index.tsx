@@ -113,25 +113,25 @@ function colorFromId(id: string): string {
 }
 
 function generateScheduleEvents(schedules: ScheduleItem[], slots: Slot[]) {
-  const slotMap = new Map(slots.map((slot) => [slot?._id, slot]));
+  const slotMap = new Map(slots.map((slot) => [slot?.id, slot]));
 
   return schedules
     .map((sch) => {
       console.log('sch :>> ', sch);
-      const slot = slotMap.get(sch.slot?._id);
-
+      const slot = slotMap.get(sch.slot?.id);
       const dateStr = sch.date.split('T')[0];
+
       return {
-        id: sch._id,
-        title: `Class: ${sch.classInfo?.name} | Coach: ${sch.coach.first_name} ${sch.coach.last_name}`,
+        id: sch.id,
+        title: `Class: ${sch.classInfor?.name} | Coach: ${sch.coach.firstName} ${sch.coach.lastName}`,
         start: `${dateStr}T${slot?.startTime}`,
         end: `${dateStr}T${slot?.endTime}`,
         backgroundColor: '#3f51b5',
         borderColor: '#3f51b5',
         editable: true,
         extendedProps: {
-          scheduleId: sch._id,
-          classId: sch.classInfo?._id,
+          scheduleId: sch.id,
+          classId: sch.classInfor?.id,
           slotStart: slot?.startTime,
           slotEnd: slot?.endTime,
         },
@@ -208,22 +208,24 @@ export function CustomSlotCalendar({ slots }: { slots: Slot[] }) {
     }
 
     setEvents([...generateScheduleEvents(schedules, slots)]);
+    
   };
 
-  useEffect(() => {
-    const calendarApi = (calendarRef?.current as any)?.getApi();
-    if (calendarApi) {
-      calendarApi.changeView(currentView, selectedDate);
-      handleDatesSet({
-        startStr: selectedDate,
-        view: { type: currentView, currentStart: new Date(selectedDate) },
-      });
-    }
-  }, [selectedDate, currentView, slots, schedules]);
+  // useEffect(() => {
+  //   const calendarApi = (calendarRef?.current as any)?.getApi();
+  //   if (calendarApi) {
+  //     calendarApi.changeView(currentView, selectedDate);
+  //     handleDatesSet({
+  //       startStr: selectedDate,
+  //       view: { type: currentView, currentStart: new Date(selectedDate) },
+  //     });
+  //   }
+  // }, [selectedDate, currentView, slots, schedules]);
 
-  const handleChangeView = (view: any) => {
+  const handleChangeView = (view: string) => {
+    if (view === currentView) return; // tránh set lại không cần thiết
     const calendarApi = (calendarRef?.current as any)?.getApi();
-    calendarApi.changeView(view, selectedDate);
+    calendarApi.changeView(view);
     setCurrentView(view);
   };
 

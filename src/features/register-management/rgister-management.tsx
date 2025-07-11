@@ -20,13 +20,13 @@ import { Spinner } from '@/components/ui/spinner';
 interface TedTeamUser {
   email: string;
   role: string;
-  profile_image: string;
-  first_name: string;
-  last_name: string;
-  class_id: string;
-  _id: string;
-  created_at: string;
-  updated_at: string;
+  profileImage: string;
+  firstName: string;
+  lastName: string;
+  classId: string;
+  Id: string;
+  createdAt: string;
+  updatedAt: string;
   isActive: boolean;
 }
 
@@ -35,48 +35,48 @@ interface Room {
   capacity: number;
   location: string;
   description: string;
-  _id: string;
+  Id: string;
 }
 
 interface Coach {
   email: string;
   role: string;
-  profile_image: string;
-  first_name: string;
-  last_name: string;
-  _id: string;
+  profileImage: string;
+  firstName: string;
+  lastName: string;
+  Id: string;
 }
 
-interface ClassInfo {
+interface ClassInfor {
   name: string;
   startTime: string;
   endTime: string;
-  _id: string;
+  Id: string;
 }
 
 interface Slot {
   name: string;
   startTime: string;
   endTime: string;
-  _id: string;
+  Id: string;
 }
 
 interface Schedule {
   room: Room;
   coach: Coach;
-  classInfo: ClassInfo;
+  classInfor: ClassInfor;
   slot: Slot;
   date: string;
-  _id: string;
+  Id: string;
 }
 
 interface Registration {
   user: TedTeamUser;
   schedule: Schedule;
   status: number; // 0: pending, 1: accepted, 2: rejected
-  _id: string;
-  created_at: string;
-  updated_at: string;
+  Id: string;
+  createdAt: string;
+  updatedAt: string;
   isActive: boolean;
 }
 
@@ -164,22 +164,22 @@ export default function TedTeamRegistrationsPage() {
       accessorKey: 'user',
       header: 'TedTeam Member',
       cell: ({ row }) => {
-        const user = row.getValue('user') as TedTeamUser;
+        const user = row.getValue('assignUser') as TedTeamUser;
         return (
           <div className="flex items-center space-x-3">
             <Avatar className="h-8 w-8">
               <AvatarImage
-                src={user?.profile_image || '/placeholder.svg'}
-                alt={`${user?.first_name} ${user?.last_name}`}
+                src={user?.profileImage || '/placeholder.svg'}
+                alt={`${user?.firstName} ${user?.lastName}`}
               />
               <AvatarFallback>
-                {/* {user?.first_name[0]}
-                {user?.last_name[0]} */}
+                {/* {user?.firstName[0]}
+                {user?.lastName[0]} */}
               </AvatarFallback>
             </Avatar>
             <div>
               <div className="font-medium">
-                {user?.first_name} {user?.last_name}
+                {user?.firstName} {user?.lastName}
               </div>
               <div className="text-sm text-muted-foreground">{user?.email}</div>
             </div>
@@ -188,10 +188,10 @@ export default function TedTeamRegistrationsPage() {
       },
     },
     {
-      accessorKey: 'schedule.classInfo.name',
+      accessorKey: 'schedule.classInfor.name',
       header: 'Class',
       cell: ({ row }) => {
-        const className = row.original.schedule?.classInfo?.name;
+        const className = row.original.schedule?.classInfor?.name;
         return (
           <div className="flex items-center">
             <GraduationCap className="w-4 h-4 mr-2 text-blue-500" />
@@ -209,16 +209,16 @@ export default function TedTeamRegistrationsPage() {
           <div className="flex items-center space-x-2">
             <Avatar className="h-6 w-6">
               <AvatarImage
-                src={coach?.profile_image || '/placeholder.svg'}
-                alt={`${coach?.first_name} ${coach?.last_name}`}
+                src={coach?.profileImage || '/placeholder.svg'}
+                alt={`${coach?.firstName} ${coach?.lastName}`}
               />
               <AvatarFallback className="text-xs">
-                {coach?.first_name[0]}
-                {coach?.last_name[0]}
+                {coach?.firstName[0]}
+                {coach?.lastName[0]}
               </AvatarFallback>
             </Avatar>
             <span className="text-sm">
-              {coach?.first_name} {coach?.last_name}
+              {coach?.firstName} {coach?.lastName}
             </span>
           </div>
         );
@@ -282,10 +282,10 @@ export default function TedTeamRegistrationsPage() {
                   size="sm"
                   variant="outline"
                   className="bg-green-50 text-green-700 border-green-200 hover:bg-green-100"
-                  onClick={() => handleAccept(registration?._id)}
+                  onClick={() => handleAccept(registration?.Id)}
                   disabled={isFetching}
                 >
-                  {isLoadingAccept && registrationId === registration?._id ? (
+                  {isLoadingAccept && registrationId === registration?.Id ? (
                     <Spinner />
                   ) : (
                     <>
@@ -298,10 +298,10 @@ export default function TedTeamRegistrationsPage() {
                   size="sm"
                   variant="outline"
                   className="bg-red-50 text-red-700 border-red-200 hover:bg-red-100"
-                  onClick={() => handleReject(registration?._id)}
+                  onClick={() => handleReject(registration?.Id)}
                   disabled={isFetching}
                 >
-                  {isLoadingReject && registrationId === registration?._id ? (
+                  {isLoadingReject && registrationId === registration?.Id ? (
                     <Spinner />
                   ) : (
                     <>

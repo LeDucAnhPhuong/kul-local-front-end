@@ -7,7 +7,7 @@ export const classApi = baseApi.injectEndpoints({
       providesTags: ['Class'],
     }),
     getClassInfo: builder.query({
-      query: (id) => `/api/Class/classes/${id}`,
+      query: (id) => `/api/Class/${id}`,
       providesTags: ['Class'],
     }),
     getClassDetail: builder.query({

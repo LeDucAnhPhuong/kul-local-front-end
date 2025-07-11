@@ -3,18 +3,18 @@ import { baseApi } from '@/redux/baseApi';
 export const scheduleApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getSchedules: builder.query({
-      query: () => `/api/Schedule/schedules`,
+      query: () => `/api/Schedule`,
       providesTags: ['Schedule'],
     }),
     getScheduleDateRange: builder.query({
       query: ({ startDate, endDate }) => ({
-        url: `/api/Schedule/schedules/date-range`,
+        url: `/api/Schedule/date-range`,
         params: { startDate, endDate },
       }),
     }),
     createSchedule: builder.mutation({
       query: (newSchedule) => ({
-        url: `/api/Schedule/schedules`,
+        url: `/api/Schedule`,
         method: 'POST',
         body: newSchedule,
       }),

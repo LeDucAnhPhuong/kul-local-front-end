@@ -8,7 +8,7 @@ export const slotApi = baseApi.injectEndpoints({
     }),
     createSlot: builder.mutation({
       query: (newSlot) => ({
-        url: `/api/Slot/slots`,
+        url: `/api/Slot/create-slot`,
         method: 'POST',
         body: newSlot,
       }),

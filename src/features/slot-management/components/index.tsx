@@ -6,7 +6,7 @@ import { useGetSlotsQuery } from '../api.slot';
 const SlotManagement = () => {
   const { slots, isFetching } = useGetSlotsQuery(undefined, {
     selectFromResult: ({ data, isFetching }) => ({
-      slots: data || [],
+      slots: data?.data || [],
       isFetching,
     }),
   });

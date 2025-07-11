@@ -73,7 +73,7 @@ export default function MyForm({ onAdd, isLoading }: MyFormProps) {
 
   const { slotList, isFetching_slots } = useGetSlotsQuery(undefined, {
     selectFromResult: ({ data, isFetching }) => ({
-      slotList: data || [],
+      slotList: data?.data || [],
       isFetching_slots: isFetching,
     }),
   });
@@ -147,8 +147,8 @@ export default function MyForm({ onAdd, isLoading }: MyFormProps) {
                       ) : roomList.length === 0 ? (
                         <div className="p-2 text-gray-400">No rooms found</div>
                       ) : (
-                        roomList.map((room: RoomData) => (
-                          <SelectItem key={room._id} value={room._id}>
+                        roomList.map((room: any) => (
+                          <SelectItem key={room.id} value={room.id}>
                             {room.name} - {room.location}
                           </SelectItem>
                         ))
@@ -183,8 +183,8 @@ export default function MyForm({ onAdd, isLoading }: MyFormProps) {
                       ) : slotList.length === 0 ? (
                         <div className="p-2 text-gray-400">No slots found</div>
                       ) : (
-                        slotList.map((slot: SlotData) => (
-                          <SelectItem key={slot._id} value={slot._id}>
+                        slotList.map((slot: any) => (
+                          <SelectItem key={slot.id} value={slot.id}>
                             {slot.name} ({slot.startTime} - {slot.endTime})
                           </SelectItem>
                         ))
@@ -217,8 +217,8 @@ export default function MyForm({ onAdd, isLoading }: MyFormProps) {
                       ) : classList.length === 0 ? (
                         <div className="p-2 text-gray-400">No classes found</div>
                       ) : (
-                        classList.map((classItem: ClassData) => (
-                          <SelectItem key={classItem._id} value={classItem._id}>
+                        classList.map((classItem: any) => (
+                          <SelectItem key={classItem.id} value={classItem.id}>
                             {classItem.name}
                           </SelectItem>
                         ))

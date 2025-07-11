@@ -41,7 +41,7 @@ export default function MyFormAuto({ onAdd, isLoading }: MyFormProps) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       dayOfWeek: ['Mon'],
-      classId: [classList[0]?._id || ''],
+      classId: [classList[0]?.id || ''],
     },
   });
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -92,8 +92,8 @@ export default function MyFormAuto({ onAdd, isLoading }: MyFormProps) {
               <FormLabel>Class Name</FormLabel>
               <FormControl>
                 <MultiSelect
-                  options={classList.map((classItem: ClassData) => ({
-                    value: classItem._id,
+                  options={classList.map((classItem: any) => ({
+                    value: classItem.id,
                     label: classItem.name,
                   }))}
                   onValueChange={field.onChange}

@@ -1,4 +1,5 @@
 import { baseApi } from '@/redux/baseApi';
+import { getAttendanceByDate } from './teddata';
 
 export const tedTeamScheduleApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -50,6 +51,20 @@ export const tedTeamScheduleApi = baseApi.injectEndpoints({
       query: (classId) => `/api/Class/get-member-class/${classId}`,
       providesTags: ['Class'],
     }),
+    getAttendanceByDate: builder.query({
+      query: ({ startDate, endDate }) => ({
+        url: '/api/Attendance/get-personal',
+        method: 'GET',
+        params: { startDate, endDate },
+      }),
+    }),
+    updateAttendanceStatus: builder.mutation({
+      query: ({ user_id, status }) => ({
+        url: '/api/Attendance',
+        method: 'PUT',
+        params: { user_id, status },
+      }),
+    }),
   }),
 });
 
@@ -62,4 +77,6 @@ export const {
   useGetClassesQuery,
   useGetClassDetailQuery,
   useGetClassInfoQuery,
+  useGetAttendanceByDateQuery,
+  useUpdateAttendanceStatusMutation,
 } = tedTeamScheduleApi;

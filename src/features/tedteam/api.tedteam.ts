@@ -38,6 +38,18 @@ export const tedTeamScheduleApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['RegisterSchedule'],
     }),
+    getClasses: builder.query({
+      query: () => `/api/Class/classes`,
+      providesTags: ['Class'],
+    }),
+    getClassInfo: builder.query({
+      query: (id) => `/api/Class/${id}`,
+      providesTags: ['Class'],
+    }),
+    getClassDetail: builder.query({
+      query: (classId) => `/api/Class/get-member-class/${classId}`,
+      providesTags: ['Class'],
+    }),
   }),
 });
 
@@ -47,4 +59,7 @@ export const {
   useGetAllSlotQuery,
   useRegisterScheduleMutation,
   useUnregisterScheduleMutation,
+  useGetClassesQuery,
+  useGetClassDetailQuery,
+  useGetClassInfoQuery,
 } = tedTeamScheduleApi;

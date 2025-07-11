@@ -6,6 +6,7 @@ export function getDayKeyFromDateString(dateStr: string): string {
   return days[date.getDay() === 0 ? 6 : date.getDay() - 1];
 }
 export function convertToSlotByDay(data: ScheduleItem[], allSlots: any[] = []) {
+  if (!Array.isArray(data) || !Array.isArray(allSlots)) return [];
   const slotMap: Record<string, any> = {};
 
   // Đầu tiên, tạo tất cả các slot từ danh sách allSlots

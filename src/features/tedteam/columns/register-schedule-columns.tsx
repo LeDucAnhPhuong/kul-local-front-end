@@ -11,7 +11,7 @@ export const StatusButton = ({
   scheduleId,
 }: {
   status: 'register' | 'registered' | 'unregistered' | 'full' | 'closed';
-  scheduleId?: string;
+  scheduleId?: string[];
 }) => {
   const [registerStatus] = useRegisterScheduleMutation();
   const [unREgisterStatus] = useUnregisterScheduleMutation();
@@ -119,7 +119,9 @@ export const columns: ColumnDef<RegisterSlotSchedule>[] = [
     cell: ({ row, table }: { row: Row<RegisterSlotSchedule>; table: any }) => {
       const cell: RegisterScheduleCell | undefined = row.getValue(dayKey);
 
-      if (!cell) {
+      const schedule = cell?.schedule;
+
+      if (!schedule) {
         return (
           <div className="flex items-center justify-center py-2 text-lg text-red-500 md:text-2xl">
             -
@@ -130,12 +132,12 @@ export const columns: ColumnDef<RegisterSlotSchedule>[] = [
       return (
         <div className="space-y-1 p-1 min-w-[120px] w-full flex flex-col items-center">
           <div className="text-xs font-medium leading-tight text-green-600">
-            {cell.slot?.startTime} - {cell.slot?.endTime}
+            {schedule?.slot?.startTime} - {schedule?.slot?.endTime}
           </div>
           <div className="text-xs font-medium leading-tight text-blue-600">
-            {formatDate(cell.date, 'dd-MM-yyyy')}
+            {formatDate(schedule?.date, 'dd-MM-yyyy')}
           </div>
-          <StatusButton status={getRegisterStatus(cell.status)} scheduleId={cell._id} />
+          <StatusButton status={getRegisterStatus(cell?.status)} scheduleId={schedule?.id} />
         </div>
       );
     },

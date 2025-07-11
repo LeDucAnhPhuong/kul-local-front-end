@@ -246,15 +246,35 @@ export const transformRegisterScheduleData = (
     });
   });
 
+  console.log('slotMap', slotMap);
+
   data.forEach((item) => {
-    const slotName = item?.slot?.name;
-    const dayKey = getDayKeyFromDateString(item?.date);
+    const slotName = item?.schedule?.slot?.name;
+    const dayKey = getDayKeyFromDateString(item?.schedule?.date || '');
+
+    console.log('dayKey', dayKey);
 
     const schedule = slotMap.get(slotName) || {
       slot: slotName,
     };
-    schedule[dayKey] = item;
+
+    schedule[dayKey] = schedule[dayKey]
+      ? {
+          ...schedule[dayKey],
+          schedule: {
+            ...schedule[dayKey].schedule,
+            id: [...(schedule[dayKey].schedule.id || []), item.scheduleId],
+          },
+        }
+      : {
+          ...item,
+          schedule: {
+            ...item.schedule,
+            id: [item.scheduleId],
+          },
+        };
   });
+  console.log('data', slotMap);
 
   return Array.from(slotMap?.values());
 };
@@ -294,7 +314,7 @@ export const getRegisterScheduleByDate = (
   data: RegisterScheduleCell[],
   date: string,
 ): RegisterScheduleCell[] => {
-  return data.filter((item) => item.date === date);
+  return data.filter((item) => item.schedule?.date === date);
 };
 
 export const getRegisterStatus = (

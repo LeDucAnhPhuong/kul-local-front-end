@@ -1,4 +1,4 @@
-export type DayKey = "t2" | "t3" | "t4" | "t5" | "t6" | "t7" | "cn"
+export type DayKey = 't2' | 't3' | 't4' | 't5' | 't6' | 't7' | 'cn';
 
 export interface Room {
   name: string;
@@ -21,7 +21,7 @@ export interface User {
   last_name: string;
   _id: string;
   isActive: boolean;
-   created_by: string | null;
+  created_by: string | null;
   updated_by: string | null;
   created_at: string;
   updated_at: string;
@@ -33,7 +33,7 @@ export interface ClassInfo {
   endTime: string;
   _id: string;
   isActive: boolean;
-   created_by: string | null;
+  created_by: string | null;
   updated_by: string | null;
   created_at: string;
   updated_at: string;
@@ -45,7 +45,7 @@ export interface Slot {
   endTime: string;
   _id: string;
   isActive: boolean;
-   created_by: string | null;
+  created_by: string | null;
   updated_by: string | null;
   created_at: string;
   updated_at: string;
@@ -58,9 +58,10 @@ export interface ScheduleItem {
   slot: Slot;
   date: string; // ISO date string
   _id: string;
+  id?: string[];
   tedTeamId: string | null;
   isActive: boolean;
-   created_by: string | null;
+  created_by: string | null;
   updated_by: string | null;
   created_at: string;
   updated_at: string;
@@ -80,125 +81,114 @@ export interface UserSchedule {
 }
 
 export type ScheduleCell = {
-  topic?: string
-  instructor: string
-  location: string
-  time: string
-  status: "not yet" | "present" | "absent"
-  date: string
-  class_id?: string | null
-  room_id?: string | null
-  coach_id?: string | null
-  tedTeam_id?: string | null
-}
+  topic?: string;
+  instructor: string;
+  location: string;
+  time: string;
+  status: 'not yet' | 'present' | 'absent';
+  date: string;
+  class_id?: string | null;
+  room_id?: string | null;
+  coach_id?: string | null;
+  tedTeam_id?: string | null;
+};
 
 export type RegisterScheduleCell = {
-  _id: string
-  slot: {
-    _id: string
-    name: string
-    startTime: string
-    endTime: string
-    description: string
-    isActive: boolean
-    created_by: string | null
-    updated_by: string | null
-    created_at: string
-    updated_at: string
-  }
-  date: string
-  status: number
-}
+  _id: string;
+  schedule: ScheduleItem;
+  status: number;
+  scheduleId: string;
+};
 
 export type SlotSchedule = {
-  slot: string
-  t2?: ScheduleCell
-  t3?: ScheduleCell
-  t4?: ScheduleCell
-  t5?: ScheduleCell
-  t6?: ScheduleCell
-  t7?: ScheduleCell
-  cn?: ScheduleCell
-}
+  slot: string;
+  t2?: ScheduleCell;
+  t3?: ScheduleCell;
+  t4?: ScheduleCell;
+  t5?: ScheduleCell;
+  t6?: ScheduleCell;
+  t7?: ScheduleCell;
+  cn?: ScheduleCell;
+};
 
 export type RegisterSlotSchedule = {
-  slot: string
-  t2?: RegisterScheduleCell
-  t3?: RegisterScheduleCell
-  t4?: RegisterScheduleCell
-  t5?: RegisterScheduleCell
-  t6?: RegisterScheduleCell
-  t7?: RegisterScheduleCell
-  cn?: RegisterScheduleCell
-}
+  slot: string;
+  t2?: RegisterScheduleCell;
+  t3?: RegisterScheduleCell;
+  t4?: RegisterScheduleCell;
+  t5?: RegisterScheduleCell;
+  t6?: RegisterScheduleCell;
+  t7?: RegisterScheduleCell;
+  cn?: RegisterScheduleCell;
+};
 
 interface Classes {
-  _id: number
-  name: string
-  schedule: string
-  room_id: number
-  members: number
-  isActive: boolean
-  created_by: number
-  updated_by: number
-  created_at: string
-  updated_at: string
+  _id: number;
+  name: string;
+  schedule: string;
+  room_id: number;
+  members: number;
+  isActive: boolean;
+  created_by: number;
+  updated_by: number;
+  created_at: string;
+  updated_at: string;
 }
 
 interface ClassCalendar {
-  _id: number
-  class_id: number
-  date: string  
-  slot_id: number
-  room_id: number
-  coach_id: number
-  TedTeam_id: number
-  note: string
-  isActive: boolean
-  created_by: number
-  updated_by: number
-  created_at: string
-  updated_at: string
-  classes: Classes
+  _id: number;
+  class_id: number;
+  date: string;
+  slot_id: number;
+  room_id: number;
+  coach_id: number;
+  TedTeam_id: number;
+  note: string;
+  isActive: boolean;
+  created_by: number;
+  updated_by: number;
+  created_at: string;
+  updated_at: string;
+  classes: Classes;
 }
 
 export interface AttendanceData {
-  _id: string
-  schedule_id: string 
-  user_id: string
-  status: number
-  isActive: boolean
-  created_by: number | null
-  updated_by: number| null
-  created_at: string
-  updated_at: string
-  schedule: ClassCalendar
+  _id: string;
+  schedule_id: string;
+  user_id: string;
+  status: number;
+  isActive: boolean;
+  created_by: number | null;
+  updated_by: number | null;
+  created_at: string;
+  updated_at: string;
+  schedule: ClassCalendar;
 }
 
-export type RegistrationStatus = "register" | "registered" | "unregistered" | "full"
+export type RegistrationStatus = 'register' | 'registered' | 'unregistered' | 'full';
 
 export interface TimeSlot {
-  slot_id: string
-  time_range: string
-  start_time: string
-  end_time: string
+  slot_id: string;
+  time_range: string;
+  start_time: string;
+  end_time: string;
 }
 
 export interface ScheduleSlot {
-  id: string
-  day: DayKey
-  date: string
-  slot: TimeSlot
-  current_registrations: number
-  max_capacity: number
-  status: RegistrationStatus
-  class_ids: string[]
+  id: string;
+  day: DayKey;
+  date: string;
+  slot: TimeSlot;
+  current_registrations: number;
+  max_capacity: number;
+  status: RegistrationStatus;
+  class_ids: string[];
 }
 
 export interface DaySchedule {
-  [slot_id: string]: ScheduleSlot
+  [slot_id: string]: ScheduleSlot;
 }
 
 export type WeekSchedule = {
-  [day in DayKey]?: DaySchedule
-}
+  [day in DayKey]?: DaySchedule;
+};

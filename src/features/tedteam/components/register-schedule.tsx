@@ -67,19 +67,20 @@ export default function RegisterSchedule() {
 
   const { slots } = useGetAllSlotQuery(undefined, {
     selectFromResult: ({ data }) => ({
-      slots: data
-        ? (Array.from(data) as Slot[])?.sort((a: Slot, b: Slot) => {
+      slots: data?.data
+        ? (Array.from(data?.data) as Slot[])?.sort((a: Slot, b: Slot) => {
             const toMinutes = (time: string) => {
               const [h, m] = time.split(':').map(Number);
               return h * 60 + m;
             };
-            return toMinutes(a.startTime) - toMinutes(b.startTime);
+            return toMinutes(a?.startTime) - toMinutes(b?.startTime);
           })
         : [],
     }),
   });
 
   const data = transformRegisterScheduleData(register, slots);
+  console.log('data', data);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);

@@ -31,7 +31,7 @@ export const RegisterMobileView: React.FC<Props> = ({ data, isLoading }) => {
     </div>
   ) : (
     <div className="block space-y-4 md:hidden">
-      {dayKeys.map((dayKey) => {
+      {dayKeys?.map((dayKey) => {
         const slotsWithDay = data
           .map((slot, slotIndex) => ({
             slotName: slot.slot,
@@ -52,12 +52,15 @@ export const RegisterMobileView: React.FC<Props> = ({ data, isLoading }) => {
               >
                 <div className="text-sm font-medium text-gray-800 mb-1">{slotName}</div>
                 <div className="mt-1 text-xs font-medium text-green-600">
-                  {cell!.slot.startTime} - {cell!.slot.endTime}
+                  {cell?.schedule?.slot?.startTime} - {cell?.schedule?.slot?.endTime}
                 </div>
                 <div className="text-xs font-medium text-blue-600 mb-2">
-                  {formatDate(cell!.date, 'dd-MM-yyyy')}
+                  {formatDate(cell?.schedule?.date || '', 'dd-MM-yyyy')}
                 </div>
-                <StatusButton status={getRegisterStatus(cell!.status)} scheduleId={cell?._id} />
+                <StatusButton
+                  status={getRegisterStatus(cell!.status)}
+                  scheduleId={cell?.schedule?.id}
+                />
               </div>
             ))}
           </div>

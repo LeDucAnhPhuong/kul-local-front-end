@@ -115,7 +115,7 @@ function TeacherView() {
     if (!week || !slot) return [];
     return convertToMobileSchedule(week, slot);
   }, [week, slot]);
-
+console.log('deskdata', deskdata);
   return (
     <>
       <div className="bg-white dark:bg-background p-4 rounded-xl border border-stone-200 dark:border-stone-800">

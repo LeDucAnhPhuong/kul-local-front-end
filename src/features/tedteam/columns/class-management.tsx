@@ -1,6 +1,5 @@
 import type { ColumnDef, Row } from '@tanstack/react-table';
 import { CalendarDays, ClipboardPen } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { Link } from 'react-router';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
@@ -11,6 +10,7 @@ export type Class = {
   name: string;
   isActive: boolean;
   created_at?: string;
+  startTime?: string;
 };
 export const columns: ColumnDef<Class>[] = [
   {

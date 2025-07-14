@@ -2,7 +2,6 @@ import DataTable from '@/components/data-table/data-table';
 import TitlePage from '@/components/ui/title-page';
 import { useParams } from 'react-router-dom';
 import { columns } from '../columns/student-list';
-import { StudentSampleData } from '../data.student';
 import { useGetClassDetailQuery, useGetClassInfoQuery } from '../../api.class';
 import type { StudentData } from '@/features/account-management/data.student';
 

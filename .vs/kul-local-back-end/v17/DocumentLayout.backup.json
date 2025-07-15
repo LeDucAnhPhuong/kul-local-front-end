@@ -1,0 +1,912 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "W:\\KI_5\\SWP391\\kul-local-back-end\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\repository\\quizresultrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\repository\\quizresultrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\interface\\iquizresultrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\interface\\iquizresultrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\controllers\\quizresultcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\controllers\\quizresultcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\models\\quizresult\\createquizresultdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\models\\quizresult\\createquizresultdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\repository\\registerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\repository\\registerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\entities\\quiz.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\entities\\quiz.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\repository\\quizrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\repository\\quizrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\repository\\schedulerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\repository\\schedulerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\entities\\quizresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\entities\\quizresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\repository\\questionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\repository\\questionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\controllers\\quizcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\controllers\\quizcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\interface\\iquizrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\interface\\iquizrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\kul-local-back-end.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\kul-local-back-end.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\models\\question\\createquestiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\models\\question\\createquestiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\entities\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\entities\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\entities\\class.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\entities\\class.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\repository\\baserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\repository\\baserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\repository\\roomrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\repository\\roomrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\repository\\attendancerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\repository\\attendancerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\interface\\iquestionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\interface\\iquestionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\controllers\\questioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\controllers\\questioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\models\\quiz\\updatequizdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\models\\quiz\\updatequizdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\repository\\classrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\repository\\classrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\repository\\usersrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\repository\\usersrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\interface\\ischedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\interface\\ischedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\controllers\\registercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\controllers\\registercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\controllers\\classcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\controllers\\classcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\interface\\iclass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\interface\\iclass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\entities\\schedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\entities\\schedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\entities\\attendance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\entities\\attendance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\controllers\\attendancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\controllers\\attendancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\interface\\iregister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\interface\\iregister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\controllers\\slotcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\controllers\\slotcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\entities\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\entities\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\interface\\iattendance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\interface\\iattendance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\controllers\\schedulecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\controllers\\schedulecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\interface\\iauthentication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\interface\\iauthentication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\models\\schedule\\updatescheduledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\models\\schedule\\updatescheduledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\models\\schedule\\createscheduledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\models\\schedule\\createscheduledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\interface\\iuserreposiroty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\interface\\iuserreposiroty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\data\\clerkapiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\data\\clerkapiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\models\\jwtsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\models\\jwtsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\models\\auth\\tokendto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\models\\auth\\tokendto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\controllers\\roomcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\controllers\\roomcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\repository\\slotrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\repository\\slotrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\controllers\\basecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\controllers\\basecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\utils\\enumextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\utils\\enumextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\models\\attendance\\createattendace.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\models\\attendance\\createattendace.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\models\\attendance\\attendanceresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\models\\attendance\\attendanceresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|w:\\ki_5\\swp391\\kul-local-back-end\\kul-local-back-end\\interface\\iclerkapiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB28017-196E-4155-868E-1E9766291B21}|kul-local-back-end\\kul-local-back-end.csproj|solutionrelative:kul-local-back-end\\interface\\iclerkapiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 319,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Quiz.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Entities\\Quiz.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Entities\\Quiz.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Entities\\Quiz.cs",
+              "RelativeToolTip": "kul-local-back-end\\Entities\\Quiz.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-14T10:19:19.957Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "QuizResultRepository.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Repository\\QuizResultRepository.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Repository\\QuizResultRepository.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Repository\\QuizResultRepository.cs",
+              "RelativeToolTip": "kul-local-back-end\\Repository\\QuizResultRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAC0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-13T08:43:01.26Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RegisterRepository.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Repository\\RegisterRepository.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Repository\\RegisterRepository.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Repository\\RegisterRepository.cs",
+              "RelativeToolTip": "kul-local-back-end\\Repository\\RegisterRepository.cs",
+              "ViewState": "AgIAAOoAAAAAAAAAAAAAAPgAAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-09T09:49:20.803Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "QuizResultController.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Controllers\\QuizResultController.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Controllers\\QuizResultController.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Controllers\\QuizResultController.cs",
+              "RelativeToolTip": "kul-local-back-end\\Controllers\\QuizResultController.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwBcAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-13T08:51:57.686Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CreateQuizResultDTO.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\models\\quizResult\\CreateQuizResultDTO.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\models\\quizResult\\CreateQuizResultDTO.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\models\\quizResult\\CreateQuizResultDTO.cs",
+              "RelativeToolTip": "kul-local-back-end\\models\\quizResult\\CreateQuizResultDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-13T08:52:48.617Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IQuizResultRepository.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\interface\\IQuizResultRepository.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\interface\\IQuizResultRepository.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\interface\\IQuizResultRepository.cs",
+              "RelativeToolTip": "kul-local-back-end\\interface\\IQuizResultRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-13T08:51:30.632Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Program.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Program.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Program.cs",
+              "RelativeToolTip": "kul-local-back-end\\Program.cs",
+              "ViewState": "AgIAAHsAAAAAAAAAAAAswI4AAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T10:19:44.276Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "QuizRepository.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Repository\\QuizRepository.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Repository\\QuizRepository.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Repository\\QuizRepository.cs",
+              "RelativeToolTip": "kul-local-back-end\\Repository\\QuizRepository.cs",
+              "ViewState": "AgIAALIAAAAAAAAAAAAcwMcAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-13T08:59:23.726Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "QuizResult.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Entities\\QuizResult.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Entities\\QuizResult.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Entities\\QuizResult.cs",
+              "RelativeToolTip": "kul-local-back-end\\Entities\\QuizResult.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC0AAABYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-13T08:49:48.15Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Class.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Entities\\Class.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Entities\\Class.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Entities\\Class.cs",
+              "RelativeToolTip": "kul-local-back-end\\Entities\\Class.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-08T11:13:27.166Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "QuestionRepository.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Repository\\QuestionRepository.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Repository\\QuestionRepository.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Repository\\QuestionRepository.cs",
+              "RelativeToolTip": "kul-local-back-end\\Repository\\QuestionRepository.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAYwC4AAABbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-12T15:15:20.277Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "IQuizRepository.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\interface\\IQuizRepository.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\interface\\IQuizRepository.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\interface\\IQuizRepository.cs",
+              "RelativeToolTip": "kul-local-back-end\\interface\\IQuizRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-14T08:44:29.777Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ScheduleRepository.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Repository\\ScheduleRepository.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Repository\\ScheduleRepository.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Repository\\ScheduleRepository.cs",
+              "RelativeToolTip": "kul-local-back-end\\Repository\\ScheduleRepository.cs",
+              "ViewState": "AgIAAJIAAAAAAAAAAAAAAJIAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-14T10:15:58.966Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "CreateQuestionDTO.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\models\\question\\CreateQuestionDTO.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\models\\question\\CreateQuestionDTO.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\models\\question\\CreateQuestionDTO.cs",
+              "RelativeToolTip": "kul-local-back-end\\models\\question\\CreateQuestionDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAsAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-12T15:53:39.585Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "QuizController.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Controllers\\QuizController.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Controllers\\QuizController.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Controllers\\QuizController.cs",
+              "RelativeToolTip": "kul-local-back-end\\Controllers\\QuizController.cs",
+              "ViewState": "AgIAADEAAAAAAAAAAAAmwEEAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-12T11:45:57.197Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "kul-local-back-end.http",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\kul-local-back-end.http",
+              "RelativeDocumentMoniker": "kul-local-back-end\\kul-local-back-end.http",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\kul-local-back-end.http",
+              "RelativeToolTip": "kul-local-back-end\\kul-local-back-end.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2025-07-07T13:40:42.553Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "baseEntity.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Entities\\baseEntity.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Entities\\baseEntity.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Entities\\baseEntity.cs",
+              "RelativeToolTip": "kul-local-back-end\\Entities\\baseEntity.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwBkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-13T11:17:46.188Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "BaseRepository.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Repository\\BaseRepository.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Repository\\BaseRepository.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Repository\\BaseRepository.cs",
+              "RelativeToolTip": "kul-local-back-end\\Repository\\BaseRepository.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwBIAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-13T11:58:10.496Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "RoomRepository.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Repository\\RoomRepository.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Repository\\RoomRepository.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Repository\\RoomRepository.cs",
+              "RelativeToolTip": "kul-local-back-end\\Repository\\RoomRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T11:25:35.387Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "AttendanceRepository.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Repository\\AttendanceRepository.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Repository\\AttendanceRepository.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Repository\\AttendanceRepository.cs",
+              "RelativeToolTip": "kul-local-back-end\\Repository\\AttendanceRepository.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAA3wDcAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-08T11:36:07.368Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "QuestionController.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Controllers\\QuestionController.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Controllers\\QuestionController.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Controllers\\QuestionController.cs",
+              "RelativeToolTip": "kul-local-back-end\\Controllers\\QuestionController.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwBsAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-12T15:47:22.992Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "IQuestionRepository.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\interface\\IQuestionRepository.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\interface\\IQuestionRepository.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\interface\\IQuestionRepository.cs",
+              "RelativeToolTip": "kul-local-back-end\\interface\\IQuestionRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAgAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-12T15:41:38.663Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "UpdateQuizDTO.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\models\\quiz\\UpdateQuizDTO.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\models\\quiz\\UpdateQuizDTO.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\models\\quiz\\UpdateQuizDTO.cs",
+              "RelativeToolTip": "kul-local-back-end\\models\\quiz\\UpdateQuizDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-12T12:27:30.731Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "RegisterController.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Controllers\\RegisterController.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Controllers\\RegisterController.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Controllers\\RegisterController.cs",
+              "RelativeToolTip": "kul-local-back-end\\Controllers\\RegisterController.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAswDIAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-09T09:26:26.966Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Controllers\\UsersController.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "kul-local-back-end\\Controllers\\UsersController.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABcAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T10:19:11.795Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "ClassRepository.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Repository\\ClassRepository.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Repository\\ClassRepository.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Repository\\ClassRepository.cs",
+              "RelativeToolTip": "kul-local-back-end\\Repository\\ClassRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-11T09:24:50.869Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "ISchedule.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\interface\\ISchedule.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\interface\\ISchedule.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\interface\\ISchedule.cs",
+              "RelativeToolTip": "kul-local-back-end\\interface\\ISchedule.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-08T11:56:49.936Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "ClassController.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Controllers\\ClassController.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Controllers\\ClassController.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Controllers\\ClassController.cs",
+              "RelativeToolTip": "kul-local-back-end\\Controllers\\ClassController.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwBIAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T10:58:10.03Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "UsersRepository.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Repository\\UsersRepository.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Repository\\UsersRepository.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Repository\\UsersRepository.cs",
+              "RelativeToolTip": "kul-local-back-end\\Repository\\UsersRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwBMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T10:25:35.306Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "Schedule.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Entities\\Schedule.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Entities\\Schedule.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Entities\\Schedule.cs",
+              "RelativeToolTip": "kul-local-back-end\\Entities\\Schedule.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAkwCwAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-08T10:38:36.113Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "Attendance.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Entities\\Attendance.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Entities\\Attendance.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Entities\\Attendance.cs",
+              "RelativeToolTip": "kul-local-back-end\\Entities\\Attendance.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAmwB4AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-08T11:13:04.344Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "IClass.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\interface\\IClass.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\interface\\IClass.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\interface\\IClass.cs",
+              "RelativeToolTip": "kul-local-back-end\\interface\\IClass.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwA4AAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T10:58:14.932Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "AttendanceController.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Controllers\\AttendanceController.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Controllers\\AttendanceController.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Controllers\\AttendanceController.cs",
+              "RelativeToolTip": "kul-local-back-end\\Controllers\\AttendanceController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-08T11:42:28.068Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "SlotController.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Controllers\\SlotController.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Controllers\\SlotController.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Controllers\\SlotController.cs",
+              "RelativeToolTip": "kul-local-back-end\\Controllers\\SlotController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABAAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T11:25:27.245Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "IRegister.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\interface\\IRegister.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\interface\\IRegister.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\interface\\IRegister.cs",
+              "RelativeToolTip": "kul-local-back-end\\interface\\IRegister.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAQwAwAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T10:18:14.318Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "IAuthentication.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\interface\\IAuthentication.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\interface\\IAuthentication.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\interface\\IAuthentication.cs",
+              "RelativeToolTip": "kul-local-back-end\\interface\\IAuthentication.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-08T11:36:52.796Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "IAttendance.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\interface\\IAttendance.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\interface\\IAttendance.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\interface\\IAttendance.cs",
+              "RelativeToolTip": "kul-local-back-end\\interface\\IAttendance.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-09T09:25:08.803Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "Room.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Entities\\Room.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Entities\\Room.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Entities\\Room.cs",
+              "RelativeToolTip": "kul-local-back-end\\Entities\\Room.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-09T09:30:58.622Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "ScheduleController.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Controllers\\ScheduleController.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Controllers\\ScheduleController.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Controllers\\ScheduleController.cs",
+              "RelativeToolTip": "kul-local-back-end\\Controllers\\ScheduleController.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAwCAAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T11:24:30.861Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "UpdateScheduleDTO.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\models\\schedule\\UpdateScheduleDTO.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\models\\schedule\\UpdateScheduleDTO.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\models\\schedule\\UpdateScheduleDTO.cs",
+              "RelativeToolTip": "kul-local-back-end\\models\\schedule\\UpdateScheduleDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAsAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-08T10:51:14.086Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "CreateScheduleDTO.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\models\\schedule\\CreateScheduleDTO.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\models\\schedule\\CreateScheduleDTO.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\models\\schedule\\CreateScheduleDTO.cs",
+              "RelativeToolTip": "kul-local-back-end\\models\\schedule\\CreateScheduleDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-08T10:47:36.858Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\appsettings.json",
+              "RelativeDocumentMoniker": "kul-local-back-end\\appsettings.json",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\appsettings.json",
+              "RelativeToolTip": "kul-local-back-end\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-07-07T10:20:44.026Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "ClerkApiClient.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Data\\ClerkApiClient.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Data\\ClerkApiClient.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Data\\ClerkApiClient.cs",
+              "RelativeToolTip": "kul-local-back-end\\Data\\ClerkApiClient.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T13:57:22.688Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "RoomController.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Controllers\\RoomController.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Controllers\\RoomController.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Controllers\\RoomController.cs",
+              "RelativeToolTip": "kul-local-back-end\\Controllers\\RoomController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T11:25:31.503Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "IUserReposiroty.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\interface\\IUserReposiroty.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\interface\\IUserReposiroty.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\interface\\IUserReposiroty.cs",
+              "RelativeToolTip": "kul-local-back-end\\interface\\IUserReposiroty.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T14:36:38.092Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "TokenDTO.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\models\\auth\\TokenDTO.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\models\\auth\\TokenDTO.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\models\\auth\\TokenDTO.cs",
+              "RelativeToolTip": "kul-local-back-end\\models\\auth\\TokenDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T13:47:23.505Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "JWTSettings.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\models\\JWTSettings.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\models\\JWTSettings.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\models\\JWTSettings.cs",
+              "RelativeToolTip": "kul-local-back-end\\models\\JWTSettings.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T13:47:45.644Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Properties\\launchSettings.json",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Properties\\launchSettings.json",
+              "RelativeToolTip": "kul-local-back-end\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACMAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-07-07T14:20:32.755Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "SlotRepository.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Repository\\SlotRepository.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Repository\\SlotRepository.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Repository\\SlotRepository.cs",
+              "RelativeToolTip": "kul-local-back-end\\Repository\\SlotRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T11:25:39.129Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 49,
+              "Title": "BaseController.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Controllers\\BaseController.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Controllers\\BaseController.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Controllers\\BaseController.cs",
+              "RelativeToolTip": "kul-local-back-end\\Controllers\\BaseController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T11:24:28.681Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 51,
+              "Title": "EnumExtensions.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\utils\\EnumExtensions.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\utils\\EnumExtensions.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\utils\\EnumExtensions.cs",
+              "RelativeToolTip": "kul-local-back-end\\utils\\EnumExtensions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T10:28:37.285Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 50,
+              "Title": "User.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Entities\\User.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\Entities\\User.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\Entities\\User.cs",
+              "RelativeToolTip": "kul-local-back-end\\Entities\\User.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwBEAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T10:27:26.16Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 52,
+              "Title": "CreateAttendace.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\models\\attendance\\CreateAttendace.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\models\\attendance\\CreateAttendace.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\models\\attendance\\CreateAttendace.cs",
+              "RelativeToolTip": "kul-local-back-end\\models\\attendance\\CreateAttendace.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T10:18:34.28Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 53,
+              "Title": "AttendanceResponse.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\models\\attendance\\AttendanceResponse.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\models\\attendance\\AttendanceResponse.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\models\\attendance\\AttendanceResponse.cs",
+              "RelativeToolTip": "kul-local-back-end\\models\\attendance\\AttendanceResponse.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAADwvxQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T10:18:24.916Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 54,
+              "Title": "IClerkApiClient.cs",
+              "DocumentMoniker": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\interface\\IClerkApiClient.cs",
+              "RelativeDocumentMoniker": "kul-local-back-end\\interface\\IClerkApiClient.cs",
+              "ToolTip": "W:\\KI_5\\SWP391\\kul-local-back-end\\kul-local-back-end\\interface\\IClerkApiClient.cs",
+              "RelativeToolTip": "kul-local-back-end\\interface\\IClerkApiClient.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T10:18:08.885Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

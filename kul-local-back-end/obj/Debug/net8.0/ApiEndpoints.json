@@ -1,0 +1,794 @@
+[
+  {
+    "ContainingType": "kul_local_back_end.Controllers.AttendanceController",
+    "Method": "UpdateAttendance",
+    "RelativePath": "api/Attendance",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "status",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "user_id",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.AttendanceController",
+    "Method": "GetPersonalAttendance",
+    "RelativePath": "api/Attendance/get-personal",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "startDate",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "endDate",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_locall_back_end.Controllers.AuthController",
+    "Method": "LoginWithGoogleAsync",
+    "RelativePath": "api/Auth/login-google",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "auth",
+        "Type": "kul_locall_back_end.models.auth.TokenDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.ClassController",
+    "Method": "CreateClass",
+    "RelativePath": "api/Class",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "classDTO",
+        "Type": "kul_locall_back_end.models.classes.CreateClassDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.ClassController",
+    "Method": "GetClassById",
+    "RelativePath": "api/Class/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.ClassController",
+    "Method": "DeleteClassById",
+    "RelativePath": "api/Class/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.ClassController",
+    "Method": "GetAll",
+    "RelativePath": "api/Class/classes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.ClassController",
+    "Method": "GetClassesForTedTeam",
+    "RelativePath": "api/Class/get-class-for-tedteam",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ClerkWebhookDemo.Controllers.ClerkWebhookController",
+    "Method": "Post",
+    "RelativePath": "api/ClerkWebhook",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "body",
+        "Type": "System.Text.Json.JsonElement",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.QuestionController",
+    "Method": "Update",
+    "RelativePath": "api/Question/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "kul_local_back_end.models.question.UpdateQuestionDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.QuestionController",
+    "Method": "GetById",
+    "RelativePath": "api/Question/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.QuestionController",
+    "Method": "Delete",
+    "RelativePath": "api/Question/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.QuestionController",
+    "Method": "Create",
+    "RelativePath": "api/Question/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "kul_local_back_end.models.question.CreateQuestionDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.QuestionController",
+    "Method": "GetByQuizId",
+    "RelativePath": "api/Question/quiz/{quizId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "quizId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.QuizController",
+    "Method": "GetById",
+    "RelativePath": "api/Quiz/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.QuizController",
+    "Method": "Update",
+    "RelativePath": "api/Quiz/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "quiz",
+        "Type": "kul_local_back_end.models.quiz.UpdateQuizDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.QuizController",
+    "Method": "Delete",
+    "RelativePath": "api/Quiz/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.QuizController",
+    "Method": "GetAll",
+    "RelativePath": "api/Quiz/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.QuizController",
+    "Method": "GetForCoach",
+    "RelativePath": "api/Quiz/coach",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.QuizController",
+    "Method": "Create",
+    "RelativePath": "api/Quiz/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "quiz",
+        "Type": "kul_local_back_end.models.quiz.CreateQuizDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.QuizController",
+    "Method": "GetForStudent",
+    "RelativePath": "api/Quiz/student",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.QuizResultController",
+    "Method": "GetResultsByQuiz",
+    "RelativePath": "api/QuizResult/quiz/{quizId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "quizId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.QuizResultController",
+    "Method": "SubmitQuizResult",
+    "RelativePath": "api/QuizResult/submit",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "result",
+        "Type": "kul_local_back_end.models.quizResult.CreateQuizResultDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.QuizResultController",
+    "Method": "GetResultsByUser",
+    "RelativePath": "api/QuizResult/user",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.RegisterController",
+    "Method": "AcceptRegister",
+    "RelativePath": "api/Register/accept-register-ted-team/{registerId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "registerId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.RegisterController",
+    "Method": "GetAllRegisteredTeamsAsync",
+    "RelativePath": "api/Register/get-all-registered-teams",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.RegisterController",
+    "Method": "GetRegisterTedTeam",
+    "RelativePath": "api/Register/register",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.RegisterController",
+    "Method": "RegisterTedTeamAsync",
+    "RelativePath": "api/Register/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "registerDTO",
+        "Type": "kul_locall_back_end.models.register.RegisterTedTeamDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.RegisterController",
+    "Method": "RejectRegister",
+    "RelativePath": "api/Register/reject-register-ted-team/{registerId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "registerId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.RegisterController",
+    "Method": "UnregisterTedTeamAsync",
+    "RelativePath": "api/Register/unregister",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "registerDTO",
+        "Type": "kul_locall_back_end.models.register.RegisterTedTeamDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.RoomController",
+    "Method": "getAllRoom",
+    "RelativePath": "api/Room",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.RoomController",
+    "Method": "createRoom",
+    "RelativePath": "api/Room",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "createRoomDTO",
+        "Type": "kul_locall_back_end.models.room.CreateRoomDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.RoomController",
+    "Method": "deleteRoom",
+    "RelativePath": "api/Room",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.RoomController",
+    "Method": "getById",
+    "RelativePath": "api/Room/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.ScheduleController",
+    "Method": "GetAll",
+    "RelativePath": "api/Schedule",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.ScheduleController",
+    "Method": "CreateSchedule",
+    "RelativePath": "api/Schedule",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "scheduleDTO",
+        "Type": "kul_locall_back_end.models.schedule.CreateScheduleDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.ScheduleController",
+    "Method": "UpdateSchedule",
+    "RelativePath": "api/Schedule",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "scheduleDTO",
+        "Type": "kul_locall_back_end.models.schedule.UpdateScheduleDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.ScheduleController",
+    "Method": "GetDateRange",
+    "RelativePath": "api/Schedule/date-range",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "startDate",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "endDate",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.ScheduleController",
+    "Method": "GetPersonalDateRange",
+    "RelativePath": "api/Schedule/schedules/personal/date-range",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "startDate",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "endDate",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.SlotController",
+    "Method": "CreateSlotAsync",
+    "RelativePath": "api/Slot/create-slot",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "slot",
+        "Type": "kul_locall_back_end.models.slot.CreateSlotDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.SlotController",
+    "Method": "DeleteSlotAsync",
+    "RelativePath": "api/Slot/delete-slot/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.SlotController",
+    "Method": "GetSlotsAsync",
+    "RelativePath": "api/Slot/slots",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.SlotController",
+    "Method": "UpdateSlotAsync",
+    "RelativePath": "api/Slot/update-slot/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "slot",
+        "Type": "kul_locall_back_end.models.slot.UpdateSlotDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.UsersController",
+    "Method": "CreateAdminAsync",
+    "RelativePath": "api/Users/admin",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user",
+        "Type": "kul_locall_back_end.models.user.CreateDTOStudent",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.UsersController",
+    "Method": "GetAdminsAsync",
+    "RelativePath": "api/Users/admins",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.UsersController",
+    "Method": "CreateCoachAsync",
+    "RelativePath": "api/Users/coach",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user",
+        "Type": "kul_locall_back_end.models.user.CreateDTOStudent",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.UsersController",
+    "Method": "GetCoachesAsync",
+    "RelativePath": "api/Users/coaches",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.UsersController",
+    "Method": "GetUserRoleAsync",
+    "RelativePath": "api/Users/get-role",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.UsersController",
+    "Method": "CreateStudentAsync",
+    "RelativePath": "api/Users/student",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user",
+        "Type": "kul_locall_back_end.models.user.CreateDTOStudent",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.UsersController",
+    "Method": "GetStudentsAsync",
+    "RelativePath": "api/Users/students",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.UsersController",
+    "Method": "CreateTedTeamAsync",
+    "RelativePath": "api/Users/ted-team",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user",
+        "Type": "kul_locall_back_end.models.user.CreateDTOStudent",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.UsersController",
+    "Method": "GetTedTeamAsync",
+    "RelativePath": "api/Users/tedteams",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.WeatherForecastController",
+    "Method": "Get",
+    "RelativePath": "WeatherForecast",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[kul_local_back_end.WeatherForecast, kul-local-back-end, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "GetWeatherForecast"
+  }
+]

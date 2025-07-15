@@ -211,17 +211,17 @@ export function CustomSlotCalendar({ slots }: { slots: Slot[] }) {
     
   };
 
-  // useEffect(() => {
-  //   const calendarApi = (calendarRef?.current as any)?.getApi();
-  //   if (calendarApi) {
-  //     calendarApi.changeView(currentView, selectedDate);
-  //     handleDatesSet({
-  //       startStr: selectedDate,
-  //       view: { type: currentView, currentStart: new Date(selectedDate) },
-  //     });
-  //   }
-  // }, [selectedDate, currentView, slots, schedules]);
-
+  useEffect(() => {
+    const calendarApi = (calendarRef?.current as any)?.getApi();
+    if (calendarApi) {
+      calendarApi.changeView(currentView, selectedDate);
+      handleDatesSet({
+        startStr: selectedDate,
+        view: { type: currentView, currentStart: new Date(selectedDate) },
+      });
+    }
+  }, []);
+// selectedDate, currentView, slots, schedules
   const handleChangeView = (view: string) => {
     if (view === currentView) return; // tránh set lại không cần thiết
     const calendarApi = (calendarRef?.current as any)?.getApi();

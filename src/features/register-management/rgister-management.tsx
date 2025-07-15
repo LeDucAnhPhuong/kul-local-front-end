@@ -24,7 +24,7 @@ interface TedTeamUser {
   firstName: string;
   lastName: string;
   classId: string;
-  Id: string;
+  id: string;
   createdAt: string;
   updatedAt: string;
   isActive: boolean;
@@ -35,7 +35,7 @@ interface Room {
   capacity: number;
   location: string;
   description: string;
-  Id: string;
+  id: string;
 }
 
 interface Coach {
@@ -44,21 +44,21 @@ interface Coach {
   profileImage: string;
   firstName: string;
   lastName: string;
-  Id: string;
+  id: string;
 }
 
 interface ClassInfor {
   name: string;
   startTime: string;
   endTime: string;
-  Id: string;
+  id: string;
 }
 
 interface Slot {
   name: string;
   startTime: string;
   endTime: string;
-  Id: string;
+  id: string;
 }
 
 interface Schedule {
@@ -67,14 +67,14 @@ interface Schedule {
   classInfor: ClassInfor;
   slot: Slot;
   date: string;
-  Id: string;
+  id: string;
 }
 
 interface Registration {
   user: TedTeamUser;
   schedule: Schedule;
   status: number; // 0: pending, 1: accepted, 2: rejected
-  Id: string;
+  id: string;
   createdAt: string;
   updatedAt: string;
   isActive: boolean;
@@ -282,10 +282,10 @@ export default function TedTeamRegistrationsPage() {
                   size="sm"
                   variant="outline"
                   className="bg-green-50 text-green-700 border-green-200 hover:bg-green-100"
-                  onClick={() => handleAccept(registration?.Id)}
+                  onClick={() => handleAccept(registration?.id)}
                   disabled={isFetching}
                 >
-                  {isLoadingAccept && registrationId === registration?.Id ? (
+                  {isLoadingAccept && registrationId === registration?.id ? (
                     <Spinner />
                   ) : (
                     <>
@@ -298,10 +298,10 @@ export default function TedTeamRegistrationsPage() {
                   size="sm"
                   variant="outline"
                   className="bg-red-50 text-red-700 border-red-200 hover:bg-red-100"
-                  onClick={() => handleReject(registration?.Id)}
+                  onClick={() => handleReject(registration?.id)}
                   disabled={isFetching}
                 >
-                  {isLoadingReject && registrationId === registration?.Id ? (
+                  {isLoadingReject && registrationId === registration?.id ? (
                     <Spinner />
                   ) : (
                     <>

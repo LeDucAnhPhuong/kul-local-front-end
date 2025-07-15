@@ -20,16 +20,16 @@ export function DataTableToolbar<TData>({
   const isFiltered = table.getState().columnFilters.length > 0;
 
   return (
-    <div className="flex w-full items-center justify-between">
-      <div className="flex flex-1 items-end space-x-4 ">
+    <div className="flex items-center justify-between w-full">
+      <div className="flex items-end flex-1 space-x-4 ">
         <div className="flex flex-col w-60">
-          <Label className="mb-1 text-sm block" htmlFor="search ">
-            Tìm kiếm
+          <Label className="block mb-1 text-sm" htmlFor="search ">
+            Search
           </Label>
           <Input
             className="h-8"
             id="search"
-            placeholder="Tìm kiếm"
+            placeholder="Enter search..."
             value={table.getState().globalFilter ?? ""}
             onChange={(e) => table.setGlobalFilter(e.target.value)}
             // value={
@@ -42,7 +42,7 @@ export function DataTableToolbar<TData>({
         </div>
         {/* <div className="flex flex-col">
           <Label
-            className="mb-1 text-sm block"
+            className="block mb-1 text-sm"
             htmlFor={table.getColumn("status")?.id}
           >
             Lọc trạng thái
@@ -59,7 +59,7 @@ export function DataTableToolbar<TData>({
 
         <div className="flex flex-col">
           <Label
-            className="mb-1 text-sm block"
+            className="block mb-1 text-sm"
             htmlFor={table.getColumn("role")?.id}
           >
             Lọc quyền
@@ -80,7 +80,7 @@ export function DataTableToolbar<TData>({
             variant="outline"
             onClick={() => table.resetColumnFilters()}
           >
-            <Cross2Icon className=" h-4 w-4" />
+            <Cross2Icon className="w-4 h-4 " />
 
             {"Xoá bộ lọc"}
           </Button>

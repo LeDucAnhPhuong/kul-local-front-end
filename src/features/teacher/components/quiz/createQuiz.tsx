@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useForm, Controller } from 'react-hook-form';
 import {
   Dialog,
   DialogContent,
@@ -9,43 +8,67 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import type { Contest } from '../../columns/quiz.columns';
+import { Checkbox } from '@/components/ui/checkbox';
+import { SmartDatetimeInput } from '@/components/ui/smart-datetime-input';
+import { useCreateQuizMutation } from './quiz.api';
+import { toast } from 'sonner';
 
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void;
-  onCreate: (newQuiz: Contest) => void;
 };
 
-function CreateQuizDialog({ open, setOpen, onCreate }: Props) {
-  const [title, setTitle] = useState('');
-  const [startAt, setStartAt] = useState('');
-  const [endAt, setEndAt] = useState('');
-  const navigate = useNavigate();
+type FormValues = {
+  title: string;
+  date: Date;
+  due: Date;
+  isPublic: boolean;
+};
 
-  const handleCreate = () => {
-    const now = new Date().toISOString();
+// Component hiển thị lỗi đơn giản
+const FormFieldError = ({ message }: { message?: string }) =>
+  message ? <p className="text-sm text-red-500 mt-1">{message}</p> : null;
 
-    const newQuiz: Contest = {
-      id: Date.now().toString(),
-      title,
-      status: 'upcoming',
-      startAt,
-      endAt,
-      date: now,
-      isActive: true,
-      created_by: 'admin',
-      topic: 'Speaking',
-      updated_by: 'admin',
-      created_at: now,
-      updated_at: now,
-    };
+function CreateQuizDialog({ open, setOpen }: Props) {
+  const [createQuiz, { isLoading }] = useCreateQuizMutation();
 
-    onCreate(newQuiz);        // Gửi dữ liệu ra component cha
-    setOpen(false);           // Đóng dialog
-    setTimeout(() => {        // Tránh navigate quá sớm khi dialog chưa unmount
-      navigate('/quiz');
-    }, 100);
+  const {
+    handleSubmit,
+    watch,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm<FormValues>({
+    defaultValues: {
+      title: '',
+      date: new Date(),
+      due: (() => {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        return tomorrow;
+      })(),
+      isPublic: false,
+    },
+    mode: 'onChange',
+  });
+
+  const date = watch('date');
+
+  const onSubmit = async (data: FormValues) => {
+    const toastId = toast.loading('Creating quiz...');
+    try {
+      await createQuiz({
+        ...data,
+        date: data.date.toISOString(),
+        due: data.due.toISOString(),
+      }).unwrap();
+
+      toast.success('Quiz created successfully!', { id: toastId });
+      setOpen(false);
+      reset();
+    } catch (error) {
+      toast.error('Failed to create quiz. Please try again.', { id: toastId });
+    }
   };
 
   return (
@@ -54,34 +77,83 @@ function CreateQuizDialog({ open, setOpen, onCreate }: Props) {
         <DialogHeader>
           <DialogTitle>Create a New Quiz</DialogTitle>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <Input
-            placeholder="Quiz title..."
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+        <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4 py-4">
+          <Controller
+            control={control}
+            name="title"
+            rules={{ required: 'Title is required' }}
+            render={({ field }) => (
+              <>
+                <Input placeholder="Quiz title..." {...field} />
+                <FormFieldError message={errors.title?.message} />
+              </>
+            )}
           />
+
           <div>
             <label className="block mb-1 text-sm">Start date</label>
-            <Input
-              type="date"
-              value={startAt}
-              onChange={(e) => setStartAt(e.target.value)}
+            <Controller
+              control={control}
+              name="date"
+              rules={{ required: 'Start date is required' }}
+              render={({ field }) => (
+                <SmartDatetimeInput value={field.value} onValueChange={field.onChange} enableDate />
+              )}
             />
+            <FormFieldError message={errors.date?.message} />
           </div>
+
           <div>
-            <label className="block mb-1 text-sm">End date</label>
-            <Input
-              type="date"
-              value={endAt}
-              onChange={(e) => setEndAt(e.target.value)}
+            <label className="block mb-1 text-sm">Due date</label>
+            <Controller
+              control={control}
+              name="due"
+              rules={{ required: 'Due date is required' }}
+              render={({ field }) => (
+                <SmartDatetimeInput
+                  disabledDateTimeFrom={date}
+                  value={field.value}
+                  onValueChange={field.onChange}
+                  enableDate
+                />
+              )}
+            />
+            <FormFieldError message={errors.due?.message} />
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <Controller
+              control={control}
+              name="isPublic"
+              render={({ field }) => (
+                <>
+                  <Checkbox
+                    id="isPublic"
+                    checked={field.value}
+                    onCheckedChange={(val) => field.onChange(Boolean(val))}
+                  />
+                  <label htmlFor="isPublic" className="text-sm">
+                    Public quiz
+                  </label>
+                </>
+              )}
             />
           </div>
-        </div>
-        <DialogFooter>
-          <Button onClick={handleCreate} disabled={!title || !startAt || !endAt}>
-            Create
-          </Button>
-        </DialogFooter>
+
+          <DialogFooter>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setOpen(false)}
+              isLoading={isLoading}
+            >
+              Cancel
+            </Button>
+            <Button type="submit" isLoading={isLoading}>
+              Create
+            </Button>
+          </DialogFooter>
+        </form>
       </DialogContent>
     </Dialog>
   );

@@ -7,22 +7,19 @@ import listPlugin from '@fullcalendar/list';
 import TitlePage from '@/components/ui/title-page';
 import { useGetSlotsQuery } from '@/features/teacher/api.teacher';
 import type { ScheduleItem, Slot } from '@/features/tedteam/slotInfo';
-import { useGetScheduleDateRangeQuery, useGetSchedulesQuery } from '../api.schedule';
+import { useGetScheduleDateRangeQuery } from '../api.schedule';
 import { Button } from '@/components/ui/button';
 import {
-  Badge,
   Calendar,
   CalendarDays,
   ChevronLeft,
   ChevronRight,
   Grid3X3,
   ListIcon,
-  Plus,
   RotateCcw,
 } from 'lucide-react';
 import { Separator } from '@radix-ui/react-separator';
 import { endOfDay, endOfMonth, endOfWeek, startOfDay, startOfMonth, startOfWeek } from 'date-fns';
-import { toZonedTime } from 'date-fns-tz';
 import { zoneTimeToUTC } from '@/utils/zone-time-to-utc';
 
 function generateTimeSlotsCSSTrimmed(slots: { startTime: string; endTime: string }[]) {
@@ -91,27 +88,6 @@ const ScheduleManagement = () => {
   );
 };
 
-function getWeekDates(startStr: string): string[] {
-  const start = new Date(startStr);
-
-  const result = [];
-  for (let i = 0; i < 7; i++) {
-    const d = new Date(start);
-    d.setDate(start.getDate() + i);
-    result.push(d.toISOString().split('T')[0]);
-  }
-  return result;
-}
-
-function colorFromId(id: string): string {
-  let hash = 0;
-  for (let i = 0; i < id.length; i++) {
-    hash = id.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  const hue = Math.abs(hash) % 360;
-  return `hsl(${hue}, 70%, 80%)`;
-}
-
 function generateScheduleEvents(schedules: ScheduleItem[], slots: Slot[]) {
   const slotMap = new Map(slots.map((slot) => [slot?._id, slot]));
 
@@ -170,11 +146,6 @@ export function CustomSlotCalendar({ slots }: { slots: Slot[] }) {
     const newDate = arg.startStr.split('T')[0];
     setSelectedDate(newDate);
     setCurrentView(arg.view.type);
-
-    const visibleDates =
-      arg.view.type === 'timeGridWeek'
-        ? getWeekDates(arg.view.currentStart.toISOString())
-        : [newDate];
 
     switch (arg.view.type) {
       case 'timeGridDay':

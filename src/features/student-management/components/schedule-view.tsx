@@ -1,15 +1,24 @@
 "use client"
 
-import { useMemo, useState } from "react"
-import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select"
-import TitlePage from "@/components/ui/title-page"
-import { useMediaQuery } from "usehooks-ts"
-import { MobileScheduleView } from "../columns/schedule-mobile"
-import DataTable from "@/components/data-table/data-table"
-import { columns, transformAttendanceData, type APIAttendanceData } from "../columns/schedule"
-import { useGetScheduleByWeekQuery } from "../api.student"
-import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { useMemo, useState } from 'react';
+import {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  SelectValue,
+} from '@/components/ui/select';
+import TitlePage from '@/components/ui/title-page';
+import { useMediaQuery } from 'usehooks-ts';
+import { MobileScheduleView } from '../columns/schedule-mobile';
+import DataTable from '@/components/data-table/data-table';
+import { columns, type SlotSchedule } from '../columns/schedule';
+import { useGetScheduleByWeekQuery } from '../api.student';
+import { Button } from '@/components/ui/button';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useGetAllSlotQuery } from '@/features/tedteam/api.tedteam';
+import type { Slot, UserSchedule } from '@/features/tedteam/slotInfo';
+import { transformAttendanceData } from '@/features/tedteam/teddata';
 
 // === Utils ===
 const getMonday = (date: Date) => {

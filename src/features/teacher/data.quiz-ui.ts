@@ -1,6 +1,5 @@
-import type { Contest } from './columns/quiz.columns';
 
-export const contests: Contest[] = [
+export const contests: any[] = [
   {
     id: 'c001',
     title: 'Frontend Masters Challenge',

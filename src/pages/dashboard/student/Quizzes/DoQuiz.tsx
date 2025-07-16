@@ -1,8 +1,5 @@
-import QuizInterface from "@/features/student-management/components/DoQuizView";
-import DoQuizView from "@/features/student-management/components/DoQuizView";
+import QuizInterface from '@/features/student-management/components/quiz/DoQuizView';
 function DoQuiz() {
-  return (
-    <QuizInterface/>
-  );
+  return <QuizInterface />;
 }
-export default DoQuiz;              
+export default DoQuiz;

@@ -59,6 +59,12 @@ export const tedTeamScheduleApi = baseApi.injectEndpoints({
         params: { user_id, status },
       }),
     }),
+    getClassForTedteam: builder.query({
+      query: () => ({
+        url: '/api/Class/get-class-for-tedteam',
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
@@ -72,4 +78,5 @@ export const {
   useGetClassInfoQuery,
   useGetClassDetailQuery,
   useUpdateAttendanceStatusMutation,
+  useGetClassForTedteamQuery,
 } = tedTeamScheduleApi;

@@ -1,6 +1,4 @@
 import type React from 'react';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 import type { RegisterSlotSchedule, DayKey } from '../slotInfo';
 import { getRegisterStatus } from '../teddata';
 import { Spinner } from '@/components/ui/spinner';

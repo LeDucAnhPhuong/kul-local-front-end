@@ -17,8 +17,21 @@ import {
 } from '../components/alert-dialog';
 import { Link } from 'react-router-dom';
 
+const getStatus = (status: string) => {
+  switch (status) {
+    case 'done':
+      return 'Done';
+    case 'not_yet':
+      return 'Not started';
+    case 'cant_start':
+      return 'Can not be started';
+    default:
+      return status;
+  }
+};
+
 export type Quiz = {
-  _id: number;
+  id: string;
   title: string;
   date: string;
   isActive: boolean;
@@ -59,48 +72,48 @@ export const columns: ColumnDef<Quiz>[] = [
     },
     filterFn: filterDateRange,
   },
- {
-  accessorKey: 'status',
-  cell: ({ row }) => {
-    const status = row.getValue('status') as string;
-    const quizId = row.original._id;
+  {
+    accessorKey: 'status',
+    cell: ({ row }) => {
+      const status = row.getValue('status') as string;
 
-    const baseClasses = 'w-full block text-center text-white py-1 rounded';
-    const badgeClasses = cn(
-      baseClasses,
-      status === 'Done' && 'bg-green-500 hover:bg-green-600',
-      status === 'Not started' && 'bg-yellow-500 hover:bg-yellow-600',
-      status === 'Can not be started' && 'bg-red-500 hover:bg-red-600',
-    );
-
-    if (status === 'Not started') {
-      return (
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Badge className={badgeClasses}>{status}</Badge>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Are you sure you want to continue doing this test?</AlertDialogTitle>
-
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction asChild>
-               <Link to={`/quiz/1`}>Continue</Link>
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+      const baseClasses = 'w-full block text-center text-white py-1 rounded';
+      const badgeClasses = cn(
+        baseClasses,
+        status === 'done' && 'bg-green-500 hover:bg-green-600',
+        status === 'not_yet' && 'bg-yellow-500 hover:bg-yellow-600',
+        status === 'cant_start' && 'bg-red-500 hover:bg-red-600',
       );
-    }
 
-    return <Badge className={badgeClasses}>{status}</Badge>;
+      if (status === 'not_yet') {
+        return (
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Badge className={badgeClasses}>{getStatus(status)}</Badge>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>
+                  Are you sure you want to continue doing this test?
+                </AlertDialogTitle>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction asChild>
+                  <Link to={`/quiz/${row.original.id}`}>Continue</Link>
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        );
+      }
+
+      return <Badge className={badgeClasses}>{getStatus(status)}</Badge>;
+    },
+    meta: {
+      filterVariant: 'select',
+    },
   },
-  meta: {
-    filterVariant: 'select',
-  },
-},
 
   // {
   //   id: 'actions',

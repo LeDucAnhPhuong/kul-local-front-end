@@ -1,59 +1,11 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
-import {
-  Select,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-  SelectValue,
-} from '@/components/ui/select';
+import { useState, useEffect } from 'react';
+
 import { transformRegisterScheduleData } from '../teddata';
 import { columns } from '../columns/register-schedule-columns';
 import { RegisterMobileView } from '../columns/register-mobile';
 import type { Slot } from '../slotInfo';
 import { useGetAllSlotQuery, useGetRegisterScheduleQuery } from '../api.tedteam';
 import DataTable from '@/components/data-table/data-table';
-
-// === Week Selection Utils ===
-const getMonday = (date: Date) => {
-  const d = new Date(date);
-  const day = d.getDay();
-  const diff = d.getDate() - day + (day === 0 ? -6 : 1);
-  d.setDate(diff);
-  d.setHours(0, 0, 0, 0);
-  return d;
-};
-
-const getSunday = (monday: Date) => {
-  const d = new Date(monday);
-  d.setDate(d.getDate() + 6);
-  return d;
-};
-
-const formatDate = (date: Date) =>
-  date.toLocaleDateString('en-GB', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-  });
-
-const generateWeekOptions = () => {
-  const weeks = [];
-  const start = getMonday(new Date(2000, 0, 1));
-  const end = new Date(2050, 11, 31);
-  const current = new Date(start);
-
-  while (current <= end) {
-    const monday = getMonday(current);
-    const sunday = getSunday(monday);
-    weeks.push({
-      value: monday.toISOString().split('T')[0],
-      label: `${formatDate(monday)} - ${formatDate(sunday)}`,
-    });
-    current.setDate(current.getDate() + 7);
-  }
-
-  return weeks;
-};
 
 export default function RegisterSchedule() {
   const [isMobile, setIsMobile] = useState(false);

@@ -176,19 +176,6 @@ const getDayKeyFromDateString = (dateString: string): DayKey => {
   return getDayKey(dateString);
 };
 
-const getSlotTime = (slotId: number): string => {
-  switch (slotId) {
-    case 1:
-      return '07:30-09:30';
-    case 2:
-      return '09:45-11:45';
-    case 3:
-      return '13:00-15:00';
-    default:
-      return '00:00-00:00';
-  }
-};
-
 export const transformAttendanceData = (data: UserSchedule[], slot: Slot[]): SlotSchedule[] => {
   const slotMap = new Map<string, SlotSchedule>();
 
@@ -199,6 +186,7 @@ export const transformAttendanceData = (data: UserSchedule[], slot: Slot[]): Slo
   });
 
   data.forEach((item) => {
+    console.log('item', item);
     const slotName = item.schedule.slot?.name || 'Unknown Slot';
     const dayKey = getDayKey(item.schedule.date);
 

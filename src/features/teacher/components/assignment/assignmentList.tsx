@@ -1,4 +1,3 @@
-import React from 'react';
 import DataCard from '@/components/ui/data-card';
 import TitlePage from '@/components/ui/title-page';
 import { mockSubmissions } from '../../data.assign';

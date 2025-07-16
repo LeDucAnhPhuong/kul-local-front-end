@@ -12,7 +12,7 @@ import TitlePage from '@/components/ui/title-page';
 import { useMediaQuery } from 'usehooks-ts';
 import { MobileScheduleView } from '../columns/schedule-mobile';
 import DataTable from '@/components/data-table/data-table';
-import { columns, type APIAttendanceData, type SlotSchedule } from '../columns/schedule';
+import { columns, type SlotSchedule } from '../columns/schedule';
 import { useGetScheduleByWeekQuery } from '../api.student';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight } from 'lucide-react';

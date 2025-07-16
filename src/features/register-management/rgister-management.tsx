@@ -20,11 +20,11 @@ import { Spinner } from '@/components/ui/spinner';
 interface TedTeamUser {
   email: string;
   role: string;
-  profile_image: string;
+  profileImage: string;
   first_name: string;
   last_name: string;
-  class_id: string;
-  _id: string;
+  classid: string;
+  id: string;
   created_at: string;
   updated_at: string;
   isActive: boolean;
@@ -35,30 +35,30 @@ interface Room {
   capacity: number;
   location: string;
   description: string;
-  _id: string;
+  id: string;
 }
 
 interface Coach {
   email: string;
   role: string;
-  profile_image: string;
+  profileImage: string;
   first_name: string;
   last_name: string;
-  _id: string;
+  id: string;
 }
 
 interface ClassInfo {
   name: string;
   startTime: string;
   endTime: string;
-  _id: string;
+  id: string;
 }
 
 interface Slot {
   name: string;
   startTime: string;
   endTime: string;
-  _id: string;
+  id: string;
 }
 
 interface Schedule {
@@ -67,14 +67,14 @@ interface Schedule {
   classInfo: ClassInfo;
   slot: Slot;
   date: string;
-  _id: string;
+  id: string;
 }
 
 interface Registration {
-  user: TedTeamUser;
+  assignUser: TedTeamUser;
   schedule: Schedule;
   status: number; // 0: pending, 1: accepted, 2: rejected
-  _id: string;
+  id: string;
   created_at: string;
   updated_at: string;
   isActive: boolean;
@@ -161,20 +161,20 @@ export default function TedTeamRegistrationsPage() {
 
   const columns: ColumnDef<Registration>[] = [
     {
-      accessorKey: 'user',
+      accessorKey: 'assignUser',
       header: 'TedTeam Member',
       cell: ({ row }) => {
-        const user = row.getValue('user') as TedTeamUser;
+        const user = row.getValue('assignUser') as TedTeamUser;
         return (
           <div className="flex items-center space-x-3">
             <Avatar className="h-8 w-8">
               <AvatarImage
-                src={user?.profile_image || '/placeholder.svg'}
+                src={user?.profileImage || '/placeholder.svg'}
                 alt={`${user?.first_name} ${user?.last_name}`}
               />
               <AvatarFallback>
-                {user?.first_name[0]}
-                {user?.last_name[0]}
+                {user?.first_name}
+                {user?.last_name}
               </AvatarFallback>
             </Avatar>
             <div>
@@ -209,12 +209,12 @@ export default function TedTeamRegistrationsPage() {
           <div className="flex items-center space-x-2">
             <Avatar className="h-6 w-6">
               <AvatarImage
-                src={coach?.profile_image || '/placeholder.svg'}
+                src={coach?.profileImage || '/placeholder.svg'}
                 alt={`${coach?.first_name} ${coach?.last_name}`}
               />
               <AvatarFallback className="text-xs">
-                {coach?.first_name[0]}
-                {coach?.last_name[0]}
+                {coach?.first_name}
+                {coach?.last_name}
               </AvatarFallback>
             </Avatar>
             <span className="text-sm">
@@ -282,10 +282,10 @@ export default function TedTeamRegistrationsPage() {
                   size="sm"
                   variant="outline"
                   className="bg-green-50 text-green-700 border-green-200 hover:bg-green-100"
-                  onClick={() => handleAccept(registration?._id)}
+                  onClick={() => handleAccept(registration?.id)}
                   disabled={isFetching}
                 >
-                  {isLoadingAccept && registrationId === registration?._id ? (
+                  {isLoadingAccept && registrationId === registration?.id ? (
                     <Spinner />
                   ) : (
                     <>
@@ -298,10 +298,10 @@ export default function TedTeamRegistrationsPage() {
                   size="sm"
                   variant="outline"
                   className="bg-red-50 text-red-700 border-red-200 hover:bg-red-100"
-                  onClick={() => handleReject(registration?._id)}
+                  onClick={() => handleReject(registration?.id)}
                   disabled={isFetching}
                 >
-                  {isLoadingReject && registrationId === registration?._id ? (
+                  {isLoadingReject && registrationId === registration?.id ? (
                     <Spinner />
                   ) : (
                     <>

@@ -1,10 +1,9 @@
-import React from "react";
-import dynamic from "next/dynamic";
+import dynamic from 'next/dynamic';
 
-import type { EditorProps } from "./News";
-const QuillEditor = dynamic(() => import("./News"), { ssr: false });
+// import type { EditorProps } from './News';
+const QuillEditor = dynamic(() => import('./News'), { ssr: false });
 
-const CustomEditor = ({ ...props }: EditorProps) => {
+const CustomEditor = ({ ...props }: any) => {
   return <QuillEditor {...props} />;
 };
 

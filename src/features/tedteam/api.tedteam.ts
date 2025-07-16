@@ -38,6 +38,12 @@ export const tedTeamScheduleApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['RegisterSchedule'],
     }),
+    getClassForTedteam: builder.query({
+      query: () => ({
+        url: '/api/Class/get-class-for-tedteam',
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
@@ -47,4 +53,5 @@ export const {
   useGetAllSlotQuery,
   useRegisterScheduleMutation,
   useUnregisterScheduleMutation,
+  useGetClassForTedteamQuery,
 } = tedTeamScheduleApi;

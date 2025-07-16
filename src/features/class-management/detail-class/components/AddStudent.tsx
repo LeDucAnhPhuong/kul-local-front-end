@@ -28,7 +28,7 @@ const AddStudentIntoClass = () => {
   }
 
   const { id } = useParams();
-  const { classInfo, isFetching_class } = useGetClassInfoQuery(id, {
+  const { classInfo } = useGetClassInfoQuery(id, {
     selectFromResult: ({ data, isFetching }) => ({
       classInfo: data?.data || {},
       isFetching_class: isFetching,

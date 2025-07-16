@@ -35,6 +35,7 @@ import ScheduleManagementPage from './pages/dashboard/admin/schedule-management'
 import AddSchedulePage from './pages/dashboard/admin/schedule-management/schedule.add';
 import TedTeamRegistrationsPage from './features/register-management/rgister-management';
 import QuizModule from './features/teacher/components/make-quiz/quiz-page';
+import Leaderboardpage from './pages/dashboard/student/leaderboard';
 
 function Router() {
   return (
@@ -58,6 +59,7 @@ function Router() {
           <Route path="/student-management" element={<StudentManagement />} />
           <Route path="/teacher-management" element={<TeacherManagement />} /> */}
           <Route path="/view-quiz" element={<Quiz />} />
+          <Route path="/leaderboard" element={<Leaderboardpage />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/make-quiz/:quizId" element={<QuizModule />} />
           <Route path="/assignment" element={<Assignment />} />

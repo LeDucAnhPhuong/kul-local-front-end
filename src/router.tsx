@@ -34,6 +34,8 @@ import AddStudentIntoClassPage from './pages/dashboard/admin/class-management/Ad
 import ScheduleManagementPage from './pages/dashboard/admin/schedule-management';
 import AddSchedulePage from './pages/dashboard/admin/schedule-management/schedule.add';
 import TedTeamRegistrationsPage from './features/register-management/rgister-management';
+import ClassListUi from '@/features/tedteam/components/ui/classList';
+import DetailClassPage from '@/pages/dashboard/tedteam/detailClass';
 import QuizModule from './features/teacher/components/make-quiz/quiz-page';
 import Leaderboardpage from './pages/dashboard/student/leaderboard';
 
@@ -64,7 +66,9 @@ function Router() {
           <Route path="/make-quiz/:quizId" element={<QuizModule />} />
           <Route path="/assignment" element={<Assignment />} />
           <Route path="/submissions/:id" element={<SubmissionDetailPageWrapper />} />
-          <Route path="ClassList" element={<ClassManagementPage />} />
+          <Route path="/detail-class/:id" element={<DetailClassPage />} />
+          <Route path="/ClassList" element={<ClassManagementPage />} />
+          <Route path="/view-classlist" element={<ClassListUi />} />
           <Route path="/class-management">
             <Route path="" element={<ClassManagementPage />} />
             <Route path="add" element={<AddClassPage />} />

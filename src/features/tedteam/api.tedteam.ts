@@ -1,3 +1,4 @@
+ 
 import { baseApi } from '@/redux/baseApi';
 
 export const tedTeamScheduleApi = baseApi.injectEndpoints({
@@ -38,6 +39,26 @@ export const tedTeamScheduleApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['RegisterSchedule'],
     }),
+    getClasses: builder.query({
+      query: () => `/api/Class/classes`,
+      providesTags: ['Class'],
+    }),
+    getClassInfo: builder.query({
+      query: (id) => `/api/Class/${id}`,
+      providesTags: ['Class'],
+    }),
+    getClassDetail: builder.query({
+      query: () => `/api/Class/get-class-for-tedteam`,
+      providesTags: ['Class'],
+    }),
+
+    updateAttendanceStatus: builder.mutation({
+      query: ({ user_id, status }) => ({
+        url: '/api/Attendance',
+        method: 'PUT',
+        params: { user_id, status },
+      }),
+    }),
     getClassForTedteam: builder.query({
       query: () => ({
         url: '/api/Class/get-class-for-tedteam',
@@ -53,5 +74,9 @@ export const {
   useGetAllSlotQuery,
   useRegisterScheduleMutation,
   useUnregisterScheduleMutation,
+  useGetClassesQuery,
+  useGetClassInfoQuery,
+  useGetClassDetailQuery,
+  useUpdateAttendanceStatusMutation,
   useGetClassForTedteamQuery,
 } = tedTeamScheduleApi;

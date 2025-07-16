@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import type { AssignmentSubmission } from '../../columns/assignmentSubmissions.columns';
+import type { AssignmentSubmission } from '../../types/assignment';
 import { SubmissionContentCard } from './submissionContentCard';
 import { mockSubmissions } from '@/features/teacher/data.assign';
 import { useNavigate } from 'react-router-dom';
@@ -44,7 +44,7 @@ export default function SubmissionDetailPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 p-8">
         {/* Video/Content Section - Takes 2 columns */}
         <div className="lg:col-span-2 space-y-6 !w-full">
-          <SubmissionContentCard content={data.content} />
+          <SubmissionContentCard content={data.assignment.type} />
         </div>
 
         {/* Grading Panel */}

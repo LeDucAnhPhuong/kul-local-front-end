@@ -130,7 +130,7 @@ const TedTeamData = {
         },
         {
           title: 'View Classes',
-          url: '/ClassList',
+          url: '/view-classlist',
         },
       ],
     },

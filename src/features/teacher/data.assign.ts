@@ -1,10 +1,23 @@
 // mockSubmissions.ts
-import type {AssignmentSubmission}  from './columns/assignmentSubmissions.columns';
+import type { AssignmentSubmission } from './types/assignment';
 
 export const mockSubmissions: AssignmentSubmission[] = [
   {
     id: 'sub_001',
-    assignmentId: 'ass_001',
+    assignment: {
+      id: 'ass_001',
+      type: {
+        type: 'video',
+        url: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      },
+      title: 'Viết bài luận chủ đề yêu thích',
+      deadline: '2025-06-05T23:59:59Z',
+      isActive: true,
+      createdBy: 'coach_001',
+      updatedBy: 'coach_001',
+      createdAt: '2025-05-30T08:00:00Z',
+      updatedAt: '2025-05-30T08:00:00Z',
+    },
     userId: 'user_123',
     submittedAt: '2025-06-01T10:00:00Z',
     score: 9.0,
@@ -14,14 +27,23 @@ export const mockSubmissions: AssignmentSubmission[] = [
     updatedBy: 'coach_001',
     createdAt: '2025-06-01T10:01:00Z',
     updatedAt: '2025-06-01T12:00:00Z',
-    content: {
-      type: 'video',
-      url: 'https://www.w3schools.com/html/mov_bbb.mp4', // video demo
-    },
   },
   {
     id: 'sub_002',
-    assignmentId: 'ass_002',
+    assignment: {
+      id: 'ass_001',
+      type: {
+        type: 'document',
+        url: 'https://example.com/sample.pdf',
+      },
+      title: 'Viết bài luận chủ đề yêu thích',
+      deadline: '2025-06-10T23:59:59Z',
+      isActive: true,
+      createdBy: 'coach_002',
+      updatedBy: 'coach_002',
+      createdAt: '2025-05-31T09:00:00Z',
+      updatedAt: '2025-05-31T09:00:00Z',
+    },
     userId: 'user_456',
     submittedAt: '2025-06-02T15:30:00Z',
     score: null,
@@ -31,14 +53,23 @@ export const mockSubmissions: AssignmentSubmission[] = [
     updatedBy: 'coach_001',
     createdAt: '2025-06-02T15:31:00Z',
     updatedAt: '2025-06-02T15:31:00Z',
-    content: {
-      type: 'document',
-      url: 'https://example.com/sample.pdf', // thay bằng link thật nếu có
-    },
   },
   {
     id: 'sub_003',
-    assignmentId: 'ass_001',
+    assignment: {
+      id: 'ass_002',
+      type: {
+        type: 'video',
+        url: 'https://samplelib.com/lib/preview/mp4/sample-5s.mp4',
+      },
+      title: 'Nộp video giới thiệu bản thân',
+      deadline: '2025-06-05T23:59:59Z',
+      isActive: true,
+      createdBy: 'coach_001',
+      updatedBy: 'coach_001',
+      createdAt: '2025-05-30T08:00:00Z',
+      updatedAt: '2025-05-30T08:00:00Z',
+    },
     userId: 'user_789',
     submittedAt: '2025-06-03T08:15:00Z',
     score: 7.5,
@@ -48,9 +79,5 @@ export const mockSubmissions: AssignmentSubmission[] = [
     updatedBy: 'coach_002',
     createdAt: '2025-06-03T08:16:00Z',
     updatedAt: '2025-06-03T09:00:00Z',
-    content: {
-      type: 'video',
-      url: 'https://samplelib.com/lib/preview/mp4/sample-5s.mp4', // video 5s
-    },
   },
 ];

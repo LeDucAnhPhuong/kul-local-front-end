@@ -25,21 +25,21 @@ export const columns: ColumnDef<MobileRow>[] = [
   {
     id: 'slots',
     cell: ({ row }) => (
-      <div>
-        <div className="space-y-3 px-3">
+      <div className="flex-1 w-full">
+        <div className="space-y-3 px-3 !flex-1 basis-0 w-full min-w-0 ">
           {row.original.slots.map((slot, index) => (
             <div
               key={slot._id || `slot-${index}`}
-              className={`pt-3 !flex-1 rounded-lg border ${
+              className={`pt-3 !flex-1 rounded-lg border p-2 ${
                 slot.isEmpty
                   ? 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700'
                   : 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800'
               }`}
             >
-              <div className="flex justify-between mb-2 items-start w-full p-4">
-                  <div className="font-semibold text-sm capitalize text-gray-700 dark:text-gray-300">
-                    {slot.slot?.name || 'Unknown Slot'}
-                  </div>
+              <div className="flex justify-between mb-2 items-start w-full ">
+                <div className=" font-semibold text-sm capitalize text-gray-700 dark:text-gray-300">
+                  {slot.slot?.name || 'Unknown Slot'}
+                </div>
                 <div>
                   {slot.isEmpty ? (
                     <div className="text-center py-2">

@@ -116,7 +116,7 @@ export const columns: ColumnDef<RegisterSlotSchedule>[] = [
       };
       return <div className="text-center">{dayHeaderMap[dayKey] || dayKey.toUpperCase()}</div>;
     },
-    cell: ({ row, table }: { row: Row<RegisterSlotSchedule>; table: any }) => {
+    cell: ({ row }: { row: Row<RegisterSlotSchedule>; }) => {
       const cell: RegisterScheduleCell | undefined = row.getValue(dayKey);
 
       const schedule = cell?.schedule;

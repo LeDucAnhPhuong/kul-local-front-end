@@ -1,5 +1,4 @@
 'use client';
-import { useState } from 'react';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,13 +8,13 @@ import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useNavigate } from 'react-router';
 import { TimeOnlyInput } from './time-only-input';
 
 const formSchema = z
@@ -39,7 +38,7 @@ interface MyFormProps {
   isLoading?: boolean;
 }
 
-export default function MyForm({ onAdd, isLoading }: MyFormProps) {
+export default function MyForm({ onAdd }: MyFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });

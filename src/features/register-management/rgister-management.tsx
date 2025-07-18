@@ -21,12 +21,12 @@ interface TedTeamUser {
   email: string;
   role: string;
   profileImage: string;
-  firstName: string;
-  lastName: string;
-  classId: string;
+  first_name: string;
+  last_name: string;
+  classid: string;
   id: string;
-  createdAt: string;
-  updatedAt: string;
+  created_at: string;
+  updated_at: string;
   isActive: boolean;
 }
 
@@ -42,8 +42,8 @@ interface Coach {
   email: string;
   role: string;
   profileImage: string;
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   id: string;
 }
 
@@ -71,12 +71,14 @@ interface Schedule {
 }
 
 interface Registration {
-  user: TedTeamUser;
+  assignUser: TedTeamUser;
   schedule: Schedule;
   status: number; // 0: pending, 1: accepted, 2: rejected
   id: string;
   createdAt: string;
   updatedAt: string;
+  created_at: string;
+  updated_at: string;
   isActive: boolean;
 }
 
@@ -161,7 +163,7 @@ export default function TedTeamRegistrationsPage() {
 
   const columns: ColumnDef<Registration>[] = [
     {
-      accessorKey: 'user',
+      accessorKey: 'assignUser',
       header: 'TedTeam Member',
       cell: ({ row }) => {
         const user = row.getValue('assignUser') as TedTeamUser;
@@ -170,16 +172,16 @@ export default function TedTeamRegistrationsPage() {
             <Avatar className="h-8 w-8">
               <AvatarImage
                 src={user?.profileImage || '/placeholder.svg'}
-                alt={`${user?.firstName} ${user?.lastName}`}
+                alt={`${user?.first_name} ${user?.last_name}`}
               />
               <AvatarFallback>
-                {/* {user?.firstName[0]}
-                {user?.lastName[0]} */}
+                {user?.first_name}
+                {user?.last_name}
               </AvatarFallback>
             </Avatar>
             <div>
               <div className="font-medium">
-                {user?.firstName} {user?.lastName}
+                {user?.first_name} {user?.last_name}
               </div>
               <div className="text-sm text-muted-foreground">{user?.email}</div>
             </div>
@@ -188,7 +190,7 @@ export default function TedTeamRegistrationsPage() {
       },
     },
     {
-      accessorKey: 'schedule.classInfor.name',
+      accessorKey: 'schedule.classInfor',
       header: 'Class',
       cell: ({ row }) => {
         const className = row.original.schedule?.classInfor?.name;
@@ -210,15 +212,15 @@ export default function TedTeamRegistrationsPage() {
             <Avatar className="h-6 w-6">
               <AvatarImage
                 src={coach?.profileImage || '/placeholder.svg'}
-                alt={`${coach?.firstName} ${coach?.lastName}`}
+                alt={`${coach?.first_name} ${coach?.last_name}`}
               />
               <AvatarFallback className="text-xs">
-                {coach?.firstName[0]}
-                {coach?.lastName[0]}
+                {coach?.first_name}
+                {coach?.last_name}
               </AvatarFallback>
             </Avatar>
             <span className="text-sm">
-              {coach?.firstName} {coach?.lastName}
+              {coach?.first_name} {coach?.last_name}
             </span>
           </div>
         );

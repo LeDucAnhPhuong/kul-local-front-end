@@ -1,4 +1,4 @@
-import type { News } from "./News";
+import type { News } from "./news/News";
 
 export const newsSampleData: News[] = [
   {

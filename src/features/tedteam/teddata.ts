@@ -9,154 +9,6 @@ import type {
   Slot,
 } from './slotInfo';
 
-export const attendanceDummyData: UserSchedule[] = [
-  {
-    userId: null,
-    schedule: {
-      room: {
-        name: 'Solution',
-        capacity: 50,
-        location: 'P505',
-        description: 'Solution',
-        _id: '6850cc077a6121f2fda41cc2',
-        created_at: '2025-06-17T01:59:35.886Z',
-        updated_at: '2025-06-17T01:59:35.886Z',
-        created_by: null,
-        updated_by: null,
-        isActive: true,
-      },
-      tedTeamId: '6850cc077a6121f2fda41cc2',
-      coach: {
-        email: 'xmy283480@gmail.com',
-        role: 'Coach',
-        profile_image:
-          'https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18yeG5XNE1OTjBrVzVkSEpGa0ZOVHFEV0pDcjMifQ',
-        first_name: 'Trần',
-        last_name: 'Tuấn Anh',
-        _id: '68391acde63747ae6f6559b3',
-        created_at: '2025-05-30T02:41:17.408Z',
-        updated_at: '2025-06-18T08:35:43.307Z',
-        created_by: null,
-        updated_by: null,
-        isActive: true,
-      },
-      classInfo: null,
-      slot: {
-        name: 'slot 2',
-        startTime: '09:00',
-        endTime: '10:00',
-        _id: '6850beebc5731d80e6ed0634',
-        created_at: '2025-06-17T01:03:39.661Z',
-        updated_at: '2025-06-17T01:03:39.661Z',
-        created_by: null,
-        updated_by: null,
-        isActive: true,
-      },
-      date: '2025-06-18T00:00:00Z',
-      _id: '6852a6bd390aa6a0953d2623',
-      created_at: '2025-06-18T11:45:01.542Z',
-      updated_at: '2025-06-18T11:45:01.542Z',
-      created_by: null,
-      updated_by: null,
-      isActive: true,
-    },
-    status: 0,
-    user: {
-      email: 'leducanhphuongdev@gmail.com',
-      role: 'Student',
-      profile_image:
-        'https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvdXBsb2FkZWQvaW1nXzJ5MU9xYnBRaUpXWWJ6ajFDYmNDcUNLT3RvRyJ9',
-      first_name: 'Phương',
-      last_name: 'Lê Đức Anh',
-      _id: '683848b4ae6fdf6c3e9fee90',
-      created_at: '2025-05-29T11:44:52.628Z',
-      updated_at: '2025-06-18T11:40:10.599Z',
-      created_by: null,
-      updated_by: null,
-      isActive: true,
-    },
-    scheduleId: null,
-    _id: '6852a6bd390aa6a0953d2628',
-    created_at: '0001-01-01T00:00:00',
-    updated_at: '0001-01-01T00:00:00',
-    created_by: null,
-    updated_by: null,
-    isActive: true,
-  },
-  {
-    userId: null,
-    schedule: {
-      room: {
-        name: 'Solution',
-        capacity: 50,
-        location: 'P505',
-        description: 'Solution',
-        _id: '6850cc077a6121f2fda41cc2',
-        created_at: '2025-06-17T01:59:35.886Z',
-        updated_at: '2025-06-17T01:59:35.886Z',
-        created_by: null,
-        updated_by: null,
-        isActive: true,
-      },
-      tedTeamId: '6850cc077a6121f2fda41cc2',
-      coach: {
-        email: 'xmy283480@gmail.com',
-        role: 'Coach',
-        profile_image:
-          'https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18yeG5XNE1OTjBrVzVkSEpGa0ZOVHFEV0pDcjMifQ',
-        first_name: 'Trần',
-        last_name: 'Tuấn Anh',
-        _id: '68391acde63747ae6f6559b3',
-        created_at: '2025-05-30T02:41:17.408Z',
-        updated_at: '2025-06-18T08:35:43.307Z',
-        created_by: null,
-        updated_by: null,
-        isActive: true,
-      },
-      classInfo: null,
-      slot: {
-        name: 'slot 2',
-        startTime: '09:00',
-        endTime: '10:00',
-        _id: '6850beebc5731d80e6ed0634',
-        created_at: '2025-06-17T01:03:39.661Z',
-        updated_at: '2025-06-17T01:03:39.661Z',
-        created_by: null,
-        updated_by: null,
-        isActive: true,
-      },
-      date: '2025-06-19T00:00:00Z',
-      _id: '6852a6bd390aa6a0953d262e',
-      created_at: '2025-06-18T11:45:01.919Z',
-      updated_at: '2025-06-18T11:45:01.919Z',
-      created_by: null,
-      updated_by: null,
-      isActive: true,
-    },
-    status: 0,
-    user: {
-      email: 'leducanhphuongdev@gmail.com',
-      role: 'Student',
-      profile_image:
-        'https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvdXBsb2FkZWQvaW1nXzJ5MU9xYnBRaUpXWWJ6ajFDYmNDcUNLT3RvRyJ9',
-      first_name: 'Phương',
-      last_name: 'Lê Đức Anh',
-      _id: '683848b4ae6fdf6c3e9fee90',
-      created_at: '2025-05-29T11:44:52.628Z',
-      updated_at: '2025-06-18T11:40:10.599Z',
-      created_by: null,
-      updated_by: null,
-      isActive: true,
-    },
-    scheduleId: null,
-    _id: '6852a6bd390aa6a0953d2633',
-    created_at: '0001-01-01T00:00:00',
-    updated_at: '0001-01-01T00:00:00',
-    created_by: null,
-    updated_by: null,
-    isActive: true,
-  },
-];
 
 const getDayKey = (date: string): DayKey => {
   const dayOfWeek = new Date(date).getDay();
@@ -176,19 +28,6 @@ const getDayKeyFromDateString = (dateString: string): DayKey => {
   return getDayKey(dateString);
 };
 
-const getSlotTime = (slotId: number): string => {
-  switch (slotId) {
-    case 1:
-      return '07:30-09:30';
-    case 2:
-      return '09:45-11:45';
-    case 3:
-      return '13:00-15:00';
-    default:
-      return '00:00-00:00';
-  }
-};
-
 export const transformAttendanceData = (data: UserSchedule[], slot: Slot[]): SlotSchedule[] => {
   const slotMap = new Map<string, SlotSchedule>();
 
@@ -199,20 +38,21 @@ export const transformAttendanceData = (data: UserSchedule[], slot: Slot[]): Slo
   });
 
   data.forEach((item) => {
+    console.log('item', item);
     const slotName = item.schedule.slot?.name || 'Unknown Slot';
     const dayKey = getDayKey(item.schedule.date);
 
     const schedule = slotMap.get(slotName)!;
     const scheduleCell: ScheduleCell = {
-      topic: item.schedule.classInfo?.name,
-      instructor: `Coach ${item.schedule.coach.first_name} ${item.schedule.coach.last_name}`,
+      topic: item.schedule.classInfor?.name,
+      instructor: `Coach ${item.schedule.coach.firstName} ${item.schedule.coach.lastName}`,
       location: `Room ${item.schedule.room.name}`,
       time: `${item.schedule.slot.startTime} - ${item.schedule.slot.endTime}`,
       status: getStatus(item.status),
       date: item.schedule.date,
-      class_id: item.schedule.classInfo?.name,
-      room_id: item.schedule.room?._id,
-      coach_id: item.schedule.coach?._id,
+      classId: item.schedule.classInfor?.name,
+      roomId: item.schedule.room?.name,
+      coachId: item.schedule.coach?.email,
     };
 
     schedule[dayKey] = scheduleCell;
@@ -252,7 +92,6 @@ export const transformRegisterScheduleData = (
     const slotName = item?.schedule?.slot?.name;
     const dayKey = getDayKeyFromDateString(item?.schedule?.date || '');
 
-    console.log('dayKey', dayKey);
 
     const schedule = slotMap.get(slotName) || {
       slot: slotName,
@@ -263,14 +102,14 @@ export const transformRegisterScheduleData = (
           ...schedule[dayKey],
           schedule: {
             ...schedule[dayKey].schedule,
-            id: [...(schedule[dayKey].schedule.id || []), item.scheduleId],
+            id: item.scheduleId, // assign as string, not array
           },
         }
       : {
           ...item,
           schedule: {
             ...item.schedule,
-            id: [item.scheduleId],
+            id: item.scheduleId, // assign as string, not array
           },
         };
   });
@@ -291,7 +130,7 @@ export const getAttendanceByStatus = (
 };
 
 export const getAttendanceByUserId = (data: AttendanceData[], userId: string): AttendanceData[] => {
-  return data.filter((item) => item.user_id === userId);
+  return data.filter((item) => item.userId === userId);
 };
 
 export const getAttendanceStatistics = (data: AttendanceData[]) => {

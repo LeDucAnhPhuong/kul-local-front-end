@@ -1,10 +1,9 @@
 import type { ColumnDef } from '@tanstack/react-table';
-import { CalendarDays } from 'lucide-react';
-
+import { CalendarDays, UserCircle } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { filterDateRange } from '@/utils/table';
-import type { QuestionData } from '../quizzesInfo';
+import { Link } from 'react-router-dom';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,43 +13,47 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '../components/alert-dialog';
-import { Link } from 'react-router-dom';
+} from '@/components/ui/alert-dialog';
 
-export type Quiz = {
-  _id: number;
-  title: string;
-  date: string;
-  isActive: boolean;
-  status: 'Done' | 'Not started' | 'Can not be started';
-  created_by: number;
-  updated_by: number;
-  created_at: string;
-  updated_at: string;
-  questions: QuestionData[];
+const getStatus = (status: string) => {
+  switch (status) {
+    case 'done':
+      return 'Done';
+    case 'not_yet':
+      return 'Not started';
+    case 'cant_start':
+      return 'Cannot start';
+    case 'upcoming':
+      return 'Upcoming';
+    default:
+      return status;
+  }
 };
 
-export const columns: ColumnDef<Quiz>[] = [
+export const columns: ColumnDef<any>[] = [
   {
     accessorKey: 'title',
+    header: 'Title',
     cell: ({ row }) => (
-      <div className="w-full text-center font-semibold text-base min-h-[60px] flex justify-center items-center">
+      <div className="font-semibold text-center min-h-[60px] flex items-center justify-center">
         {row.getValue('title')}
       </div>
     ),
   },
   {
-    accessorKey: 'date',
+    header: 'Date',
     cell: ({ row }) => {
-      const dateValue = row.getValue('date') as string;
-      // Vì date trong data là string, ta parse nó thành Date
-      const date = new Date(dateValue);
-      const formattedDate = date.toLocaleDateString('vi-VN');
+      const start = new Date(row.original.date).toLocaleDateString('vi-VN');
+      const end = new Date(row.original.due).toLocaleDateString('vi-VN');
 
       return (
-        <div className="flex items-center w-full gap-1 text-sm text-left text-blue-600">
-          <CalendarDays className="inline-block size-3" />
-          {formattedDate}
+        <div className="text-sm text-blue-600 flex flex-col">
+          <div className="flex items-center gap-1">
+            <CalendarDays className="size-3" />
+            <span>
+              {start} - {end}
+            </span>
+          </div>
         </div>
       );
     },
@@ -59,64 +62,62 @@ export const columns: ColumnDef<Quiz>[] = [
     },
     filterFn: filterDateRange,
   },
- {
-  accessorKey: 'status',
-  cell: ({ row }) => {
-    const status = row.getValue('status') as string;
-    const quizId = row.original._id;
-
-    const baseClasses = 'w-full block text-center text-white py-1 rounded';
-    const badgeClasses = cn(
-      baseClasses,
-      status === 'Done' && 'bg-green-500 hover:bg-green-600',
-      status === 'Not started' && 'bg-yellow-500 hover:bg-yellow-600',
-      status === 'Can not be started' && 'bg-red-500 hover:bg-red-600',
-    );
-
-    if (status === 'Not started') {
-      return (
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Badge className={badgeClasses}>{status}</Badge>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Are you sure you want to continue doing this test?</AlertDialogTitle>
-
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction asChild>
-               <Link to={`/quiz/1`}>Continue</Link>
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+  {
+    accessorKey: 'status',
+    header: 'Status',
+    cell: ({ row }) => {
+      const status = row.getValue('status') as string;
+      const baseClasses = 'text-white px-2 py-1 rounded text-center';
+      const badgeClasses = cn(
+        baseClasses,
+        status === 'done' && 'bg-green-500',
+        status === 'not_yet' && 'bg-yellow-500',
+        status === 'cant_start' && 'bg-red-500',
       );
-    }
 
-    return <Badge className={badgeClasses}>{status}</Badge>;
-  },
-  meta: {
-    filterVariant: 'select',
-  },
-},
+      if (status === 'not_yet') {
+        return (
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Badge className={badgeClasses}>{getStatus(status)}</Badge>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Bạn muốn bắt đầu bài kiểm tra này?</AlertDialogTitle>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Huỷ</AlertDialogCancel>
+                <AlertDialogAction asChild>
+                  <Link to={`/quiz/${row.original.id}`}>Bắt đầu</Link>
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        );
+      }
 
-  // {
-  //   id: 'actions',
-  //   cell: ({ row }) => <Action row={row} />,
-  // },
+      return <Badge className={badgeClasses}>{getStatus(status)}</Badge>;
+    },
+    meta: {
+      filterVariant: 'select',
+    },
+  },
+  {
+    header: 'Coach',
+    cell: ({ row }) => {
+      const coach = row.original.coach;
+      return (
+        <div className="flex items-center gap-2">
+          <img
+            src={coach.profileImage}
+            alt={coach.firstName}
+            className="w-8 h-8 rounded-full object-cover border"
+          />
+          <span className="text-sm">
+            {coach.lastName} {coach.firstName}
+          </span>
+        </div>
+      );
+    },
+  },
 ];
-
-// const Action = ({ row }: { row: Row<Quiz> }) => {
-//   return (
-//     <>
-//     </>
-//     // <Button
-//     //   disabled={row.original.isActive}
-//     //   className="w-full bg-blue-500 hover:bg-blue-600 text-white"
-//     // >
-//     //   Làm
-//     // </Button>
-//   );
-// };

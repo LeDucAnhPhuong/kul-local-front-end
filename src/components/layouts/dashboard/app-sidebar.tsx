@@ -106,6 +106,10 @@ const CoachData = {
           url: '/schedule',
         },
         {
+          title: 'Grade News',
+          url: '/grade-news',
+        },
+        {
           title: 'Assignment',
           url: '/assignment',
         },
@@ -134,7 +138,7 @@ const TedTeamData = {
         },
         {
           title: 'View Classes',
-          url: '/ClassList',
+          url: '/view-classlist',
         },
       ],
     },

@@ -1,357 +1,275 @@
-import React, { useEffect } from 'react';
-import FullCalendar from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction';
-import listPlugin from '@fullcalendar/list';
-import TitlePage from '@/components/ui/title-page';
-import { useGetSlotsQuery } from '@/features/teacher/api.teacher';
-import type { ScheduleItem, Slot } from '@/features/tedteam/slotInfo';
-import { useGetScheduleDateRangeQuery, useGetSchedulesQuery } from '../api.schedule';
-import { Button } from '@/components/ui/button';
+import { useCallback, useState } from 'react';
+import type { Schedule, ViewMode } from '../data.type';
+import { formatDate } from 'date-fns';
 import {
-  Badge,
-  Calendar,
-  CalendarDays,
-  ChevronLeft,
-  ChevronRight,
-  Grid3X3,
-  ListIcon,
-  Plus,
-  RotateCcw,
-} from 'lucide-react';
-import { Separator } from '@radix-ui/react-separator';
-import { endOfDay, endOfMonth, endOfWeek, startOfDay, startOfMonth, startOfWeek } from 'date-fns';
-import { toZonedTime } from 'date-fns-tz';
+  DayView,
+  getWeekDays,
+  MonthView,
+  WeekListView,
+  WeekView,
+} from '@/components/ui/schedule-canlendar';
+import { Calendar, ChevronLeft, ChevronRight, Clock, Grid3X3, List, Loader2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useCalendarData } from '@/hooks/useScheduleCalnedar';
+import { useUpdateScheduleMutation } from '../api.schedule';
+import TitlePage from '@/components/ui/title-page';
 import { zoneTimeToUTC } from '@/utils/zone-time-to-utc';
 
-function generateTimeSlotsCSSTrimmed(slots: { startTime: string; endTime: string }[]) {
-  const allTimes: string[] = [];
+export function getDateRange(
+  viewMode: ViewMode,
+  currentDate: Date,
+): { startDate: Date; endDate: Date } {
+  const date = new Date(currentDate);
+  let startDate: Date;
+  let endDate: Date;
 
-  // Chuyển về phút từ 00:00
-  function timeToMinutes(t: string) {
-    const [h, m] = t.split(':').map(Number);
-    return h * 60 + m;
+  switch (viewMode) {
+    case 'day':
+      startDate = new Date(date.setHours(0, 0, 0, 0));
+      endDate = new Date(date.setHours(23, 59, 59, 999));
+      break;
+    case 'week':
+    case 'weekList': {
+      const dayOfWeek = date.getDay();
+      startDate = new Date(date);
+      startDate.setDate(date.getDate() - dayOfWeek);
+      startDate.setHours(0, 0, 0, 0);
+
+      endDate = new Date(startDate);
+      endDate.setDate(startDate.getDate() + 6);
+      endDate.setHours(23, 59, 59, 999);
+      break;
+    }
+    case 'month': {
+      startDate = new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0, 0);
+      endDate = new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 59, 999);
+      break;
+    }
+    default:
+      startDate = new Date(date.setHours(0, 0, 0, 0));
+      endDate = new Date(date.setHours(23, 59, 59, 999));
+      break;
   }
 
-  const sortedStart = Math.min(...slots.map((s) => timeToMinutes(s.startTime)));
-  const sortedEnd = Math.max(...slots.map((s) => timeToMinutes(s.endTime)));
-
-  // Thêm 1h trước slot 1 và sau slot 5
-  const extraStart = Math.max(0, sortedStart - 60);
-  const extraEnd = Math.min(24 * 60, sortedEnd + 60);
-
-  for (let mins = extraStart; mins < extraEnd; mins += 15) {
-    const hh = Math.floor(mins / 60)
-      .toString()
-      .padStart(2, '0');
-    const mm = (mins % 60).toString().padStart(2, '0');
-    allTimes.push(`${hh}:${mm}:00`);
-  }
-
-  const selectors = allTimes.map((t) => `.fc-timegrid-slot[data-time="${t}"]`).join(',\n');
-
-  return `
-    .fc-timegrid-slot {
-      display: none;
-    }
-
-    ${selectors} {
-      display: table-row !important;
-    }
-  `;
+  return { startDate, endDate };
 }
 
-const ScheduleManagement = () => {
-  const { slots } = useGetSlotsQuery(undefined, {
-    selectFromResult: ({ data }) => ({
-      slots: data
-        ? (Array.from(data) as Slot[])?.sort((a: Slot, b: Slot) => {
-            const toMinutes = (time: string) => {
-              const [h, m] = time.split(':').map(Number);
-              return h * 60 + m;
-            };
-            return toMinutes(a.startTime) - toMinutes(b.startTime);
-          })
-        : [],
-    }),
-  });
+export default function CustomCalendar() {
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [viewMode, setViewMode] = useState<ViewMode>('week');
+  const [draggedSchedule, setDraggedSchedule] = useState<Schedule | null>(null);
 
-  // const { schedule } = useGetSchedulesQuery;
+  const { startDate, endDate } = getDateRange(viewMode, currentDate);
+  console.log('{ startDate, endDate }  :>> ', { startDate, endDate });
+  const { slots, schedules, loading } = useCalendarData({ startDate, endDate });
+  const [updateSchedules, { isLoading: isUpdating }] = useUpdateScheduleMutation();
+
+  const handlePrevious = () => {
+    const newDate = new Date(currentDate);
+    switch (viewMode) {
+      case 'day':
+        newDate.setDate(newDate.getDate() - 1);
+        break;
+      case 'week':
+      case 'weekList':
+        newDate.setDate(newDate.getDate() - 7);
+        break;
+      case 'month':
+        newDate.setMonth(newDate.getMonth() - 1);
+        break;
+    }
+    setCurrentDate(newDate);
+  };
+
+  const handleNext = () => {
+    const newDate = new Date(currentDate);
+    switch (viewMode) {
+      case 'day':
+        newDate.setDate(newDate.getDate() + 1);
+        break;
+      case 'week':
+      case 'weekList':
+        newDate.setDate(newDate.getDate() + 7);
+        break;
+      case 'month':
+        newDate.setMonth(newDate.getMonth() + 1);
+        break;
+    }
+    setCurrentDate(newDate);
+  };
+
+  const handleToday = () => {
+    setCurrentDate(new Date());
+  };
+
+  const handleDragStart = useCallback((schedule: Schedule) => {
+    setDraggedSchedule(schedule);
+  }, []);
+
+  const handleDragEnd = useCallback(() => {
+    setDraggedSchedule(null);
+  }, []);
+
+  const handleDrop = useCallback(
+    async (date: Date, slotId?: string) => {
+      if (!draggedSchedule) return;
+
+      const newDate = date;
+      newDate.setHours(0, 0, 0, 0);
+      const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      try {
+        await updateSchedules({
+          id: draggedSchedule.id,
+          date: zoneTimeToUTC(newDate, timeZone).toISOString(),
+          slotId: slotId || draggedSchedule.slotId,
+        }).unwrap();
+      } catch (error) {
+        console.error('Error updating schedule:', error);
+      }
+
+      // setSchedules((prev: Schedule[]) =>
+      //   prev.map((schedule) =>
+      //     schedule.id === draggedSchedule.id ? { ...schedule, date: newDate, slotId } : schedule,
+      //   ),
+      // );
+
+      setDraggedSchedule(null);
+    },
+    [draggedSchedule],
+  );
+
+  const getViewTitle = () => {
+    switch (viewMode) {
+      case 'day':
+        return formatDate(currentDate, 'dd MMMM yyyy');
+      case 'week':
+      case 'weekList':
+        const weekStart = getWeekDays(currentDate)[0];
+        const weekEnd = getWeekDays(currentDate)[6];
+        return `${weekStart.getDate()} - ${weekEnd.getDate()} ${currentDate.toLocaleDateString(
+          'en-US',
+          { month: 'long', year: 'numeric' },
+        )}`;
+      case 'month':
+        return currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+      default:
+        return '';
+    }
+  };
+
+  const renderView = () => {
+    if (loading) {
+      return (
+        <div className="flex items-center justify-center h-full">
+          <div className="flex items-center gap-2">
+            <Loader2 className="h-6 w-6 animate-spin" />
+            <span>Đang tải dữ liệu...</span>
+          </div>
+        </div>
+      );
+    }
+
+    const commonProps = {
+      currentDate,
+      schedules,
+      onDragStart: handleDragStart,
+      onDragEnd: handleDragEnd,
+      onDrop: handleDrop,
+    };
+
+    switch (viewMode) {
+      case 'day':
+        return <DayView {...commonProps} slots={slots} />;
+      case 'week':
+        return <WeekView {...commonProps} slots={slots} />;
+      case 'month':
+        return <MonthView {...commonProps} />;
+      case 'weekList':
+        return <WeekListView {...commonProps} />;
+      default:
+        return <WeekView {...commonProps} slots={slots} />;
+    }
+  };
 
   return (
-    <div className="bg-white dark:bg-background p-4 rounded-xl border-[1px] border-stone-50 dark:border-stone-800">
+    <div className="h-screen flex p-6 rounded-lg flex-col bg-white">
       <TitlePage
         title="Manage Schedule"
         contentHref="Add schedule"
         href="/schedule-management/add"
       />
-      <CustomSlotCalendar slots={slots} />
-    </div>
-  );
-};
+      <div className="flex items-center justify-between p-4 border-b bg-white shadow-sm">
+        <div className="flex items-center space-x-4">
+          <h1 className="text-2xl font-bold text-gray-800">Schedule</h1>
+          <Button onClick={handleToday} variant="outline" size="sm">
+            Today
+          </Button>
+        </div>
 
-function getWeekDates(startStr: string): string[] {
-  const start = new Date(startStr);
-
-  const result = [];
-  for (let i = 0; i < 7; i++) {
-    const d = new Date(start);
-    d.setDate(start.getDate() + i);
-    result.push(d.toISOString().split('T')[0]);
-  }
-  return result;
-}
-
-function colorFromId(id: string): string {
-  let hash = 0;
-  for (let i = 0; i < id.length; i++) {
-    hash = id.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  const hue = Math.abs(hash) % 360;
-  return `hsl(${hue}, 70%, 80%)`;
-}
-
-function generateScheduleEvents(schedules: ScheduleItem[], slots: Slot[]) {
-  const slotMap = new Map(slots.map((slot) => [slot?.id, slot]));
-
-  return schedules
-    .map((sch) => {
-      console.log('sch :>> ', sch);
-      const slot = slotMap.get(sch.slot?.id);
-      const dateStr = sch.date.split('T')[0];
-
-      return {
-        id: sch.id,
-        title: `Class: ${sch.classInfor?.name} | Coach: ${sch.coach.firstName} ${sch.coach.lastName}`,
-        start: `${dateStr}T${slot?.startTime}`,
-        end: `${dateStr}T${slot?.endTime}`,
-        backgroundColor: '#3f51b5',
-        borderColor: '#3f51b5',
-        editable: true,
-        extendedProps: {
-          scheduleId: sch.id,
-          classId: sch.classInfor?.id,
-          slotStart: slot?.startTime,
-          slotEnd: slot?.endTime,
-        },
-      };
-    })
-    .filter(Boolean);
-}
-
-export function CustomSlotCalendar({ slots }: { slots: Slot[] }) {
-  const customSlotCSS = generateTimeSlotsCSSTrimmed(slots);
-  const calendarRef = React.useRef(null);
-  const [selectedDate, setSelectedDate] = React.useState(new Date().toISOString().split('T')[0]);
-  const [currentView, setCurrentView] = React.useState('timeGridDay');
-  const [events, setEvents] = React.useState<any>([]);
-
-  const [{ startDate, endDate }, setCurrentDateRange] = React.useState({
-    startDate: startOfDay(new Date()),
-    endDate: endOfDay(new Date()),
-  });
-
-  const localTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-  const { schedules } = useGetScheduleDateRangeQuery(
-    {
-      startDate: zoneTimeToUTC(startDate, localTimeZone).toISOString(),
-      endDate: zoneTimeToUTC(endDate, localTimeZone).toISOString(),
-    },
-    {
-      selectFromResult: ({ data }) => ({
-        schedules: data?.data ?? [],
-      }),
-    },
-  );
-
-  const handleDatesSet = (arg: any) => {
-    const newDate = arg.startStr.split('T')[0];
-    setCurrentView(arg.view.type);
-
-    switch (arg.view.type) {
-      case 'timeGridDay':
-        setSelectedDate(newDate);
-        setCurrentDateRange({
-          startDate: startOfDay(new Date(newDate)),
-          endDate: endOfDay(new Date(newDate)),
-        });
-        break;
-      case 'timeGridWeek':
-        // Lấy ngày đầu tuần
-        const weekStart = arg.view.currentStart;
-        setSelectedDate(weekStart.toISOString().split('T')[0]);
-        setCurrentDateRange({
-          startDate: startOfWeek(weekStart),
-          endDate: endOfWeek(weekStart),
-        });
-        break;
-      case 'dayGridMonth':
-        // Lấy ngày đầu tháng
-        const monthStart = arg.view.currentStart;
-        setSelectedDate(monthStart.toISOString().split('T')[0]);
-        setCurrentDateRange({
-          startDate: startOfMonth(monthStart),
-          endDate: endOfMonth(monthStart),
-        });
-        break;
-      case 'listWeek':
-        // Lấy ngày đầu tuần
-        const listWeekStart = arg.view.currentStart;
-        setSelectedDate(listWeekStart.toISOString().split('T')[0]);
-        setCurrentDateRange({
-          startDate: startOfWeek(listWeekStart),
-          endDate: endOfWeek(listWeekStart),
-        });
-        break;
-    }
-
-    setEvents([...generateScheduleEvents(schedules, slots)]);
-    
-  };
-
-  useEffect(() => {
-    const calendarApi = (calendarRef?.current as any)?.getApi();
-    if (calendarApi) {
-      calendarApi.changeView(currentView, selectedDate);
-      handleDatesSet({
-        startStr: selectedDate,
-        view: { type: currentView, currentStart: new Date(selectedDate) },
-      });
-    }
-  }, []);
-// selectedDate, currentView, slots, schedules
-  const handleChangeView = (view: string) => {
-    if (view === currentView) return; // tránh set lại không cần thiết
-    const calendarApi = (calendarRef?.current as any)?.getApi();
-    calendarApi.changeView(view);
-    setCurrentView(view);
-  };
-
-  return (
-    <>
-      <style>{`
-        /* Hide all slots by default */
-        .fc-timegrid-slot {
-          display: none;
-        }
-
-        ${customSlotCSS}
-      `}</style>
-
-      <div className="bg-white rounded-lg border shadow-sm p-3">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <Button
-              variant={
-                selectedDate === new Date().toISOString().split('T')[0] ? 'secondary' : 'outline'
-              }
-              disabled={selectedDate === new Date().toISOString().split('T')[0]}
-              onClick={() => (calendarRef.current as any)?.getApi().today()}
-              className="gap-2 font-medium"
-            >
-              <RotateCcw className="h-4 w-4" />
-              Today
-            </Button>
-
-            <Separator orientation="vertical" className="h-6" />
-
-            <div className="flex items-center gap-1">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => (calendarRef.current as any)?.getApi().prev()}
-                className="px-3 hover:bg-gray-50"
-              >
-                <ChevronLeft className="h-4 w-4" />
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => (calendarRef.current as any)?.getApi().next()}
-                className="px-3 hover:bg-gray-50"
-              >
-                <ChevronRight className="h-4 w-4" />
-              </Button>
-            </div>
-            <Separator orientation="vertical" className="h-6" />
-            <div className="flex items-center">
-              {currentView === 'timeGridDay' ? (
-                <span className="text-sm text-gray-500">{selectedDate}</span>
-              ) : currentView === 'timeGridWeek' || currentView === 'listWeek' ? (
-                <span className="text-sm text-gray-500">
-                  {startOfWeek(selectedDate).toLocaleDateString()} -{' '}
-                  {endOfWeek(selectedDate).toLocaleDateString()}
-                </span>
-              ) : currentView === 'dayGridMonth' ? (
-                <span className="text-sm text-gray-500">
-                  {startOfMonth(selectedDate).toLocaleDateString()} -{' '}
-                  {endOfMonth(selectedDate).toLocaleDateString()}
-                </span>
-              ) : null}
-            </div>
+        <div className="flex items-center space-x-2">
+          <Button onClick={handlePrevious} variant="outline" size="sm">
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <div className="min-w-[250px] text-center font-medium text-gray-700">
+            {getViewTitle()}
           </div>
+          <Button onClick={handleNext} variant="outline" size="sm">
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </div>
 
-          {/* Right side - View Toggle */}
-          <div className="flex items-center bg-gray-100 rounded-lg p-1">
-            <Button
-              variant={currentView === 'timeGridDay' ? 'default' : 'ghost'}
-              size="sm"
-              onClick={() => handleChangeView('timeGridDay')}
-              className="gap-2 rounded-md"
-            >
-              <CalendarDays className="h-4 w-4" />
-              Day
-            </Button>
-            <Button
-              variant={currentView === 'timeGridWeek' ? 'default' : 'ghost'}
-              size="sm"
-              onClick={() => handleChangeView('timeGridWeek')}
-              className="gap-2 rounded-md"
-            >
-              <Calendar className="h-4 w-4" />
-              Week
-            </Button>
-            <Button
-              variant={currentView === 'dayGridMonth' ? 'default' : 'ghost'}
-              size="sm"
-              onClick={() => handleChangeView('dayGridMonth')}
-              className="gap-2 rounded-md"
-            >
-              <Grid3X3 className="h-4 w-4" />
-              Month
-            </Button>
-            <Button
-              variant={currentView === 'listWeek' ? 'default' : 'ghost'}
-              size="sm"
-              onClick={() => handleChangeView('listWeek')}
-              className="gap-2 rounded-md"
-            >
-              <ListIcon className="h-4 w-4" />
-              List
-            </Button>
-          </div>
+        <div className="flex items-center space-x-1">
+          <Button
+            onClick={() => setViewMode('day')}
+            variant={viewMode === 'day' ? 'default' : 'outline'}
+            size="sm"
+          >
+            <Clock className="h-4 w-4 mr-1" />
+            Day
+          </Button>
+          <Button
+            onClick={() => setViewMode('week')}
+            variant={viewMode === 'week' ? 'default' : 'outline'}
+            size="sm"
+          >
+            <Calendar className="h-4 w-4 mr-1" />
+            Week
+          </Button>
+          <Button
+            onClick={() => setViewMode('month')}
+            variant={viewMode === 'month' ? 'default' : 'outline'}
+            size="sm"
+          >
+            <Grid3X3 className="h-4 w-4 mr-1" />
+            Month
+          </Button>
+          <Button
+            onClick={() => setViewMode('weekList')}
+            variant={viewMode === 'weekList' ? 'default' : 'outline'}
+            size="sm"
+          >
+            <List className="h-4 w-4 mr-1" />
+            List
+          </Button>
         </div>
       </div>
 
-      <FullCalendar
-        ref={calendarRef}
-        plugins={[timeGridPlugin, dayGridPlugin, interactionPlugin, listPlugin]}
-        initialView="timeGridDay"
-        initialDate={selectedDate}
-        events={events}
-        slotDuration="00:30:00"
-        slotLabelInterval="00:30:00"
-        slotLabelFormat={{ hour: '2-digit', minute: '2-digit', hour12: false }}
-        allDaySlot={false}
-        scrollTime="06:00:00"
-        datesSet={handleDatesSet}
-        headerToolbar={false}
-        height="auto"
-      />
-    </>
+      {/* Calendar Content */}
+      <div className="flex-1 overflow-hidden">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={viewMode}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className="h-full"
+          >
+            {renderView()}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    </div>
   );
 }
-
-export default ScheduleManagement;

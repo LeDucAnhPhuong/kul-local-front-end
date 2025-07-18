@@ -122,7 +122,7 @@ DatetimeGrid.displayName = "DatetimeGrid";
  
 interface DateTimeInput {
   value?: Date;
-  format: DateTimeFormatDefaults;
+  format?: DateTimeFormatDefaults;
   placeholders?: InputPlaceholders;
   onChange?: Options["onChangeDate"];
   dtOptions?: Options;

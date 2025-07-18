@@ -1,6 +1,8 @@
 import type { ScheduleItem } from '../types/schedule';
 
 export function convertToMobileSchedule(data: ScheduleItem[], allSlots: any[] = []) {
+    if (!Array.isArray(data) || !Array.isArray(allSlots)) return [];
+
   const dayMap: Record<string, { date: string; dayName: string; slots: any[] }> = {};
   const options: Intl.DateTimeFormatOptions = {
     weekday: 'long',

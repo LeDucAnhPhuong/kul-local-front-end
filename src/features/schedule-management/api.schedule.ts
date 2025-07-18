@@ -11,6 +11,15 @@ export const scheduleApi = baseApi.injectEndpoints({
         url: `/api/Schedule/date-range`,
         params: { startDate, endDate },
       }),
+      providesTags: ['Schedule'],
+    }),
+    updateSchedule: builder.mutation({
+      query: ({ id, ...updatedSchedule }) => ({
+        url: `/api/Schedule/${id}`,
+        method: 'PUT',
+        body: updatedSchedule,
+      }),
+      invalidatesTags: ['Schedule'],
     }),
     createSchedule: builder.mutation({
       query: (newSchedule) => ({
@@ -38,4 +47,5 @@ export const {
   useCreateScheduleMutation,
   useCreateScheduleAutoMutation,
   useGetScheduleDateRangeQuery,
+  useUpdateScheduleMutation,
 } = scheduleApi;

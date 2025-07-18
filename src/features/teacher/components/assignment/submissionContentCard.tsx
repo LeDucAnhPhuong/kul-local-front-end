@@ -1,4 +1,4 @@
-import type { SubmissionContent } from '../../columns/assignmentSubmissions.columns';
+import type { SubmissionContent } from '../../types/assignment';
 export function SubmissionContentCard({ content }: { content: SubmissionContent }) {
   if (content.type === 'video') {
     return (

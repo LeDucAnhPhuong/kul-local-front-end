@@ -1,15 +1,40 @@
 // components/ui/confirm-dialog.tsx
-import { Dialog, DialogContent, DialogHeader, DialogFooter, DialogTitle } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import { useDeleteQuizMutation } from './quiz.api';
+import { toast } from 'sonner';
 
 type ConfirmDialogProps = {
   open: boolean;
   title?: string;
-  onConfirm: () => void;
+  quizId?: string | null;
   onCancel: () => void;
 };
 
-export default function ConfirmDialog({ open, title = 'Are you sure?', onConfirm, onCancel }: ConfirmDialogProps) {
+export default function ConfirmDialog({
+  open,
+  title = 'Are you sure?',
+  quizId,
+  onCancel,
+}: ConfirmDialogProps) {
+  const [deleteQuiz, { isLoading }] = useDeleteQuizMutation();
+
+  const handleDeleteConfirm = async () => {
+    const toastId = toast.loading('Deleting quiz...');
+    try {
+      if (!quizId) return;
+      await deleteQuiz(quizId).unwrap();
+      toast.success('Quiz deleted successfully', { id: toastId });
+    } catch (error) {
+      toast.error('Failed to delete quiz', { id: toastId });
+    }
+  };
   return (
     <Dialog open={open} onOpenChange={onCancel}>
       <DialogContent>
@@ -20,7 +45,7 @@ export default function ConfirmDialog({ open, title = 'Are you sure?', onConfirm
           <Button variant="outline" onClick={onCancel}>
             Cancel
           </Button>
-          <Button variant="destructive" onClick={onConfirm}>
+          <Button onClick={handleDeleteConfirm} isLoading={isLoading}>
             Delete
           </Button>
         </DialogFooter>

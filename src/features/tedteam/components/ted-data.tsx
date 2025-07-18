@@ -1,6 +1,5 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { useReactTable, getCoreRowModel, flexRender, type ColumnDef, type Row } from "@tanstack/react-table"
-import type { is } from "date-fns/locale"
 
 interface TedDataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]

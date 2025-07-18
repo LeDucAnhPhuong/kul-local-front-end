@@ -78,5 +78,10 @@ export const baseApi = createApi({
     'Slot',
     'TedTeamSchedule',
     'RegisteredTeams',
+    'make-quiz',
+    'make-question',
+    'do-quiz',
+    'QuizResult',
+    'News',
   ],
 });

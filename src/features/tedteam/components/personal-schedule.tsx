@@ -1,12 +1,10 @@
 import React, { useMemo, useState } from 'react';
-import { attendanceDummyData, transformAttendanceData } from '../teddata';
+import {  transformAttendanceData } from '../teddata';
 import { personalWorkColumns } from '../columns/personal-schedule';
 import { PersonalScheduleMobileView } from '../columns/personal-mobile';
 import { TedDataTable } from './ted-data';
 import { useGetAllSlotQuery, useGetTedTeamScheduleByDateRangeQuery } from '../api.tedteam';
 import type { Slot } from '../slotInfo';
-import { convertToSlotByDay } from '@/features/teacher/columns/convertToSlotByDay';
-import { convertToMobileSchedule } from '@/features/teacher/columns/convertToMobileSchedule';
 import {
   Select,
   SelectContent,
@@ -74,8 +72,8 @@ export default function PersonalSchedule() {
   });
   const { slots } = useGetAllSlotQuery(undefined, {
     selectFromResult: ({ data }) => ({
-      slots: data
-        ? (Array.from(data) as Slot[])?.sort((a: Slot, b: Slot) => {
+      slots: data?.data
+        ? (Array.from(data?.data) as Slot[])?.sort((a: Slot, b: Slot) => {
             const toMinutes = (time: string) => {
               const [h, m] = time.split(':').map(Number);
               return h * 60 + m;

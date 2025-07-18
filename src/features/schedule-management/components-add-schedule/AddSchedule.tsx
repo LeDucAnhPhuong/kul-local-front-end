@@ -5,6 +5,7 @@ import MyFormAuto from './add--schedule-form-auto';
 import { toast } from 'sonner';
 import { useCreateScheduleMutation, useCreateScheduleAutoMutation } from '../api.schedule';
 import { useNavigate } from 'react-router';
+import ScheduleCreatorCalendar from './add-ui-schedule';
 
 const AddSchedule = () => {
   const [createSchedule] = useCreateScheduleMutation();
@@ -69,7 +70,7 @@ const AddSchedule = () => {
         </TabsContent>
         <TabsContent value="Add Schedule Automatically">
           <TitlePage title="Add Schedule Automatically" />
-          <MyFormAuto onAdd={onAddScheduleAuto} />
+          <ScheduleCreatorCalendar />
         </TabsContent>
       </Tabs>
     </div>

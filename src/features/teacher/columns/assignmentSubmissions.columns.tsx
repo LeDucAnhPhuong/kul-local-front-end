@@ -1,30 +1,10 @@
 import type { ColumnDef } from '@tanstack/react-table';
-import type { VideoSubmission, DocumentSubmission } from '../functionaly/content';
-export type SubmissionContent = VideoSubmission | DocumentSubmission;
-export type AssignmentSubmission = {
-  id: string;
-  assignmentId: string;
-  userId: string;
-  submittedAt: string;
-  score: number | null;
-  feedback: string | null;
-  isActive: boolean;
-  createdBy: string;
-  updatedBy: string;
-  createdAt: string;
-  updatedAt: string;
-  content: SubmissionContent;
-};
+import type { AssignmentSubmission } from '../types/assignment';
 export const columns: ColumnDef<AssignmentSubmission>[] = [
   {
     accessorKey: 'id',
     header: 'ID',
     cell: ({ row }) => row.getValue('id'),
-  },
-  {
-    accessorKey: 'assignmentId',
-    header: 'Assignment ID',
-    cell: ({ row }) => row.getValue('assignmentId'),
   },
   {
     accessorKey: 'userId',
@@ -46,12 +26,5 @@ export const columns: ColumnDef<AssignmentSubmission>[] = [
     header: 'Feedback',
     cell: ({ row }) => row.getValue('feedback') || '-',
   },
-  // {
-  //     accessorKey: 'content',
-  //     header: 'Content Type',
-  //     cell: ({ row }: { row: Row<AssignmentSubmission> }) => {
-  //         const content = row.getValue('content');
-  //         return content.type === 'video' ? 'Video Submission' : 'Document Submission';
-  //     },
-  // }
+
 ];

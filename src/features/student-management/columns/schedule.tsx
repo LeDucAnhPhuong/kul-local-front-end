@@ -1,7 +1,9 @@
 import { Badge } from '@/components/ui/badge';
+import type { ScheduleCell } from '@/features/tedteam/slotInfo';
 import { cn } from '@/lib/utils';
 import type { ColumnDef, Row } from '@tanstack/react-table';
-import { CalendarDays, Hourglass } from 'lucide-react';
+import { formatDate } from 'date-fns';
+import { BookOpen, CalendarDays, Hourglass, MapPin, User } from 'lucide-react';
 
 export type DayKey = 't2' | 't3' | 't4' | 't5' | 't6' | 't7' | 'cn';
 
@@ -16,187 +18,192 @@ export type SlotSchedule = {
   cn?: ScheduleCell;
 };
 
-type ScheduleCell = {
-  roomName: string;
-  locationAndClass: string;
-  coachName: string;
-  time: string;
-  status: 'not yet' | 'present' | 'absent';
-  date: string;
-  class_id: string;
-  room_id: string;
-  coach_id: string;
-  TedTeam_id: string | null;
-  user_id: string;
-  calendar_id: string;
-  slot_id: string;
-};
-
-// Updated API data structure based on the provided data
 export type APIAttendanceData = {
-  _id: string;
-  status: number; // 0 = not yet, 1 = present, 2 = absent
+  id: string;
+  status: number;
   userId: string | null;
-  created_at: string;
-  created_by: any | null;
+  createdAt: string;
+  createdBy: any | null;
   isActive: boolean;
   schedule: {
-    _id: string;
+    id: string;
     classId: string;
-    classInfo: {
-      _id: string;
+    classInfor: {
+      id: string;
       name: string;
       startTime: string;
       endTime: string;
       isActive: boolean;
-      created_at: string;
-      created_by: any | null;
-      updated_at: string;
-      updated_by: any | null;
+      createdAt: string;
+      createdBy: any | null;
+      updatedAt: string;
+      updatedBy: any | null;
     } | null;
     coach: {
-      _id: string;
+      id: string;
       email: string;
-      first_name: string;
-      last_name: string;
+      firstName: string;
+      lastName: string;
       role: string;
-      class_id: any | null;
-      profile_image: string;
+      classId: any | null;
+      profileImage: string;
       isActive: boolean;
-      created_at: string;
-      created_by: any | null;
-      updated_at: string;
-      updated_by: any | null;
+      createdAt: string;
+      createdBy: any | null;
+      updatedAt: string;
+      updatedBy: any | null;
     };
     coachId: string;
     room: {
-      _id: string;
+      id: string;
       name: string;
       capacity: number;
       location: string;
       description: string;
       isActive: boolean;
-      created_at: string;
-      created_by: any | null;
-      updated_at: string;
-      updated_by: any | null;
+      createdAt: string;
+      createdBy: any | null;
+      updatedAt: string;
+      updatedBy: any | null;
     };
     roomId: string;
     slot: {
-      _id: string;
+      id: string;
       name: string;
       startTime: string;
       endTime: string;
       isActive: boolean;
-      created_at: string;
-      created_by: any | null;
-      updated_at: string;
-      updated_by: any | null;
+      createdAt: string;
+      createdBy: any | null;
+      updatedAt: string;
+      updatedBy: any | null;
     };
     slotId: string;
     date: string;
     note: any | null;
     tedTeamId: any | null;
     isActive: boolean;
-    created_at: string;
-    created_by: any | null;
-    updated_at: string;
-    updated_by: any | null;
+    createdAt: string;
+    createdBy: any | null;
+    updatedAt: string;
+    updatedBy: any | null;
   };
   scheduleId: any | null;
-  updated_at: string;
-  updated_by: any | null;
+  updatedAt: string;
+  updatedBy: any | null;
   user?: {
-    _id: string;
+    id: string;
     email: string;
-    first_name: string | null;
-    last_name: string | null;
+    firstName: string | null;
+    lastName: string | null;
     role: string;
-    class_id: string;
-    profile_image: string;
+    classId: string;
+    profileImage: string;
     isActive: boolean;
-    created_at: string;
-    created_by: any | null;
-    updated_at: string;
-    updated_by: any | null;
+    createdAt: string;
+    createdBy: any | null;
+    updatedAt: string;
+    updatedBy: any | null;
   };
 };
 
-// Define all possible slots (1-5)
+const dayHeaders: { [key in DayKey]: string } = {
+  t2: 'MON',
+  t3: 'TUE',
+  t4: 'WED',
+  t5: 'THUR',
+  t6: 'FRI',
+  t7: 'SAT',
+  cn: 'SUN',
+};
 
 export const columns: ColumnDef<SlotSchedule>[] = [
   {
     accessorKey: 'slot',
-    header: 'Slot',
+    header: 'SLOT',
     cell: ({ row }) => (
-      <div className="text-sm font-medium md:text-base whitespace-nowrap">
+      <div className="text-base font-semibold text-gray-800 whitespace-nowrap py-2 px-4">
         {row.getValue('slot')}
       </div>
     ),
   },
-  ...['t2', 't3', 't4', 't5', 't6', 't7', 'cn'].map((dayKey) => ({
+  ...(['t2', 't3', 't4', 't5', 't6', 't7', 'cn'] as DayKey[]).map((dayKey) => ({
     accessorKey: dayKey,
-    header: "dădawdawda",
+    header: dayHeaders[dayKey],
     cell: ({ row }: { row: Row<SlotSchedule> }) => {
       const cell: ScheduleCell | undefined = row.getValue(dayKey);
       if (!cell) {
         return (
-          <div className="flex items-center justify-center py-2 text-lg text-red-500 md:text-2xl">
-            -
+          <div className="flex items-center justify-center h-full py-2">
+            <span className="text-xl font-medium text-gray-400"> -</span>
           </div>
         );
       }
 
       return (
-        <div className="space-y-1 p-1 min-w-[120px] max-w-[160px]">
-          {/* Class Name - Dòng đầu tiên */}
-          <p className="text-xs font-semibold leading-tight md:text-sm line-clamp-2">
-            {cell.roomName}
-          </p>
+        <div className="max-w-[250px]">
+          <div className="p-3 space-y-2 transition-shadow duration-200">
+            {/* Room Name & Status Badge */}
+            <div className="flex justify-between items-start mb-1">
+              <p className="text-sm font-bold leading-tight text-gray-900 line-clamp-2">
+                {cell.roomId}
+              </p>
+              <Badge
+                className={cn(
+                  'text-xs px-2 py-0.5 w-fit font-semibold', // Made badge slightly smaller
+                  cell.status === 'not yet'
+                    ? 'bg-orange-500 hover:bg-orange-600 text-white'
+                    : cell.status === 'absent'
+                    ? 'bg-red-500 hover:bg-red-600 text-white'
+                    : 'bg-green-500 hover:bg-green-600 text-white',
+                )}
+              >
+                {cell.status === 'not yet'
+                  ? 'Not Yet'
+                  : cell.status === 'absent'
+                  ? 'Absent'
+                  : 'Present'}
+              </Badge>
+            </div>
 
-          {/* Room Location | Room Name - Dòng thứ hai */}
-          <p className="text-xs leading-tight text-muted-foreground">{cell.locationAndClass}</p>
+            {/* Location and Class */}
+            <div className="flex gap-2 space-y-0.5">
+              <div className="flex items-center gap-1 text-xs text-gray-700">
+                <MapPin className="size-3.5 text-gray-500" />
+                <span className="leading-tight">{cell.location}</span>
+              </div>
+              <span>-</span>
+              {cell.classId && ( // Only render class if it's available after splitting
+                <div className="flex items-center gap-1 text-xs text-gray-700">
+                  <BookOpen className="size-3.5 text-gray-500" />
+                  <span className="leading-tight">{cell.classId}</span>
+                </div>
+              )}
+            </div>
 
-          {/* Coach Name - Dòng thứ ba */}
-          <p className="text-xs leading-tight text-gray-600">{cell.coachName}</p>
+            {/* Coach Name */}
+            <div className="flex items-center gap-1 text-xs text-gray-700 mt-1">
+              <User className="size-3.5 text-gray-500" />
+              <span className="leading-tight">{cell.coachId}</span>
+            </div>
 
-          {/* Status Badge - Dòng thứ tư */}
-          <Badge
-            className={cn(
-              'text-xs px-2 py-1 w-fit',
-              cell.status === 'not yet'
-                ? 'bg-orange-500 hover:bg-orange-600'
-                : cell.status === 'absent'
-                ? 'bg-red-500 hover:bg-red-600'
-                : 'bg-green-500 hover:bg-green-600',
-            )}
-          >
-            {cell.status === 'not yet'
-              ? 'Not Yet'
-              : cell.status === 'absent'
-              ? 'Absent'
-              : 'Present'}
-          </Badge>
-
-          {/* Time */}
-          <div className="flex items-center gap-1 text-xs font-medium leading-tight text-green-600">
-            <Hourglass className="inline-block size-3" />
-            {cell.time}
-          </div>
-
-          {/* Date */}
-          <div className="flex items-center gap-1 text-xs font-medium leading-tight text-blue-600">
-            <CalendarDays className="inline-block size-3" />
-            {cell.date}
+            {/* Time and Date */}
+            <div className="flex gap-2 space-y-0.5 mt-2 pt-2 border-t border-gray-100">
+              <div className="flex items-center gap-1 text-xs font-medium leading-tight text-gray-600">
+                <Hourglass className="size-3.5 text-gray-500" />
+                {cell.time}
+              </div>
+              <div className="flex items-center gap-1 text-xs font-medium leading-tight text-gray-600">
+                <CalendarDays className="size-3.5 text-gray-500" />
+                {formatDate(cell.date, 'dd/MM/yyyy')}
+              </div>
+            </div>
           </div>
         </div>
       );
     },
   })),
 ];
-
-
-// Helper function to determine status based on API status code
 function getAttendanceStatus(status: number): 'not yet' | 'present' | 'absent' {
   switch (status) {
     case 0:
@@ -210,18 +217,49 @@ function getAttendanceStatus(status: number): 'not yet' | 'present' | 'absent' {
   }
 }
 
+function getDayKey(date: string): DayKey {
+  const dayOfWeek = new Date(date).getDay();
+  switch (dayOfWeek) {
+    case 1:
+      return 't2';
+    case 2:
+      return 't3';
+    case 3:
+      return 't4';
+    case 4:
+      return 't5';
+    case 5:
+      return 't6';
+    case 6:
+      return 't7';
+    case 0:
+      return 'cn';
+    default:
+      throw new Error('Invalid day of week');
+  }
+}
+
+function formatDateDisplay(date: string): string {
+  return new Date(date).toLocaleDateString();
+}
+
+function getSlotNumber(slotName: string): number {
+  const match = slotName.match(/Slot (\d+)/);
+  if (match && match[1]) return Number.parseInt(match[1], 10);
+  throw new Error('Invalid slot name');
+}
+
 export function getUserAttendanceStatus(
   userId: string,
   scheduleId: string,
   attendanceData: APIAttendanceData[],
 ): 'not yet' | 'present' | 'absent' {
   const attendance = attendanceData.find(
-    (item) => item.userId === userId && item.schedule._id === scheduleId,
+    (item) => item.userId === userId && item.schedule.id === scheduleId,
   );
   return attendance ? getAttendanceStatus(attendance.status) : 'not yet';
 }
 
-// Function to get all attendance records for a specific user
 export function getUserAttendanceRecords(
   userId: string,
   attendanceData: APIAttendanceData[],
@@ -229,19 +267,15 @@ export function getUserAttendanceRecords(
   return attendanceData.filter((item) => item.userId === userId);
 }
 
-// Function to get attendance summary for a class
 export function getClassAttendanceSummary(classId: string, attendanceData: APIAttendanceData[]) {
   const classAttendance = attendanceData.filter((item) => item.schedule.classId === classId);
-
   const summary = {
-    total: classAttendance?.length,
+    total: classAttendance.length,
     present: classAttendance.filter((item) => getAttendanceStatus(item.status) === 'present')
-      ?.length,
-    absent: classAttendance.filter((item) => getAttendanceStatus(item.status) === 'absent')?.length,
-    notYet: classAttendance.filter((item) => getAttendanceStatus(item.status) === 'not yet')
-      ?.length,
+      .length,
+    absent: classAttendance.filter((item) => getAttendanceStatus(item.status) === 'absent').length,
+    notYet: classAttendance.filter((item) => getAttendanceStatus(item.status) === 'not yet').length,
   };
-
   return {
     ...summary,
     attendanceRate:
@@ -249,18 +283,14 @@ export function getClassAttendanceSummary(classId: string, attendanceData: APIAt
   };
 }
 
-// Function to get attendance summary for a specific room
 export function getRoomAttendanceSummary(roomId: string, attendanceData: APIAttendanceData[]) {
   const roomAttendance = attendanceData.filter((item) => item.schedule.roomId === roomId);
-
   const summary = {
-    total: roomAttendance?.length,
-    present: roomAttendance.filter((item) => getAttendanceStatus(item.status) === 'present')
-      ?.length,
-    absent: roomAttendance.filter((item) => getAttendanceStatus(item.status) === 'absent')?.length,
-    notYet: roomAttendance.filter((item) => getAttendanceStatus(item.status) === 'not yet')?.length,
+    total: roomAttendance.length,
+    present: roomAttendance.filter((item) => getAttendanceStatus(item.status) === 'present').length,
+    absent: roomAttendance.filter((item) => getAttendanceStatus(item.status) === 'absent').length,
+    notYet: roomAttendance.filter((item) => getAttendanceStatus(item.status) === 'not yet').length,
   };
-
   return {
     ...summary,
     attendanceRate:
@@ -268,19 +298,15 @@ export function getRoomAttendanceSummary(roomId: string, attendanceData: APIAtte
   };
 }
 
-// Function to get attendance summary for a specific coach
 export function getCoachAttendanceSummary(coachId: string, attendanceData: APIAttendanceData[]) {
   const coachAttendance = attendanceData.filter((item) => item.schedule.coachId === coachId);
-
   const summary = {
-    total: coachAttendance?.length,
+    total: coachAttendance.length,
     present: coachAttendance.filter((item) => getAttendanceStatus(item.status) === 'present')
-      ?.length,
-    absent: coachAttendance.filter((item) => getAttendanceStatus(item.status) === 'absent')?.length,
-    notYet: coachAttendance.filter((item) => getAttendanceStatus(item.status) === 'not yet')
-      ?.length,
+      .length,
+    absent: coachAttendance.filter((item) => getAttendanceStatus(item.status) === 'absent').length,
+    notYet: coachAttendance.filter((item) => getAttendanceStatus(item.status) === 'not yet').length,
   };
-
   return {
     ...summary,
     attendanceRate:

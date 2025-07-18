@@ -1,5 +1,4 @@
 'use client';
-import { useState } from 'react';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,7 +8,6 @@ import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -28,11 +26,9 @@ import {
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { useGetClassesQuery } from '@/features/class-management/api.class';
-import { useGetSlotsQuery } from '@/features/slot-management/api.slot';
 import { useGetRoomsQuery } from '../api.room';
-import type { RoomData } from '../data.type';
-import type { SlotData } from '@/features/slot-management/data.slot';
-import type { ClassData } from '@/features/class-management/data.class';
+import type { Slot } from '../data.type';
+import { useGetAllSlotQuery } from '@/features/tedteam/api.tedteam';
 
 const formSchema = z.object({
   classDate: z.date(),
@@ -47,7 +43,7 @@ interface MyFormProps {
   isLoading?: boolean;
 }
 
-export default function MyForm({ onAdd, isLoading }: MyFormProps) {
+export default function MyForm({ onAdd }: MyFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -71,9 +67,17 @@ export default function MyForm({ onAdd, isLoading }: MyFormProps) {
     }),
   });
 
-  const { slotList, isFetching_slots } = useGetSlotsQuery(undefined, {
+  const { slotList, isFetching_slots } = useGetAllSlotQuery(undefined, {
     selectFromResult: ({ data, isFetching }) => ({
-      slotList: data?.data || [],
+      slotList: data?.data
+        ? (Array.from(data?.data) as Slot[])?.sort((a: Slot, b: Slot) => {
+            const toMinutes = (time: string) => {
+              const [h, m] = time.split(':').map(Number);
+              return h * 60 + m;
+            };
+            return toMinutes(a.startTime) - toMinutes(b.startTime);
+          })
+        : [],
       isFetching_slots: isFetching,
     }),
   });

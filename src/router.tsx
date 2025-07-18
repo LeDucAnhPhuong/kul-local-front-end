@@ -18,11 +18,9 @@ import AddAdminPage from './pages/dashboard/admin/account-management/admin/admin
 import DashBoardHome from './pages/dashboard/DashBoardHome';
 import Assignment from './pages/dashboard/teacher/assignment';
 import SubmissionDetailPageWrapper from './pages/dashboard/teacher/submission-detail';
-import AddQuestion from './features/teacher/components/quiz/addQuestion';
 import QuizzesView from './pages/dashboard/student/Quizzes/QuizzesView';
 import ScheduleView from './features/student-management/components/schedule-view';
-import DoQuiz from './pages/dashboard/student/Quizzes/DoQuiz';
-import QuizInterface from './features/student-management/components/DoQuizView';
+import QuizInterface from './features/student-management/components/quiz/DoQuizView';
 import NewsView from './pages/dashboard/student/News/NewsView';
 import TedPersonalPage from './pages/dashboard/tedteam/personal';
 import TedRegisterPage from './pages/dashboard/tedteam/register';
@@ -36,8 +34,14 @@ import AddStudentIntoClassPage from './pages/dashboard/admin/class-management/Ad
 import ScheduleManagementPage from './pages/dashboard/admin/schedule-management';
 import AddSchedulePage from './pages/dashboard/admin/schedule-management/schedule.add';
 import TedTeamRegistrationsPage from './features/register-management/rgister-management';
+import ClassListUi from '@/features/tedteam/components/ui/classList';
+import DetailClassPage from '@/pages/dashboard/tedteam/detailClass';
+import QuizModule from './features/teacher/components/make-quiz/quiz-page';
+import Leaderboardpage from './pages/dashboard/student/leaderboard';
 import RoomManagementPage from './pages/dashboard/admin/room-management';
 import AddRoomPage from './pages/dashboard/admin/room-management/room.add';
+import NewsCoachModule from './features/teacher/components/news/NewsCoachModule';
+import ScoreForm from './features/teacher/components/news/grade-news';
 
 function Router() {
   return (
@@ -47,6 +51,7 @@ function Router() {
           <Route path="/" element={<HomePage />} />
         </Route>
         <Route element={<DashboardLayout />}>
+          <Route path="index" element={<DashBoardHome />} />
           <Route path="/dashboard" element={<DashBoardHome />} />
           <Route path="/schedule-student" element={<ScheduleView />} />
           <Route path="/quizzes-student" element={<QuizzesView />} />
@@ -60,11 +65,18 @@ function Router() {
           <Route path="/student-management" element={<StudentManagement />} />
           <Route path="/teacher-management" element={<TeacherManagement />} /> */}
           <Route path="/view-quiz" element={<Quiz />} />
+          <Route path="/grade-news">
+            <Route path="" element={<NewsCoachModule />} />
+            <Route path=":id" element={<ScoreForm />} />
+          </Route>
+          <Route path="/leaderboard" element={<Leaderboardpage />} />
           <Route path="/schedule" element={<Schedule />} />
-          <Route path="/AddQuestion/:quizId" element={<AddQuestion />} />
+          <Route path="/make-quiz/:quizId" element={<QuizModule />} />
           <Route path="/assignment" element={<Assignment />} />
           <Route path="/submissions/:id" element={<SubmissionDetailPageWrapper />} />
-          <Route path="ClassList" element={<ClassManagementPage />} />
+          <Route path="/detail-class/:id" element={<DetailClassPage />} />
+          <Route path="/ClassList" element={<ClassManagementPage />} />
+          <Route path="/view-classlist" element={<ClassListUi />} />
           <Route path="/class-management">
             <Route path="" element={<ClassManagementPage />} />
             <Route path="add" element={<AddClassPage />} />

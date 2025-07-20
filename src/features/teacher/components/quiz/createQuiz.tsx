@@ -56,11 +56,15 @@ function CreateQuizDialog({ open, setOpen }: Props) {
 
   const onSubmit = async (data: FormValues) => {
     const toastId = toast.loading('Creating quiz...');
+    const date = data.date
+    date.setHours(0, 0, 0, 0);
+    const due = data.due;
+    due.setHours(0, 0, 0, 0);
     try {
       await createQuiz({
         ...data,
-        date: data.date.toISOString(),
-        due: data.due.toISOString(),
+        date: date.toISOString(),
+        due: due.toISOString(),
       }).unwrap();
 
       toast.success('Quiz created successfully!', { id: toastId });

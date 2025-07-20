@@ -21,7 +21,6 @@ import SubmissionDetailPageWrapper from './pages/dashboard/teacher/submission-de
 import QuizzesView from './pages/dashboard/student/Quizzes/QuizzesView';
 import ScheduleView from './features/student-management/components/schedule-view';
 import QuizInterface from './features/student-management/components/quiz/DoQuizView';
-import NewsView from './pages/dashboard/student/News/NewsView';
 import TedPersonalPage from './pages/dashboard/tedteam/personal';
 import TedRegisterPage from './pages/dashboard/tedteam/register';
 import SignOut from './pages/sign-out';
@@ -42,6 +41,8 @@ import RoomManagementPage from './pages/dashboard/admin/room-management';
 import AddRoomPage from './pages/dashboard/admin/room-management/room.add';
 import NewsCoachModule from './features/teacher/components/news/NewsCoachModule';
 import ScoreForm from './features/teacher/components/news/grade-news';
+import NewsModule from './features/student-management/components/news/NewsModule';
+import NewsDetailPage from './features/student-management/components/news/detail-news';
 
 function Router() {
   return (
@@ -58,7 +59,8 @@ function Router() {
           <Route path="/personal-tedteam" element={<TedPersonalPage />} />
           <Route path="/register-tedteam" element={<TedRegisterPage />} />
 
-          <Route path="/list-news" element={<NewsView />} />
+          <Route path="/list-news" element={<NewsModule />} />
+          <Route path="/news/:id" element={<NewsDetailPage />} />
 
           {/* Uncomment the following lines if you want to include these routes */}
           {/* <Route path="/example-ui" element={<ExampleUI />} />

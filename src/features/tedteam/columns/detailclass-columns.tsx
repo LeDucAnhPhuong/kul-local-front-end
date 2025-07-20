@@ -15,56 +15,60 @@ const AttendanceStatus = ({
   row,
   scheduleData,
   setAttendanceList,
+  attendanceList = [],
 }: {
   row: Row<Member>;
   scheduleData?: any[];
-  setAttendanceList?: React.Dispatch<React.SetStateAction<{ user_id: string; status: number }[]>>;
+  attendanceList?: { user_id: string; status: number }[];
+  setAttendanceList: React.Dispatch<React.SetStateAction<{ user_id: string; status: number }[]>>;
 }) => {
   const userId = row.original.id;
-  const initialStatus = scheduleData?.find((entry) => entry.userId === userId)?.status ?? 0;
-  const [checked, setChecked] = useState(initialStatus);
+  const status = attendanceList?.find((item) => item.user_id === userId)?.status || 0;
+
+  console.log('status :>> ', status);
+
+  console.log('attendanceList :>> ', attendanceList);
 
   const toggleChecked = () => {
-    const newStatus = checked ? 0 : 1;
-    setChecked(!checked);
-    if (setAttendanceList) {
-      setAttendanceList((prev) => {
-        const existing = prev.find((item) => item.user_id === userId);
-        if (existing) {
-          return prev.map((item) =>
-            item.user_id === userId ? { ...item, status: newStatus } : item,
-          );
-        }
-        return [...prev, { user_id: userId, status: newStatus }];
-      });
-    }
+    setAttendanceList((prev) => {
+      const existing = prev.find((item) => item.user_id === userId);
+      console.log('existing :>> ', existing);
+      const newStatus = existing?.status === 0 ? 1 : 0; // Toggle between 0 (absent) and 1 (present)
+      if (existing) {
+        return prev.map((item) =>
+          item.user_id === userId ? { ...item, status: newStatus } : item,
+        );
+      }
+      return prev;
+    });
   };
 
-  return checked ? (
-    <div onClick={toggleChecked} className="flex items-center gap-1 cursor-pointer">
+  return status === 1 ? (
+    <button onClick={() => toggleChecked()} className="flex items-center gap-1 cursor-pointer">
       <CircleCheck className="text-green-500 w-5 h-5" />
       <span className="text-green-600 text-sm font-medium">Present</span>
-    </div>
+    </button>
   ) : (
-    <div onClick={toggleChecked} className="flex items-center gap-1 cursor-pointer">
+    <button onClick={() => toggleChecked()} className="flex items-center gap-1 cursor-pointer">
       <Circle className="text-gray-400 w-5 h-5" />
       <span className="text-gray-500 text-sm font-medium">Absent</span>
-    </div>
+    </button>
   );
 };
 
 export const columns = (
   scheduleData?: any[],
   setAttendanceList?: React.Dispatch<React.SetStateAction<{ user_id: string; status: number }[]>>,
+  attendanceList?: { user_id: string; status: number }[],
 ): ColumnDef<Member>[] => {
   return [
     {
-      accessorKey: 'profile_image',
+      accessorKey: 'profileImage',
       header: 'Avatar',
       cell: ({ row }) => (
         <div className="text-muted-foreground">
           <img
-            src={row.getValue('profile_image') || '/default-avatar.png'}
+            src={row.getValue('profileImage') || '/default-avatar.png'}
             alt="Avatar"
             className="w-10 h-10 rounded-full"
           />
@@ -79,7 +83,11 @@ export const columns = (
       header: 'Name',
       cell: ({ row }) => {
         const { firstName, lastName } = row.original;
-        return <div className="font-medium">{`${lastName} ${firstName}`}</div>;
+        return (
+          <div className="font-medium">
+            {lastName || firstName ? `${lastName} ${firstName}` : 'Unknown'}
+          </div>
+        );
       },
     },
     {
@@ -95,7 +103,8 @@ export const columns = (
         <AttendanceStatus
           row={row}
           scheduleData={scheduleData}
-          setAttendanceList={setAttendanceList}
+          setAttendanceList={setAttendanceList!}
+          attendanceList={attendanceList}
         />
       ),
     },

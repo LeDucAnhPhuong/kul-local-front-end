@@ -62,14 +62,14 @@ const AddSchedule = () => {
       <Tabs defaultValue="Add Schedule Manually" className="w-full">
         <TabsList className="grid grid-cols-2 w-full">
           <TabsTrigger value="Add Schedule Manually">Add Schedule Manually</TabsTrigger>
-          <TabsTrigger value="Add Schedule Automatically">Add Schedule Automatically</TabsTrigger>
+          <TabsTrigger value="Add Schedule Calendar">Add Schedule Calendar</TabsTrigger>
         </TabsList>
         <TabsContent value="Add Schedule Manually">
           <TitlePage title="Add Schedule Manually" />
           <MyForm onAdd={onAddSchedule} />
         </TabsContent>
-        <TabsContent value="Add Schedule Automatically">
-          <TitlePage title="Add Schedule Automatically" />
+        <TabsContent value="Add Schedule Calendar">
+          <TitlePage title="Add Schedule Calendar" />
           <ScheduleCreatorCalendar />
         </TabsContent>
       </Tabs>

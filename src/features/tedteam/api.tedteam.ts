@@ -46,16 +46,11 @@ export const tedTeamScheduleApi = baseApi.injectEndpoints({
       query: (id) => `/api/Class/${id}`,
       providesTags: ['Class'],
     }),
-    getClassDetail: builder.query({
-      query: (id) => `/api/Class/get-member-class/${id}`,
-      providesTags: ['Class'],
-    }),
-
     updateAttendanceStatus: builder.mutation({
-      query: ({ user_id, status }) => ({
+      query: (data) => ({
         url: '/api/Attendance',
         method: 'PUT',
-        params: { user_id, status },
+        body: data,
       }),
     }),
     getClassForTedteam: builder.query({
@@ -75,7 +70,6 @@ export const {
   useUnregisterScheduleMutation,
   useGetClassesQuery,
   useGetClassInfoQuery,
-  useGetClassDetailQuery,
   useUpdateAttendanceStatusMutation,
   useGetClassForTedteamQuery,
 } = tedTeamScheduleApi;

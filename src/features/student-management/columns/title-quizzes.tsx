@@ -43,8 +43,8 @@ export const columns: ColumnDef<any>[] = [
   {
     header: 'Date',
     cell: ({ row }) => {
-      const start = new Date(row.original.date).toLocaleDateString('vi-VN');
-      const end = new Date(row.original.due).toLocaleDateString('vi-VN');
+      const start = new Date(row.original.date).toLocaleDateString('en-US');
+      const end = new Date(row.original.due).toLocaleDateString('en-US');
 
       return (
         <div className="text-sm text-blue-600 flex flex-col">

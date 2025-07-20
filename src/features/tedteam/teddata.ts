@@ -102,14 +102,14 @@ export const transformRegisterScheduleData = (
           ...schedule[dayKey],
           schedule: {
             ...schedule[dayKey].schedule,
-            id: item.scheduleId, // assign as string, not array
+            scheduleIds: [...(schedule[dayKey].schedule.scheduleIds ?? []), item.scheduleId], // assign as string, not array
           },
         }
       : {
           ...item,
           schedule: {
             ...item.schedule,
-            id: item.scheduleId, // assign as string, not array
+            scheduleIds: [item.scheduleId], 
           },
         };
   });
@@ -158,16 +158,16 @@ export const getRegisterScheduleByDate = (
 
 export const getRegisterStatus = (
   status: number,
-): 'register' | 'registered' | 'unregistered' | 'full' | 'closed' => {
+): 'register' | 'registered' | 'approved' | 'rejected' | 'closed' => {
   switch (status) {
     case 0:
       return 'register';
     case 1:
       return 'registered';
     case 2:
-      return 'full';
+      return 'approved';
     case 3:
-      return 'unregistered';
+      return 'rejected';
     case 4:
       return 'closed';
     default:

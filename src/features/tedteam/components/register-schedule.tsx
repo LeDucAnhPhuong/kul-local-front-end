@@ -84,7 +84,7 @@ export default function RegisterSchedule() {
         <div className="mt-2 text-xs">
           Time slots:{' '}
           {slots.map((slot: Slot, index: number) => (
-            <span key={slot._id} className="mr-2">
+            <span key={slot.id} className="mr-2">
               {slot.name} ({slot.startTime} - {slot.endTime}) {index !== slots.length - 1 && '|'}
             </span>
           ))}

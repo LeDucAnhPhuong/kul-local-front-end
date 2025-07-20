@@ -64,6 +64,7 @@ export interface ScheduleItem {
   updatedBy: string | null;
   createdAt: string;
   updateAt: string;
+  scheduleIds?: string[];
 }
 export interface UserSchedule {
   userId: string | null;

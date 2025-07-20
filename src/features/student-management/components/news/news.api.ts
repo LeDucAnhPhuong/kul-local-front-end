@@ -17,7 +17,26 @@ export const studentScheduleApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['News'],
     }),
+    getAllNews: builder.query({
+      query: () => ({
+        url: `/api/News/get-all`,
+        method: 'GET',
+      }),
+      providesTags: ['News'],
+    }),
+    getNewsById: builder.query({
+      query: (id) => ({
+        url: `/api/News/${id}`,
+        method: 'GET',
+      }),
+      providesTags: (result, error, id) => [{ type: 'News', id }],
+    }),
   }),
 });
 
-export const { useGetNewsForStudentQuery, useCreateNewsMutation } = studentScheduleApi;
+export const {
+  useGetNewsForStudentQuery,
+  useCreateNewsMutation,
+  useGetAllNewsQuery,
+  useGetNewsByIdQuery,
+} = studentScheduleApi;

@@ -16,7 +16,7 @@ export const classApi = baseApi.injectEndpoints({
     }),
     createClass: builder.mutation({
       query: (newClass) => ({
-        url: `/api/Class/classes`,
+        url: `/api/Class`,
         method: 'POST',
         body: newClass,
       }),

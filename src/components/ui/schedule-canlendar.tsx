@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import type { Schedule, Slot } from '@/features/schedule-management/data.type';
 import { motion } from 'framer-motion';
 import { MapPin, Users, Clock, User } from 'lucide-react';
+import { ScrollArea } from './scroll-area';
 // Utility functions
 const formatDate = (date: Date) => {
   return date.toLocaleDateString('en-US', {
@@ -270,59 +271,61 @@ export const MonthView = ({
 
   return (
     <div className="flex flex-col h-full">
-      <div className="grid grid-cols-7 gap-0 border-b">
-        {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day) => (
-          <div key={day} className="p-3 text-center font-medium border-r bg-gray-50">
-            {day}
-          </div>
-        ))}
-      </div>
-      <div className="flex-1 grid grid-rows-6 gap-0">
-        {weeks.map((week, weekIndex) => (
-          <div key={weekIndex} className="grid grid-cols-7 gap-0">
-            {week.map((day, dayIndex) => {
-              const daySchedules = schedules.filter((schedule) => {
-                const scheduleDate = new Date(schedule.date);
-                return scheduleDate.toDateString() === day.toDateString();
-              });
-              const isCurrentMonth = day.getMonth() === currentDate.getMonth();
-              const canDropCell = isFutureDate(day);
+      <ScrollArea>
+        <div className="grid grid-cols-7 gap-0 border-b">
+          {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day) => (
+            <div key={day} className="p-3 text-center font-medium border-r bg-gray-50">
+              {day}
+            </div>
+          ))}
+        </div>
+        <div className="flex-1 grid grid-rows-6 gap-0">
+          {weeks.map((week, weekIndex) => (
+            <div key={weekIndex} className="grid grid-cols-7 gap-0">
+              {week.map((day, dayIndex) => {
+                const daySchedules = schedules.filter((schedule) => {
+                  const scheduleDate = new Date(schedule.date);
+                  return scheduleDate.toDateString() === day.toDateString();
+                });
+                const isCurrentMonth = day.getMonth() === currentDate.getMonth();
+                const canDropCell = isFutureDate(day);
 
-              return (
-                <div
-                  key={dayIndex}
-                  className={cn(
-                    'border-r border-b p-2 min-h-[120px] transition-colors',
-                    !isCurrentMonth && 'bg-gray-50 text-gray-400',
-                    canDropCell ? 'hover:bg-gray-50' : 'bg-gray-50  cursor-not-allowed',
-                  )}
-                  onDrop={(e) => handleDrop(e, day)}
-                  onDragOver={handleDragOver}
-                >
-                  <div className="font-medium mb-2">{day.getDate()}</div>
-                  <div className="space-y-1">
-                    {daySchedules.slice(0, 2).map((schedule) => (
-                      <ScheduleEvent
-                        key={schedule.id}
-                        schedule={schedule}
-                        onDragStart={onDragStart}
-                        onDragEnd={onDragEnd}
-                        compact={true}
-                        isDraggable={isFutureDate(new Date(schedule.date))}
-                      />
-                    ))}
-                    {daySchedules.length > 2 && (
-                      <div className="text-xs text-gray-500 bg-gray-200 rounded px-1 py-0.5">
-                        +{daySchedules.length - 2} more
-                      </div>
+                return (
+                  <div
+                    key={dayIndex}
+                    className={cn(
+                      'border-r border-b p-2 min-h-[120px] transition-colors',
+                      !isCurrentMonth && 'bg-gray-50 text-gray-400',
+                      canDropCell ? 'hover:bg-gray-50' : 'bg-gray-50  cursor-not-allowed',
                     )}
+                    onDrop={(e) => handleDrop(e, day)}
+                    onDragOver={handleDragOver}
+                  >
+                    <div className="font-medium mb-2">{day.getDate()}</div>
+                    <div className="space-y-1">
+                      {daySchedules.slice(0, 2).map((schedule) => (
+                        <ScheduleEvent
+                          key={schedule.id}
+                          schedule={schedule}
+                          onDragStart={onDragStart}
+                          onDragEnd={onDragEnd}
+                          compact={true}
+                          isDraggable={isFutureDate(new Date(schedule.date))}
+                        />
+                      ))}
+                      {daySchedules.length > 2 && (
+                        <div className="text-xs text-gray-500 bg-gray-200 rounded px-1 py-0.5">
+                          +{daySchedules.length - 2} more
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
-        ))}
-      </div>
+                );
+              })}
+            </div>
+          ))}
+        </div>
+      </ScrollArea>
     </div>
   );
 };

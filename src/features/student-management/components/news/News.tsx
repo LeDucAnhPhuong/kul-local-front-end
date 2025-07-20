@@ -8,12 +8,10 @@ import { useState, useCallback, useMemo, useEffect } from 'react';
 import type { ColumnDef } from '@tanstack/react-table';
 import {
   Eye,
-  Edit,
   Trash2,
   Plus,
   Upload,
   Calendar,
-  User,
   Bold,
   Italic,
   Underline,
@@ -43,6 +41,10 @@ import { toast } from 'sonner';
 import { useCreateNewsMutation, useGetNewsForStudentQuery } from './news.api';
 import { useUploadImageMutation } from '@/features/file/file.api';
 import { stripHtml } from '@/utils/stripHTML';
+import DataTable from '@/components/data-table/data-table';
+import CustomEditor from '@/components/ui/custom-editor';
+import { columns } from '../../columns/news.columns';
+import useRouter from '@/hooks/use-router';
 
 export interface NewsResult {
   score: number;
@@ -326,51 +328,19 @@ const RichTextEditor = React.memo(
 // Move this outside the main component, before the export default function
 const NewsForm = React.memo(
   ({
-    isEdit = false,
     newTitle,
     setNewTitle,
-    newDate,
-    setNewDate,
-    newSource,
-    setNewSource,
     newImage,
     newContent,
     setNewContent,
-    showDatePicker,
-    setShowDatePicker,
-    currentMonth,
-    setCurrentMonth,
-    generateCalendarDays,
-    handleDateSelect,
-    formatDate,
     handleImageUpload,
-    fontSize,
-    setFontSize,
-    textAlign,
-    setTextAlign,
   }: {
-    isEdit?: boolean;
     newTitle: string;
     setNewTitle: (value: string) => void;
-    newDate: string;
-    setNewDate: (value: string) => void;
-    newSource: string;
-    setNewSource: (value: string) => void;
     newImage: string;
     newContent: string;
     setNewContent: (value: string) => void;
-    showDatePicker: boolean;
-    setShowDatePicker: (value: boolean) => void;
-    currentMonth: Date;
-    setCurrentMonth: (value: Date) => void;
-    generateCalendarDays: () => any[];
-    handleDateSelect: (dateStr: string) => void;
-    formatDate: (date: Date) => string;
     handleImageUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    fontSize: number;
-    setFontSize: (size: number) => void;
-    textAlign: 'left' | 'center' | 'right';
-    setTextAlign: (align: 'left' | 'center' | 'right') => void;
   }): ReactElement => (
     <div className="space-y-6">
       {/* Title */}
@@ -429,22 +399,27 @@ const NewsForm = React.memo(
       </div>
 
       {/* Rich Text Editor */}
-      <RichTextEditor
+      <CustomEditor
         content={newContent}
-        setContent={setNewContent}
-        fontSize={fontSize}
-        setFontSize={setFontSize}
-        textAlign={textAlign}
-        setTextAlign={setTextAlign}
+        onChange={(value) => {
+          console.log('value :>> ', value);
+          setNewContent(value);
+        }}
       />
     </div>
   ),
 );
 
 export default function NewsTable() {
+  const router = useRouter();
+
   const { newsData, isFetching } = useGetNewsForStudentQuery(undefined, {
     selectFromResult: ({ data, isFetching }) => ({
-      newsData: data?.data?.filter((item: News) => item?.isActive) || [],
+      newsData:
+        data?.data
+          ?.filter((item: News) => item?.isActive)
+          ?.sort((a: News, b: News) => (new Date(b.createdAt) < new Date(a.createdAt) ? -1 : 1)) ||
+        [],
       isFetching,
     }),
   });
@@ -453,31 +428,15 @@ export default function NewsTable() {
   const [uploadImage, { isLoading: isUploading }] = useUploadImageMutation();
 
   const [open, setOpen] = useState(false);
-  const [viewOpen, setViewOpen] = useState(false);
-  const [editOpen, setEditOpen] = useState(false);
-  const [selectedNews, setSelectedNews] = useState<News | null>(null);
 
   // Form states
   const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');
   const [newImage, setNewImage] = useState('');
-  const [newDate, setNewDate] = useState('');
-  const [newSource, setNewSource] = useState('');
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [currentMonth, setCurrentMonth] = useState(new Date());
+
+  console.log('newImage :>> ', newContent);
 
   // Rich text editor states
-  const [fontSize, setFontSize] = useState(14);
-  const [textAlign, setTextAlign] = useState<'left' | 'center' | 'right'>('left');
-
-  console.log('newsData :>> ', newsData);
-
-  // Reset form when dialogs close
-  useEffect(() => {
-    if (!open && !editOpen) {
-      resetForm();
-    }
-  }, [open, editOpen]);
 
   const handleImageUpload = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -495,40 +454,12 @@ export default function NewsTable() {
   }, []);
 
   const formatDate = useCallback((date: Date) => {
-    return date.toLocaleDateString('vi-VN', {
+    return date.toLocaleDateString('en-US', {
       day: '2-digit',
       month: '2-digit',
       year: 'numeric',
     });
   }, []);
-
-  const handleDateSelect = useCallback((dateStr: string) => {
-    setNewDate(dateStr);
-    setShowDatePicker(false);
-  }, []);
-
-  const generateCalendarDays = useCallback(() => {
-    const year = currentMonth.getFullYear();
-    const month = currentMonth.getMonth();
-    const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, month + 1, 0);
-    const startDate = new Date(firstDay);
-    startDate.setDate(startDate.getDate() - firstDay.getDay());
-
-    const days = [];
-    for (let i = 0; i < 42; i++) {
-      const date = new Date(startDate);
-      date.setDate(startDate.getDate() + i);
-      days.push({
-        date: date,
-        isCurrentMonth: date.getMonth() === month,
-        isToday: date.toDateString() === new Date().toDateString(),
-      });
-    }
-    return days;
-  }, [currentMonth]);
-
-  // Helper function to strip HTML tags for plain text content
 
   const handleAddNews = useCallback(async () => {
     const plainTextContent = stripHtml(newContent);
@@ -547,169 +478,15 @@ export default function NewsTable() {
     } catch (error) {
       console.error('Error creating news:', error);
     }
-  }, [newTitle, newContent, newImage, newDate, newSource, formatDate, stripHtml]);
-
-  const handleEditNews = useCallback(() => {
-    const plainTextContent = stripHtml(newContent);
-    if (!selectedNews || !newTitle.trim() || !plainTextContent.trim()) {
-      toast.error('Please fill in both Title and Content');
-      return;
-    }
-
-    const updatedNews = {
-      ...selectedNews,
-      title: newTitle,
-      content: newContent, // Store HTML content
-      imageUrl: newImage || selectedNews.imageUrl,
-      date: newDate || selectedNews.date,
-      source: newSource || selectedNews.source,
-      updated_at: new Date().toISOString(),
-    };
-
-    // setNewsData((prev) => prev.map((news) => (news.id === selectedNews.id ? updatedNews : news)));
-    toast.success('News updated successfully');
-    setEditOpen(false);
-  }, [selectedNews, newTitle, newContent, newImage, newDate, newSource, stripHtml]);
-
-  const resetForm = useCallback(() => {
-    setNewTitle('');
-    setNewContent('');
-    setNewImage('');
-    setNewDate('');
-    setNewSource('');
-    setSelectedNews(null);
-    setFontSize(14);
-    setTextAlign('left');
-  }, []);
+  }, [newTitle, newContent, newImage, formatDate, stripHtml]);
 
   const handleView = useCallback((news: News) => {
-    setSelectedNews(news);
-    setViewOpen(true);
-  }, []);
-
-  const handleEdit = useCallback((news: News) => {
-    setSelectedNews(news);
-    setNewTitle(news.title);
-    setNewContent(news.content);
-    setNewImage(news.imageUrl || '');
-    setNewDate(news.date || '');
-    setNewSource(news.source || '');
-    setEditOpen(true);
+    router.push(`/news/${news.id}`);
   }, []);
 
   const handleDelete = useCallback((id: number) => {
-    // setNewsData((prev) => prev.filter((n) => n.id !== id));
     toast.success('News deleted');
   }, []);
-
-  const columns: ColumnDef<News>[] = useMemo(
-    () => [
-      {
-        accessorKey: 'imageUrl',
-        header: 'Image',
-        cell: ({ row }) => (
-          <div className="w-16 h-12 overflow-hidden bg-gray-100 rounded">
-            {row.original.imageUrl ? (
-              <img
-                src={row.original.imageUrl || '/placeholder.svg'}
-                alt={row.getValue('title')}
-                className="object-cover w-full h-full"
-              />
-            ) : (
-              <div className="flex items-center justify-center w-full h-full text-gray-400">
-                <Upload className="w-4 h-4" />
-              </div>
-            )}
-          </div>
-        ),
-      },
-      {
-        accessorKey: 'title',
-        header: 'Title',
-        cell: ({ row }) => (
-          <div className="max-w-xs font-medium leading-tight" title={row.getValue('title')}>
-            {row.getValue('title')}
-          </div>
-        ),
-      },
-      {
-        accessorKey: 'content',
-        header: 'Content',
-        cell: ({ row }) => {
-          const content = row.getValue('content') as string;
-          const plainText = stripHtml(content);
-          return (
-            <div className="max-w-xs text-muted-foreground line-clamp-2" title={plainText}>
-              {plainText}
-            </div>
-          );
-        },
-      },
-      {
-        accessorKey: 'createdAt',
-        header: 'Date',
-        cell: ({ row }) => (
-          <div className="flex items-center gap-1 text-sm text-blue-600">
-            <Calendar className="w-3 h-3" />
-            {formatDate(new Date(row.getValue('createdAt')))}
-          </div>
-        ),
-      },
-      {
-        accessorKey: 'result',
-        header: 'Result',
-        cell: ({ row }) => {
-          const result = row.original.result;
-          return result ? (
-            <div className="flex flex-col gap-1 text-sm text-green-700">
-              <div>
-                Score: <strong>{result.score}</strong>
-              </div>
-              <div className="text-xs text-muted-foreground line-clamp-1" title={result.feedback}>
-                Feedback: {result.feedback}
-              </div>
-            </div>
-          ) : (
-            <span className="text-sm text-gray-400 italic">Not graded</span>
-          );
-        },
-      },
-      {
-        id: 'actions',
-        cell: ({ row }) => (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="w-8 h-8 p-0">
-                <DotsHorizontalIcon className="w-4 h-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => handleView(row.original)}>
-                <div className="flex items-center gap-2">
-                  <Eye className="w-4 h-4 text-blue-500" />
-                  View
-                </div>
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => handleEdit(row.original)}>
-                <div className="flex items-center gap-2">
-                  <Edit className="w-4 h-4 text-green-500" />
-                  Edit
-                </div>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => handleDelete(row.original.id)}
-                className="text-red-600"
-              >
-                <Trash2 className="w-4 h-4 mr-2" />
-                Delete
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        ),
-      },
-    ],
-    [handleView, handleEdit, handleDelete, stripHtml],
-  );
 
   return (
     <div className="p-6 bg-white border dark:bg-background rounded-xl border-stone-200 dark:border-stone-800">
@@ -730,28 +507,12 @@ export default function NewsTable() {
             </DialogHeader>
             <div className="p-6">
               <NewsForm
-                isEdit={false}
                 newTitle={newTitle}
                 setNewTitle={setNewTitle}
-                newDate={newDate}
-                setNewDate={setNewDate}
-                newSource={newSource}
-                setNewSource={setNewSource}
                 newImage={newImage}
                 newContent={newContent}
                 setNewContent={setNewContent}
-                showDatePicker={showDatePicker}
-                setShowDatePicker={setShowDatePicker}
-                currentMonth={currentMonth}
-                setCurrentMonth={setCurrentMonth}
-                generateCalendarDays={generateCalendarDays}
-                handleDateSelect={handleDateSelect}
-                formatDate={formatDate}
                 handleImageUpload={handleImageUpload}
-                fontSize={fontSize}
-                setFontSize={setFontSize}
-                textAlign={textAlign}
-                setTextAlign={setTextAlign}
               />
             </div>
             <DialogFooter className="gap-3 pt-6 border-t border-gray-200">
@@ -773,135 +534,12 @@ export default function NewsTable() {
           </DialogContent>
         </Dialog>
       </div>
-
-      {/* View Dialog */}
-      <Dialog open={viewOpen} onOpenChange={setViewOpen}>
-        <DialogContent className="sm:max-w-3xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader className="p-6 mb-0 -m-6 text-white bg-gradient-to-r from-blue-500 to-blue-600">
-            <DialogTitle className="text-xl font-semibold text-center">View News</DialogTitle>
-          </DialogHeader>
-          {selectedNews && (
-            <div className="p-6 space-y-6">
-              <div>
-                <h3 className="mb-2 text-2xl font-bold text-gray-900">{selectedNews.title}</h3>
-                <div className="flex items-center gap-4 mb-4 text-sm text-gray-600">
-                  <div className="flex items-center gap-1">
-                    <Calendar className="w-4 h-4" />
-                    {selectedNews.date}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <User className="w-4 h-4" />
-                    {selectedNews.source}
-                  </div>
-                </div>
-              </div>
-              {selectedNews.imageUrl && (
-                <div className="flex justify-center">
-                  <img
-                    src={selectedNews.imageUrl || '/placeholder.svg'}
-                    alt={selectedNews.title}
-                    className="h-auto max-w-full rounded-lg shadow-md"
-                  />
-                </div>
-              )}
-              <div
-                className="leading-relaxed prose text-gray-700 max-w-none"
-                dangerouslySetInnerHTML={{ __html: selectedNews.content }}
-              />
-            </div>
-          )}
-          <DialogFooter className="pt-6 border-t border-gray-200">
-            <Button variant="outline" onClick={() => setViewOpen(false)} className="px-8">
-              Close
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      {/* Edit Dialog */}
-      <Dialog open={editOpen} onOpenChange={setEditOpen}>
-        <DialogContent className="sm:max-w-4xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader className="p-6 mb-0 -m-6 text-white bg-gradient-to-r from-green-500 to-green-600">
-            <DialogTitle className="text-xl font-semibold text-center">Edit News</DialogTitle>
-          </DialogHeader>
-          <div className="p-6">
-            <NewsForm
-              isEdit={true}
-              newTitle={newTitle}
-              setNewTitle={setNewTitle}
-              newDate={newDate}
-              setNewDate={setNewDate}
-              newSource={newSource}
-              setNewSource={setNewSource}
-              newImage={newImage}
-              newContent={newContent}
-              setNewContent={setNewContent}
-              showDatePicker={showDatePicker}
-              setShowDatePicker={setShowDatePicker}
-              currentMonth={currentMonth}
-              setCurrentMonth={setCurrentMonth}
-              generateCalendarDays={generateCalendarDays}
-              handleDateSelect={handleDateSelect}
-              formatDate={formatDate}
-              handleImageUpload={handleImageUpload}
-              fontSize={fontSize}
-              setFontSize={setFontSize}
-              textAlign={textAlign}
-              setTextAlign={setTextAlign}
-            />
-          </div>
-          <DialogFooter className="gap-3 pt-6 border-t border-gray-200">
-            <Button
-              variant="outline"
-              onClick={() => setEditOpen(false)}
-              className="px-8 border-gray-300 hover:bg-gray-50"
-            >
-              Cancel
-            </Button>
-            <Button
-              onClick={handleEditNews}
-              className="px-8 bg-blue-500 shadow-md hover:bg-blue-600"
-            >
-              Update
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      {/* Data Table */}
-      <div className="border rounded-lg">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                {columns.map((column, index) => (
-                  <th key={index} className="px-4 py-3 text-sm font-medium text-left text-gray-900">
-                    {typeof column.header === 'string' ? column.header : ''}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {newsData?.map((news: News) => (
-                <tr key={news.id} className="hover:bg-gray-50">
-                  {columns.map((column, index) => (
-                    <td key={index} className="px-4 py-3">
-                      {typeof column.cell === 'function'
-                        ? column.cell({
-                            row: {
-                              original: news,
-                              getValue: (key: string) => news[key as keyof News],
-                            },
-                          } as any)
-                        : ''}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <DataTable
+        data={newsData}
+        columns={columns}
+        isLoading={isFetching}
+        onRowClick={({ data }) => handleView(data)}
+      />
     </div>
   );
 }

@@ -83,5 +83,7 @@ export const baseApi = createApi({
     'do-quiz',
     'QuizResult',
     'News',
+    'assignment',
+    'assignmentSubmission',
   ],
 });

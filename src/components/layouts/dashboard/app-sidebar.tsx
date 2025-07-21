@@ -77,10 +77,17 @@ const StudentData = {
           title: 'Quizzes Student',
           url: '/quizzes-student',
         },
-
         {
           title: 'List News',
           url: '/list-news',
+        },
+        {
+          title: 'Assignment',
+          url: '/assignment',
+        },
+        {
+          title: 'Academic Progress',
+          url: '/academic-progress',
         },
       ],
     },
@@ -111,7 +118,7 @@ const CoachData = {
         },
         {
           title: 'Assignment',
-          url: '/assignment',
+          url: '/assignment-coach',
         },
       ],
     },

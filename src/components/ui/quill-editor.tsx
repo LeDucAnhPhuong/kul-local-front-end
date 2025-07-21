@@ -8,7 +8,7 @@ import { toast } from 'sonner';
 
 import ImageResize from '@/lib/editor/imageResize';
 import ImageUpload from '@/lib/editor/imageUpload';
-import { useUploadImageMutation } from '@/features/file/file.api';
+import { useUploadFileMutation, useUploadImageMutation } from '@/features/file/file.api';
 
 Quill.register('modules/imageResize', ImageResize);
 Quill.register('modules/imageUpload', ImageUpload);
@@ -39,7 +39,8 @@ export default function QuillEditor({
 }: EditorProps) {
   const [value, setValue] = useState<string>(content);
   const reactQuillRef = useRef<ReactQuill>(null);
-  const [upload] = useUploadImageMutation();
+  const [uploadImage] = useUploadImageMutation();
+  const [uploadFile] = useUploadFileMutation();
 
   const handleOnChange = (content: string) => {
     setValue(content);
@@ -56,10 +57,10 @@ export default function QuillEditor({
     const formData = new FormData();
 
     let toastId = toast.loading('uploading image...');
-
+    console.log('file :>> ', file);
     formData.append('file', file);
     try {
-      const res = await upload(formData).unwrap();
+      const res = await uploadImage(formData).unwrap();
 
       toast.success('Image uploaded successfully', {
         id: toastId,
@@ -80,13 +81,12 @@ export default function QuillEditor({
     const input = document.createElement('input');
 
     input.setAttribute('type', 'file');
-    input.setAttribute('accept', 'image/*');
+    input.setAttribute('accept', '*/*');
     input.click();
 
     input.onchange = async () => {
       if (input !== null && input.files !== null) {
         const file = input.files[0];
-        console.log('file :>> ', file);
         const formData = new FormData();
 
         formData.append('file', file);
@@ -94,19 +94,32 @@ export default function QuillEditor({
 
         toastId = toast.loading('uploading image...');
         try {
-          const res = await upload(formData).unwrap();
+          let res;
+          let url;
 
-          const url = res?.url;
+          if (file.type.startsWith('image/')) {
+            res = await uploadImage(formData).unwrap();
+
+            url = res?.url;
+            if (quill) {
+              const range = (quill as any)!.getEditorSelection();
+
+              range && (quill as any)!.getEditor().insertEmbed(range.index, 'image', url);
+            }
+          } else {
+            res = await uploadFile(formData).unwrap();
+
+            const href = res?.url;
+            if (quill) {
+              const range = (quill as any)!.getEditorSelection();
+
+              range && (quill as any)!.getEditor().insertText(range.index, file.name, 'link', href);
+            }
+          }
 
           toast.success('Image uploaded successfully', {
             id: toastId,
           });
-
-          if (quill) {
-            const range = (quill as any)!.getEditorSelection();
-
-            range && (quill as any)!.getEditor().insertEmbed(range.index, 'image', url);
-          }
         } catch (error) {
           toast.error('Failed to upload image', {
             id: toastId,
@@ -166,7 +179,7 @@ export default function QuillEditor({
             matchVisual: false,
           },
         }}
-        placeholder="viết..."
+        placeholder="writing..."
         readOnly={!editable}
         theme="snow"
         value={value}

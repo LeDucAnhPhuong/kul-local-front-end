@@ -87,7 +87,14 @@ export const UploadAPI = baseApi.injectEndpoints({
         body: file,
       }),
     }),
+    uploadFile: builder.mutation({
+      query: (file) => ({
+        url: '/api/Upload/file',
+        method: 'POST',
+        body: file,
+      }),
+    }),
   }),
 });
 
-export const { useUploadImageMutation, useUploadVideoMutation } = UploadAPI;
+export const { useUploadImageMutation, useUploadVideoMutation, useUploadFileMutation } = UploadAPI;

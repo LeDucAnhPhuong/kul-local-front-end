@@ -32,7 +32,7 @@ export default function AllNews() {
 
   if (news.length === 0) {
     return (
-      <div className="min-h-screen bg-[#200040] p-8 text-white flex items-center justify-center">
+      <div className="min-h-screen p-8 flex items-center justify-center">
         <p>No news available to display.</p>
       </div>
     );

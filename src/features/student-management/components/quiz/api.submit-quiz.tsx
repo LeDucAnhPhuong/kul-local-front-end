@@ -7,18 +7,21 @@ export const teacherApi = baseApi.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['QuizResult'],
     }),
     getQuizResultByUser: builder.query({
       query: () => ({
         url: `/api/QuizResult/user`,
         method: 'Get',
       }),
+      providesTags: ['QuizResult'],
     }),
     getQuizResultByQuiz: builder.mutation({
       query: (id) => ({
         url: `/api/QuizResult/quiz/${id}`,
         method: 'GET',
       }),
+      invalidatesTags: ['QuizResult'],
     }),
   }),
 });

@@ -10,6 +10,7 @@ export type Class = {
   name: string;
   isActive: boolean;
   created_at?: string;
+  schedule?: string;
   startTime?: string;
 };
 export const columns: ColumnDef<Class>[] = [
@@ -23,7 +24,7 @@ export const columns: ColumnDef<Class>[] = [
     header: 'Start Date',
     cell: ({ row }) => {
       const dateValue = row.getValue('startTime') as string;
-      const date = new Date(dateValue);
+      const date = new Date();
       const formattedDate = date.toLocaleDateString('vi-VN');
 
       return (
@@ -64,7 +65,7 @@ export const columns: ColumnDef<Class>[] = [
 const Action = ({ row }: { row: Row<Class> }) => {
   return (
     <div>
-      <Link className="flex gap-2 w-full" to={`/detail-class/${row.original?.id}`}>
+      <Link className="flex gap-2 w-full" to={`/detail-class/${row.original?.id}?schedule=${row.original?.schedule}`}>
         <ClipboardPen className="" />
       </Link>
     </div>

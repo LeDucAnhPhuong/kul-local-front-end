@@ -42,21 +42,14 @@ export default function MyForm({ onAdd }: MyFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
-  const navigate = useNavigate();
   function onSubmit(values: z.infer<typeof formSchema>) {
-    onAdd({
-      name: values.name,
-      startTime: values.startTime,
-      endTime: values.endTime,
-    });
     try {
+      onAdd({
+        name: values.name,
+        startTime: values.startTime,
+        endTime: values.endTime,
+      });
       console.log(values);
-      toast(
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(values, null, 2)}</code>
-        </pre>,
-      );
-      navigate('/slot-management');
     } catch (error) {
       console.error('Form submission error', error);
       toast.error('Failed to submit the form. Please try again.');

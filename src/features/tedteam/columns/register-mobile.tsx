@@ -57,7 +57,7 @@ export const RegisterMobileView: React.FC<Props> = ({ data, isLoading }) => {
                 </div>
                 <StatusButton
                   status={getRegisterStatus(cell!.status)}
-                  scheduleId={cell?.schedule?.id}
+                  scheduleId={cell?.schedule?.scheduleIds}
                 />
               </div>
             ))}

@@ -1,7 +1,7 @@
 import DataCard from '@/components/ui/data-card';
 import { columns } from '../../columns/class-management';
 import TitlePage from '@/components/ui/title-page';
-import { useGetClassDetailQuery } from '../../api.tedteam';
+import { useGetClassForTedteamQuery } from '../../api.tedteam';
 
 const ClassListUI = () => {
   // const { cd, idsad } = useGetClassDetailQuery(undefined, {
@@ -12,20 +12,21 @@ const ClassListUI = () => {
   // });
   // console.log('asd',cd);
   // //
-  const { classDetail, isFetching } = useGetClassDetailQuery(undefined, {
+  const { classDetail, isFetching } = useGetClassForTedteamQuery(undefined, {
     selectFromResult: ({ data, isFetching }) => ({
       classDetail:
         data?.data.map(
-          (item: { class: { id: any; name: any; isActive: any; startTime: any } }) => ({
+          (item: any) => ({
             id: item.class.id,
             name: item.class.name,
             isActive: item.class.isActive,
             startTime: item.class.startTime,
+            schedule: item.schedule,
           }),
         ) || [],
       isFetching,
     }),
-});
+  });
   console.log('classDetail:', classDetail);
 
   return (

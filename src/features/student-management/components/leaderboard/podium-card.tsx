@@ -1,8 +1,8 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Crown, Medal, Award, Star, Sparkles, Badge } from "lucide-react";
-import type { LeaderboardEntry } from "./leaderboard.type";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { getDisplayName, getInitials } from "./leaderboard.utils";
+import { Card, CardContent } from '@/components/ui/card';
+import { Crown, Medal, Award, Star, Sparkles, Badge } from 'lucide-react';
+import type { LeaderboardEntry } from './leaderboard.type';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { getDisplayName, getInitials } from './leaderboard.utils';
 
 const PodiumCard = ({ entry, rank }: { entry: LeaderboardEntry; rank: number }) => {
   const getPodiumStyle = (rank: number) => {
@@ -84,21 +84,18 @@ const PodiumCard = ({ entry, rank }: { entry: LeaderboardEntry; rank: number }) 
           <AvatarFallback className="text-lg font-bold">{getInitials(entry.user)}</AvatarFallback>
         </Avatar>
 
-        {/* Title */}
         <Badge
           className={`mb-3 px-3 py-1 text-xs font-bold ${style.textColor} bg-white/20 hover:bg-white/30`}
         >
           {style.title}
         </Badge>
 
-        {/* Name */}
         <h3 className={`font-bold text-lg mb-2 ${style.textColor} drop-shadow-sm`}>
           {getDisplayName(entry.user)}
         </h3>
-
-        {/* Score */}
-        <div className={`text-3xl font-extrabold mb-2 ${style.textColor} drop-shadow-md`}>
-          {entry.highestScore}
+        <div className="text-3xl font-bold text-gray-200 mb-2">{entry.averageScore.toFixed(1)}</div>
+        <div className={`text-xs ${style.textColor} opacity-80 space-y-1`}>
+          <div>Highest Score: {entry.highestScore}</div>
         </div>
       </CardContent>
     </Card>

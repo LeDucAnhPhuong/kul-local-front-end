@@ -47,7 +47,7 @@ interface Coach {
   id: string;
 }
 
-interface ClassInfo {
+interface ClassInfor {
   name: string;
   startTime: string;
   endTime: string;
@@ -64,7 +64,7 @@ interface Slot {
 interface Schedule {
   room: Room;
   coach: Coach;
-  classInfo: ClassInfo;
+  classInfor: ClassInfor;
   slot: Slot;
   date: string;
   id: string;
@@ -75,6 +75,8 @@ interface Registration {
   schedule: Schedule;
   status: number; // 0: pending, 1: accepted, 2: rejected
   id: string;
+  createdAt: string;
+  updatedAt: string;
   created_at: string;
   updated_at: string;
   isActive: boolean;
@@ -188,10 +190,10 @@ export default function TedTeamRegistrationsPage() {
       },
     },
     {
-      accessorKey: 'schedule.classInfo.name',
+      accessorKey: 'schedule.classInfor',
       header: 'Class',
       cell: ({ row }) => {
-        const className = row.original.schedule?.classInfo?.name;
+        const className = row.original.schedule?.classInfor?.name;
         return (
           <div className="flex items-center">
             <GraduationCap className="w-4 h-4 mr-2 text-blue-500" />

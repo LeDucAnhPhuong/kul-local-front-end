@@ -19,18 +19,21 @@ import { useState } from 'react';
 export type User = {
   id: number;
   name: string;
+  profileImage: string | null;
+  fisrtName: string;
+  lastName: string;
   email: string;
   isActive: boolean;
   createdAt: string;
 };
 export const columns: ColumnDef<User>[] = [
   {
-    accessorKey: 'profile_image',
+    accessorKey: 'profileImage',
     header: 'Avatar',
     cell: ({ row }) => (
       <div className="text-muted-foreground">
         <img
-          src={row.getValue('profile_image') || '/default-avatar.png'}
+          src={row.getValue('profileImage') || '/default-avatar.png'}
           alt="Avatar"
           className="w-10 h-10 rounded-full"
         />

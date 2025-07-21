@@ -2,9 +2,11 @@
 import TitlePage from '@/components/ui/title-page';
 import MyForm from '@/features/account-management/add-user/components/add-account-form';
 import { useCreateAdminMutation } from '@/features/account-management/api.user';
+import { useNavigate } from 'react-router';
 import { toast } from 'sonner';
 const AddAdmin = () => {
   const [addAdmin] = useCreateAdminMutation();
+  const navigate = useNavigate();
 
   async function onAddAdmin(data: { email: string }) {
     const idToast = toast.loading('Adding admin...');
@@ -15,6 +17,7 @@ const AddAdmin = () => {
       toast.success('Admin added successfully', {
         id: idToast,
       });
+      navigate('/account-management');
     } catch (error) {
       toast.error('Failed to add admin', {
         id: idToast,

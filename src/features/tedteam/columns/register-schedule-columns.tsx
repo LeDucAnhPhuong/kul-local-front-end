@@ -10,7 +10,7 @@ export const StatusButton = ({
   status,
   scheduleId,
 }: {
-  status: 'register' | 'registered' | 'unregistered' | 'full' | 'closed';
+  status: 'register' | 'registered' | 'unregistered' | 'approved' | "rejected" | 'closed';
   scheduleId?: string[];
 }) => {
   const [registerStatus] = useRegisterScheduleMutation();
@@ -54,11 +54,11 @@ export const StatusButton = ({
           nextStatus: 'register' as const,
           disabled: false,
         };
-      case 'full':
+      case 'approved':
         return {
-          label: 'Full',
-          className: 'bg-gray-400 text-gray-600 cursor-not-allowed',
-          nextStatus: 'full' as const,
+          label: 'Approved',
+          className: 'bg-green-600 text-gray-100 cursor-not-allowed',
+          nextStatus: 'approved' as const,
           disabled: true,
         };
       case 'closed':
@@ -66,6 +66,13 @@ export const StatusButton = ({
           label: 'Closed',
           className: 'bg-gray-400 text-gray-600 cursor-not-allowed',
           nextStatus: 'closed' as const,
+          disabled: true,
+        };
+      case 'rejected':
+        return {
+          label: 'Rejected',
+          className: 'bg-gray-400 text-gray-600 cursor-not-allowed',
+          nextStatus: 'rejected' as const,
           disabled: true,
         };
       default:
@@ -137,7 +144,7 @@ export const columns: ColumnDef<RegisterSlotSchedule>[] = [
           <div className="text-xs font-medium leading-tight text-blue-600">
             {formatDate(schedule?.date, 'dd-MM-yyyy')}
           </div>
-          <StatusButton status={getRegisterStatus(cell?.status)} scheduleId={schedule?.id} />
+          <StatusButton status={getRegisterStatus(cell?.status)} scheduleId={schedule?.scheduleIds} />
         </div>
       );
     },

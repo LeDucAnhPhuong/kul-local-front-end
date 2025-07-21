@@ -1,4 +1,4 @@
-import NewsTable from "@/features/student-management/components/News";
+import NewsTable from "@/features/student-management/components/news/News";
 
 
 function NewsView() {

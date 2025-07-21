@@ -2,10 +2,12 @@ import TitlePage from '@/components/ui/title-page';
 import { toast } from 'sonner';
 import MyForm from './add-slot-form';
 import { useCreateSlotMutation } from '../api.slot';
+import { useNavigate } from 'react-router';
 const AddSlot = () => {
   const [createSlot] = useCreateSlotMutation();
+  const navigate = useNavigate();
 
-  async function onAddSlot(data: { name: string, startTime: Date, endTime: Date }) {
+  async function onAddSlot(data: { name: string; startTime: Date; endTime: Date }) {
     const idToast = toast.loading('Creating slot...');
     try {
       await createSlot({
@@ -16,6 +18,7 @@ const AddSlot = () => {
       toast.success('Slot created successfully', {
         id: idToast,
       });
+      navigate('/slot-management');
     } catch (error) {
       toast.error('Failed to create slot', {
         id: idToast,

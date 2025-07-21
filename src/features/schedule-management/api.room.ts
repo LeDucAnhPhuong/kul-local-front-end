@@ -3,7 +3,7 @@ import { baseApi } from '@/redux/baseApi';
 export const roomApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getRooms: builder.query({
-      query: () => `/api/Room/rooms`,
+      query: () => `/api/Room`,
       providesTags: ['Room'],
     }),
   }),

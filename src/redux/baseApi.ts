@@ -80,6 +80,8 @@ export const baseApi = createApi({
     'RegisteredTeams',
     'make-quiz',
     'make-question',
-    "do-quiz"
+    'do-quiz',
+    'QuizResult',
+    'News',
   ],
 });

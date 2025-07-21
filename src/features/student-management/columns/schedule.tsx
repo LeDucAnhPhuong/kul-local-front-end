@@ -1,7 +1,9 @@
 import { Badge } from '@/components/ui/badge';
+import type { ScheduleCell } from '@/features/tedteam/slotInfo';
 import { cn } from '@/lib/utils';
 import type { ColumnDef, Row } from '@tanstack/react-table';
-import { CalendarDays, Hourglass } from 'lucide-react';
+import { formatDate } from 'date-fns';
+import { BookOpen, CalendarDays, Hourglass, MapPin, User } from 'lucide-react';
 
 export type DayKey = 't2' | 't3' | 't4' | 't5' | 't6' | 't7' | 'cn';
 
@@ -14,22 +16,6 @@ export type SlotSchedule = {
   t6?: ScheduleCell;
   t7?: ScheduleCell;
   cn?: ScheduleCell;
-};
-
-type ScheduleCell = {
-  roomName: string;
-  locationAndClass: string;
-  coachName: string;
-  time: string;
-  status: 'not yet' | 'present' | 'absent';
-  date: string;
-  class_id: string;
-  room_id: string;
-  coach_id: string;
-  TedTeam_id: string | null;
-  user_id: string;
-  calendar_id: string;
-  slot_id: string;
 };
 
 export type APIAttendanceData = {
@@ -121,47 +107,6 @@ export type APIAttendanceData = {
   };
 };
 
-export function transformAttendanceData(apiData: APIAttendanceData[]): SlotSchedule[] {
-  const slotGroups: { [slotName: string]: { [dayKey: string]: ScheduleCell } } = {};
-  for (let i = 1; i <= 5; i++) slotGroups[`Slot ${i}`] = {};
-
-  apiData.forEach((item) => {
-    try {
-      const slotName = item.schedule?.slot?.name || 'Unknown Slot';
-      const dayKey = getDayKey(item.schedule.date);
-      if (slotGroups[slotName] !== undefined) {
-        const scheduleCell: ScheduleCell = {
-          roomName: item.schedule?.classInfor?.name || 'No Class',
-          locationAndClass: `${item.schedule?.room?.location || 'No Location'} | ${
-            item.schedule?.room?.name || 'No Room'
-          }`,
-          coachName:
-            `${item.schedule?.coach?.firstName || ''} ${
-              item.schedule?.coach?.lastName || ''
-            }`.trim() || 'No Coach',
-          time: `${item.schedule?.slot?.startTime || ''} - ${item.schedule?.slot?.endTime || ''}`,
-          status: getAttendanceStatus(item.status),
-          date: formatDateDisplay(item.schedule.date),
-          class_id: item.schedule?.classId || '',
-          room_id: item.schedule?.roomId || '',
-          coach_id: item.schedule?.coachId || '',
-          TedTeam_id: item.schedule?.tedTeamId || null,
-          user_id: item.userId || '',
-          calendar_id: item.id,
-          slot_id: item.schedule?.slotId || '',
-        };
-        slotGroups[slotName][dayKey] = scheduleCell;
-      }
-    } catch (error) {
-      console.error('Error processing item:', item, error);
-    }
-  });
-
-  return Object.entries(slotGroups)
-    .map(([slot, days]) => ({ slot, ...days }))
-    .sort((a, b) => getSlotNumber(a.slot) - getSlotNumber(b.slot));
-}
-
 const dayHeaders: { [key in DayKey]: string } = {
   t2: 'MON',
   t3: 'TUE',
@@ -177,7 +122,7 @@ export const columns: ColumnDef<SlotSchedule>[] = [
     accessorKey: 'slot',
     header: 'SLOT',
     cell: ({ row }) => (
-      <div className="text-sm font-medium md:text-base whitespace-nowrap">
+      <div className="text-base font-semibold text-gray-800 whitespace-nowrap py-2 px-4">
         {row.getValue('slot')}
       </div>
     ),
@@ -189,48 +134,76 @@ export const columns: ColumnDef<SlotSchedule>[] = [
       const cell: ScheduleCell | undefined = row.getValue(dayKey);
       if (!cell) {
         return (
-          <div className="flex items-start pt-2 justify-left">
-            <span className="text-lg font-medium text-red-500 md:text-2xl">  -</span>
+          <div className="flex items-center justify-center h-full py-2">
+            <span className="text-xl font-medium text-gray-400"> -</span>
           </div>
         );
       }
+
       return (
-        <div className="space-y-1 p-1 min-w-[120px] max-w-[160px]">
-          <p className="text-xs font-semibold leading-tight md:text-sm line-clamp-2">
-            {cell.roomName}
-          </p>
-          <p className="text-xs leading-tight text-muted-foreground">{cell.locationAndClass}</p>
-          <p className="text-xs leading-tight text-gray-600">{cell.coachName}</p>
-          <Badge
-            className={cn(
-              'text-xs px-2 py-1 w-fit',
-              cell.status === 'not yet'
-                ? 'bg-orange-500 hover:bg-orange-600'
-                : cell.status === 'absent'
-                ? 'bg-red-500 hover:bg-red-600'
-                : 'bg-green-500 hover:bg-green-600',
-            )}
-          >
-            {cell.status === 'not yet'
-              ? 'Not Yet'
-              : cell.status === 'absent'
-              ? 'Absent'
-              : 'Present'}
-          </Badge>
-          <div className="flex items-center gap-1 text-xs font-medium leading-tight text-green-600">
-            <Hourglass className="inline-block size-3" />
-            {cell.time}
-          </div>
-          <div className="flex items-center gap-1 text-xs font-medium leading-tight text-blue-600">
-            <CalendarDays className="inline-block size-3" />
-            {cell.date}
+        <div className="max-w-[250px]">
+          <div className="p-3 space-y-2 transition-shadow duration-200">
+            {/* Room Name & Status Badge */}
+            <div className="flex justify-between items-start mb-1">
+              <p className="text-sm font-bold leading-tight text-gray-900 line-clamp-2">
+                {cell.roomId}
+              </p>
+              <Badge
+                className={cn(
+                  'text-xs px-2 py-0.5 w-fit font-semibold', // Made badge slightly smaller
+                  cell.status === 'not yet'
+                    ? 'bg-orange-500 hover:bg-orange-600 text-white'
+                    : cell.status === 'absent'
+                    ? 'bg-red-500 hover:bg-red-600 text-white'
+                    : 'bg-green-500 hover:bg-green-600 text-white',
+                )}
+              >
+                {cell.status === 'not yet'
+                  ? 'Not Yet'
+                  : cell.status === 'absent'
+                  ? 'Absent'
+                  : 'Present'}
+              </Badge>
+            </div>
+
+            {/* Location and Class */}
+            <div className="flex gap-2 space-y-0.5">
+              <div className="flex items-center gap-1 text-xs text-gray-700">
+                <MapPin className="size-3.5 text-gray-500" />
+                <span className="leading-tight">{cell.location}</span>
+              </div>
+              <span>-</span>
+              {cell.classId && ( // Only render class if it's available after splitting
+                <div className="flex items-center gap-1 text-xs text-gray-700">
+                  <BookOpen className="size-3.5 text-gray-500" />
+                  <span className="leading-tight">{cell.classId}</span>
+                </div>
+              )}
+            </div>
+
+            {/* Coach Name */}
+            <div className="flex items-center gap-1 text-xs text-gray-700 mt-1">
+              <User className="size-3.5 text-gray-500" />
+              <span className="leading-tight">{cell.coachId}</span>
+            </div>
+
+            {/* Time and Date */}
+            <div className="flex gap-2 space-y-0.5 mt-2 pt-2 border-t border-gray-100">
+              <div className="flex items-center gap-1 text-xs font-medium leading-tight text-gray-600">
+                <Hourglass className="size-3.5 text-gray-500" />
+                {cell.time}
+              </div>
+              <div className="flex items-center gap-1 text-xs font-medium leading-tight text-gray-600">
+                <CalendarDays className="size-3.5 text-gray-500" />
+                {formatDate(cell.date, 'dd/MM/yyyy')}
+              </div>
+            </div>
           </div>
         </div>
       );
     },
   })),
 ];
-
 function getAttendanceStatus(status: number): 'not yet' | 'present' | 'absent' {
   switch (status) {
     case 0:

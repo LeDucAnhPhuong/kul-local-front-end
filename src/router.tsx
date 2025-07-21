@@ -21,7 +21,6 @@ import SubmissionDetailPageWrapper from './pages/dashboard/teacher/submission-de
 import QuizzesView from './pages/dashboard/student/Quizzes/QuizzesView';
 import ScheduleView from './features/student-management/components/schedule-view';
 import QuizInterface from './features/student-management/components/quiz/DoQuizView';
-import NewsView from './pages/dashboard/student/News/NewsView';
 import TedPersonalPage from './pages/dashboard/tedteam/personal';
 import TedRegisterPage from './pages/dashboard/tedteam/register';
 import SignOut from './pages/sign-out';
@@ -38,6 +37,12 @@ import ClassListUi from '@/features/tedteam/components/ui/classList';
 import DetailClassPage from '@/pages/dashboard/tedteam/detailClass';
 import QuizModule from './features/teacher/components/make-quiz/quiz-page';
 import Leaderboardpage from './pages/dashboard/student/leaderboard';
+import RoomManagementPage from './pages/dashboard/admin/room-management';
+import AddRoomPage from './pages/dashboard/admin/room-management/room.add';
+import NewsCoachModule from './features/teacher/components/news/NewsCoachModule';
+import ScoreForm from './features/teacher/components/news/grade-news';
+import NewsModule from './features/student-management/components/news/NewsModule';
+import NewsDetailPage from './features/student-management/components/news/detail-news';
 
 function Router() {
   return (
@@ -54,13 +59,18 @@ function Router() {
           <Route path="/personal-tedteam" element={<TedPersonalPage />} />
           <Route path="/register-tedteam" element={<TedRegisterPage />} />
 
-          <Route path="/list-news" element={<NewsView />} />
+          <Route path="/list-news" element={<NewsModule />} />
+          <Route path="/news/:id" element={<NewsDetailPage />} />
 
           {/* Uncomment the following lines if you want to include these routes */}
           {/* <Route path="/example-ui" element={<ExampleUI />} />
           <Route path="/student-management" element={<StudentManagement />} />
           <Route path="/teacher-management" element={<TeacherManagement />} /> */}
           <Route path="/view-quiz" element={<Quiz />} />
+          <Route path="/grade-news">
+            <Route path="" element={<NewsCoachModule />} />
+            <Route path=":id" element={<ScoreForm />} />
+          </Route>
           <Route path="/leaderboard" element={<Leaderboardpage />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/make-quiz/:quizId" element={<QuizModule />} />
@@ -78,6 +88,10 @@ function Router() {
           <Route path="/schedule-management">
             <Route path="" element={<ScheduleManagementPage />} />
             <Route path="add" element={<AddSchedulePage />} />
+          </Route>
+          <Route path="/room-management">
+            <Route path="" element={<RoomManagementPage />} />
+            <Route path="add" element={<AddRoomPage />} />
           </Route>
           <Route path="/register-management">
             <Route path="" element={<TedTeamRegistrationsPage />} />

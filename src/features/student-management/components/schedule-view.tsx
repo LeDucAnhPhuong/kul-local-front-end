@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import { useMemo, useState } from 'react';
 import {
@@ -22,54 +22,68 @@ import { transformAttendanceData } from '@/features/tedteam/teddata';
 
 // === Utils ===
 const getMonday = (date: Date) => {
-  const d = new Date(date)
-  const day = d.getDay()
-  const diff = d.getDate() - day + (day === 0 ? -6 : 1)
-  d.setDate(diff)
-  d.setHours(0, 0, 0, 0)
-  return d
-}
+  const d = new Date(date);
+  const day = d.getDay();
+  const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+  d.setDate(diff);
+  d.setHours(0, 0, 0, 0);
+  return d;
+};
 
 const getSunday = (monday: Date) => {
-  const d = new Date(monday)
-  d.setDate(d.getDate() + 6)
-  return d
-}
+  const d = new Date(monday);
+  d.setDate(d.getDate() + 6);
+  return d;
+};
 
 const formatDate = (date: Date) =>
-  date.toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  })
+  date.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
 
 const generateWeekOptions = () => {
-  const weeks = []
-  const start = getMonday(new Date(2000, 0, 1))
-  const end = new Date(2050, 11, 31)
-  const current = new Date(start)
+  const weeks = [];
+  const start = getMonday(new Date(2000, 0, 1));
+  const end = new Date(2050, 11, 31);
+  const current = new Date(start);
 
   while (current <= end) {
-    const monday = getMonday(current)
-    const sunday = getSunday(monday)
+    const monday = getMonday(current);
+    const sunday = getSunday(monday);
     weeks.push({
-      value: monday.toISOString().split("T")[0],
+      value: monday.toISOString().split('T')[0],
       label: `${formatDate(monday)} - ${formatDate(sunday)}`,
-    })
-    current.setDate(current.getDate() + 7)
+    });
+    current.setDate(current.getDate() + 7);
   }
 
-  return weeks
-}
+  return weeks;
+};
 
 const ScheduleUI = () => {
-  const weekOptions = useMemo(() => generateWeekOptions(), [])
-  const todayMonday = getMonday(new Date()).toISOString().split("T")[0]
+  const weekOptions = useMemo(() => generateWeekOptions(), []);
+  const todayMonday = getMonday(new Date()).toISOString().split('T')[0];
 
   const [selectedWeek, setSelectedWeek] = useState(() => {
-    const match = weekOptions.find((w) => w.value === todayMonday)
-    return match ? match.value : weekOptions[0]?.value || ""
-  })
+    const match = weekOptions.find((w) => w.value === todayMonday);
+    return match ? match.value : weekOptions[0]?.value || '';
+  });
+
+  const { slots } = useGetAllSlotQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      slots: data?.data
+        ? (Array.from(data?.data) as Slot[])?.sort((a: Slot, b: Slot) => {
+            const toMinutes = (time: string) => {
+              const [h, m] = time.split(':').map(Number);
+              return h * 60 + m;
+            };
+            return toMinutes(a.startTime) - toMinutes(b.startTime);
+          })
+        : [],
+    }),
+  });
 
   // API call with proper typing
   const { week, isFetching, error } = useGetScheduleByWeekQuery(
@@ -79,42 +93,42 @@ const ScheduleUI = () => {
     },
     {
       selectFromResult: ({ data, isFetching, error }) => ({
-        week: (data?.data as APIAttendanceData[]) || [],
+        week: (data?.data as UserSchedule[]) || [],
         isFetching,
         error,
       }),
     },
-  )
+  );
 
   // Transform API data with proper error handling
-  const scheduleData = useMemo(() => {
+  const scheduleData = useMemo<SlotSchedule[]>(() => {
     try {
-      console.log("Raw API data:", week)
-      const transformed = transformAttendanceData(week || [])
-      console.log("Transformed data:", transformed)
-      return transformed
+      console.log('Raw API data:', week);
+      const transformed = transformAttendanceData(week || [], slots) as SlotSchedule[];
+      console.log('Transformed data:', transformed);
+      return transformed;
     } catch (err) {
-      console.error("Error transforming attendance data:", err)
-      return transformAttendanceData([]) // Return empty slots structure
+      console.error('Error transforming attendance data:', err);
+      return transformAttendanceData([], slots) as SlotSchedule[]; // Return empty slots structure
     }
-  }, [week])
+  }, [week, slots]);
 
   // Navigation logic
-  const currentIndex = weekOptions.findIndex((w) => w.value === selectedWeek)
+  const currentIndex = weekOptions.findIndex((w) => w.value === selectedWeek);
 
   const goToPreviousWeek = () => {
     if (currentIndex > 0) {
-      setSelectedWeek(weekOptions[currentIndex - 1].value)
+      setSelectedWeek(weekOptions[currentIndex - 1].value);
     }
-  }
+  };
 
   const goToNextWeek = () => {
     if (currentIndex < weekOptions.length - 1) {
-      setSelectedWeek(weekOptions[currentIndex + 1].value)
+      setSelectedWeek(weekOptions[currentIndex + 1].value);
     }
-  }
+  };
 
-  const isMobile = useMediaQuery("(max-width: 1440px)")
+  const isMobile = useMediaQuery('(max-width: 1440px)');
 
   return (
     <div className="p-4 bg-white border dark:bg-background rounded-xl border-stone-200 dark:border-stone-800">
@@ -141,7 +155,11 @@ const ScheduleUI = () => {
               </SelectTrigger>
               <SelectContent className="max-h-[300px] overflow-auto">
                 {weekOptions.map((week) => (
-                  <SelectItem key={week.value} value={week.value} className="justify-center text-center">
+                  <SelectItem
+                    key={week.value}
+                    value={week.value}
+                    className="justify-center text-center"
+                  >
                     {week.label}
                   </SelectItem>
                 ))}
@@ -164,7 +182,9 @@ const ScheduleUI = () => {
       {/* Error state */}
       {error && (
         <div className="p-3 mb-4 border border-red-200 rounded-md bg-red-50">
-          <p className="text-sm text-red-600">Error loading schedule. Please try selecting a different week.</p>
+          <p className="text-sm text-red-600">
+            Error loading schedule. Please try selecting a different week.
+          </p>
         </div>
       )}
 
@@ -192,7 +212,7 @@ const ScheduleUI = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default ScheduleUI
+export default ScheduleUI;

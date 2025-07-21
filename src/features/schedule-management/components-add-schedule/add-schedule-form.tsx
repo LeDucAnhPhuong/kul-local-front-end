@@ -26,12 +26,9 @@ import {
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { useGetClassesQuery } from '@/features/class-management/api.class';
-import { useGetSlotsQuery } from '@/features/slot-management/api.slot';
 import { useGetRoomsQuery } from '../api.room';
-import type { RoomData } from '../data.type';
-import type { SlotData } from '@/features/slot-management/data.slot';
-import type { ClassData } from '@/features/class-management/data.class';
-import { useNavigate } from 'react-router';
+import type { Slot } from '../data.type';
+import { useGetAllSlotQuery } from '@/features/tedteam/api.tedteam';
 
 const formSchema = z.object({
   classDate: z.date(),
@@ -54,11 +51,9 @@ export default function MyForm({ onAdd }: MyFormProps) {
     },
   });
 
-  const navigate = useNavigate();
   function onSubmit(values: z.infer<typeof formSchema>) {
-    onAdd(values);
     try {
-      navigate('/schedule-management');
+      onAdd(values);
     } catch (error) {
       console.error('Form submission error', error);
       toast.error('Failed to submit the form. Please try again.');
@@ -72,9 +67,17 @@ export default function MyForm({ onAdd }: MyFormProps) {
     }),
   });
 
-  const { slotList, isFetching_slots } = useGetSlotsQuery(undefined, {
+  const { slotList, isFetching_slots } = useGetAllSlotQuery(undefined, {
     selectFromResult: ({ data, isFetching }) => ({
-      slotList: data || [],
+      slotList: data?.data
+        ? (Array.from(data?.data) as Slot[])?.sort((a: Slot, b: Slot) => {
+            const toMinutes = (time: string) => {
+              const [h, m] = time.split(':').map(Number);
+              return h * 60 + m;
+            };
+            return toMinutes(a.startTime) - toMinutes(b.startTime);
+          })
+        : [],
       isFetching_slots: isFetching,
     }),
   });
@@ -148,8 +151,8 @@ export default function MyForm({ onAdd }: MyFormProps) {
                       ) : roomList.length === 0 ? (
                         <div className="p-2 text-gray-400">No rooms found</div>
                       ) : (
-                        roomList.map((room: RoomData) => (
-                          <SelectItem key={room._id} value={room._id}>
+                        roomList.map((room: any) => (
+                          <SelectItem key={room.id} value={room.id}>
                             {room.name} - {room.location}
                           </SelectItem>
                         ))
@@ -184,8 +187,8 @@ export default function MyForm({ onAdd }: MyFormProps) {
                       ) : slotList.length === 0 ? (
                         <div className="p-2 text-gray-400">No slots found</div>
                       ) : (
-                        slotList.map((slot: SlotData) => (
-                          <SelectItem key={slot._id} value={slot._id}>
+                        slotList.map((slot: any) => (
+                          <SelectItem key={slot.id} value={slot.id}>
                             {slot.name} ({slot.startTime} - {slot.endTime})
                           </SelectItem>
                         ))
@@ -218,8 +221,8 @@ export default function MyForm({ onAdd }: MyFormProps) {
                       ) : classList.length === 0 ? (
                         <div className="p-2 text-gray-400">No classes found</div>
                       ) : (
-                        classList.map((classItem: ClassData) => (
-                          <SelectItem key={classItem._id} value={classItem._id}>
+                        classList.map((classItem: any) => (
+                          <SelectItem key={classItem.id} value={classItem.id}>
                             {classItem.name}
                           </SelectItem>
                         ))

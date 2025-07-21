@@ -54,16 +54,14 @@ export default function MyForm({ onAdd, isLoading }: MyFormProps) {
       end_time: undefined,
     },
   });
-  const navigate = useNavigate();
   function onSubmit(values: z.infer<typeof formSchema>) {
-    onAdd({
-      name: values.name,
-      start_time: values.start_time,
-      end_time: values.end_time,
-    });
     try {
+      onAdd({
+        name: values.name,
+        start_time: values.start_time,
+        end_time: values.end_time,
+      });
       console.log(values);
-      navigate('/class-management');
     } catch (error) {
       console.error('Error submitting form:', error);
       toast.error('Failed to submit the form. Please try again.');

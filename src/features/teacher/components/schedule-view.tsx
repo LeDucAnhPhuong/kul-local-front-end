@@ -17,7 +17,9 @@ import { convertToSlotByDay } from '../columns/convertToSlotByDay';
 import { columns as desktopColumns } from '../columns/schedule.columns';
 import { columns as mobileColumns } from '../columns/schedule.columnsmobile';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useGetTeacherScheduleQuery, useGetSlotsQuery } from '../api.teacher';
+import { useGetTeacherScheduleQuery } from '../api.teacher';
+import { useGetAllSlotQuery } from '@/features/tedteam/api.tedteam';
+import type { Slot } from '@/features/tedteam/slotInfo';
 
 const getMonday = (date: Date) => {
   const d = new Date(date);
@@ -83,12 +85,20 @@ function TeacherView() {
     }
   };
 
-  const { slot = [], isFetching_slot } = useGetSlotsQuery(undefined, {
-    selectFromResult: ({ data, isFetching }) => ({
-      slot: data?.data || [],
-      isFetching_slot: isFetching,
-    }),
-  });
+  const { slots, isFetching: isFetching_slot } = useGetAllSlotQuery(undefined, {
+      selectFromResult: ({ data, isFetching }) => ({
+        slots: data?.data
+          ? (Array.from(data?.data) as Slot[])?.sort((a: Slot, b: Slot) => {
+              const toMinutes = (time: string) => {
+                const [h, m] = time.split(':').map(Number);
+                return h * 60 + m;
+              };
+              return toMinutes(a.startTime) - toMinutes(b.startTime);
+            })
+          : [],
+        isFetching,
+      }),
+    });
 
   const { week = [], isFetching } = useGetTeacherScheduleQuery(
     selectedWeek
@@ -108,13 +118,13 @@ function TeacherView() {
 
   // Truyền danh sách tất cả slot vào hàm convertToSlotByDay
   const deskdata = useMemo(() => {
-    if (!week || !slot) return [];
-    return convertToSlotByDay(week, slot);
-  }, [week, slot]);
+    if (!week || !slots) return [];
+    return convertToSlotByDay(week, slots);
+  }, [week, slots]);
   const mobiledata = useMemo(() => {
-    if (!week || !slot) return [];
-    return convertToMobileSchedule(week, slot);
-  }, [week, slot]);
+    if (!week || !slots) return [];
+    return convertToMobileSchedule(week, slots);
+  }, [week, slots]);
 console.log('deskdata', deskdata);
   return (
     <>

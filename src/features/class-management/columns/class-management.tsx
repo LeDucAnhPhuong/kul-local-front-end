@@ -14,32 +14,32 @@ import { cn } from '@/lib/utils';
 import { filterDateRange } from '@/utils/table';
 
 export type Class = {
-  _id: string;
+  id: string;
   name: string;
   isActive: boolean;
-  created_at?: string;
+  createdAt?: string;
 };
 export const columns: ColumnDef<Class>[] = [
   {
     accessorKey: 'name',
     header: 'Class Name',
-    cell: ({ row }) => (
-      <div className="font-semibold text-base">
-        {row.getValue('name')}
-      </div>
-    ),
+    cell: ({ row }) => <div className="font-semibold text-base">{row.getValue('name')}</div>,
   },
   {
-    accessorKey: 'created_at',
+    accessorKey: 'createdAt',
     header: 'Created At',
     cell: ({ row }) => {
-      const dateValue = row.getValue('created_at') as string;
+      const dateValue = row.getValue('createdAt') as string;
       const date = new Date(dateValue);
-      const formattedDate = date.toLocaleDateString('vi-VN');
-      
+      const formattedDate = date.toLocaleDateString('vi-VN', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+      });
+
       return (
-        <div className='text-sm'>
-          <CalendarDays className="inline-block size-3" /> 
+        <div className="text-sm flex items-center gap-1">
+          <CalendarDays className="inline-block size-4 text-muted-foreground" />
           {formattedDate}
         </div>
       );
@@ -83,15 +83,13 @@ const Action = ({ row }: { row: Row<Class> }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem>
-          <Link className="flex gap-2 w-full" to={`/class-management/${row.original?._id}`}>
+          <Link className="flex gap-2 w-full" to={`/class-management/${row.original?.id}`}>
             <Eye className="w-4 h-4 text-blue-500" />
             <span>View Information</span>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <button
-            className="flex gap-2 w-full items-center"
-          >
+          <button className="flex gap-2 w-full items-center">
             {row.original?.isActive ? (
               <CrossCircledIcon className="h-4 w-4 text-red-500" />
             ) : (

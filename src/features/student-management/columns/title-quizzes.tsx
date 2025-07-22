@@ -47,7 +47,7 @@ export const columns: ColumnDef<any>[] = [
       const end = new Date(row.original.due).toLocaleDateString('en-US');
 
       return (
-        <div className="text-sm text-blue-600 flex flex-col">
+        <div className="flex flex-col text-sm text-blue-600">
           <div className="flex items-center gap-1">
             <CalendarDays className="size-3" />
             <span>
@@ -83,12 +83,12 @@ export const columns: ColumnDef<any>[] = [
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Bạn muốn bắt đầu bài kiểm tra này?</AlertDialogTitle>
+                <AlertDialogTitle>Do you want to start this quiz?</AlertDialogTitle>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Huỷ</AlertDialogCancel>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
                 <AlertDialogAction asChild>
-                  <Link to={`/quiz/${row.original.id}`}>Bắt đầu</Link>
+                  <Link to={`/quiz/${row.original.id}`}>Start</Link>
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
@@ -111,7 +111,7 @@ export const columns: ColumnDef<any>[] = [
           <img
             src={coach.profileImage}
             alt={coach.firstName}
-            className="w-8 h-8 rounded-full object-cover border"
+            className="object-cover w-8 h-8 border rounded-full"
           />
           <span className="text-sm">
             {coach.lastName} {coach.firstName}

@@ -57,7 +57,7 @@ export const RegisterMobileView: React.FC<Props> = ({ data, isLoading }) => {
                 <div className="text-xs font-medium text-blue-600 mb-2">
                   {formatDate(cell!.date, 'dd-MM-yyyy')}
                 </div>
-                <StatusButton status={getRegisterStatus(cell!.status)} scheduleId={cell?._id} />
+                <StatusButton status={getRegisterStatus(cell!.status)} scheduleId={cell?._id ? [cell._id] : []} />
               </div>
             ))}
           </div>

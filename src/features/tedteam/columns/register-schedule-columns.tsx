@@ -4,30 +4,44 @@ import { cn } from '@/lib/utils';
 import type { RegisterSlotSchedule, RegisterScheduleCell } from '../slotInfo';
 import { getRegisterStatus } from '../teddata';
 import { formatDate } from 'date-fns';
-import { useRegisterScheduleMutation, useUnregisterScheduleMutation } from '../api.tedteam';
+import {
+  useRegisterScheduleMutation,
+  useUnregisterScheduleMutation,
+} from '../api.tedteam';
 
 export const StatusButton = ({
   status,
   scheduleId,
 }: {
   status: 'register' | 'registered' | 'unregistered' | 'full' | 'closed';
-  scheduleId?: string;
+  scheduleId?: string[];
 }) => {
   const [registerStatus] = useRegisterScheduleMutation();
-  const [unREgisterStatus] = useUnregisterScheduleMutation();
+  const [unRegisterStatus] = useUnregisterScheduleMutation();
 
   const handleChangeStatus = async () => {
-    switch (status) {
-      case 'register':
-        await registerStatus({
-          scheduleId,
-        }).unwrap();
-        break;
-      case 'registered':
-        await unREgisterStatus({
-          scheduleId,
-        }).unwrap();
-        break;
+    if (!scheduleId) {
+      console.error('No schedule ID provided');
+      return;
+    }
+
+    try {
+      switch (status) {
+        case 'register':
+          await registerStatus({
+            scheduleId: scheduleId, 
+          }).unwrap();
+          console.log('Register successful for:', scheduleId);
+          break;
+        case 'registered':
+          await unRegisterStatus({
+            scheduleId: scheduleId,
+          }).unwrap();
+          console.log('Unregister successful for:', scheduleId);
+          break;
+      }
+    } catch (error) {
+      console.error('Registration failed:', error);
     }
   };
 
@@ -114,10 +128,23 @@ export const columns: ColumnDef<RegisterSlotSchedule>[] = [
         t7: 'SAT',
         cn: 'SUN',
       };
-      return <div className="text-center">{dayHeaderMap[dayKey] || dayKey.toUpperCase()}</div>;
+      return (
+        <div className="text-center">
+          {dayHeaderMap[dayKey] || dayKey.toUpperCase()}
+        </div>
+      );
     },
-    cell: ({ row, table }: { row: Row<RegisterSlotSchedule>; table: any }) => {
-      const cell: RegisterScheduleCell | undefined = row.getValue(dayKey);
+    cell: ({ row }: { row: Row<RegisterSlotSchedule> }) => {
+      const raw = row.getValue(dayKey);
+
+
+      const cells: RegisterScheduleCell[] = Array.isArray(raw)
+        ? raw
+        : raw
+        ? [raw]
+        : [];
+
+      const cell = cells[0]; 
 
       if (!cell) {
         return (
@@ -135,7 +162,10 @@ export const columns: ColumnDef<RegisterSlotSchedule>[] = [
           <div className="text-xs font-medium leading-tight text-blue-600">
             {formatDate(cell.date, 'dd-MM-yyyy')}
           </div>
-          <StatusButton status={getRegisterStatus(cell.status)} scheduleId={cell._id} />
+          <StatusButton
+            status={getRegisterStatus(cell.status)}
+            scheduleId={[cell._id]}
+          />
         </div>
       );
     },

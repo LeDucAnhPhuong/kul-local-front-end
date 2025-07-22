@@ -54,6 +54,10 @@ const AdminData = {
           title: 'Ted Team Registrations',
           url: '/register-management',
         },
+        {
+          title: "Statics Overview",
+          url: '/statics-overview',
+        }
       ],
     },
   ],
@@ -89,6 +93,10 @@ const StudentData = {
           title: 'Academic Progress',
           url: '/academic-progress',
         },
+        {
+          title: "Speaking Practice",
+          url: '/speaking-practice',
+        }
       ],
     },
   ],

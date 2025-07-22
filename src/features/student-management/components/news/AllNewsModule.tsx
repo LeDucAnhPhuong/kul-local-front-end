@@ -40,10 +40,8 @@ export default function AllNews() {
 
   const mainNews: News = news[0];
 
-  const fakenews = [...news, ...news];
-
-  const leftSideNews: News[] = fakenews.slice(1, (2 * fakenews?.length) / 3);
-  const rightSideNews: News[] = fakenews.slice((2 * fakenews?.length) / 3 + 1, fakenews?.length); // Lấy 2 tin tức tiếp theo cho cột bên phải
+  const leftSideNews: News[] = news.slice(1, (2 * news?.length) / 3);
+  const rightSideNews: News[] = news.slice((2 * news?.length) / 3 + 1, news?.length); // Lấy 2 tin tức tiếp theo cho cột bên phải
 
   const handleView = (news: News) => {
     router.push(`/news/${news.id}`);

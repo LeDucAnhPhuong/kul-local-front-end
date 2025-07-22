@@ -85,5 +85,6 @@ export const baseApi = createApi({
     'News',
     'assignment',
     'assignmentSubmission',
+    'speakingScore',
   ],
 });

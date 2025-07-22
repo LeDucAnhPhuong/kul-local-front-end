@@ -48,6 +48,8 @@ import AssignmentStudentPage from './features/student-management/assignment/Assi
 import AssignmentSubmissionPage from './features/student-management/assignment/AssignmentSubmissionPage';
 import SubmissionAssignmentPage from './features/teacher/assignment/submistionAssignment';
 import AcademicPage from './features/student-management/academic/AcademicPage';
+import CoachStatisticsChart from './features/statics/statics-page';
+import { TalkModule } from './features/student-management/speaking-voice/talk-module';
 
 function Router() {
   return (
@@ -63,6 +65,8 @@ function Router() {
           <Route path="/quizzes-student" element={<QuizzesView />} />
           <Route path="/personal-tedteam" element={<TedPersonalPage />} />
           <Route path="/register-tedteam" element={<TedRegisterPage />} />
+          <Route path="/statics-overview" element={<CoachStatisticsChart />} />
+          <Route path="/speaking-practice" element={<TalkModule />} />
 
           <Route path="/list-news" element={<NewsModule />} />
           <Route path="/news/:id" element={<NewsDetailPage />} />

@@ -224,14 +224,10 @@ export function TalkModule() {
     },
   );
 
-  const currentUserEmail = 'phuonglda.test@gmail.com';
-
   // Sort data by bestScore in descending order to determine ranks
 
   const topThreeUsers = data.slice(0, 3);
-  const currentUserData = data.find(
-    (user: UserScoreData) => user.userId.email === currentUserEmail,
-  );
+  const currentUserData = data.find((user: UserScoreData) => user?.me);
   const currentUserRank = currentUserData ? data.indexOf(currentUserData) + 1 : undefined;
 
   return (
@@ -290,7 +286,7 @@ export function TalkModule() {
                 totalPlayers={data ? data.length : 0}
                 onGoToSpeakingPractice={() => setIsOverlayOpen(true)}
               />
-              <LeaderboardTable data={data} currentUserEmail={currentUserEmail} />
+              <LeaderboardTable data={data} />
             </div>
           )}
         </div>

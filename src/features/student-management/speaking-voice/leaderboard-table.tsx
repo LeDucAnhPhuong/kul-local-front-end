@@ -13,10 +13,9 @@ import type { UserScoreData } from './user-score-card';
 
 interface LeaderboardTableProps {
   data: UserScoreData[];
-  currentUserEmail: string;
 }
 
-export function LeaderboardTable({ data, currentUserEmail }: LeaderboardTableProps) {
+export function LeaderboardTable({ data }: LeaderboardTableProps) {
   // Sort data by bestScore in descending order
   const sortedData = [...data].sort((a, b) => b.bestScore - a.bestScore);
 
@@ -43,10 +42,7 @@ export function LeaderboardTable({ data, currentUserEmail }: LeaderboardTablePro
           </TableHeader>
           <TableBody>
             {remainingData.map((user, index) => (
-              <TableRow
-                key={user?.userId?.id}
-                className={user?.userId?.email === currentUserEmail ? 'bg-blue-50' : ''}
-              >
+              <TableRow key={user?.userId?.id} className={user?.me ? 'bg-blue-50' : ''}>
                 <TableCell className="font-medium">{index + 4}</TableCell>{' '}
                 {/* Ranks start from 4 */}
                 <TableCell>

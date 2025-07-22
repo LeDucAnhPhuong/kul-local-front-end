@@ -20,6 +20,7 @@ export interface UserScoreData {
   totalAttempts: number;
   averageScore: number;
   bestScore: number;
+  me?: boolean;
   latestScore?: number; // Optional, if not available
 }
 

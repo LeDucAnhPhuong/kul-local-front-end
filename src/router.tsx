@@ -43,6 +43,13 @@ import NewsCoachModule from './features/teacher/components/news/NewsCoachModule'
 import ScoreForm from './features/teacher/components/news/grade-news';
 import NewsModule from './features/student-management/components/news/NewsModule';
 import NewsDetailPage from './features/student-management/components/news/detail-news';
+import AssignmentPage from './features/teacher/assignment/AssignmentPage';
+import AssignmentStudentPage from './features/student-management/assignment/AssignmentPage';
+import AssignmentSubmissionPage from './features/student-management/assignment/AssignmentSubmissionPage';
+import SubmissionAssignmentPage from './features/teacher/assignment/submistionAssignment';
+import AcademicPage from './features/student-management/academic/AcademicPage';
+import CoachStatisticsChart from './features/statics/statics-page';
+import { TalkModule } from './features/student-management/speaking-voice/talk-module';
 
 function Router() {
   return (
@@ -58,9 +65,15 @@ function Router() {
           <Route path="/quizzes-student" element={<QuizzesView />} />
           <Route path="/personal-tedteam" element={<TedPersonalPage />} />
           <Route path="/register-tedteam" element={<TedRegisterPage />} />
+          <Route path="/statics-overview" element={<CoachStatisticsChart />} />
+          <Route path="/speaking-practice" element={<TalkModule />} />
 
           <Route path="/list-news" element={<NewsModule />} />
           <Route path="/news/:id" element={<NewsDetailPage />} />
+          <Route path="/assignment" element={<AssignmentStudentPage />} />
+          <Route path="/assignments/:id" element={<AssignmentSubmissionPage />} />
+          <Route path="/assignment-submission/:id" element={<SubmissionAssignmentPage />} />
+          <Route path="/academic-progress" element={<AcademicPage />} />
 
           {/* Uncomment the following lines if you want to include these routes */}
           {/* <Route path="/example-ui" element={<ExampleUI />} />
@@ -74,7 +87,7 @@ function Router() {
           <Route path="/leaderboard" element={<Leaderboardpage />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/make-quiz/:quizId" element={<QuizModule />} />
-          <Route path="/assignment" element={<Assignment />} />
+          <Route path="/assignment-coach" element={<AssignmentPage />} />
           <Route path="/submissions/:id" element={<SubmissionDetailPageWrapper />} />
           <Route path="/detail-class/:id" element={<DetailClassPage />} />
           <Route path="/ClassList" element={<ClassManagementPage />} />

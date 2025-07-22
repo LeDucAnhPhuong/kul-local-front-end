@@ -36,6 +36,36 @@ export const teacherApi = baseApi.injectEndpoints({
         body: data,
       }),
     }),
+    createAssignment: builder.mutation({
+      query: (assignment) => ({
+        url: '/api/assignments',
+        method: 'POST',
+        body: assignment,
+      }),
+      invalidatesTags: ['assignment'],
+    }),
+    getTeacherAssignments: builder.query({
+      query: () => ({
+        url: '/api/assignments/get-for-coach',
+        method: 'GET',
+      }),
+      providesTags: ['assignment'],
+    }),
+    getSubmissionByAssignmentForCoach: builder.query({
+      query: (assignmentId) => ({
+        url: `/api/assignment-submissions/coach/${assignmentId}`,
+        method: 'GET',
+      }),
+      providesTags: ['assignmentSubmission'],
+    }),
+    gradeSubmission: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/api/assignment-submissions/${id}/grade`,
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['assignmentSubmission'],
+    }),
   }),
 });
 export const {
@@ -45,4 +75,8 @@ export const {
   useGetNewsForTeacherQuery,
   useGetNewsByIdQuery,
   useGradeNewsMutation,
+  useCreateAssignmentMutation,
+  useGetTeacherAssignmentsQuery,
+  useGetSubmissionByAssignmentForCoachQuery,
+  useGradeSubmissionMutation,
 } = teacherApi;

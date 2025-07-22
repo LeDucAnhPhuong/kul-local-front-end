@@ -54,6 +54,10 @@ const AdminData = {
           title: 'Ted Team Registrations',
           url: '/register-management',
         },
+        {
+          title: "Statics Overview",
+          url: '/statics-overview',
+        }
       ],
     },
   ],
@@ -77,11 +81,22 @@ const StudentData = {
           title: 'Quizzes Student',
           url: '/quizzes-student',
         },
-
         {
           title: 'List News',
           url: '/list-news',
         },
+        {
+          title: 'Assignment',
+          url: '/assignment',
+        },
+        {
+          title: 'Academic Progress',
+          url: '/academic-progress',
+        },
+        {
+          title: "Speaking Practice",
+          url: '/speaking-practice',
+        }
       ],
     },
   ],
@@ -111,7 +126,7 @@ const CoachData = {
         },
         {
           title: 'Assignment',
-          url: '/assignment',
+          url: '/assignment-coach',
         },
       ],
     },

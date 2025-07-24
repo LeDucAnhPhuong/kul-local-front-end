@@ -1,22 +1,18 @@
-"use no memo";
+import { Cross2Icon } from '@radix-ui/react-icons';
+import type { Table } from '@tanstack/react-table';
 
-import { Cross2Icon } from "@radix-ui/react-icons";
-import type { Table } from "@tanstack/react-table";
+import { Label } from '../ui/label';
 
-import { Label } from "../ui/label";
+import { DataTableViewOptions } from './data-table-view-options';
 
-import { DataTableViewOptions } from "./data-table-view-options";
-
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
 }
 
-export function DataTableToolbar<TData>({
-  table,
-}: DataTableToolbarProps<TData>) {
+export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
 
   return (
@@ -30,7 +26,7 @@ export function DataTableToolbar<TData>({
             className="h-8"
             id="search"
             placeholder="Enter search..."
-            value={table.getState().globalFilter ?? ""}
+            value={table.getState().globalFilter ?? ''}
             onChange={(e) => table.setGlobalFilter(e.target.value)}
             // value={
             //   (table.getColumn("userName")?.getFilterValue() as string) ?? ""
@@ -82,7 +78,7 @@ export function DataTableToolbar<TData>({
           >
             <Cross2Icon className="w-4 h-4 " />
 
-            {"Xoá bộ lọc"}
+            {'Xoá bộ lọc'}
           </Button>
         )}
       </div>

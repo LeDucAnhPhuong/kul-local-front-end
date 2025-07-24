@@ -15,8 +15,6 @@ import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 function SortModal({ opener, table }: { opener: ReactNode; table: Table<any> }) {
-  'use no memo';
-
   return (
     <Dialog>
       <DialogTrigger asChild>{opener}</DialogTrigger>

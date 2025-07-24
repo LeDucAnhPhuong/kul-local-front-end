@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  kul-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ./Uploads:/app/Uploads # Nếu bạn cần giữ folder upload local

@@ -12,7 +12,7 @@ public class Quiz : baseEntity
     [BsonElement("due")]
     public DateTime Due { get; set; }     
     [BsonElement("isPublic")]
-    public bool IsPublic { get; set; }      z
+    public bool IsPublic { get; set; }     
 }
 
 public class  QuizResponsive: Quiz 

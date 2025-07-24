@@ -35,9 +35,10 @@ export function LeaderboardTable({ data }: LeaderboardTableProps) {
           <TableHeader>
             <TableRow>
               <TableHead className="w-[50px]">Rank</TableHead>
-              <TableHead>USER</TableHead>
-              <TableHead className="text-right">AVERAGE SCORE</TableHead>
-              <TableHead className="text-right">ATTEMPTS</TableHead>
+              <TableHead>User</TableHead>
+              <TableHead className="text-right">Best score</TableHead>
+              <TableHead className="text-right">Average score</TableHead>
+              <TableHead className="text-right">Attempts</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

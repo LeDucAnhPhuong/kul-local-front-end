@@ -8,7 +8,6 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { Upload, X } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import {
   Select,
@@ -19,16 +18,6 @@ import {
 } from '@/components/ui/select';
 import { AssignmentEnum, type AssignmentType } from '../types/assignment';
 import { SmartDatetimeInput } from '@/components/ui/smart-datetime-input';
-import {
-  FileUpload,
-  FileUploadDropzone,
-  FileUploadItem,
-  FileUploadItemDelete,
-  FileUploadItemMetadata,
-  FileUploadItemPreview,
-  FileUploadList,
-  FileUploadTrigger,
-} from '@/components/ui/file-upload';
 import {
   Form,
   FormControl,

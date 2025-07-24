@@ -5,6 +5,7 @@ export type Quiz = {
   isPublic: boolean;
   createdBy: string;
   id: string;
+  level: number;
   createdAt: string;
   updatedAt: string;
   isActive: boolean;

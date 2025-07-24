@@ -1,6 +1,5 @@
 import type { ColumnDef, Row } from '@tanstack/react-table';
 import { Circle, CircleCheck } from 'lucide-react';
-import { useState } from 'react';
 
 export type Member = {
   id: string;
@@ -13,7 +12,6 @@ export type Member = {
 
 const AttendanceStatus = ({
   row,
-  scheduleData,
   setAttendanceList,
   attendanceList = [],
 }: {

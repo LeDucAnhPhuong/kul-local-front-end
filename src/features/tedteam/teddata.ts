@@ -47,7 +47,7 @@ export const transformAttendanceData = (data: UserSchedule[], slot: Slot[]): Slo
       topic: item.schedule.classInfor?.name,
       instructor: `Coach ${item.schedule.coach.firstName} ${item.schedule.coach.lastName}`,
       location: `Room ${item.schedule.room.name}`,
-      time: `${item.schedule.slot.startTime} - ${item.schedule.slot.endTime}`,
+      time: `${item.schedule.slot.startTime} ${item.schedule.slot.endTime}`,
       status: getStatus(item.status),
       date: item.schedule.date,
       classId: item.schedule.classInfor?.name,

@@ -4,7 +4,6 @@ import { assignmentColumns } from '../columns/assignment.columns';
 import { AssignmentCreateModal } from './CreateAssignment';
 import TitlePage from '@/components/ui/title-page';
 import { Button } from '@/components/ui/button';
-import { useUploadFileMutation } from '@/features/file/file.api';
 import { useCreateAssignmentMutation, useGetTeacherAssignmentsQuery } from '../api.teacher';
 import useRouter from '@/hooks/use-router';
 import type { Assignment } from '../types/assignment';

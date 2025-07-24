@@ -18,7 +18,6 @@ import { format } from 'date-fns';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
 import { Calendar as CalendarIcon } from 'lucide-react';
-import { useNavigate } from 'react-router';
 
 const formSchema = z
   .object({

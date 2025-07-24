@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback, use } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Volume2, Mic, RotateCcw } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
@@ -25,7 +25,6 @@ export function SpeakingOverlay({ onClose }: SpeakingOverlayProps) {
   const [retriesLeft, setRetriesLeft] = useState(MAX_RETRIES);
   const [recordedText, setRecordedText] = useState<string | null>(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const [isRecording, setIsRecording] = useState(false);
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [loadingAIGeneratedText, setLoadingAIGeneratedText] = useState(false);
   const [loadingGradedText, setLoadingGradedText] = useState(false);
@@ -152,7 +151,6 @@ export function SpeakingOverlay({ onClose }: SpeakingOverlayProps) {
       recognition.continuous = true;
 
       recognition.onstart = () => {
-        setIsRecording(true);
         setRecordedText(null);
         setPhase('recording');
         startCountdown(COUNTDOWN_DURATION, () => {
@@ -170,13 +168,11 @@ export function SpeakingOverlay({ onClose }: SpeakingOverlayProps) {
 
       recognition.onerror = (event) => {
         console.error('SpeechRecognition error:', event.error);
-        setIsRecording(false);
         setPhase('result'); // Move to result phase even on error
         setRecordedText('Error during recording or no speech detected.');
       };
 
       recognition.onend = () => {
-        setIsRecording(false);
         setPhase('result');
         if (countdownIntervalRef.current) {
           clearInterval(countdownIntervalRef.current);
@@ -187,7 +183,6 @@ export function SpeakingOverlay({ onClose }: SpeakingOverlayProps) {
       recognitionRef.current = recognition;
     } else {
       console.warn('Web Speech API (SpeechRecognition) not supported in this browser.');
-      setIsRecording(false);
       setPhase('result');
       setRecordedText('Speech recording not supported in your browser.');
     }
@@ -309,7 +304,6 @@ export function SpeakingOverlay({ onClose }: SpeakingOverlayProps) {
               onClick={() => {
                 if (recognitionRef.current) {
                   recognitionRef.current.stop();
-                  setIsRecording(false);
                   setPhase('result');
                 }
               }}

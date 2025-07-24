@@ -41,7 +41,7 @@ export default function AllNews() {
   const mainNews: News = news[0];
 
   const leftSideNews: News[] = news.slice(1, (2 * news?.length) / 3);
-  const rightSideNews: News[] = news.slice((2 * news?.length) / 3 + 1, news?.length); // Lấy 2 tin tức tiếp theo cho cột bên phải
+  const rightSideNews: News[] = news.slice((2 * news?.length) / 3, news?.length); // Lấy 2 tin tức tiếp theo cho cột bên phải
 
   const handleView = (news: News) => {
     router.push(`/news/${news.id}`);
@@ -59,13 +59,13 @@ export default function AllNews() {
               <img
                 src={mainNews?.imageUrl} // Vẫn sử dụng ảnh chính đã cung cấp
                 alt={mainNews.title}
-                className="rounded-t-xl"
+                className="rounded-t-xl w-full h-full object-cover"
               />
               {/* Overlay for text readability */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
               <div className="absolute bottom-0 left-0 p-6"></div>
             </div>
-            <CardTitle className="text-3xl font-bold mb-2 px-4 line-clamp-2">
+            <CardTitle className="text-3xl font-bold mb-2 mt-4 px-4 line-clamp-2">
               {mainNews.title}
             </CardTitle>
             <CardDescription className="text-lg line-clamp-1 px-4">

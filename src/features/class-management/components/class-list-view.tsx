@@ -1,7 +1,6 @@
 import DataCard from '@/components/ui/data-card';
 import { columns } from '../columns/class-management';
 import TitlePage from '@/components/ui/title-page';
-import { useGetClassForTedteamQuery } from '@/features/tedteam/api.tedteam';
 import { useGetClassesQuery } from '../api.class';
 
 const ClassListUI = () => {

@@ -22,8 +22,7 @@ export const columns: ColumnDef<Class>[] = [
   {
     accessorKey: 'startTime',
     header: 'Start Date',
-    cell: ({ row }) => {
-      const dateValue = row.getValue('startTime') as string;
+    cell: () => {
       const date = new Date();
       const formattedDate = date.toLocaleDateString('vi-VN');
 
@@ -65,7 +64,10 @@ export const columns: ColumnDef<Class>[] = [
 const Action = ({ row }: { row: Row<Class> }) => {
   return (
     <div>
-      <Link className="flex gap-2 w-full" to={`/detail-class/${row.original?.id}?schedule=${row.original?.schedule}`}>
+      <Link
+        className="flex gap-2 w-full"
+        to={`/detail-class/${row.original?.id}?schedule=${row.original?.schedule}`}
+      >
         <ClipboardPen className="" />
       </Link>
     </div>

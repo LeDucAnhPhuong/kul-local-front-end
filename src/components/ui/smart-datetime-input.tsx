@@ -3,7 +3,6 @@
 import React from 'react';
 import { parseDate } from 'chrono-node';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import type { ActiveModifiers } from 'react-day-picker';
 import type { CalendarProps } from '@/components/ui/calendar';
 import { Calendar } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';
@@ -554,7 +553,7 @@ const DateTimeLocalInput = ({
   const { value, onValueChange, Time } = useSmartDateInput();
 
   const formateSelectedDate = React.useCallback(
-    (_: Date | undefined, selectedDate: Date, m: ActiveModifiers, e: React.MouseEvent) => {
+    (_: Date | undefined, selectedDate: Date) => {
       if (isDateDisabled(selectedDate)) return;
 
       const parsedDateTime = parseDateTime(selectedDate);
@@ -600,7 +599,9 @@ const DateTimeLocalInput = ({
               className={cn('peer flex justify-end', inputBase, className)}
               mode="single"
               selected={value}
-              onSelect={formateSelectedDate}
+              onSelect={(date: Date | undefined, selectedDate: Date) =>
+                formateSelectedDate(date, selectedDate)
+              }
               initialFocus
               disabled={isDateDisabled}
             />

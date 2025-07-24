@@ -2,10 +2,6 @@ import { Route, Routes } from 'react-router';
 
 import DashboardLayout from './components/layouts/dashboard/layout';
 import LandingLayout from './components/layouts/landing/layout';
-// import ScheduleView from './pages/dashboard/student/Schedule/ScheduleView';
-// import QuizzesView from './pages/dashboard/student/Quizzes/QuizzesView';
-// import TeacherManagement from './pages/dashboard/teacher';
-// import BookingPage from './pages/booking';
 import { Schedule } from './pages/dashboard/teacher/schedule';
 import { Quiz } from './pages/dashboard/teacher/quiz';
 import HomePage from './pages/home';
@@ -16,8 +12,6 @@ import AddTedTeamPage from './pages/dashboard/admin/account-management/ted-team/
 import AddCoachPage from './pages/dashboard/admin/account-management/coach/coach.add';
 import AddAdminPage from './pages/dashboard/admin/account-management/admin/admin.add';
 import DashBoardHome from './pages/dashboard/DashBoardHome';
-import Assignment from './pages/dashboard/teacher/assignment';
-import SubmissionDetailPageWrapper from './pages/dashboard/teacher/submission-detail';
 import QuizzesView from './pages/dashboard/student/Quizzes/QuizzesView';
 import ScheduleView from './features/student-management/components/schedule-view';
 import QuizInterface from './features/student-management/components/quiz/DoQuizView';
@@ -88,7 +82,6 @@ function Router() {
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/make-quiz/:quizId" element={<QuizModule />} />
           <Route path="/assignment-coach" element={<AssignmentPage />} />
-          <Route path="/submissions/:id" element={<SubmissionDetailPageWrapper />} />
           <Route path="/detail-class/:id" element={<DetailClassPage />} />
           <Route path="/ClassList" element={<ClassManagementPage />} />
           <Route path="/view-classlist" element={<ClassListUi />} />

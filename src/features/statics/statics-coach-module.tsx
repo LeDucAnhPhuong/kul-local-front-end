@@ -22,9 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import classDetail from '@/pages/dashboard/admin/class-management/class.detail';
 import { formatDate } from 'date-fns';
-import type { Class } from '../schedule-management/data.type';
 import { useGetCoachesQuery } from '../account-management/api.user';
 
 const StatisticsCoachModule = ({
@@ -46,7 +44,7 @@ const StatisticsCoachModule = ({
   );
 
   const { coach } = useGetCoachesQuery(undefined, {
-    selectFromResult: ({ data, isFetching }) => ({
+    selectFromResult: ({ data }) => ({
       coach: data?.data || [],
     }),
   });

@@ -1,5 +1,4 @@
 import { useForm } from 'react-hook-form';
-import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -47,8 +46,7 @@ export default function ScorePage() {
     watch,
     formState: { errors },
   } = useForm<FormData>();
-  const [submittedData, setSubmittedData] = useState<FormData | null>(null);
-  const [gradeNews, { isLoading: isGrading }] = useGradeNewsMutation();
+  const [gradeNews] = useGradeNewsMutation();
   const [resultChecking, setResultChecking] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const { id } = useParams<{ id: string }>();

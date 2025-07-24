@@ -5,18 +5,11 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Mic } from 'lucide-react';
 import { SpeakingOverlay } from './speaking-overlay';
-import { UserScoreCards, type UserScoreData } from './user-score-card';
+import { type UserScoreData } from './user-score-card';
 import { LeaderboardTable } from './leaderboard-table';
 import { TopThreeCards } from './top-three-card';
 import { CurrentUserSummaryCard } from './user-summary';
 import { useGetSpeakingLeaderboardQuery } from './api.speaking';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { DashboardSkeleton } from './dashboard-skeleton';
 
 export const mockLeaderboardData: UserScoreData[] = [

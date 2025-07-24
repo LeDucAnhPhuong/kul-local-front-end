@@ -93,22 +93,15 @@ const getStatusBadge = (status: number) => {
       );
     case 2:
       return (
-        <Badge variant="secondary" className="bg-green-100 text-gray-800">
-          <CheckCircle className="w-3 h-3 mr-1" />
-          Full
-        </Badge>
-      );
-    case 3:
-      return (
         <Badge variant="secondary" className="bg-green-100 text-green-800">
           <CheckCircle className="w-3 h-3 mr-1" />
           Accepted
         </Badge>
       );
-    case 4:
+    case 3:
       return (
         <Badge variant="secondary" className="bg-red-100 text-red-800">
-          <XCircle className="w-3 h-3 mr-1" />
+          <CheckCircle className="w-3 h-3 mr-1" />
           Rejected
         </Badge>
       );
@@ -326,8 +319,8 @@ export default function TedTeamRegistrationsPage() {
   ];
 
   const pendingCount = data?.filter((item: Registration) => item?.status === 1).length;
-  const acceptedCount = data?.filter((item: Registration) => item?.status === 3).length;
-  const rejectedCount = data?.filter((item: Registration) => item?.status === 4).length;
+  const acceptedCount = data?.filter((item: Registration) => item?.status === 2).length;
+  const rejectedCount = data?.filter((item: Registration) => item?.status === 3).length;
 
   return (
     <div className="p-4 bg-white rounded-lg">

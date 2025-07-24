@@ -27,7 +27,7 @@ export default function NewsDetailPage() {
               <img
                 src={newsItem?.imageUrl || '/placeholder.svg'}
                 alt={newsItem?.title}
-                className="rounded-t-xl"
+                className="rounded-t-xl w-full h-full object-cover"
               />
               <div className="absolute bottom-0 h-[200px] left-0 right-0 bg-gradient-to-t from-gray-600/20 to-bg-white text-white p-4 text-center z-2"></div>
               <div className=" absolute bottom-0 left-5">

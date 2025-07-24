@@ -3,7 +3,7 @@ import TitlePage from '@/components/ui/title-page';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { columns } from '../../columns/detailclass-columns';
 import { useUpdateAttendanceStatusMutation } from '../../api.tedteam';
-import { use, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { skipToken } from '@reduxjs/toolkit/query';

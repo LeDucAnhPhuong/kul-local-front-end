@@ -1,5 +1,5 @@
 import type { ColumnDef } from '@tanstack/react-table';
-import { CalendarDays, UserCircle } from 'lucide-react';
+import { CalendarDays } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { filterDateRange } from '@/utils/table';
@@ -14,6 +14,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { formatDate } from 'date-fns';
 
 const getStatus = (status: string) => {
   switch (status) {
@@ -43,16 +44,17 @@ export const columns: ColumnDef<any>[] = [
   {
     header: 'Date',
     cell: ({ row }) => {
-      const start = new Date(row.original.date).toLocaleDateString('en-US');
-      const end = new Date(row.original.due).toLocaleDateString('en-US');
+      const start = formatDate(new Date(row.original.date), 'dd/MM/yyyy HH:mm');
+      const end = formatDate(new Date(row.original.due), 'dd/MM/yyyy HH:mm');
 
       return (
         <div className="text-sm text-blue-600 flex flex-col">
-          <div className="flex items-center gap-1">
-            <CalendarDays className="size-3" />
-            <span>
-              {start} - {end}
-            </span>
+          <div className="flex items-center gap-2">
+            <CalendarDays className="size-4" />
+            <div className="flex flex-col gap-1">
+              <span>{start}</span>
+              <span>{end}</span>
+            </div>
           </div>
         </div>
       );

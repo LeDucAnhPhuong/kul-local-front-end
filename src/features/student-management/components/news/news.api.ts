@@ -29,7 +29,7 @@ export const studentScheduleApi = baseApi.injectEndpoints({
         url: `/api/News/${id}`,
         method: 'GET',
       }),
-      providesTags: (result, error, id) => [{ type: 'News', id }],
+      providesTags: ['News'],
     }),
   }),
 });

@@ -14,7 +14,6 @@ import {
 } from '@/components/ui/form';
 import { MultiSelect } from '@/components/ui/multi-select';
 import { useGetClassesQuery } from '@/features/class-management/api.class';
-import type { ClassData } from '@/features/class-management/data.class';
 
 const formSchema = z.object({
   dayOfWeek: z.array(z.string()).nonempty('Please at least one item'),

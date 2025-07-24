@@ -32,7 +32,7 @@ export default function AllNews() {
 
   if (news.length === 0) {
     return (
-      <div className="min-h-screen bg-[#200040] p-8 text-white flex items-center justify-center">
+      <div className="min-h-screen p-8 flex items-center justify-center">
         <p>No news available to display.</p>
       </div>
     );
@@ -40,10 +40,8 @@ export default function AllNews() {
 
   const mainNews: News = news[0];
 
-  const fakenews = [...news, ...news];
-
-  const leftSideNews: News[] = fakenews.slice(1, (2 * fakenews?.length) / 3);
-  const rightSideNews: News[] = fakenews.slice((2 * fakenews?.length) / 3 + 1, fakenews?.length); // Lấy 2 tin tức tiếp theo cho cột bên phải
+  const leftSideNews: News[] = news.slice(1, (2 * news?.length) / 3);
+  const rightSideNews: News[] = news.slice((2 * news?.length) / 3 + 1, news?.length); // Lấy 2 tin tức tiếp theo cho cột bên phải
 
   const handleView = (news: News) => {
     router.push(`/news/${news.id}`);

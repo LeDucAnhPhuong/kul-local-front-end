@@ -12,10 +12,12 @@ import {
 } from '@/components/ui/select';
 import { Card, CardContent } from '@/components/ui/card';
 import { useState } from 'react';
-import { useGetNewsForStudentQuery } from '@/features/student-management/components/news/news.api';
+import { htmlToText } from 'html-to-text';
 import { useParams } from 'react-router';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useGetNewsByIdQuery, useGradeNewsMutation } from '../../api.teacher';
+import { checkingNews } from '@/services/generate-ai';
+import CheckingModal from './checking-modal';
 
 type FormData = {
   name: string;
@@ -37,34 +39,6 @@ type News = {
   updatedAt: string;
 };
 
-const mockNews: News[] = [
-  {
-    id: 1,
-    title: 'Thông báo cuộc thi học thuật',
-    content: 'Cuộc thi sẽ diễn ra vào ngày 20/7. Hãy chuẩn bị kỹ càng!',
-    imageUrl: 'https://source.unsplash.com/random/400x200?education',
-    class_id: 1,
-    user_id: 1,
-    isActive: true,
-    createdBy: 'admin',
-    updatedBy: 'admin',
-    createdAt: '2025-07-01',
-    updatedAt: '2025-07-01',
-  },
-  {
-    id: 2,
-    title: 'Cập nhật tài liệu mới',
-    content: 'Tài liệu học tập đã được cập nhật trong hệ thống.',
-    class_id: 1,
-    user_id: 1,
-    isActive: true,
-    createdBy: 'admin',
-    updatedBy: 'admin',
-    createdAt: '2025-07-02',
-    updatedAt: '2025-07-02',
-  },
-];
-
 export default function ScorePage() {
   const {
     register,
@@ -75,6 +49,8 @@ export default function ScorePage() {
   } = useForm<FormData>();
   const [submittedData, setSubmittedData] = useState<FormData | null>(null);
   const [gradeNews, { isLoading: isGrading }] = useGradeNewsMutation();
+  const [resultChecking, setResultChecking] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
   const { id } = useParams<{ id: string }>();
   const { news } = useGetNewsByIdQuery(id ?? skipToken, {
     selectFromResult: ({ data }) => ({
@@ -90,9 +66,36 @@ export default function ScorePage() {
     }
   };
 
+  const handleAICheck = async (news: News) => {
+    try {
+      const plainText = htmlToText(news.content, {
+        wordwrap: false,
+        selectors: [{ selector: 'a', format: 'inline' }],
+      });
+
+      setLoading(true);
+      const feedback = await checkingNews(plainText, news?.title);
+
+      const cleaned = feedback?.replace(/```json|```/g, '').trim();
+
+      // Bước 2: Parse thành object
+      const result = JSON.parse(cleaned);
+      setResultChecking(result);
+    } catch (error) {
+      console.error('Error checking news with AI:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
       {/* Form */}
+      <CheckingModal
+        isOpen={!!resultChecking}
+        content={resultChecking}
+        setOpen={setResultChecking}
+      />
       <div className="space-y-4">
         <Card key={news?.id}>
           <CardContent className="p-4 space-y-2">
@@ -146,6 +149,15 @@ export default function ScorePage() {
             {errors.feedback && <p className="text-red-500 text-sm">{errors.feedback.message}</p>}
           </div>
 
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => handleAICheck(news)}
+            className="w-full"
+            isLoading={loading}
+          >
+            AI Checking
+          </Button>
           <Button type="submit" className="w-full">
             Submit feedback
           </Button>

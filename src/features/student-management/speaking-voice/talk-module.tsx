@@ -10,7 +10,6 @@ import { LeaderboardTable } from './leaderboard-table';
 import { TopThreeCards } from './top-three-card';
 import { CurrentUserSummaryCard } from './user-summary';
 import { useGetSpeakingLeaderboardQuery } from './api.speaking';
-
 import { DashboardSkeleton } from './dashboard-skeleton';
 
 export const mockLeaderboardData: UserScoreData[] = [

@@ -39,7 +39,7 @@ export const PersonalScheduleMobileView: React.FC<Props> = ({ data }) => {
                 <div className="text-sm font-medium truncate">{cell!.topic}</div>
                 <div className="text-xs text-muted-foreground">by {cell!.instructor}</div>
                 <div className="text-xs text-gray-600">
-                  Room {cell!.room_id} | Class {cell!.class_id}
+                  {/* Room {cell!.room_id} | Class {cell!.class_id} */}
                 </div>
                 <Badge
                   className={cn(

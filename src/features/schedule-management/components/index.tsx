@@ -63,7 +63,7 @@ export default function CustomCalendar() {
   const { startDate, endDate } = getDateRange(viewMode, currentDate);
   console.log('{ startDate, endDate }  :>> ', { startDate, endDate });
   const { slots, schedules, loading } = useCalendarData({ startDate, endDate });
-  const [updateSchedules, { isLoading: isUpdating }] = useUpdateScheduleMutation();
+  const [updateSchedules] = useUpdateScheduleMutation();
 
   const handlePrevious = () => {
     const newDate = new Date(currentDate);

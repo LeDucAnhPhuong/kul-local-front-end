@@ -1,15 +1,13 @@
 import TitlePage from '@/components/ui/title-page';
 import MyForm from './add-schedule-form';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import MyFormAuto from './add--schedule-form-auto';
 import { toast } from 'sonner';
-import { useCreateScheduleMutation, useCreateScheduleAutoMutation } from '../api.schedule';
+import { useCreateScheduleMutation } from '../api.schedule';
 import { useNavigate } from 'react-router';
 import ScheduleCreatorCalendar from './add-ui-schedule';
 
 const AddSchedule = () => {
   const [createSchedule] = useCreateScheduleMutation();
-  const [createScheduleAuto] = useCreateScheduleAutoMutation();
   const navigate = useNavigate();
 
   async function onAddSchedule(data: {
@@ -27,24 +25,6 @@ const AddSchedule = () => {
         slotIds: data.slotIds,
         classId: data.classId,
         coachEmail: data.coachEmail,
-      }).unwrap();
-      toast.success('Schedule created successfully', {
-        id: idToast,
-      });
-      navigate('/schedule-management');
-    } catch (error) {
-      toast.error('Failed to create schedule', {
-        id: idToast,
-      });
-    }
-  }
-
-  async function onAddScheduleAuto(data: { dayOfWeek: string[]; classId: string[] }) {
-    const idToast = toast.loading('Creating schedule...');
-    try {
-      await createScheduleAuto({
-        dayOfWeek: data.dayOfWeek,
-        classId: data.classId,
       }).unwrap();
       toast.success('Schedule created successfully', {
         id: idToast,

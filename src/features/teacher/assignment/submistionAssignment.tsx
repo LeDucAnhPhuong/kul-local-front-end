@@ -9,7 +9,6 @@ import { format } from 'date-fns';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import GradeAssignment from './GradeAssignment';
 import { toast } from 'sonner';
 
@@ -54,27 +53,6 @@ export function CoachGradingSkeleton() {
   );
 }
 
-// CoachAssignmentGradingPage.tsx
-
-type Submission = {
-  id: string;
-  content: string;
-  submittedAt: string;
-  score: number | null;
-  createdByUser: {
-    email: string;
-    profileImage: string;
-    firstName: string | null;
-    lastName: string | null;
-  };
-};
-
-type Assignment = {
-  title: string;
-  dueTime: string;
-  content: string;
-};
-
 const SubmissionAssignmentPage = () => {
   const { id } = useParams<{ id: string }>();
   const { data, isFetching } = useGetSubmissionByAssignmentForCoachQuery(id ?? skipToken, {
@@ -84,11 +62,13 @@ const SubmissionAssignmentPage = () => {
     }),
   });
 
-  const [gradeSubmission, { isLoading }] = useGradeSubmissionMutation();
+  const [gradeSubmission] = useGradeSubmissionMutation();
 
   const assignment = data.length > 0 ? data[0].assignment : null;
 
   const submissions = data.length > 0 ? data : [];
+
+  console.log('submissions', submissions);
 
   const [grading, setGrading] = React.useState<string | null>(null);
   const [score, setScore] = React.useState<string>('');
@@ -131,11 +111,11 @@ const SubmissionAssignmentPage = () => {
 
       <div className="space-y-4">
         {submissions
-          .sort(
+          ?.sort(
             (a: any, b: any) =>
               new Date(a?.submittedAt).getTime() - new Date(b?.submittedAt).getTime(),
           )
-          .map((s: any) => (
+          ?.map((s: any) => (
             <Card key={s.id}>
               <CardContent className="p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div className="flex items-center gap-4">

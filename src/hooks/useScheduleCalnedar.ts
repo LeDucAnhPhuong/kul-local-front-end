@@ -1,9 +1,6 @@
 'use client';
 
-import {
-  useGetScheduleDateRangeQuery,
-  useGetSchedulesQuery,
-} from '@/features/schedule-management/api.schedule';
+import { useGetScheduleDateRangeQuery } from '@/features/schedule-management/api.schedule';
 import type { Slot } from '@/features/schedule-management/data.type';
 import { useGetAllSlotQuery } from '@/features/tedteam/api.tedteam';
 import { zoneTimeToUTC } from '@/utils/zone-time-to-utc';

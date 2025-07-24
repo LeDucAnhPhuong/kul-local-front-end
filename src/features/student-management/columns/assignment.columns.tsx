@@ -1,6 +1,5 @@
 import type { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
-import { FileText } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import type { Assignment } from '@/features/teacher/types/assignment';
 import type { Class } from '@/features/schedule-management/data.type';

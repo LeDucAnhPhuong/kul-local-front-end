@@ -1,34 +1,13 @@
 'use client';
 
 import React from 'react';
-import { useRef } from 'react';
 
 import type { ReactElement } from 'react';
-import { useState, useCallback, useMemo, useEffect } from 'react';
-import type { ColumnDef } from '@tanstack/react-table';
-import {
-  Eye,
-  Trash2,
-  Plus,
-  Upload,
-  Calendar,
-  Bold,
-  Italic,
-  Underline,
-  AlignLeft,
-  AlignCenter,
-  AlignRight,
-} from 'lucide-react';
-import { DotsHorizontalIcon } from '@radix-ui/react-icons';
+import { useState, useCallback } from 'react';
+import { Plus, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import {
   Dialog,
   DialogTrigger,
@@ -71,261 +50,7 @@ export type News = {
   source?: string;
   result?: NewsResult;
 };
-// Rich Text Editor Component
-const RichTextEditor = React.memo(
-  ({
-    content,
-    setContent,
-    fontSize,
-    setFontSize,
-    textAlign,
-    setTextAlign,
-  }: {
-    content: string;
-    setContent: (content: string) => void;
-    fontSize: number;
-    setFontSize: (size: number) => void;
-    textAlign: 'left' | 'center' | 'right';
-    setTextAlign: (align: 'left' | 'center' | 'right') => void;
-  }) => {
-    const editorRef = useRef<HTMLDivElement>(null);
-    const [activeFormats, setActiveFormats] = useState<Set<string>>(new Set());
 
-    const updateActiveFormats = useCallback(() => {
-      const formats = new Set<string>();
-      try {
-        if (document.queryCommandState('bold')) formats.add('bold');
-        if (document.queryCommandState('italic')) formats.add('italic');
-        if (document.queryCommandState('underline')) formats.add('underline');
-        if (document.queryCommandState('justifyLeft')) formats.add('justifyLeft');
-        if (document.queryCommandState('justifyCenter')) formats.add('justifyCenter');
-        if (document.queryCommandState('justifyRight')) formats.add('justifyRight');
-      } catch (e) {
-        // Ignore errors
-      }
-      setActiveFormats(formats);
-    }, []);
-
-    const execCommand = useCallback(
-      (command: string, value?: string) => {
-        try {
-          document.execCommand(command, false, value);
-          if (editorRef.current) {
-            setContent(editorRef.current.innerHTML);
-            setTimeout(updateActiveFormats, 10);
-          }
-        } catch (e) {
-          console.error('Error executing command:', e);
-        }
-      },
-      [setContent, updateActiveFormats],
-    );
-
-    const handleInput = useCallback(() => {
-      if (editorRef.current) {
-        setContent(editorRef.current.innerHTML);
-      }
-    }, [setContent]);
-
-    const handleKeyDown = useCallback(
-      (e: React.KeyboardEvent) => {
-        if (e.ctrlKey || e.metaKey) {
-          switch (e.key.toLowerCase()) {
-            case 'b':
-              e.preventDefault();
-              execCommand('bold');
-              break;
-            case 'i':
-              e.preventDefault();
-              execCommand('italic');
-              break;
-            case 'u':
-              e.preventDefault();
-              execCommand('underline');
-              break;
-          }
-        }
-      },
-      [execCommand],
-    );
-
-    const handleAlignmentChange = useCallback(
-      (alignment: 'left' | 'center' | 'right') => {
-        setTextAlign(alignment);
-        const command =
-          alignment === 'left'
-            ? 'justifyLeft'
-            : alignment === 'center'
-            ? 'justifyCenter'
-            : 'justifyRight';
-        execCommand(command);
-      },
-      [execCommand, setTextAlign],
-    );
-
-    const handleFontSizeChange = useCallback(
-      (size: number) => {
-        setFontSize(size);
-        if (editorRef.current) {
-          editorRef.current.style.fontSize = `${size}px`;
-        }
-      },
-      [setFontSize],
-    );
-
-    useEffect(() => {
-      if (editorRef.current && content !== editorRef.current.innerHTML) {
-        editorRef.current.innerHTML = content;
-      }
-    }, [content]);
-
-    return (
-      <div className="space-y-2">
-        <Label className="text-sm font-semibold text-gray-700">
-          News Content <span className="text-red-500">*</span>
-        </Label>
-        <div className="overflow-hidden border border-gray-300 rounded-lg">
-          {/* Toolbar */}
-          <div className="flex flex-wrap items-center gap-1 p-3 border-b border-gray-200 bg-gray-50">
-            <Button
-              variant="ghost"
-              size="sm"
-              className={`w-8 h-8 p-0 transition-colors ${
-                activeFormats.has('bold')
-                  ? 'bg-blue-500 text-white hover:bg-blue-600'
-                  : 'hover:bg-gray-200 text-gray-700'
-              }`}
-              onClick={() => execCommand('bold')}
-              type="button"
-              title="Bold (Ctrl+B)"
-            >
-              <Bold className="w-4 h-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className={`w-8 h-8 p-0 transition-colors ${
-                activeFormats.has('italic')
-                  ? 'bg-blue-500 text-white hover:bg-blue-600'
-                  : 'hover:bg-gray-200 text-gray-700'
-              }`}
-              onClick={() => execCommand('italic')}
-              type="button"
-              title="Italic (Ctrl+I)"
-            >
-              <Italic className="w-4 h-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className={`w-8 h-8 p-0 transition-colors ${
-                activeFormats.has('underline')
-                  ? 'bg-blue-500 text-white hover:bg-blue-600'
-                  : 'hover:bg-gray-200 text-gray-700'
-              }`}
-              onClick={() => execCommand('underline')}
-              type="button"
-              title="Underline (Ctrl+U)"
-            >
-              <Underline className="w-4 h-4" />
-            </Button>
-            <div className="w-px h-6 mx-2 bg-gray-300" />
-            <Button
-              variant="ghost"
-              size="sm"
-              className={`w-8 h-8 p-0 transition-colors ${
-                activeFormats.has('justifyLeft')
-                  ? 'bg-blue-500 text-white hover:bg-blue-600'
-                  : 'hover:bg-gray-200 text-gray-700'
-              }`}
-              onClick={() => handleAlignmentChange('left')}
-              type="button"
-              title="Align Left"
-            >
-              <AlignLeft className="w-4 h-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className={`w-8 h-8 p-0 transition-colors ${
-                activeFormats.has('justifyCenter')
-                  ? 'bg-blue-500 text-white hover:bg-blue-600'
-                  : 'hover:bg-gray-200 text-gray-700'
-              }`}
-              onClick={() => handleAlignmentChange('center')}
-              type="button"
-              title="Align Center"
-            >
-              <AlignCenter className="w-4 h-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className={`w-8 h-8 p-0 transition-colors ${
-                activeFormats.has('justifyRight')
-                  ? 'bg-blue-500 text-white hover:bg-blue-600'
-                  : 'hover:bg-gray-200 text-gray-700'
-              }`}
-              onClick={() => handleAlignmentChange('right')}
-              type="button"
-              title="Align Right"
-            >
-              <AlignRight className="w-4 h-4" />
-            </Button>
-            <div className="w-px h-6 mx-2 bg-gray-300" />
-            <div className="flex items-center gap-1">
-              <span className="mr-1 text-xs text-gray-600">Size:</span>
-              {[10, 12, 14, 16, 18, 20, 24].map((size) => (
-                <Button
-                  key={size}
-                  variant="ghost"
-                  size="sm"
-                  className={`h-8 px-2 text-xs transition-colors ${
-                    fontSize === size
-                      ? 'bg-blue-500 text-white hover:bg-blue-600'
-                      : 'text-gray-700 hover:bg-blue-100 hover:text-blue-600'
-                  }`}
-                  onClick={() => handleFontSizeChange(size)}
-                  type="button"
-                  title={`Font Size ${size}px`}
-                >
-                  {size}
-                </Button>
-              ))}
-            </div>
-          </div>
-          {/* Content Area */}
-          <div
-            ref={editorRef}
-            contentEditable
-            className="min-h-[300px] p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset text-gray-900 relative"
-            onInput={handleInput}
-            onFocus={updateActiveFormats}
-            onMouseUp={updateActiveFormats}
-            onKeyUp={updateActiveFormats}
-            onKeyDown={handleKeyDown}
-            style={{
-              fontSize: `${fontSize}px`,
-              lineHeight: '1.6',
-            }}
-            suppressContentEditableWarning={true}
-            data-placeholder="Enter your news content here..."
-          />
-        </div>
-        <style>{`
-          [contenteditable]:empty:before {
-            content: attr(data-placeholder);
-            color: #9ca3af;
-            pointer-events: none;
-            position: absolute;
-          }
-        `}</style>
-      </div>
-    );
-  },
-);
-
-// Move this outside the main component, before the export default function
 const NewsForm = React.memo(
   ({
     newTitle,
@@ -425,7 +150,7 @@ export default function NewsTable() {
   });
 
   const [createNews, { isLoading }] = useCreateNewsMutation();
-  const [uploadImage, { isLoading: isUploading }] = useUploadImageMutation();
+  const [uploadImage] = useUploadImageMutation();
 
   const [open, setOpen] = useState(false);
 
@@ -482,10 +207,6 @@ export default function NewsTable() {
 
   const handleView = useCallback((news: News) => {
     router.push(`/news/${news.id}`);
-  }, []);
-
-  const handleDelete = useCallback((id: number) => {
-    toast.success('News deleted');
   }, []);
 
   return (

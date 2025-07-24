@@ -1,22 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
-import { Trophy, Medal, Award, Crown, Star, Sparkles } from 'lucide-react';
+import { Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Calendar, Clock, TrendingUp } from 'lucide-react';
-import {
-  startOfWeek,
-  endOfWeek,
-  startOfMonth,
-  endOfMonth,
-  startOfYear,
-  endOfYear,
-  format,
-  differenceInDays,
-} from 'date-fns';
+import { format } from 'date-fns';
 import type { LeaderboardEntry, TimePeriod } from './leaderboard.type';
 import PodiumCard from './podium-card';
 import RegularRankCard from './regular-rank-card';
@@ -24,15 +12,6 @@ import { getDateRange } from './leaderboard.utils';
 import { useGetLeaderBoardQuery } from './leaderboard.api';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { zoneTimeToUTC } from '@/utils/zone-time-to-utc';
-
-interface LeaderboardData {
-  data: LeaderboardEntry[];
-  period: {
-    startDate: string;
-    endDate: string;
-    label: string;
-  };
-}
 
 // Simulated API call with date filtering
 export default function Leaderboard() {

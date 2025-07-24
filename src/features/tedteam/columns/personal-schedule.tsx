@@ -38,7 +38,7 @@ export const personalWorkColumns: ColumnDef<SlotSchedule>[] = [
           </div>
 
           <div className="text-xs leading-tight text-gray-600">
-            {cell.location} | {cell.class_id}
+            {cell.location} | {cell.classId}
           </div>
           <div>
 

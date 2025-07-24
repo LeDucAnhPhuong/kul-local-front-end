@@ -11,7 +11,6 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
-import { useNavigate } from 'react-router-dom';
 import useRouter from '@/hooks/use-router';
 
 export const columns: ColumnDef<News>[] = [
@@ -96,11 +95,6 @@ const Action = (news: News) => {
 
   const handleView = (news: News) => {
     router.push(`/news/${news.id}`);
-  };
-
-  const handleDelete = (id: number) => {
-    // Implement delete logic here
-    console.log('Deleting news with ID:', id);
   };
 
   return (

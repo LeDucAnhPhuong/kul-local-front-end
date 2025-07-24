@@ -3,7 +3,7 @@ import type { ScheduleCell } from '@/features/tedteam/slotInfo';
 import { cn } from '@/lib/utils';
 import type { ColumnDef, Row } from '@tanstack/react-table';
 import { formatDate } from 'date-fns';
-import { BookOpen, CalendarDays, Hourglass, MapPin, User } from 'lucide-react';
+import { BookOpen, CalendarDays, Hourglass, MapPin } from 'lucide-react';
 
 export type DayKey = 't2' | 't3' | 't4' | 't5' | 't6' | 't7' | 'cn';
 
@@ -135,14 +135,14 @@ export const columns: ColumnDef<SlotSchedule>[] = [
       if (!cell) {
         return (
           <div className="flex items-center justify-center h-full py-2">
-            <span className="text-xl font-medium text-gray-400"> -</span>
+            <span className="text-xl font-medium text-gray-400"> - </span>
           </div>
         );
       }
 
       return (
-        <div className="max-w-[250px]">
-          <div className="p-3 space-y-2 transition-shadow duration-200">
+        <div className="max-w-[190px]">
+          <div className="space-y-2 transition-shadow duration-200">
             {/* Room Name & Status Badge */}
             <div className="flex justify-between items-start mb-1">
               <p className="text-sm font-bold leading-tight text-gray-900 line-clamp-2">
@@ -172,7 +172,6 @@ export const columns: ColumnDef<SlotSchedule>[] = [
                 <MapPin className="size-3.5 text-gray-500" />
                 <span className="leading-tight">{cell.location}</span>
               </div>
-              <span>-</span>
               {cell.classId && ( // Only render class if it's available after splitting
                 <div className="flex items-center gap-1 text-xs text-gray-700">
                   <BookOpen className="size-3.5 text-gray-500" />
@@ -183,19 +182,18 @@ export const columns: ColumnDef<SlotSchedule>[] = [
 
             {/* Coach Name */}
             <div className="flex items-center gap-1 text-xs text-gray-700 mt-1">
-              <User className="size-3.5 text-gray-500" />
               <span className="leading-tight">{cell.coachId}</span>
             </div>
 
             {/* Time and Date */}
             <div className="flex gap-2 space-y-0.5 mt-2 pt-2 border-t border-gray-100">
               <div className="flex items-center gap-1 text-xs font-medium leading-tight text-gray-600">
-                <Hourglass className="size-3.5 text-gray-500" />
-                {cell.time}
-              </div>
-              <div className="flex items-center gap-1 text-xs font-medium leading-tight text-gray-600">
                 <CalendarDays className="size-3.5 text-gray-500" />
                 {formatDate(cell.date, 'dd/MM/yyyy')}
+              </div>
+              <div className="flex items-center gap-1 text-xs font-medium leading-tight text-gray-600">
+                <Hourglass className="size-3.5 text-gray-500" />
+                {cell.time}
               </div>
             </div>
           </div>
@@ -215,38 +213,6 @@ function getAttendanceStatus(status: number): 'not yet' | 'present' | 'absent' {
     default:
       return 'not yet';
   }
-}
-
-function getDayKey(date: string): DayKey {
-  const dayOfWeek = new Date(date).getDay();
-  switch (dayOfWeek) {
-    case 1:
-      return 't2';
-    case 2:
-      return 't3';
-    case 3:
-      return 't4';
-    case 4:
-      return 't5';
-    case 5:
-      return 't6';
-    case 6:
-      return 't7';
-    case 0:
-      return 'cn';
-    default:
-      throw new Error('Invalid day of week');
-  }
-}
-
-function formatDateDisplay(date: string): string {
-  return new Date(date).toLocaleDateString();
-}
-
-function getSlotNumber(slotName: string): number {
-  const match = slotName.match(/Slot (\d+)/);
-  if (match && match[1]) return Number.parseInt(match[1], 10);
-  throw new Error('Invalid slot name');
 }
 
 export function getUserAttendanceStatus(

@@ -2538,10 +2538,6 @@
           },
           "isPublic": {
             "type": "boolean"
-          },
-          "level": {
-            "type": "integer",
-            "format": "int32"
           }
         },
         "additionalProperties": false

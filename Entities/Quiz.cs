@@ -7,15 +7,18 @@ public class Quiz : baseEntity
 {
     [BsonElement("title")]
     public string Title { get; set; }
+
     [BsonElement("date")]
-    public DateTime Date { get; set; }        
+    public DateTime Date { get; set; }
+
     [BsonElement("due")]
-    public DateTime Due { get; set; }     
+    public DateTime Due { get; set; }
+
     [BsonElement("isPublic")]
-    public bool IsPublic { get; set; }     
+    public bool IsPublic { get; set; }
 }
 
-public class  QuizResponsive: Quiz 
+public class QuizResponsive : Quiz
 {
     [BsonElement("coach")]
     public User Coach { get; set; } // Coach who created the quiz

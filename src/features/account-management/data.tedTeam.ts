@@ -1,7 +1,7 @@
 export interface TedTeamData {
   id: number;
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   isActive: boolean;
   class?: {

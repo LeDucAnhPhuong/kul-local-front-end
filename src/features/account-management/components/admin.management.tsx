@@ -11,8 +11,8 @@ const AdminManagement = () => {
         data?.data?.map((item: StudentData) => ({
           ...item,
           name:
-            item.first_name || item.last_name
-              ? `${item.last_name ?? ''} ${item.first_name ?? ''}`
+            item.firstName || item.lastName
+              ? `${item.lastName ?? ''} ${item.firstName ?? ''}`
               : 'N/A',
         })) || [],
       isFetching,

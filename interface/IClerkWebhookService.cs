@@ -2,10 +2,10 @@
 
     public interface IClerkWebhookService
     {
-        Task HandleUserCreatedAsync(ClerkUserPayload payload);
-        Task HandleUserUpdatedAsync(ClerkUserPayload payload);
-        Task HandleSessionCreatedAsync(ClerkSessionPayload payload);
-        Task HandleSessionUpdatedAsync(ClerkSessionPayload payload);
-        Task HandleEmailCreatedAsync(ClerkEmailPayload payload);
+    Task<IResult> HandleUserCreatedAsync(ClerkUserPayload payload);
+    Task<IResult> HandleUserUpdatedAsync(ClerkUserPayload payload);
+    Task<IResult> HandleSessionCreatedAsync(ClerkSessionPayload payload);
+    Task<IResult> HandleSessionUpdatedAsync(ClerkSessionPayload payload);
+    Task<IResult> HandleEmailCreatedAsync(ClerkEmailPayload payload);
     }
 

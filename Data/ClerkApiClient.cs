@@ -1,5 +1,6 @@
 ﻿using kul_local_back_end.Entities;
 using System.Net.Http.Headers;
+using System.Text.Json;
 using static IClerkWebhookService;
 
 namespace kul_local_back_end.Data
@@ -18,8 +19,16 @@ namespace kul_local_back_end.Data
 
         public async Task<ClerkUserDetails> GetUserAsync(string userId)
         {
-            var response = await _http.GetFromJsonAsync<ClerkUserDetails>($"https://api.clerk.com/v1/users/{userId}");
-            return response;
+            var users = await _http.GetFromJsonAsync<List<ClerkUserDetails>>(
+                $"https://api.clerk.com/v1/users/{userId}");
+
+            if (users == null)
+            {
+                Console.WriteLine($"User not found for Clerk ID: {userId}");
+                return null;
+            }
+
+            return users?.FirstOrDefault();
         }
 
         public async Task RevokeSessionAsync(string sessionId)

@@ -44,6 +44,7 @@ import SubmissionAssignmentPage from './features/teacher/assignment/submistionAs
 import AcademicPage from './features/student-management/academic/AcademicPage';
 import CoachStatisticsChart from './features/statics/statics-page';
 import { TalkModule } from './features/student-management/speaking-voice/talk-module';
+import StaticsCoach from './features/teacher/components/statics/statics-coach';
 
 function Router() {
   return (
@@ -68,6 +69,7 @@ function Router() {
           <Route path="/assignments/:id" element={<AssignmentSubmissionPage />} />
           <Route path="/assignment-submission/:id" element={<SubmissionAssignmentPage />} />
           <Route path="/academic-progress" element={<AcademicPage />} />
+          <Route path="/statics-quiz" element={<StaticsCoach />} />
 
           {/* Uncomment the following lines if you want to include these routes */}
           {/* <Route path="/example-ui" element={<ExampleUI />} />

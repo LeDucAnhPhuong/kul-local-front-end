@@ -172,63 +172,69 @@ export const WeekView = ({
 
   return (
     <div className="flex flex-col h-full">
-      <div className="grid grid-cols-[120px_repeat(7,1fr)] gap-0 border-b">
-        <div className="p-3 bg-gray-50"></div>
-        {weekDays.map((day, index) => (
-          <div key={index} className="p-3 text-center border-l bg-gray-50">
-            <div className="font-medium">
-              {day.toLocaleDateString('en-US', { weekday: 'short' })}
+      <div className="flex w-full gap-0 border-b">
+        <div className="p-3 min-w-[120px] bg-gray-50"></div>
+        <div className="grid flex-1 grid-cols-7 gap-0 border-b">
+          {weekDays.map((day, index) => (
+            <div key={index} className="p-3 text-center border-l bg-gray-50">
+              <div className="font-medium">
+                {day.toLocaleDateString('en-US', { weekday: 'short' })}
+              </div>
+              <div className="text-sm text-gray-500">{day.getDate()}</div>
             </div>
-            <div className="text-sm text-gray-500">{day.getDate()}</div>
-          </div>
-        ))}
+          ))}
+        </div>
+        <div className="h-full w-4" />
       </div>
-      <div className="flex-1 overflow-auto">
-        <div className="grid grid-cols-[120px_repeat(7,1fr)] gap-0">
+      <div className="flex-1 w-full overflow-auto">
+        <div className="w-full  gap-0">
           {slots.map((slot) => (
-            <div key={slot.id} className="contents">
-              <div className="p-3 text-sm text-gray-600 border-r border-b bg-gray-50">
+            <div key={slot.id} className="flex">
+              <div className="p-3 min-w-[120px] text-sm text-gray-600 bg-gray-50">
                 <div className="font-medium text-xs">{slot.name}</div>
                 <div className="text-xs text-gray-500">
                   {slot.startTime} - {slot.endTime}
                 </div>
               </div>
-              {weekDays.map((day, dayIndex) => {
-                const daySchedules = schedules.filter((schedule) => {
-                  const scheduleDate = new Date(schedule.date);
+              <div className="grid grid-cols-7 gap-0">
+                {weekDays.map((day, dayIndex) => {
+                  const daySchedules = schedules.filter((schedule) => {
+                    const scheduleDate = new Date(schedule.date);
+                    if (scheduleDate.toDateString() === day.toDateString())
+                      return (
+                        scheduleDate.toDateString() === day.toDateString() &&
+                        schedule.slotId === slot.id
+                      );
+                  });
+
+                  const canDropCell = isFutureDate(day);
+
                   return (
-                    scheduleDate.toDateString() === day.toDateString() &&
-                    schedule.slotId === slot.id
-                  );
-                });
-
-                const canDropCell = isFutureDate(day);
-
-                return (
-                  <div
-                    key={dayIndex}
-                    className={cn(
-                      'min-h-[70px] border-b border-l border-gray-200 p-1 transition-colors',
-                      canDropCell ? 'hover:bg-gray-50' : 'bg-gray-50  cursor-not-allowed',
-                    )}
-                    onDrop={(e) => handleDrop(e, day, slot.id)}
-                    onDragOver={handleDragOver}
-                  >
-                    <div className="space-y-1">
-                      {daySchedules.map((schedule) => (
-                        <ScheduleEvent
-                          key={schedule.id}
-                          schedule={schedule}
-                          onDragStart={onDragStart}
-                          onDragEnd={onDragEnd}
-                          compact={true}
-                          isDraggable={isFutureDate(new Date(schedule.date))}
-                        />
-                      ))}
+                    <div
+                      key={dayIndex}
+                      className={cn(
+                        'min-h-[70px] border-b border-l border-gray-200 p-1 transition-colors',
+                        canDropCell ? 'hover:bg-gray-50' : 'bg-gray-50  cursor-not-allowed',
+                      )}
+                      onDrop={(e) => handleDrop(e, day, slot.id)}
+                      onDragOver={handleDragOver}
+                    >
+                      <div className="space-y-1">
+                        {daySchedules.map((schedule) => (
+                          <ScheduleEvent
+                            key={schedule.id}
+                            schedule={schedule}
+                            onDragStart={onDragStart}
+                            onDragEnd={onDragEnd}
+                            compact={true}
+                            isDraggable={isFutureDate(new Date(schedule.date))}
+                          />
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
           ))}
         </div>
@@ -287,6 +293,7 @@ export const MonthView = ({
                   const scheduleDate = new Date(schedule.date);
                   return scheduleDate.toDateString() === day.toDateString();
                 });
+
                 const isCurrentMonth = day.getMonth() === currentDate.getMonth();
                 const canDropCell = isFutureDate(day);
 

@@ -66,6 +66,25 @@ export const teacherApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['assignmentSubmission'],
     }),
+    getCoachStatics: builder.query({
+      query: () => ({
+        url: '/api/Academic/coach/personal',
+        method: 'GET',
+      }),
+    }),
+    getQuizStatics: builder.query({
+      query: ({ classId }: { classId: string[] }) => ({
+        url: '/api/Academic/quiz/results',
+        method: 'GET',
+        params: { classId },
+      }),
+    }),
+    getQuizResultByQuizId: builder.query({
+      query: (quizId: string) => ({
+        url: `/api/Academic/quiz/results/${quizId}`,
+        method: 'GET',
+      }),
+    }),
   }),
 });
 export const {
@@ -79,4 +98,7 @@ export const {
   useGetTeacherAssignmentsQuery,
   useGetSubmissionByAssignmentForCoachQuery,
   useGradeSubmissionMutation,
+  useGetCoachStaticsQuery,
+  useGetQuizStaticsQuery,
+  useGetQuizResultByQuizIdQuery,
 } = teacherApi;

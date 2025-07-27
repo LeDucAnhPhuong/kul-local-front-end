@@ -110,40 +110,43 @@ const SubmissionAssignmentPage = () => {
       <h4 className="text-lg font-semibold mt-6">Submissions</h4>
 
       <div className="space-y-4">
-        {submissions
-          ?.sort(
-            (a: any, b: any) =>
-              new Date(a?.submittedAt).getTime() - new Date(b?.submittedAt).getTime(),
-          )
-          ?.map((s: any) => (
-            <Card key={s.id}>
-              <CardContent className="p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                <div className="flex items-center gap-4">
-                  <img
-                    src={s?.createdByUser?.profileImage}
-                    alt="avatar"
-                    className="w-10 h-10 rounded-full object-cover"
-                  />
-                  <div>
-                    <p className="font-medium">{s?.createdByUser?.email}</p>
-                    <p className="text-sm text-muted-foreground">
-                      Submitted at:{' '}
-                      {format(new Date(s?.submittedAt ?? new Date()), 'yyyy-MM-dd HH:mm:ss')}
-                    </p>
-                  </div>
+        {submissions?.map((s: any) => (
+          <Card key={s.id}>
+            <CardContent className="p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="flex items-center gap-4">
+                <img
+                  src={s?.createdByUser?.profileImage}
+                  alt="avatar"
+                  className="w-10 h-10 rounded-full object-cover"
+                />
+                <div>
+                  <p className="font-medium">{s?.createdByUser?.email}</p>
+                  <p className="text-sm text-muted-foreground">
+                    Submitted at:{' '}
+                    {format(new Date(s?.submittedAt ?? new Date()), 'yyyy-MM-dd HH:mm:ss')}
+                  </p>
                 </div>
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">
+                  Score: {s?.score ? s.score : 'Not graded yet'}
+                </p>
+                <p className="text-sm text-gray-500">
+                  Feedback: {s?.feedback ? s.feedback : 'No feedback provided'}
+                </p>
+              </div>
 
-                <div className="flex flex-col sm:flex-row items-center gap-3">
-                  <a href={s.content} target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline">View File</Button>
-                  </a>
-                  <Button variant="default" onClick={() => setGrading(s.id)}>
-                    Grade
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+              <div className="flex flex-col sm:flex-row items-center gap-3">
+                <a href={s.content} target="_blank" rel="noopener noreferrer">
+                  <Button variant="outline">View File</Button>
+                </a>
+                <Button variant="default" onClick={() => setGrading(s.id)}>
+                  Grade
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
       </div>
       <GradeAssignment
         grading={grading}

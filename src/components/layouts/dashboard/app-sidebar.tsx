@@ -128,6 +128,10 @@ const CoachData = {
           title: 'Assignment',
           url: '/assignment-coach',
         },
+        {
+          title: 'Statics Overview',
+          url: '/statics-quiz',
+        },
       ],
     },
   ],

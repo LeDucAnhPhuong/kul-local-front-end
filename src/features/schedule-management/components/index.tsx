@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import type { Schedule, ViewMode } from '../data.type';
-import { formatDate } from 'date-fns';
+import { endOfWeek, formatDate, startOfWeek } from 'date-fns';
 import {
   DayView,
   getWeekDays,
@@ -31,14 +31,9 @@ export function getDateRange(
       break;
     case 'week':
     case 'weekList': {
-      const dayOfWeek = date.getDay();
-      startDate = new Date(date);
-      startDate.setDate(date.getDate() - dayOfWeek);
-      startDate.setHours(0, 0, 0, 0);
+      startDate = startOfWeek(currentDate, { weekStartsOn: 1 });
 
-      endDate = new Date(startDate);
-      endDate.setDate(startDate.getDate() + 6);
-      endDate.setHours(23, 59, 59, 999);
+      endDate = endOfWeek(currentDate, { weekStartsOn: 1 });
       break;
     }
     case 'month': {
@@ -61,7 +56,6 @@ export default function CustomCalendar() {
   const [draggedSchedule, setDraggedSchedule] = useState<Schedule | null>(null);
 
   const { startDate, endDate } = getDateRange(viewMode, currentDate);
-  console.log('{ startDate, endDate }  :>> ', { startDate, endDate });
   const { slots, schedules, loading } = useCalendarData({ startDate, endDate });
   const [updateSchedules] = useUpdateScheduleMutation();
 
@@ -164,7 +158,7 @@ export default function CustomCalendar() {
         <div className="flex items-center justify-center h-full">
           <div className="flex items-center gap-2">
             <Loader2 className="h-6 w-6 animate-spin" />
-            <span>Đang tải dữ liệu...</span>
+            <span>Loading...</span>
           </div>
         </div>
       );
@@ -193,7 +187,7 @@ export default function CustomCalendar() {
   };
 
   return (
-    <div className="h-screen flex p-6 rounded-lg flex-col bg-white">
+    <div className="h-screen w-full flex p-6 rounded-lg flex-col bg-white">
       <TitlePage
         title="Manage Schedule"
         contentHref="Add schedule"
@@ -256,7 +250,7 @@ export default function CustomCalendar() {
       </div>
 
       {/* Calendar Content */}
-      <div className="flex-1 overflow-hidden">
+      <div className="w-full overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
             key={viewMode}

@@ -5,10 +5,7 @@ export const zoneTimeToUTC = (date: Date, timeZone = 'UTC'): Date => {
     timeZone,
   });
 
-  console.log('zoneTime :>> ', zoneTime);
-
   const utcDate = fromZonedTime(new Date(zoneTime), 'UTC');
-  console.log('utcDate :>> ', utcDate.toISOString());
 
   return utcDate;
 };

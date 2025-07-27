@@ -221,6 +221,61 @@
         }
       }
     },
+    "/api/Academic/coach/personal": {
+      "get": {
+        "tags": [
+          "Academic"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Academic/quiz/results": {
+      "get": {
+        "tags": [
+          "Academic"
+        ],
+        "parameters": [
+          {
+            "name": "classId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Academic/quiz/results/{quizId}": {
+      "get": {
+        "tags": [
+          "Academic"
+        ],
+        "parameters": [
+          {
+            "name": "quizId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/assignments/get-for-coach": {
       "get": {
         "tags": [

@@ -38,6 +38,19 @@ namespace kul_local_back_end.Repositories
             return await _userCollection.GetByFilterAsync(filter);
         }
 
+        //public async Task<IResult> getClassForCoach(string email)
+        //{
+        //    var coach = await _userCollection.GetUserByEmail(email);
+
+        //    if (coach == null || coach.ClassId == null)
+        //    {
+        //        return Results.NotFound(new { message = "Coach not found or not assigned to any class." });
+        //    }
+
+
+
+        //}
+
         public async Task<IResult> getMemberByClassAsync(string class_id)
         {
             var filter = Builders<User>.Filter.Eq(u => u.ClassId, class_id);

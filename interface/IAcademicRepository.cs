@@ -7,4 +7,8 @@
     Task<IResult> GetCoachAcademicSummaryAsync(string coachId, DateTime from, DateTime to);
     Task<IResult> GetTedTeamRegisterSummaryAsync(DateTime from, DateTime to);
     Task<IResult> GetTedTeamRegisterSummaryByTedTeamIdAsync(string tedteamId, DateTime from, DateTime to);
+    Task<IResult> GetCoachQuizStatisticsAsync(string email);
+    Task<IResult> GetQuizResultsByCoachAsync(string email, string classId);
+    Task<IResult> GetQuizResultsByQuizId(string email, string quizId);
+
 }

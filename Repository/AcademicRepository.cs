@@ -180,9 +180,9 @@ public class AcademicRepository : IAcademicRepository
                 assignmentIds.Contains(r.AssignmentId) && r.SubmittedAt >= start && r.SubmittedAt <= end)
                 .ToListAsync();
 
-            double avgQuiz = quizScores.Count > 0 ? quizScores.Average(r => r.Score) : 0;
-            double avgNews = newsScores.Count > 0 ? newsScores.Average(r => r.Score) : 0;
-            double avgAssignment = (double)(assignmentScores.Count > 0 ? assignmentScores.Average(r => r.Score) : 0);
+            double avgQuiz = quizScores.Count > 0 ? quizScores.Average(r => r?.Score ?? 0) : 0;
+            double avgNews = newsScores?.Count > 0 ? newsScores.Average(r => r?.Score ?? 0) : 0;
+            double avgAssignment = (double)(assignmentScores.Count > 0 ? assignmentScores.Average(r => r?.Score ?? 0) : 0);
 
             double finalScore = Math.Round(avgQuiz * 0.25 + avgNews * 0.25 + avgAssignment * 0.3, 2);
 
@@ -233,7 +233,7 @@ public class AcademicRepository : IAcademicRepository
 
             var dailyQuiz = quizScores.Where(q => q.SubmittedAt.Date == date).Select(q => q.Score).ToList();
             var dailyNews = newsScores.Where(n => n.CreatedAt.Date == date).Select(n => n.Score).ToList();
-            var dailyAssign = assignmentScores.Where(a => a.SubmittedAt.Date == date).Select(a => a.Score).ToList();
+            var dailyAssign = assignmentScores.Where(a => a.SubmittedAt.Date == date).Select(a => a?.Score ?? 0).ToList();
 
             double avgQuiz = dailyQuiz.Count > 0 ? dailyQuiz.Average() : 0;
             double avgNews = dailyNews.Count > 0 ? dailyNews.Average() : 0;
@@ -293,9 +293,9 @@ public class AcademicRepository : IAcademicRepository
 
         var dailySummary = allDates.Select(date =>
         {
-            var dailyQuiz = quizScores.Where(q => q.SubmittedAt.Date == date).Select(q => q.Score).ToList();
-            var dailyNews = newsScores.Where(n => n.CreatedAt.Date == date).Select(n => n.Score).ToList();
-            var dailyAssign = assignmentScores.Where(a => a.SubmittedAt.Date == date).Select(a => a.Score).ToList();
+            var dailyQuiz = quizScores.Where(q => q.SubmittedAt.Date == date).Select(q => q?.Score ?? 0).ToList();
+            var dailyNews = newsScores.Where(n => n.CreatedAt.Date == date).Select(n => n?.Score ?? 0).ToList();
+            var dailyAssign = assignmentScores.Where(a => a.SubmittedAt.Date == date).Select(a => a?.Score ?? 0).ToList();
 
             double avgQuiz = dailyQuiz.Count > 0 ? dailyQuiz.Average() : 0;
             double avgNews = dailyNews.Count > 0 ? dailyNews.Average() : 0;
@@ -366,5 +366,109 @@ public class AcademicRepository : IAcademicRepository
 
         return Results.Ok(summary);
     }
+
+    public async Task<IResult> GetCoachQuizStatisticsAsync(string email)
+    {
+        var coach = await _users.GetUserByEmail(email);
+
+        if (coach == null || coach.Role != UserRole.Coach.ToString())
+            return Results.NotFound("Coach not found.");
+
+        var quizzes = await _quiz.Find(q => q.CreatedBy == coach.Id).ToListAsync();
+
+        var results = new List<object>();
+
+        foreach (var quiz in quizzes)
+        {
+            var quizResults = await _quizResults.Find(r => r.QuizId == quiz.Id).ToListAsync();
+            var averageScore = quizResults.Any() ? quizResults.Average(r => r?.Score ?? 0) : 0;
+
+            results.Add(new
+            {
+                QuizId = quiz,
+                quiz.Title,
+                quiz.Date,
+                quiz.Due,
+                TotalSubmissions = quizResults.Count,
+                AverageScore = Math.Round(averageScore, 2)
+            });
+        }
+
+        return Results.Ok(new {data = results });
+    }
+
+    public async Task<IResult> GetQuizResultsByCoachAsync(string email, string classId)
+    {
+
+        var coach = await _users.GetUserByEmail(email);
+
+        if (coach == null || coach.Role != UserRole.Coach.ToString())
+            return Results.NotFound("Coach not found.");
+
+        var ClassIds = classId.Split(',').ToList();
+
+        var quizzes = await _quiz.Find(q => q.CreatedBy == coach.Id).ToListAsync();
+        var quizIds = quizzes.Select(q => q.Id).ToList();
+
+        var results = await _quizResults.Find(r => quizIds.Contains(r.QuizId)).ToListAsync();
+
+        var response = new List<object>();
+
+        foreach (var result in results)
+        {
+            var quiz = quizzes.FirstOrDefault(q => q.Id == result.QuizId);
+            var user = await _users.GetByIdAsync(result.UserId);
+
+            if (user == null || !ClassIds.Contains(user.ClassId))
+                continue;
+
+            response.Add(new
+            {
+                Class = classId,
+                Quiz = quiz,
+                Student = user,
+                Score = result?.Score ?? 0,
+                SubmittedAt = result
+            });
+        }
+
+        return Results.Ok(new { data =response });
+    }
+    public async Task<IResult> GetQuizResultsByQuizId(string email, string quizId)
+    {
+
+        Console.WriteLine($"GetQuizResultsByQuizId called with email: {email}, quizId: {quizId}");
+
+        var coach = await _users.GetUserByEmail(email);
+
+        if (coach == null || coach.Role != UserRole.Coach.ToString())
+            return Results.NotFound("Coach not found.");
+
+        var quiz = await _quiz.Find(q => q.Id == quizId && q.CreatedBy == coach.Id).FirstOrDefaultAsync();
+
+        if (quiz == null)
+            return Results.NotFound("Quiz not found.");
+
+        var results = await _quizResults.Find(r => quiz.Id == r.QuizId).ToListAsync();
+
+        var response = new List<object>();
+
+        foreach (var result in results)
+        {
+            var user = await _users.GetByIdAsync(result.UserId);
+
+
+            response.Add(new
+            {
+                Quiz = quiz,
+                Student = user,
+                Score = result?.Score ?? 0,
+                SubmittedAt = result
+            });
+        }
+
+        return Results.Ok(new { data =response });
+    }
+
 
 }

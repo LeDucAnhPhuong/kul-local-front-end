@@ -95,12 +95,54 @@
   },
   {
     "ContainingType": "kul_local_back_end.Controllers.AcademicController",
+    "Method": "GetCoachPersonalSummary",
+    "RelativePath": "api/Academic/coach/personal",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.AcademicController",
     "Method": "GetProgress",
     "RelativePath": "api/Academic/progress",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.AcademicController",
+    "Method": "GetQuizResultsByCoach",
+    "RelativePath": "api/Academic/quiz/results",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "classId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.AcademicController",
+    "Method": "GetQuizResultsByQuizId",
+    "RelativePath": "api/Academic/quiz/results/{quizId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "quizId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {

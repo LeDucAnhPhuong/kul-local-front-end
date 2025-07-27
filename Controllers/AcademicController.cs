@@ -56,6 +56,34 @@ namespace kul_local_back_end.Controllers
         [HttpGet("register/personal/{tedteamId}")]
         public async Task<IResult> GetTedTeamRegisterSummaryByEmail(string tedteamId, DateTime startDate, DateTime endDate)
             => await _academic.GetTedTeamRegisterSummaryByTedTeamIdAsync(tedteamId, startDate, endDate);
+
+        [HttpGet("coach/personal")]
+        [Authorize]
+        public async Task<IResult> GetCoachPersonalSummary()
+        {
+            var user = HttpContext.User;
+            var email = user.FindFirst("user_email")?.Value;
+           
+            return await _academic.GetCoachQuizStatisticsAsync(email);
+        }
+
+        [HttpGet("quiz/results")]
+        [Authorize]
+        public async Task<IResult> GetQuizResultsByCoach([FromQuery] string classId)
+        {
+            var user = HttpContext.User;
+            var email = user.FindFirst("user_email")?.Value;
+            return await _academic.GetQuizResultsByCoachAsync(email, classId);
+        }
+
+        [HttpGet("quiz/results/{quizId}")]
+        [Authorize]
+        public async Task<IResult> GetQuizResultsByQuizId(string quizId)
+        {
+            var user = HttpContext.User;
+            var email = user.FindFirst("user_email")?.Value;
+            return await _academic.GetQuizResultsByQuizId(email, quizId);
+        }
     }
 
 }

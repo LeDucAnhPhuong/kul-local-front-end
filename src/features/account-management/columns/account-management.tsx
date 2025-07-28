@@ -20,7 +20,7 @@ export type User = {
   id: number;
   name: string;
   profileImage: string | null;
-  fisrtName: string;
+  firstName: string;
   lastName: string;
   email: string;
   isActive: boolean;

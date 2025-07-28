@@ -18,7 +18,6 @@ export default function RangeNumberPicker<TData, TValue>({
   initialMinValue,
   initialMaxValue,
 }: Props<TData, TValue>) {
-  'use no memo';
   const columnFilterValue: any = column?.getFilterValue();
 
   const [value, setValue] = useState<[number | undefined, number | undefined]>(

@@ -1,7 +1,7 @@
 export interface StudentData {
   id: number;
-  first_name: string;
-  last_name: string;
+  lastName: string;
+  firstName: string;
   email: string;
   isActive: boolean;
   class?: {

@@ -1,5 +1,5 @@
 'use client';
-import * as React from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router';
 
 import {
@@ -127,6 +127,10 @@ const CoachData = {
         {
           title: 'Assignment',
           url: '/assignment-coach',
+        },
+        {
+          title: 'Statics Overview',
+          url: '/statics-quiz',
         },
       ],
     },

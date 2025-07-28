@@ -1,5 +1,3 @@
-'use no memo';
-
 // import { UserSchema } from "@/app/users/userSchema";
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { Eye, Pencil, Trash2 } from 'lucide-react';

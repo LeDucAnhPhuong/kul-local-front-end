@@ -11,8 +11,8 @@ const CoachManagement = () => {
         data?.data?.map((item: TedTeamData) => ({
           ...item,
           name:
-            item.first_name || item.last_name
-              ? `${item.last_name ?? ''} ${item.first_name ?? ''}`
+            item.firstName || item.lastName
+              ? `${item.lastName ?? ''} ${item.firstName ?? ''}`
               : 'N/A',
         })) || [],
       isFetching,

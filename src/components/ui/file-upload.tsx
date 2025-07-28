@@ -11,7 +11,7 @@ import {
   FileTextIcon,
   FileVideoIcon,
 } from "lucide-react";
-import * as React from "react";
+import React from "react";
  
 const ROOT_NAME = "FileUpload";
 const DROPZONE_NAME = "FileUploadDropzone";

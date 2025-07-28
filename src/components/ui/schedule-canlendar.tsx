@@ -187,7 +187,7 @@ export const WeekView = ({
         <div className="h-full w-4" />
       </div>
       <div className="flex-1 w-full overflow-auto">
-        <div className="w-full  gap-0">
+        <div className="w-full gap-0">
           {slots.map((slot) => (
             <div key={slot.id} className="flex">
               <div className="p-3 min-w-[120px] text-sm text-gray-600 bg-gray-50">
@@ -196,7 +196,7 @@ export const WeekView = ({
                   {slot.startTime} - {slot.endTime}
                 </div>
               </div>
-              <div className="grid grid-cols-7 gap-0">
+              <div className="grid grid-cols-7 w-full gap-0">
                 {weekDays.map((day, dayIndex) => {
                   const daySchedules = schedules.filter((schedule) => {
                     const scheduleDate = new Date(schedule.date);
@@ -213,7 +213,7 @@ export const WeekView = ({
                     <div
                       key={dayIndex}
                       className={cn(
-                        'min-h-[70px] border-b border-l border-gray-200 p-1 transition-colors',
+                        'min-h-[70px] border-b border-l col-span-1 border-gray-200 p-1 transition-colors',
                         canDropCell ? 'hover:bg-gray-50' : 'bg-gray-50  cursor-not-allowed',
                       )}
                       onDrop={(e) => handleDrop(e, day, slot.id)}

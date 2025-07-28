@@ -13,6 +13,19 @@ export type Class = {
   schedule?: string;
   startTime?: string;
 };
+const Action = ({ row }: { row: Row<Class> }) => {
+  return (
+    <div>
+      <Link
+        className="flex gap-2 w-full"
+        to={`/detail-class/${row.original?.id}?schedule=${row.original?.schedule}`}
+      >
+        <ClipboardPen className="" />
+      </Link>
+    </div>
+  );
+};
+
 export const columns: ColumnDef<Class>[] = [
   {
     accessorKey: 'name',
@@ -60,16 +73,3 @@ export const columns: ColumnDef<Class>[] = [
     cell: ({ row }) => <Action row={row} />,
   },
 ];
-
-const Action = ({ row }: { row: Row<Class> }) => {
-  return (
-    <div>
-      <Link
-        className="flex gap-2 w-full"
-        to={`/detail-class/${row.original?.id}?schedule=${row.original?.schedule}`}
-      >
-        <ClipboardPen className="" />
-      </Link>
-    </div>
-  );
-};

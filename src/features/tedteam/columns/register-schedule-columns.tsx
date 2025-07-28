@@ -6,11 +6,67 @@ import { getRegisterStatus } from '../teddata';
 import { formatDate } from 'date-fns';
 import { useRegisterScheduleMutation, useUnregisterScheduleMutation } from '../api.tedteam';
 
+export const columns: ColumnDef<RegisterSlotSchedule>[] = [
+  {
+    accessorKey: 'slot',
+    header: 'Slot',
+    cell: ({ row }) => (
+      <div className="text-sm font-medium md:text-base whitespace-nowrap">
+        {row.getValue('slot')}
+      </div>
+    ),
+  },
+  ...['t2', 't3', 't4', 't5', 't6', 't7', 'cn'].map((dayKey) => ({
+    accessorKey: dayKey,
+    header: () => {
+      const dayHeaderMap: Record<string, string> = {
+        t2: 'MON',
+        t3: 'TUE',
+        t4: 'WED',
+        t5: 'THU',
+        t6: 'FRI',
+        t7: 'SAT',
+        cn: 'SUN',
+      };
+      return <div className="text-center">{dayHeaderMap[dayKey] || dayKey.toUpperCase()}</div>;
+    },
+    cell: ({ row }: { row: Row<RegisterSlotSchedule> }) => {
+      const cell: RegisterScheduleCell | undefined = row.getValue(dayKey);
+
+      const schedule = cell?.schedule;
+
+      if (!schedule) {
+        return (
+          <div className="flex items-center justify-center py-2 text-lg text-red-500 md:text-2xl">
+            -
+          </div>
+        );
+      }
+
+      return (
+        <div className="space-y-1 p-1 min-w-[120px] w-full flex flex-col items-center">
+          <div className="text-xs font-medium leading-tight text-green-600">
+            {schedule?.slot?.startTime} - {schedule?.slot?.endTime}
+          </div>
+          <div className="text-xs font-medium leading-tight text-blue-600">
+            {formatDate(schedule?.date, 'dd-MM-yyyy')}
+          </div>
+          <StatusButton status={getRegisterStatus(cell?.status)} scheduleId={schedule?.scheduleIds} />
+        </div>
+      );
+    },
+    meta: {
+      sort: false,
+      filter: false,
+    },
+  })),
+];
+
 export const StatusButton = ({
   status,
   scheduleId,
 }: {
-  status: 'register' | 'registered' | 'unregistered' | 'approved' | "rejected" | 'closed';
+  status: 'register' | 'registered' | 'unregistered' | 'approved' | 'rejected' | 'closed';
   scheduleId?: string[];
 }) => {
   const [registerStatus] = useRegisterScheduleMutation();
@@ -98,59 +154,3 @@ export const StatusButton = ({
     </Button>
   );
 };
-
-export const columns: ColumnDef<RegisterSlotSchedule>[] = [
-  {
-    accessorKey: 'slot',
-    header: 'Slot',
-    cell: ({ row }) => (
-      <div className="text-sm font-medium md:text-base whitespace-nowrap">
-        {row.getValue('slot')}
-      </div>
-    ),
-  },
-  ...['t2', 't3', 't4', 't5', 't6', 't7', 'cn'].map((dayKey) => ({
-    accessorKey: dayKey,
-    header: () => {
-      const dayHeaderMap: Record<string, string> = {
-        t2: 'MON',
-        t3: 'TUE',
-        t4: 'WED',
-        t5: 'THU',
-        t6: 'FRI',
-        t7: 'SAT',
-        cn: 'SUN',
-      };
-      return <div className="text-center">{dayHeaderMap[dayKey] || dayKey.toUpperCase()}</div>;
-    },
-    cell: ({ row }: { row: Row<RegisterSlotSchedule>; }) => {
-      const cell: RegisterScheduleCell | undefined = row.getValue(dayKey);
-
-      const schedule = cell?.schedule;
-
-      if (!schedule) {
-        return (
-          <div className="flex items-center justify-center py-2 text-lg text-red-500 md:text-2xl">
-            -
-          </div>
-        );
-      }
-
-      return (
-        <div className="space-y-1 p-1 min-w-[120px] w-full flex flex-col items-center">
-          <div className="text-xs font-medium leading-tight text-green-600">
-            {schedule?.slot?.startTime} - {schedule?.slot?.endTime}
-          </div>
-          <div className="text-xs font-medium leading-tight text-blue-600">
-            {formatDate(schedule?.date, 'dd-MM-yyyy')}
-          </div>
-          <StatusButton status={getRegisterStatus(cell?.status)} scheduleId={schedule?.scheduleIds} />
-        </div>
-      );
-    },
-    meta: {
-      sort: false,
-      filter: false,
-    },
-  })),
-];

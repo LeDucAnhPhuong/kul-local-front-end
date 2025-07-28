@@ -45,5 +45,18 @@ namespace kul_local_back_end.Controllers
         {
             return await _questionRepo.DeleteQuestionAsync(id);
         }
+
+
+        [HttpPost("import/{quizId}")]
+        public async Task<IResult> Import( string quizId, IFormFile file)
+        {
+            return await _questionRepo.ImportQuestions(quizId, file);
+        }
+
+        [HttpGet("export/{quizId}")]
+        public async Task<IResult> Export(string quizId)
+        {
+            return await _questionRepo.ExportQuestions(quizId);
+        }
     }
 }

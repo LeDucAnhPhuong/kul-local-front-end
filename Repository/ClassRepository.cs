@@ -177,6 +177,10 @@ namespace kul_local_back_end.Repositories
 
             var today = DateTime.UtcNow.Date;
 
+            Console.WriteLine($"User ID: {today}");
+            Console.WriteLine($"User ID: {today.AddDays(1)}");
+
+
             var scheduleFilter = Builders<Schedule>.Filter.And(
             Builders<Schedule>.Filter.Eq(s => s.TedTeamId, user.Id),
             Builders<Schedule>.Filter.Gte(s => s.Date, today),
@@ -189,9 +193,6 @@ namespace kul_local_back_end.Repositories
             var classFilter = Builders<Class>.Filter.In(c => c.Id, classIds);
             var classes = await _collection.Find(classFilter).ToListAsync();
 
-            var scheduleMap = schedules
-                           .GroupBy(s => s.ClassId)
-                           .ToDictionary(g => g.Key, g => g.Select(s => s.Id).ToList());
 
             var response = new List<object>();
             foreach (var schedule in schedules)

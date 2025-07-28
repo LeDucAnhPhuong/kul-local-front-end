@@ -472,6 +472,27 @@
   },
   {
     "ContainingType": "kul_local_back_end.Controllers.ClassController",
+    "Method": "updateClass",
+    "RelativePath": "api/Class/{classId}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "classId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "kul_locall_back_end.models.classes.UpdateClassDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.ClassController",
     "Method": "GetClassById",
     "RelativePath": "api/Class/{id}",
     "HttpMethod": "GET",
@@ -823,6 +844,43 @@
   },
   {
     "ContainingType": "kul_local_back_end.Controllers.QuestionController",
+    "Method": "Export",
+    "RelativePath": "api/Question/export/{quizId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "quizId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.QuestionController",
+    "Method": "Import",
+    "RelativePath": "api/Question/import/{quizId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "quizId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "file",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.QuestionController",
     "Method": "GetByQuizId",
     "RelativePath": "api/Question/quiz/{quizId}",
     "HttpMethod": "GET",
@@ -1111,25 +1169,46 @@
   },
   {
     "ContainingType": "kul_local_back_end.Controllers.RoomController",
-    "Method": "deleteRoom",
-    "RelativePath": "api/Room",
-    "HttpMethod": "DELETE",
+    "Method": "getById",
+    "RelativePath": "api/Room/{id}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "id",
         "Type": "System.String",
-        "IsRequired": false
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
     "ContainingType": "kul_local_back_end.Controllers.RoomController",
-    "Method": "getById",
+    "Method": "updateRoom",
     "RelativePath": "api/Room/{id}",
-    "HttpMethod": "GET",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "kul_locall_back_end.models.room.UpdateRoomDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.RoomController",
+    "Method": "deleteRoom",
+    "RelativePath": "api/Room/{id}",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -1251,6 +1330,22 @@
     "Method": "DeleteSlotAsync",
     "RelativePath": "api/Slot/delete-slot/{id}",
     "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.SlotController",
+    "Method": "GetSlotByIdAsync",
+    "RelativePath": "api/Slot/slot/{id}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -1432,12 +1527,54 @@
   },
   {
     "ContainingType": "kul_local_back_end.Controllers.UsersController",
+    "Method": "deleteUser",
+    "RelativePath": "api/Users/delete/{userId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.UsersController",
+    "Method": "ExportToExcel",
+    "RelativePath": "api/Users/export",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.UsersController",
     "Method": "GetUserRoleAsync",
     "RelativePath": "api/Users/get-role",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.UsersController",
+    "Method": "ImportFromExcel",
+    "RelativePath": "api/Users/import",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "file",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {

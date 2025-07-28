@@ -10,7 +10,7 @@ namespace kul_local_back_end.Entities
         [BsonElement("room_id")]
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public string RoomId { get; set; }
-
+            
         [BsonElement("slot_id")]
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public string SlotId { get; set; }

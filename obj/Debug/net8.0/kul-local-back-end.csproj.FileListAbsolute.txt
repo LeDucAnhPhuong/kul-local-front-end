@@ -59,3 +59,11 @@ W:\KI_5\SWP391\kul-local-back-end\kul-local-back-end\bin\Debug\net8.0\Microsoft.
 W:\KI_5\SWP391\kul-local-back-end\kul-local-back-end\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 W:\KI_5\SWP391\kul-local-back-end\kul-local-back-end\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 W:\KI_5\SWP391\kul-local-back-end\kul-local-back-end\obj\Debug\net8.0\kul-local-back-end.sourcelink.json
+W:\KI_5\SWP391\kul-local-back-end\kul-local-back-end\bin\Debug\net8.0\ClosedXML.dll
+W:\KI_5\SWP391\kul-local-back-end\kul-local-back-end\bin\Debug\net8.0\ClosedXML.Parser.dll
+W:\KI_5\SWP391\kul-local-back-end\kul-local-back-end\bin\Debug\net8.0\DocumentFormat.OpenXml.dll
+W:\KI_5\SWP391\kul-local-back-end\kul-local-back-end\bin\Debug\net8.0\DocumentFormat.OpenXml.Framework.dll
+W:\KI_5\SWP391\kul-local-back-end\kul-local-back-end\bin\Debug\net8.0\ExcelNumberFormat.dll
+W:\KI_5\SWP391\kul-local-back-end\kul-local-back-end\bin\Debug\net8.0\RBush.dll
+W:\KI_5\SWP391\kul-local-back-end\kul-local-back-end\bin\Debug\net8.0\SixLabors.Fonts.dll
+W:\KI_5\SWP391\kul-local-back-end\kul-local-back-end\bin\Debug\net8.0\System.IO.Packaging.dll

@@ -33,7 +33,14 @@ namespace kul_local_back_end.Controllers
             return await _roomRepository.CreateRoomAsync(createRoomDTO);
         }
 
-        [HttpDelete()]
+        [HttpPut("{id}")]
+        public async Task<IResult> updateRoom(string id, UpdateRoomDTO dto)
+        {
+
+            return await _roomRepository.UpdateRoomAsync(id, dto);
+        }
+
+        [HttpDelete("{id}")]
         public async Task<IResult> deleteRoom(string id) {
             return await _roomRepository.DeleteRoomAsync(id);
         }

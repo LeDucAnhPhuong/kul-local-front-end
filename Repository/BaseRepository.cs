@@ -97,7 +97,7 @@ namespace kul_local_back_end.Repository
             if (entity == null) throw new KeyNotFoundException("Entity not found");
 
             // Correcting the UpdateOneAsync call to properly set the isActive field to false
-            var update = Builders<T>.Update.Set(e => e.IsActive, false);
+            var update = Builders<T>.Update.Set(e => e.IsActive, !entity.IsActive);
             await _collection.UpdateOneAsync(e => e.Id == id, update);
            
             return entity;

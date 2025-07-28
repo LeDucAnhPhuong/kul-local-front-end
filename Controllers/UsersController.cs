@@ -1,4 +1,5 @@
 ﻿using kul_local_back_end.Entities;
+using kul_local_back_end.Repository;
 using kul_locall_back_end.models.user;
 using kul_locall_back_end.repository;
 using Microsoft.AspNetCore.Authorization;
@@ -83,6 +84,26 @@ namespace kul_local_back_end.Controllers
             return result;
         }
 
+        [HttpGet("export")]
+        public async Task<IResult> ExportToExcel()
+        {
+            var fileResult = await _repository_user.ExportUsersToExcelAsync();
+            return fileResult;
+        }
+
+        [HttpPost("import")]
+        public async Task<IResult> ImportFromExcel(IFormFile file)
+        {
+            var result = await _repository_user.ImportUsersFromExcelAsync(file);
+            return result;
+        }
+
+        [HttpDelete("delete/{userId}")]
+        public async Task<IResult> deleteUser(string userId)
+        {
+            var result = await _repository_user.DeleteAsync(userId);
+            return Results.Ok(new {data = result, message =  "Lock/UnLock user successfully"});
+        }
 
     }
 }

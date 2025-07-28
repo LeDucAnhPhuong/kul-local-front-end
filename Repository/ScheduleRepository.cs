@@ -48,7 +48,7 @@ namespace kul_local_back_end.Repositories
 
         public async Task<IResult> GetAllSchedule()
         {
-            var filter = Builders<Schedule>.Filter.Empty;
+            var filter = Builders<Schedule>.Filter.Eq(s => s.IsActive, true);
             var data = await GetPopulatedSchedulesAsync(filter);
             return Results.Ok(new { data });
         }
@@ -57,17 +57,22 @@ namespace kul_local_back_end.Repositories
         {
             var filter =
                 Builders<Schedule>.Filter.Gte(s => s.Date, startDate)
-                & Builders<Schedule>.Filter.Lte(s => s.Date, endDate);
+                & Builders<Schedule>.Filter.Lte(s => s.Date, endDate)
+                & Builders<Schedule>.Filter.Eq(s => s.IsActive, true);
             var data = await GetPopulatedSchedulesAsync(filter);
             return Results.Ok(new { data });
         }
 
         public async Task<IResult> CreateSchedule(CreateScheduleDTO dto)
         {
+            var startOfDay = dto.Date.Date;
+            var endOfDay = startOfDay.AddDays(1);
+
             var conflictFilter = Builders<Schedule>.Filter.And(
                 Builders<Schedule>.Filter.Eq(s => s.RoomId, dto.RoomId),
                 Builders<Schedule>.Filter.Eq(s => s.SlotId, dto.SlotIds),
-                Builders<Schedule>.Filter.Eq(s => s.Date, dto.Date)
+                Builders<Schedule>.Filter.Gte(s => s.Date, startOfDay),
+                Builders<Schedule>.Filter.Lt(s => s.Date, endOfDay)
             );
 
             var conflict = await _collection.Find(conflictFilter).FirstOrDefaultAsync();
@@ -146,6 +151,56 @@ namespace kul_local_back_end.Repositories
             var existing = await GetByIdAsync(id);
             if (existing == null)
                 return Results.NotFound(new { message = "Schedule not found." });
+
+            var startOfDay = dto.Date?.Date ?? existing.Date.Date;
+            var endOfDay = startOfDay.AddDays(1);
+
+            var conflictFilter = Builders<Schedule>.Filter.And(
+                Builders<Schedule>.Filter.Eq(s => s.RoomId, dto?.RoomId ?? existing?.RoomId),
+                Builders<Schedule>.Filter.Eq(s => s.SlotId, dto?.SlotId ?? existing?.SlotId),
+                Builders<Schedule>.Filter.Gte(s => s.Date, startOfDay),
+                Builders<Schedule>.Filter.Lt(s => s.Date, endOfDay)
+            );
+
+            var conflict = await _collection.Find(conflictFilter).FirstOrDefaultAsync();
+            if (conflict != null)
+            {
+                return Results.BadRequest(
+                    new { message = "This room and slot are already scheduled on this date." }
+                );
+            }
+
+            var coach = await _user_repository.GetByIdAsync(dto?.CoachId ?? existing?.CoachId);
+
+            var teacherConflictFilter = Builders<Schedule>.Filter.And(
+                Builders<Schedule>.Filter.Eq(s => s.CoachId, coach.Id),
+                Builders<Schedule>.Filter.Eq(s => s.Date, dto.Date),
+                Builders<Schedule>.Filter.Eq(s => s.SlotId, dto.SlotId)
+            );
+            var teacherConflict = await _collection
+                .Find(teacherConflictFilter)
+                .FirstOrDefaultAsync();
+            if (teacherConflict != null)
+            {
+                return Results.BadRequest(
+                    new
+                    {
+                        message = "Teacher already has a schedule on this date in a different slot.",
+                    }
+                );
+            }
+
+            var classInfo = await _classes.Find(c => c.Id == dto.classId).FirstOrDefaultAsync();
+            if (classInfo == null)
+            {
+                return Results.BadRequest(new { message = "Class not found." });
+            }
+            if (dto.Date < classInfo.StartTime || dto.Date > classInfo.EndTime)
+            {
+                return Results.BadRequest(
+                    new { message = "Date is outside the class active period." }
+                );
+            }
 
             await UpdateAsync(
                 id,

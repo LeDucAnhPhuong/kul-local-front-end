@@ -8,4 +8,6 @@ public interface IQuestionRepository : IRepository<Question>
     Task<IResult> GetQuestionByIdAsync(string id);
     Task<IResult> GetQuestionsByQuizIdAsync(string quizId);
     Task<IResult> DeleteQuestionAsync(string id);
+    Task<IResult> ImportQuestions(string quizId, IFormFile file);
+    Task<IResult> ExportQuestions(string quizId);
 }

@@ -50,6 +50,14 @@ namespace kul_local_back_end.Controllers
             return await _classRepository.CreateClassAsync(classDTO);
         }
 
+        [HttpPatch("{classId}")]
+        public async Task<IResult> updateClass(string classId, UpdateClassDTO dto)
+        {
+            return await _classRepository.UpdateClassAsync(classId, dto);
+        }
+
+
+
         [HttpGet("{id}")]
         public async Task<IResult> GetClassById(string id) {
             return await _classRepository.GetClassByIdAsync(id);

@@ -26,6 +26,14 @@ namespace kul_local_back_end.Controllers
             var result = await _repository_slot.CreateSlotAsync(slot);
             return result;
         }
+
+        [HttpGet("slot/{id}")]
+        public async Task<IResult> GetSlotByIdAsync(string id)
+        {
+            var result = await _repository_slot.GetSlotByIdAsync(id);
+            return result;
+        }
+
         [HttpDelete("delete-slot/{id}")]
         public async Task<IResult> DeleteSlotAsync(string id)
         {

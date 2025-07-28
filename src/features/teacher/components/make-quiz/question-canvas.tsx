@@ -4,6 +4,9 @@ import { QuestionCard } from './question-card';
 import { QuestionEditor } from './question-editor';
 import { Package, MousePointer } from 'lucide-react';
 import { useParams } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import ExcelUploadQuestionModal from './import-question';
+import { useExportQuestionsMutation } from './api.question';
 
 interface QuestionCanvasProps {
   questions: Question[];
@@ -11,6 +14,8 @@ interface QuestionCanvasProps {
 
 export const QuestionCanvas: React.FC<QuestionCanvasProps> = ({ questions }) => {
   const { quizId } = useParams<{ quizId: string }>();
+
+  const [exportQuestion, { isLoading: isExporting }] = useExportQuestionsMutation();
 
   const [isDragOver, setIsDragOver] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState<Question | null>(null);
@@ -49,14 +54,34 @@ export const QuestionCanvas: React.FC<QuestionCanvasProps> = ({ questions }) => 
     setEditingQuestion(null);
   };
 
-  console.log('quizId', quizId);
+  const handleExportQuestion = async () => {
+    try {
+      const res = await exportQuestion(quizId).unwrap();
+      const blobUrl = window.URL.createObjectURL(res);
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = `Question_${new Date().toISOString()}.xlsx`; // 👈 Tên file tải về
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(blobUrl);
+    } catch {}
+  };
 
   return (
     <div className="flex-1 bg-gray-50 p-6 overflow-y-auto">
       <div className="max-w-4xl mx-auto">
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Quiz Question</h1>
-          <p className="text-gray-600">Create and manage your quiz questions with drag & drop</p>
+        <div className="flex gap-4 justify-between">
+          <div className="mb-6">
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">Quiz Question</h1>
+            <p className="text-gray-600">Create and manage your quiz questions with drag & drop</p>
+          </div>
+          <div className="flex gap-4">
+            <ExcelUploadQuestionModal quizId={quizId} />
+            <Button variant="outline" onClick={handleExportQuestion} isLoading={isExporting}>
+              Export Questions
+            </Button>
+          </div>
         </div>
 
         <div

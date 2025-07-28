@@ -50,6 +50,13 @@ export const pokemonApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['User'],
     }),
+    exportUser: builder.mutation<Blob, void>({
+      query: () => ({
+        url: `/api/Users/export`,
+        method: 'GET',
+        responseHandler: (response) => response.blob(), // 👈 nhận Blob thay vì JSON
+      }),
+    }),
   }),
 });
 
@@ -64,4 +71,5 @@ export const {
   useCreateCoachMutation,
   useCreateTedTeamMutation,
   useCreateAdminMutation,
+  useExportUserMutation,
 } = pokemonApi;

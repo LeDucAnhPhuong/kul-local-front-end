@@ -31,6 +31,13 @@ export const teacherApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['make-question'],
     }),
+    exportQuestions: builder.mutation({
+      query: (quizId) => ({
+        url: `/api/Question/export/${quizId}`,
+        method: 'GET',
+        responseHandler: (response) => response.blob(),
+      }),
+    }),
   }),
 });
 export const {
@@ -38,4 +45,5 @@ export const {
   useCreateQuestionMutation,
   useUpdateQuestionMutation,
   useDeleteQuestionMutation,
+  useExportQuestionsMutation,
 } = teacherApi;

@@ -127,16 +127,20 @@ interface AcademicProgressProps {
 
 export function AcademicProgress({ data }: AcademicProgressProps) {
   const totalAttendances = data.attendances.length;
+  // Filter attendances theo status: 2 = absent, 1 = present, 0 = not_yet
   const absentCount = data.attendances.filter((att) => att.status === 2).length;
   const presentCount = data.attendances.filter((att) => att.status === 1).length;
   const notYetCount = data.attendances.filter((att) => att.status === 0).length;
 
+  // Tạo timestamp từ date + startTime để sort theo thời gian
   const getDateTime = (record: AttendanceRecord) => {
     const dateStr = record.schedule.date;
     const timeStr = record.schedule.slot.startTime;
     const dateTimeStr = `${formatDate(dateStr, 'yyyy-MM-dd')}T${timeStr}`;
     return new Date(dateTimeStr).getTime();
   };
+  
+  // Sort attendances từ cũ đến mới theo date + time
   const attendances =
     Array.from(data?.attendances)?.sort((a, b) => {
       return getDateTime(a) - getDateTime(b);
@@ -144,19 +148,20 @@ export function AcademicProgress({ data }: AcademicProgressProps) {
 
   const absentPercentage = totalAttendances > 0 ? (absentCount / totalAttendances) * 100 : 0;
 
+  // Return Badge component dựa vào attendance status
   const getStatusBadge = (status: 0 | 1 | 2) => {
     switch (status) {
       case 0:
         return (
-          <Badge variant="outline" className="bg-gray-100 text-gray-800">
+          <Badge variant="outline" className="text-gray-800 bg-gray-100">
             Not Yet
           </Badge>
         );
       case 1:
-        return <Badge className="bg-green-100 text-green-800 hover:bg-green-100/80">Present</Badge>;
+        return <Badge className="text-green-800 bg-green-100 hover:bg-green-100/80">Present</Badge>;
       case 2:
         return (
-          <Badge variant="destructive" className="bg-red-100 text-red-800 hover:bg-red-100/80">
+          <Badge variant="destructive" className="text-red-800 bg-red-100 hover:bg-red-100/80">
             Absent
           </Badge>
         );
@@ -177,7 +182,8 @@ export function AcademicProgress({ data }: AcademicProgressProps) {
         {/* Scores Section */}
         <div className="grid gap-4">
           <h3 className="text-xl font-semibold">Scores</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {/* Array các loại điểm để map qua */}
             {[
               { label: 'Attendance Score', value: data.attendanceScore },
               { label: 'Quiz Score', value: data.quizScore },
@@ -188,8 +194,10 @@ export function AcademicProgress({ data }: AcademicProgressProps) {
               <div key={index} className="flex flex-col gap-2">
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">{score.label}</span>
+                  {/* toFixed(2) để hiển thị 2 chữ số thập phân */}
                   <span className="text-sm font-semibold">{score.value.toFixed(2)} / 10</span>
                 </div>
+                {/* Progress bar: score * 10 vì score từ 0-10, progress cần 0-100 */}
                 <Progress value={score.value * 10} className="h-2" />
               </div>
             ))}
@@ -199,7 +207,8 @@ export function AcademicProgress({ data }: AcademicProgressProps) {
         {/* Attendance Summary Section */}
         <div className="grid gap-4">
           <h3 className="text-xl font-semibold">Attendance Summary</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {/* Responsive grid: 1 → 2 → 4 columns */}
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             <Card className="p-4 text-center">
               <CardTitle className="text-2xl">{totalAttendances}</CardTitle>
               <CardDescription>Total Records</CardDescription>
@@ -224,11 +233,12 @@ export function AcademicProgress({ data }: AcademicProgressProps) {
                 {absentPercentage.toFixed(2)}%
               </span>
             </div>
+            {/* Custom progress bar với màu đỏ cho absent percentage */}
             <Progress
               value={absentPercentage}
               className="h-3 bg-green-200 [&::-webkit-progress-value]:bg-red-500 [&::-moz-progress-bar]:bg-red-500"
             />
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className="mt-1 text-xs text-muted-foreground">
               This shows the percentage of absences out of total attendance records.
             </p>
           </div>
@@ -237,8 +247,9 @@ export function AcademicProgress({ data }: AcademicProgressProps) {
         {/* Individual Attendance Records */}
         <div className="grid gap-4">
           <h3 className="text-xl font-semibold">Detailed Attendance Records</h3>
+          {/* Conditional rendering: hiển thị message nếu không có data */}
           {totalAttendances === 0 ? (
-            <p className="text-muted-foreground text-center">No attendance records available.</p>
+            <p className="text-center text-muted-foreground">No attendance records available.</p>
           ) : (
             <div className="overflow-x-auto">
               <Table>
@@ -263,6 +274,7 @@ export function AcademicProgress({ data }: AcademicProgressProps) {
                       <TableCell>{`${record.schedule.slot.startTime} - ${record.schedule.slot.endTime}`}</TableCell>
                       <TableCell>{new Date(record.schedule.date).toLocaleDateString()}</TableCell>
                       <TableCell>
+                        {/* Handle null coach: concatenate firstName + lastName, fallback to 'N/A' */}
                         {record.schedule.coach
                           ? `${record.schedule.coach.firstName || ''} ${
                               record.schedule.coach.lastName || ''

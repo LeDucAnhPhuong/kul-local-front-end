@@ -29,7 +29,7 @@ interface MyFormProps {
 export default function MyForm({ onUpdate, isLoading }: MyFormProps) {
   const { id } = useParams();
 
-  const { classInfo, isFetching } = useGetClassInfoQuery(id, {
+  const { classInfo } = useGetClassInfoQuery(id, {
     selectFromResult: ({ data, isFetching }) => ({
       classInfo: data?.data,
       isFetching,

@@ -10,13 +10,15 @@ export function useCalendarData({ startDate, endDate }: { startDate?: Date; endD
   const { slots, isLoadingSlots } = useGetAllSlotQuery(undefined, {
     selectFromResult: ({ data, isFetching }) => ({
       slots: data?.data
-        ? (Array.from(data?.data) as Slot[])?.sort((a: Slot, b: Slot) => {
-            const toMinutes = (time: string) => {
-              const [h, m] = time.split(':').map(Number);
-              return h * 60 + m;
-            };
-            return toMinutes(a.startTime) - toMinutes(b.startTime);
-          })
+        ? (Array.from(data?.data?.filter((item: Slot) => item?.isActive)) as Slot[])?.sort(
+            (a: Slot, b: Slot) => {
+              const toMinutes = (time: string) => {
+                const [h, m] = time.split(':').map(Number);
+                return h * 60 + m;
+              };
+              return toMinutes(a.startTime) - toMinutes(b.startTime);
+            },
+          )
         : [],
       isLoadingSlots: isFetching,
     }),

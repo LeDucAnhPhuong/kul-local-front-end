@@ -42,7 +42,7 @@ interface MyFormProps {
 
 export default function MyForm({ onUpdate }: MyFormProps) {
   const { id } = useParams();
-  const { slot, isFetching } = useGetSlotByIdQuery(id, {
+  const { slot } = useGetSlotByIdQuery(id, {
     selectFromResult: ({ data, isFetching }) => ({
       slot: data?.data,
       isFetching,

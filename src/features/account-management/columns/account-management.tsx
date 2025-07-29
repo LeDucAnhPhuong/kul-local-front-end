@@ -1,6 +1,5 @@
 import type { ColumnDef, Row } from '@tanstack/react-table';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
-import { Eye } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,

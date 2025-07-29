@@ -34,7 +34,7 @@ interface MyFormProps {
 
 export default function MyForm({ onUpdate }: MyFormProps) {
   const { id } = useParams();
-  const { room, isFetching } = useGetRoomByIdQuery(id, {
+  const { room } = useGetRoomByIdQuery(id, {
     selectFromResult: ({ data, isFetching }) => ({
       room: data?.data,
       isFetching,

@@ -13,10 +13,11 @@ interface QuestionCanvasProps {
 }
 
 export const QuestionCanvas: React.FC<QuestionCanvasProps> = ({ questions }) => {
+  const { quizId } = useParams<{ quizId: string }>();
+
   const [isDragOver, setIsDragOver] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState<Question | null>(null);
   const [creatingType, setCreatingType] = useState<QuestionTypeInfo | null>(null);
-  const { quizId } = useParams<{ quizId: string }>();
   const [exportQuestion, { isLoading: isExporting }] = useExportQuestionsMutation();
 
   const handleDragLeave = (e: React.DragEvent) => {

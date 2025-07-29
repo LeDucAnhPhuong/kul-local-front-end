@@ -54,6 +54,48 @@ ${plainText}
 """
 `;
 
+const generateSpellPrompt = (
+  plainText: string,
+): string => `You are an English teacher at a language center for beginner students in a non-English-speaking country.
+
+Your task is to check a student’s short paragraph **ONLY for basic spelling and grammar errors. Do NOT flag words that are already correct. Do NOT add suggestions unless there is a real mistake.**
+
+Return your result in the following JSON format:
+
+{
+  "content": "...",     // Highlighted HTML version of the paragraph
+  "feedback": "...",    // Brief, friendly feedback (under 100 words)
+  "score": number       // Total score from 0 to 10 (can include decimal)
+}
+
+**Instructions for 'content':**
+- For CORRECT words or phrases, use:  
+  '<span style="color: green; font-weight: bold">correct_word</span>'
+
+- For INCORRECT spelling/grammar, use:  
+  '<span style="color: red; font-weight: bold">wrong_word</span><span style="color: orange; font-style: italic"> (correct_word)</span>'
+
+⚠️ Do NOT mark correct words in red. Only highlight errors.
+⚠️ Do NOT suggest a correction unless there is an actual mistake.
+⚠️ Do NOT apply advanced grammar rules — only basic beginner-level checks.
+
+**Scoring (0–10):**
+- Up to 7 points: basic grammar and spelling
+- Up to 3 points: clarity and simplicity for beginner level
+
+---
+
+📌 **Example input for reference only (DO NOT CORRECT IT):**
+Today I go to school and see many peoples. They was happy because it is sunny day.
+
+📌 **Actual input to check:**
+${plainText}
+
+---
+
+Your response must be a valid JSON object. Do not add extra text or explanation outside the object.
+`;
+
 export const checkingNews = async (message: string, title: string) => {
   try {
     const response = await gemini.post('/gemini-2.0-flash:generateContent', {
@@ -71,5 +113,25 @@ export const checkingNews = async (message: string, title: string) => {
     return response.data.candidates[0].content.parts[0].text;
   } catch (error) {
     console.error('Error checking news:', error);
+  }
+};
+
+export const checkingspell = async (message: string) => {
+  try {
+    const response = await gemini.post('/gemini-2.0-flash:generateContent', {
+      contents: [
+        {
+          parts: [
+            {
+              text: generateSpellPrompt(message),
+            },
+          ],
+        },
+      ],
+    });
+
+    return response.data.candidates[0].content.parts[0].text;
+  } catch (error) {
+    console.error('Error checking spelling:', error);
   }
 };

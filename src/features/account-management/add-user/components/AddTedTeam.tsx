@@ -10,17 +10,17 @@ const AddTedTeam = () => {
   const navigate = useNavigate();
 
   async function onAddTedTeam(data: { email: string }) {
-    const idToast = toast.loading('Adding student...');
+    const idToast = toast.loading('Adding ted...');
     try {
       await addTedTeam({
         email: data.email,
       }).unwrap();
-      toast.success('student added successfully', {
+      toast.success('Ted added successfully', {
         id: idToast,
       });
       navigate('/account-management');
     } catch (error) {
-      toast.error('Failed to add student', {
+      toast.error('Failed to add Ted', {
         id: idToast,
       });
     }

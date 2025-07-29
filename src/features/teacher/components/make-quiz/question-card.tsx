@@ -1,7 +1,11 @@
 'use client';
-
+import { useDeleteQuestionMutation } from './api.question';
 import React, { useState } from 'react';
 import { QuestionTypeEnum, type Question } from './question.type';
+import { DeleteConfirmModal } from './delete-comfirm-modal';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import {
   Edit2,
   Trash2,
@@ -11,10 +15,6 @@ import {
   ChevronDown,
   Edit3,
 } from 'lucide-react';
-import { DeleteConfirmModal } from './delete-comfirm-modal';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import {
   Select,
   SelectContent,
@@ -22,7 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useDeleteQuestionMutation } from './api.question';
+
 
 interface QuestionCardProps {
   question: Question;
@@ -49,7 +49,6 @@ const typeLabels = {
 export const QuestionCard: React.FC<QuestionCardProps> = ({ question, index, onEdit }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteQuestion, { isLoading: isDeleting }] = useDeleteQuestionMutation();
-
   const IconComponent = typeIcons[question.type];
 
   const handleDelete = async () => {

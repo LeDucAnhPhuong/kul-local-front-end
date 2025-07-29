@@ -41,7 +41,6 @@ export const personalWorkColumns: ColumnDef<SlotSchedule>[] = [
             {cell.location} | {cell.classId}
           </div>
           <div>
-
             <Badge
               className={cn(
                 "text-xs px-2 py-1 w-fit",

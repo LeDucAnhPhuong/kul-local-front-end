@@ -16,7 +16,6 @@ import {
 } from './register.api';
 import { Spinner } from '@/components/ui/spinner';
 
-// Type definitions based on your data structure
 interface TedTeamUser {
   email: string;
   role: string;
@@ -73,7 +72,7 @@ interface Schedule {
 interface Registration {
   assignUser: TedTeamUser;
   schedule: Schedule;
-  status: number; // 0: pending, 1: accepted, 2: rejected
+  status: number;
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -81,46 +80,6 @@ interface Registration {
   updated_at: string;
   isActive: boolean;
 }
-
-const getStatusBadge = (status: number) => {
-  switch (status) {
-    case 1:
-      return (
-        <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
-          <Clock className="w-3 h-3 mr-1" />
-          Pending
-        </Badge>
-      );
-    case 2:
-      return (
-        <Badge variant="secondary" className="bg-green-100 text-green-800">
-          <CheckCircle className="w-3 h-3 mr-1" />
-          Accepted
-        </Badge>
-      );
-    case 3:
-      return (
-        <Badge variant="secondary" className="bg-red-100 text-red-800">
-          <CheckCircle className="w-3 h-3 mr-1" />
-          Rejected
-        </Badge>
-      );
-    default:
-      return <Badge variant="secondary">Unknown</Badge>;
-  }
-};
-
-const formatDate = (dateString: string) => {
-  return new Date(dateString).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  });
-};
-
-const formatTime = (time: string) => {
-  return time;
-};
 
 export default function TedTeamRegistrationsPage() {
   const [acceptedRegister, { isLoading: isLoadingAccept }] = useAcceptRegisteredMutation();
@@ -380,3 +339,43 @@ export default function TedTeamRegistrationsPage() {
     </div>
   );
 }
+
+const getStatusBadge = (status: number) => {
+  switch (status) {
+    case 1:
+      return (
+        <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
+          <Clock className="w-3 h-3 mr-1" />
+          Pending
+        </Badge>
+      );
+    case 2:
+      return (
+        <Badge variant="secondary" className="bg-green-100 text-green-800">
+          <CheckCircle className="w-3 h-3 mr-1" />
+          Accepted
+        </Badge>
+      );
+    case 3:
+      return (
+        <Badge variant="secondary" className="bg-red-100 text-red-800">
+          <CheckCircle className="w-3 h-3 mr-1" />
+          Rejected
+        </Badge>
+      );
+    default:
+      return <Badge variant="secondary">Unknown</Badge>;
+  }
+};
+
+const formatDate = (dateString: string) => {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+};
+
+const formatTime = (time: string) => {
+  return time;
+};

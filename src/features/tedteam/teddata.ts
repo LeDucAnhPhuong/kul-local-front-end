@@ -9,7 +9,6 @@ import type {
   Slot,
 } from './slotInfo';
 
-
 const getDayKey = (date: string): DayKey => {
   const dayOfWeek = new Date(date).getDay();
   const dayKeyMap = {
@@ -28,6 +27,64 @@ const getDayKeyFromDateString = (dateString: string): DayKey => {
   return getDayKey(dateString);
 };
 
+export const formatDate = (date: string): string => {
+  return new Date(date).toLocaleDateString('vi-VN', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+};
+
+export const formatTime = (startTime: string, endTime: string): string => {
+  return `${startTime} - ${endTime}`;
+};
+
+export const getDayName = (dayKey: DayKey): string => {
+  const dayNames: Record<DayKey, string> = {
+    cn: 'Chủ nhật',
+    t2: 'Thứ 2',
+    t3: 'Thứ 3',
+    t4: 'Thứ 4',
+    t5: 'Thứ 5',
+    t6: 'Thứ 6',
+    t7: 'Thứ 7',
+  };
+  return dayNames[dayKey];
+};
+
+export const getStatus = (status: number): 'not yet' | 'present' | 'absent' => {
+  switch (status) {
+    case 0:
+      return 'not yet';
+    case 1:
+      return 'present';
+    case 2:
+      return 'absent';
+    default:
+      return 'not yet';
+  }
+};
+
+export const getRegisterStatus = (
+  status: number,
+): 'register' | 'registered' | 'approved' | 'rejected' | 'closed' => {
+  switch (status) {
+    case 0:
+      return 'register';
+    case 1:
+      return 'registered';
+    case 2:
+      return 'approved';
+    case 3:
+      return 'rejected';
+    case 4:
+      return 'closed';
+    default:
+      return 'closed';
+  }
+};
+
 export const transformAttendanceData = (data: UserSchedule[], slot: Slot[]): SlotSchedule[] => {
   const slotMap = new Map<string, SlotSchedule>();
 
@@ -38,7 +95,7 @@ export const transformAttendanceData = (data: UserSchedule[], slot: Slot[]): Slo
   });
 
   data.forEach((item) => {
-    console.log('item', item);
+    console.log('item', item); 
     const slotName = item.schedule.slot?.name || 'Unknown Slot';
     const dayKey = getDayKey(item.schedule.date);
 
@@ -61,19 +118,6 @@ export const transformAttendanceData = (data: UserSchedule[], slot: Slot[]): Slo
   return Array.from(slotMap.values());
 };
 
-export const getStatus = (status: number): 'not yet' | 'present' | 'absent' => {
-  switch (status) {
-    case 0:
-      return 'not yet';
-    case 1:
-      return 'present';
-    case 2:
-      return 'absent';
-    default:
-      return 'not yet';
-  }
-};
-
 export const transformRegisterScheduleData = (
   data: RegisterScheduleCell[],
   slots: Slot[],
@@ -86,12 +130,11 @@ export const transformRegisterScheduleData = (
     });
   });
 
-  console.log('slotMap', slotMap);
+  console.log('slotMap', slotMap); 
 
   data.forEach((item) => {
     const slotName = item?.schedule?.slot?.name;
     const dayKey = getDayKeyFromDateString(item?.schedule?.date || '');
-
 
     const schedule = slotMap.get(slotName) || {
       slot: slotName,
@@ -102,18 +145,19 @@ export const transformRegisterScheduleData = (
           ...schedule[dayKey],
           schedule: {
             ...schedule[dayKey].schedule,
-            scheduleIds: [...(schedule[dayKey].schedule.scheduleIds ?? []), item.scheduleId], // assign as string, not array
+            scheduleIds: [...(schedule[dayKey].schedule.scheduleIds ?? []), item.scheduleId],
           },
         }
       : {
           ...item,
           schedule: {
             ...item.schedule,
-            scheduleIds: [item.scheduleId], 
+            scheduleIds: [item.scheduleId],
           },
         };
   });
-  console.log('data', slotMap);
+
+  console.log('data', slotMap); 
 
   return Array.from(slotMap?.values());
 };
@@ -156,56 +200,11 @@ export const getRegisterScheduleByDate = (
   return data.filter((item) => item.schedule?.date === date);
 };
 
-export const getRegisterStatus = (
-  status: number,
-): 'register' | 'registered' | 'approved' | 'rejected' | 'closed' => {
-  switch (status) {
-    case 0:
-      return 'register';
-    case 1:
-      return 'registered';
-    case 2:
-      return 'approved';
-    case 3:
-      return 'rejected';
-    case 4:
-      return 'closed';
-    default:
-      return 'closed';
-  }
-};
-
 export const getRegisterScheduleByStatus = (
   data: RegisterScheduleCell[],
   status: 'register' | 'registered' | 'unregistered' | 'full',
 ): RegisterScheduleCell[] => {
   return data.filter((item) => getRegisterStatus(item.status) === status);
-};
-
-export const formatDate = (date: string): string => {
-  return new Date(date).toLocaleDateString('vi-VN', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-};
-
-export const formatTime = (startTime: string, endTime: string): string => {
-  return `${startTime} - ${endTime}`;
-};
-
-export const getDayName = (dayKey: DayKey): string => {
-  const dayNames: Record<DayKey, string> = {
-    cn: 'Chủ nhật',
-    t2: 'Thứ 2',
-    t3: 'Thứ 3',
-    t4: 'Thứ 4',
-    t5: 'Thứ 5',
-    t6: 'Thứ 6',
-    t7: 'Thứ 7',
-  };
-  return dayNames[dayKey];
 };
 
 export const getStatusColor = (status: string): string => {
@@ -228,3 +227,4 @@ export const getStatusColor = (status: string): string => {
       return 'text-gray-600 bg-gray-100';
   }
 };
+

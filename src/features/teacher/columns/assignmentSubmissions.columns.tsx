@@ -1,5 +1,6 @@
 import type { ColumnDef } from '@tanstack/react-table';
 import type { AssignmentSubmission } from '../types/assignment';
+
 export const columns: ColumnDef<AssignmentSubmission>[] = [
   {
     accessorKey: 'id',

@@ -12,9 +12,10 @@ import { Calendar, ChevronLeft, ChevronRight, Clock, Grid3X3, List, Loader2 } fr
 import { Button } from '@/components/ui/button';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useCalendarData } from '@/hooks/useScheduleCalnedar';
-import { useUpdateScheduleMutation } from '../api.schedule';
+import { useDeleteScheduleMutation, useUpdateScheduleMutation } from '../api.schedule';
 import TitlePage from '@/components/ui/title-page';
 import { zoneTimeToUTC } from '@/utils/zone-time-to-utc';
+import { toast } from 'sonner';
 
 export function getDateRange(
   viewMode: ViewMode,
@@ -54,6 +55,8 @@ export default function CustomCalendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [viewMode, setViewMode] = useState<ViewMode>('week');
   const [draggedSchedule, setDraggedSchedule] = useState<Schedule | null>(null);
+
+  const [deleteSchedule] = useDeleteScheduleMutation();
 
   const { startDate, endDate } = getDateRange(viewMode, currentDate);
   const { slots, schedules, loading } = useCalendarData({ startDate, endDate });
@@ -104,6 +107,16 @@ export default function CustomCalendar() {
   const handleDragEnd = useCallback(() => {
     setDraggedSchedule(null);
   }, []);
+
+  const handleDelete = async (data: Schedule) => {
+    const toastId = toast.loading('Deleting schedule...');
+    try {
+      await deleteSchedule(data?.id).unwrap();
+      toast.success('Schedule deleted successfully', { id: toastId });
+    } catch {
+      toast.error('Failed to delete schedule', { id: toastId });
+    }
+  };
 
   const handleDrop = useCallback(
     async (date: Date, slotId?: string) => {
@@ -174,15 +187,15 @@ export default function CustomCalendar() {
 
     switch (viewMode) {
       case 'day':
-        return <DayView {...commonProps} slots={slots} />;
+        return <DayView {...commonProps} slots={slots} onDelete={handleDelete} />;
       case 'week':
-        return <WeekView {...commonProps} slots={slots} />;
+        return <WeekView {...commonProps} slots={slots} onDelete={handleDelete} />;
       case 'month':
-        return <MonthView {...commonProps} />;
+        return <MonthView {...commonProps} onDelete={handleDelete} />;
       case 'weekList':
-        return <WeekListView {...commonProps} />;
+        return <WeekListView {...commonProps} onDelete={handleDelete} />;
       default:
-        return <WeekView {...commonProps} slots={slots} />;
+        return <WeekView {...commonProps} slots={slots} onDelete={handleDelete} />;
     }
   };
 

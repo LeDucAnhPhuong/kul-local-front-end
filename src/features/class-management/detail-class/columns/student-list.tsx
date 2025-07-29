@@ -19,7 +19,7 @@ export type User = {
   name: string;
   email: string;
   isActive: boolean;
-  created_at: string;
+  createdAt: string;
 };
 export const columns: ColumnDef<User>[] = [
   {
@@ -66,10 +66,10 @@ export const columns: ColumnDef<User>[] = [
     },
   },
   {
-    accessorKey: 'created_at',
+    accessorKey: 'createdAt',
     header: 'Create Date',
     cell: ({ row }) => {
-      const createdAt = row.getValue('created_at');
+      const createdAt = row.getValue('createdAt');
       const formattedDate =
         typeof createdAt === 'string' ? new Date(createdAt).toLocaleDateString() : createdAt;
       return <div>{`${formattedDate}`}</div>;

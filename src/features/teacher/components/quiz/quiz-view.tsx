@@ -46,7 +46,7 @@ function QuizView() {
 
   return (
     <div className="bg-white dark:bg-background p-4 rounded-xl border-[1px] border-stone-50 dark:border-stone-800">
-      <TitlePage title="Schedule" contentHref="Create quiz" onClick={() => setOpen(true)} />
+      <TitlePage title="Quiz" contentHref="Create quiz" onClick={() => setOpen(true)} />
       <DataCard
         onRowClick={({ data }) => navigate(`/make-quiz/${data.id}`)}
         data={quizzes}

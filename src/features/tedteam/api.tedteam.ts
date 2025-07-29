@@ -35,6 +35,7 @@ export const tedTeamScheduleApi = baseApi.injectEndpoints({
         method: 'GET',
         params: { startDate, endDate },
       }),
+      providesTags: ['Slot'],
     }),
     registerSchedule: builder.mutation({
       query: (data) => ({

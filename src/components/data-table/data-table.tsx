@@ -221,7 +221,7 @@ export default function DataTable<TData, TValue>({
                       }
                     }}
                   >
-                    <div className="flex flex-col justify-between h-full space-y-2">
+                    <div className="flex flex-col justify-between h-full space-y-2 overflow-hidden">
                       {row.getVisibleCells().map((cell) => (
                         <div key={cell.id} className="flex justify-between">
                           {typeof cell.column.columnDef.header === 'string' && (

@@ -3,6 +3,7 @@ import TitlePage from '@/components/ui/title-page';
 import { columns, type Slot } from '../columns/slot-management';
 import { useGetAllSlotQuery } from '@/features/tedteam/api.tedteam';
 
+
 const SlotManagement = () => {
   const { slots, isFetching } = useGetAllSlotQuery(undefined, {
     selectFromResult: ({ data, isFetching }) => ({
@@ -18,6 +19,8 @@ const SlotManagement = () => {
       isFetching,
     }),
   });
+
+  
 
   return (
     <div className="bg-white dark:bg-background p-4 rounded-xl border-[1px] border-stone-50 dark:border-stone-800">

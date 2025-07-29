@@ -6,6 +6,10 @@ export const roomApi = baseApi.injectEndpoints({
       query: () => `/api/Room`,
       providesTags: ['Room'],
     }),
+    getRoomById: builder.query({
+      query: (id) => `/api/Room/${id}`,
+      providesTags: ['Room'],
+    }),
     createRoom: builder.mutation({
       query: (newRoom) => ({
         url: `/api/Room`,
@@ -14,7 +18,22 @@ export const roomApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Room'],
     }),
+    deleteRoom: builder.mutation({
+      query: (id) => ({
+        url: `/api/Room/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Room'],
+    }),
+    updateRoom: builder.mutation({
+      query: ({ id, ...updateRoom }) => ({
+        url: `/api/Room/${id}`,
+        method: 'PATCH',
+        body: updateRoom,
+      }),
+      invalidatesTags: ['Room'],
+    }),
   }),
 });
 
-export const { useGetRoomsQuery, useCreateRoomMutation } = roomApi;
+export const { useGetRoomsQuery, useGetRoomByIdQuery, useCreateRoomMutation, useDeleteRoomMutation, useUpdateRoomMutation } = roomApi;

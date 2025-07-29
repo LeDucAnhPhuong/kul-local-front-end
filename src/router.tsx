@@ -45,6 +45,9 @@ import AcademicPage from './features/student-management/academic/AcademicPage';
 import CoachStatisticsChart from './features/statics/statics-page';
 import { TalkModule } from './features/student-management/speaking-voice/talk-module';
 import StaticsCoach from './features/teacher/components/statics/statics-coach';
+import UpdateSlotPage from './pages/dashboard/admin/slot-management/slot.update';
+import UpdateRoomPage from './pages/dashboard/admin/room-management/room.update';
+import UpdateClassPage from './pages/dashboard/admin/class-management/class.update';
 
 function Router() {
   return (
@@ -92,6 +95,7 @@ function Router() {
             <Route path="add" element={<AddClassPage />} />
             <Route path=":id" element={<ClassDetailPage />} />
             <Route path=":id/add-student" element={<AddStudentIntoClassPage />} />
+            <Route path=":id/update-class" element={<UpdateClassPage />} />
           </Route>
           <Route path="/schedule-management">
             <Route path="" element={<ScheduleManagementPage />} />
@@ -100,6 +104,7 @@ function Router() {
           <Route path="/room-management">
             <Route path="" element={<RoomManagementPage />} />
             <Route path="add" element={<AddRoomPage />} />
+            <Route path=":id/update-room" element={<UpdateRoomPage />} />
           </Route>
           <Route path="/register-management">
             <Route path="" element={<TedTeamRegistrationsPage />} />
@@ -107,6 +112,7 @@ function Router() {
           <Route path="/slot-management">
             <Route path="" element={<SlotManagementPage />} />
             <Route path="add" element={<AddSlotPage />} />
+            <Route path=":id/update-slot" element={<UpdateSlotPage />} />
           </Route>
           <Route path="/account-management">
             <Route path="" element={<AccountManagementPage />} />

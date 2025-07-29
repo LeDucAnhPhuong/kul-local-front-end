@@ -50,6 +50,13 @@ export const pokemonApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['User'],
     }),
+    exportUser: builder.mutation<Blob, void>({
+      query: () => ({
+        url: `/api/Users/export`,
+        method: 'GET',
+        responseHandler: (response) => response.blob(), // 👈 nhận Blob thay vì JSON
+      }),
+    }),
     deleteUser: builder.mutation({
       query: (userId) => ({
         url: `/api/Users/delete/${userId}`,
@@ -71,5 +78,6 @@ export const {
   useCreateCoachMutation,
   useCreateTedTeamMutation,
   useCreateAdminMutation,
+  useExportUserMutation,
   useDeleteUserMutation
 } = pokemonApi;

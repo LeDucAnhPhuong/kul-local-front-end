@@ -94,7 +94,27 @@ export const UploadAPI = baseApi.injectEndpoints({
         body: file,
       }),
     }),
+    importUser: builder.mutation({
+      query: (formData) => ({
+        url: `/api/Users/import`,
+        method: 'POST',
+        body: formData,
+      }),
+    }),
+    importQuestion: builder.mutation({
+      query: ({quizId, formData}) => ({
+        url: `/api/Question/import/${quizId}`,
+        method: 'POST',
+        body: formData,
+      }),
+    }),
   }),
 });
 
-export const { useUploadImageMutation, useUploadVideoMutation, useUploadFileMutation } = UploadAPI;
+export const {
+  useUploadImageMutation,
+  useUploadVideoMutation,
+  useUploadFileMutation,
+  useImportUserMutation,
+  useImportQuestionMutation,
+} = UploadAPI;

@@ -10,6 +10,5 @@ public interface IRepository<T> where T : baseEntity
     Task<List<T>> GetByConditionAsync(FilterDefinition<T> condition);
     Task<List<T>> GetByFilterAsync(FilterDefinition<T> filter);
     Task<T> DeleteAsync(string id);
-
     IMongoCollection<T> GetCollection();
 }

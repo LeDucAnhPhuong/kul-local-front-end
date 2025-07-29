@@ -50,5 +50,11 @@ namespace kul_local_back_end.Controllers
         {
             return await _scheduleRepository.UpdateSchedule(id, scheduleDTO);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IResult> DeleteSchedule(string id)
+        {
+            return await _scheduleRepository.DeletecSheduleAsync(id);
+        }
     }
 }

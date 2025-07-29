@@ -72,7 +72,9 @@ namespace kul_local_back_end.Repositories
                 Builders<Schedule>.Filter.Eq(s => s.RoomId, dto.RoomId),
                 Builders<Schedule>.Filter.Eq(s => s.SlotId, dto.SlotIds),
                 Builders<Schedule>.Filter.Gte(s => s.Date, startOfDay),
-                Builders<Schedule>.Filter.Lt(s => s.Date, endOfDay)
+                Builders<Schedule>.Filter.Lt(s => s.Date, endOfDay),
+                Builders<Schedule>.Filter.Eq(s => s.IsActive, true)
+
             );
 
             var conflict = await _collection.Find(conflictFilter).FirstOrDefaultAsync();
@@ -88,7 +90,9 @@ namespace kul_local_back_end.Repositories
             var teacherConflictFilter = Builders<Schedule>.Filter.And(
                 Builders<Schedule>.Filter.Eq(s => s.CoachId, coach.Id),
                 Builders<Schedule>.Filter.Eq(s => s.Date, dto.Date),
-                Builders<Schedule>.Filter.Eq(s => s.SlotId, dto.SlotIds)
+                Builders<Schedule>.Filter.Eq(s => s.SlotId, dto.SlotIds),
+                Builders<Schedule>.Filter.Eq(s => s.IsActive, true)
+
             );
             var teacherConflict = await _collection
                 .Find(teacherConflictFilter)
@@ -102,17 +106,18 @@ namespace kul_local_back_end.Repositories
                     }
                 );
             }
+            var classConflict = Builders<Schedule>.Filter.And(
+                          Builders<Schedule>.Filter.Eq(s => s.ClassId, dto.classId ),
+                          Builders<Schedule>.Filter.Eq(s => s.Date, dto.Date),
+                          Builders<Schedule>.Filter.Eq(s => s.SlotId, dto.SlotIds ),
+                          Builders<Schedule>.Filter.Eq(s => s.IsActive, true)
 
-            var classInfo = await _classes.Find(c => c.Id == dto.classId).FirstOrDefaultAsync();
-            if (classInfo == null)
+                      );
+
+            var classInfo = await _collection.Find(classConflict).FirstOrDefaultAsync();
+            if (classInfo != null)
             {
-                return Results.BadRequest(new { message = "Class not found." });
-            }
-            if (dto.Date < classInfo.StartTime || dto.Date > classInfo.EndTime)
-            {
-                return Results.BadRequest(
-                    new { message = "Date is outside the class active period." }
-                );
+                return Results.BadRequest(new { message = "Class already has a schedule on this date in a same slot." });
             }
 
             var schedule = new Schedule
@@ -159,7 +164,9 @@ namespace kul_local_back_end.Repositories
                 Builders<Schedule>.Filter.Eq(s => s.RoomId, dto?.RoomId ?? existing?.RoomId),
                 Builders<Schedule>.Filter.Eq(s => s.SlotId, dto?.SlotId ?? existing?.SlotId),
                 Builders<Schedule>.Filter.Gte(s => s.Date, startOfDay),
-                Builders<Schedule>.Filter.Lt(s => s.Date, endOfDay)
+                Builders<Schedule>.Filter.Lt(s => s.Date, endOfDay),
+                Builders<Schedule>.Filter.Eq(s => s.IsActive, true)
+
             );
 
             var conflict = await _collection.Find(conflictFilter).FirstOrDefaultAsync();
@@ -175,7 +182,9 @@ namespace kul_local_back_end.Repositories
             var teacherConflictFilter = Builders<Schedule>.Filter.And(
                 Builders<Schedule>.Filter.Eq(s => s.CoachId, coach.Id),
                 Builders<Schedule>.Filter.Eq(s => s.Date, dto.Date),
-                Builders<Schedule>.Filter.Eq(s => s.SlotId, dto.SlotId)
+                Builders<Schedule>.Filter.Eq(s => s.SlotId, dto?.SlotId ?? existing?.SlotId),
+                Builders<Schedule>.Filter.Eq(s => s.IsActive, true)
+
             );
             var teacherConflict = await _collection
                 .Find(teacherConflictFilter)
@@ -185,22 +194,25 @@ namespace kul_local_back_end.Repositories
                 return Results.BadRequest(
                     new
                     {
-                        message = "Teacher already has a schedule on this date in a different slot.",
+                        message = "Teacher already has a schedule on this date in a same slot.",
                     }
                 );
             }
 
-            var classInfo = await _classes.Find(c => c.Id == dto.classId).FirstOrDefaultAsync();
-            if (classInfo == null)
+            var classConflict = Builders<Schedule>.Filter.And(
+                Builders<Schedule>.Filter.Eq(s => s.ClassId, dto?.classId ?? existing?.ClassId),
+                Builders<Schedule>.Filter.Eq(s => s.Date, dto.Date),
+                Builders<Schedule>.Filter.Eq(s => s.SlotId, dto?.SlotId ?? existing?.SlotId),
+                Builders<Schedule>.Filter.Eq(s => s.IsActive, true)
+
+            );
+
+            var classInfo = await _collection.Find(classConflict).FirstOrDefaultAsync();
+            if (classInfo != null)
             {
-                return Results.BadRequest(new { message = "Class not found." });
+                return Results.BadRequest(new { message = "Class already has a schedule on this date in a same slot." });
             }
-            if (dto.Date < classInfo.StartTime || dto.Date > classInfo.EndTime)
-            {
-                return Results.BadRequest(
-                    new { message = "Date is outside the class active period." }
-                );
-            }
+           
 
             await UpdateAsync(
                 id,
@@ -216,6 +228,18 @@ namespace kul_local_back_end.Repositories
             );
 
             return Results.Ok(new { message = "Schedule updated." });
+        }
+
+        public async Task<IResult> DeletecSheduleAsync(string id)
+        {
+            var existing = await GetByIdAsync(id);
+            if (existing == null)
+                return Results.NotFound(new { message = "Schedule not found." });
+            var filter = Builders<Schedule>.Filter.Eq(s => s.Id, id);
+            var result = await DeleteAsync(id);
+            if (result == null)
+                return Results.BadRequest(new { message = "Failed to delete schedule." });
+            return Results.Ok(new { message = "Schedule deleted successfully." });
         }
 
         public async Task<List<ScheduleResponse>> GetPopulatedSchedulesAsync(

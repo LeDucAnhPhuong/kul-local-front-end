@@ -241,11 +241,17 @@ namespace kul_local_back_end.Repositories
             { "as", "schedule" }
         }),
         new BsonDocument("$set", new BsonDocument("schedule", new BsonDocument("$arrayElemAt", new BsonArray { "$schedule", 0 }))),
+new BsonDocument("$match", new BsonDocument
+{
+    { "schedule.date", new BsonDocument { { "$gte", startDate }, { "$lte", endDate } } },
+    { "schedule.isActive", true }
+}),
         new BsonDocument("$match", new BsonDocument("schedule.date",
             new BsonDocument
             {
                 { "$gte", startDate },
-                { "$lte", endDate }
+                { "$lte", endDate },
+
             })),
         new BsonDocument("$lookup", new BsonDocument
         {

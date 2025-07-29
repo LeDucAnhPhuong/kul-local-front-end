@@ -1269,6 +1269,22 @@
   },
   {
     "ContainingType": "kul_local_back_end.Controllers.ScheduleController",
+    "Method": "DeleteSchedule",
+    "RelativePath": "api/Schedule/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "kul_local_back_end.Controllers.ScheduleController",
     "Method": "GetDateRange",
     "RelativePath": "api/Schedule/date-range",
     "HttpMethod": "GET",

@@ -18,6 +18,8 @@ namespace kul_local_back_end.Repository
 
         Task<bool> IsScheduleConflictAsync(string scheduleId, string slotId, DateTime date);
 
+        Task<IResult> DeletecSheduleAsync(string id);
+
 
     }
 }

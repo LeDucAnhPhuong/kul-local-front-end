@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("kul-local-back-end")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f90aca3a28e0c371219305daaa413ff27bbd959b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5f6e6256aa637192521f468a453595893ae47888")]
 [assembly: System.Reflection.AssemblyProductAttribute("kul-local-back-end")]
 [assembly: System.Reflection.AssemblyTitleAttribute("kul-local-back-end")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

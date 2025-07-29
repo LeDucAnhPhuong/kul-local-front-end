@@ -115,6 +115,7 @@ namespace kul_local_back_end.Repositories
             var serializer = serializerRegistry.GetSerializer<Attendance>();
             var renderedFilter = filter.Render(new RenderArgs<Attendance>(serializer, serializerRegistry));
 
+
             var pipeline = new List<BsonDocument>
             {
                 new BsonDocument("$match", renderedFilter),
@@ -136,6 +137,7 @@ namespace kul_local_back_end.Repositories
                     { "as", "schedule" }
                 }),
                 new BsonDocument("$set", new BsonDocument("schedule", new BsonDocument("$arrayElemAt", new BsonArray { "$schedule", 0 }))),
+new BsonDocument("$match", new BsonDocument("schedule.isActive", true)),
 
                 new BsonDocument("$lookup", new BsonDocument
                 {

@@ -1,9 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import {
-  useGetSubmissionByAssignmentForCoachQuery,
-  useGradeSubmissionMutation,
-} from '../api.teacher';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { format } from 'date-fns';
 import { Card, CardContent } from '@/components/ui/card';
@@ -11,6 +7,10 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import GradeAssignment from './GradeAssignment';
 import { toast } from 'sonner';
+import {
+  useGetSubmissionByAssignmentForCoachQuery,
+  useGradeSubmissionMutation,
+} from '../api.teacher';
 
 export function CoachGradingSkeleton() {
   return (
@@ -63,16 +63,14 @@ const SubmissionAssignmentPage = () => {
   });
 
   const [gradeSubmission] = useGradeSubmissionMutation();
-
   const assignment = data.length > 0 ? data[0].assignment : null;
-
   const submissions = data.length > 0 ? data : [];
 
   console.log('submissions', submissions);
-
+  const [feedback, setFeedback] = React.useState<string>('');
   const [grading, setGrading] = React.useState<string | null>(null);
   const [score, setScore] = React.useState<string>('');
-  const [feedback, setFeedback] = React.useState<string>('');
+
 
   const handleSaveGrade = async () => {
     const toastId = toast.loading('Saving grade...');

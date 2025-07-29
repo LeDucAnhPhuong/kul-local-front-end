@@ -2,11 +2,24 @@ import { baseApi } from '@/redux/baseApi';
 
 export const tedTeamScheduleApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getTedTeamScheduleByDateRange: builder.query({
-      query: ({ startDate, endDate }) => ({
-        url: '/api/Attendance/get-personal',
+    getClasses: builder.query({
+      query: () => `/api/Class/classes`,
+      providesTags: ['Class'],
+    }),
+    getClassInfo: builder.query({
+      query: (id) => `/api/Class/${id}`,
+      providesTags: ['Class'],
+    }),
+    getClassForTedteam: builder.query({
+      query: () => ({
+        url: '/api/Class/get-class-for-tedteam',
         method: 'GET',
-        params: { startDate, endDate },
+      }),
+    }),
+    getAllSlot: builder.query({
+      query: () => ({
+        url: '/api/Slot/slots',
+        method: 'GET',
       }),
     }),
     getRegisterSchedule: builder.query({
@@ -16,10 +29,11 @@ export const tedTeamScheduleApi = baseApi.injectEndpoints({
       }),
       providesTags: ['RegisterSchedule'],
     }),
-    getAllSlot: builder.query({
-      query: () => ({
-        url: '/api/Slot/slots',
+    getTedTeamScheduleByDateRange: builder.query({
+      query: ({ startDate, endDate }) => ({
+        url: '/api/Attendance/get-personal',
         method: 'GET',
+        params: { startDate, endDate },
       }),
     }),
     registerSchedule: builder.mutation({
@@ -38,14 +52,6 @@ export const tedTeamScheduleApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['RegisterSchedule'],
     }),
-    getClasses: builder.query({
-      query: () => `/api/Class/classes`,
-      providesTags: ['Class'],
-    }),
-    getClassInfo: builder.query({
-      query: (id) => `/api/Class/${id}`,
-      providesTags: ['Class'],
-    }),
     updateAttendanceStatus: builder.mutation({
       query: (data) => ({
         url: '/api/Attendance',
@@ -53,23 +59,17 @@ export const tedTeamScheduleApi = baseApi.injectEndpoints({
         body: data,
       }),
     }),
-    getClassForTedteam: builder.query({
-      query: () => ({
-        url: '/api/Class/get-class-for-tedteam',
-        method: 'GET',
-      }),
-    }),
   }),
 });
 
 export const {
-  useGetTedTeamScheduleByDateRangeQuery,
-  useGetRegisterScheduleQuery,
-  useGetAllSlotQuery,
-  useRegisterScheduleMutation,
-  useUnregisterScheduleMutation,
   useGetClassesQuery,
   useGetClassInfoQuery,
-  useUpdateAttendanceStatusMutation,
   useGetClassForTedteamQuery,
+  useGetAllSlotQuery,
+  useGetRegisterScheduleQuery,
+  useGetTedTeamScheduleByDateRangeQuery,
+  useRegisterScheduleMutation,
+  useUnregisterScheduleMutation,
+  useUpdateAttendanceStatusMutation,
 } = tedTeamScheduleApi;

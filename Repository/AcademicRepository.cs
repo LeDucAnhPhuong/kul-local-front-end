@@ -67,7 +67,7 @@ public class AcademicRepository : IAcademicRepository
 
         // Assignment score
         var assignList = await _submission.Find(a => a.CreatedBy == userId && a.Score != null).ToListAsync();
-        var allAssignments = await _assignments.Find(a => a.CreatedBy == userId).ToListAsync();
+        var allAssignments = await _assignments.Find(a => a.ClassId == user.ClassId).ToListAsync();
         var assignmentScore = allAssignments.Count > 0
             ? Math.Round(assignList.Sum(a => a.Score ?? 0) / allAssignments.Count, 2)
             : 0;

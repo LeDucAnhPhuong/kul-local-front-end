@@ -8,16 +8,15 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { filterDateRange } from '@/utils/table';
 import { CheckCircledIcon, CrossCircledIcon } from '@radix-ui/react-icons';
 import { toast } from 'sonner';
-import { useState } from 'react';
+import { useDeleteUserMutation } from '../api.user';
 
 export type User = {
-  id: number;
+  id: string;
   name: string;
   profileImage: string | null;
   firstName: string;
@@ -91,15 +90,19 @@ export const columns: ColumnDef<User>[] = [
 ];
 
 const Action = ({ row }: { row: Row<User> }) => {
-  const [, setRefresh] = useState(false);
-  const handleUser = (userId: number | undefined) => {
-    if (!userId) return;
-    console.log(`User ${userId} is now ${row.original.isActive ? 'active' : 'inactive'}`);
-    row.original.isActive = !row.original.isActive;
-    console.log(`User ${userId} is now ${row.original.isActive ? 'active' : 'inactive'}`);
-    setRefresh((prev) => !prev);
-    toast.success(`User ${row.original.isActive ? 'activated' : 'deactivated'} successfully`);
-  };
+  const [deleteUser] = useDeleteUserMutation();
+
+  async function handleDeleteUser(id: string | undefined) {
+    if (!id) return;
+    const isActive = row.original?.isActive;
+    try {
+      await deleteUser(id).unwrap();
+      toast.success(`User ${isActive ? 'locked' : 'unlocked'} successfully`);
+    } catch (error) {
+      toast.error(`Failed to ${isActive ? 'lock' : 'unlock'} user status`);
+    }
+  }
+  
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -110,15 +113,9 @@ const Action = ({ row }: { row: Row<User> }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem>
-          <Link className="flex gap-2 w-full" to={`/nguoi-dung/${row.original?.id}`}>
-            <Eye className="w-4 h-4 text-blue-500" />
-            <span>View Information</span>
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
           <button
             className="flex gap-2 w-full items-center"
-            onClick={() => handleUser(row.original?.id)}
+            onClick={() => handleDeleteUser(row.original?.id)}
           >
             {row.original?.isActive ? (
               <CrossCircledIcon className="h-4 w-4 text-red-500" />

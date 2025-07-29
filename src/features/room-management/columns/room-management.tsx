@@ -1,6 +1,6 @@
 import type { ColumnDef, Row } from '@tanstack/react-table';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
-import { Eye } from 'lucide-react';
+import { Pencil } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,15 +12,16 @@ import { Link } from 'react-router';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { CheckCircledIcon, CrossCircledIcon } from '@radix-ui/react-icons';
+import { useDeleteRoomMutation } from '../api.room';
+import { toast } from 'sonner';
 
 export type Room = {
-  _id?: number;
+  id?: string;
   name?: string;
   capacity?: number;
   isActive?: boolean;
   location?: string;
   myLocation?: string;
-
 };
 export const columns: ColumnDef<Room>[] = [
   {
@@ -67,6 +68,23 @@ export const columns: ColumnDef<Room>[] = [
 ];
 
 const Action = ({ row }: { row: Row<Room> }) => {
+  const [deleteRoom] = useDeleteRoomMutation();
+
+  async function handleDelete(id: string | undefined) {
+    if (!id) return;
+    const isActive = row.original?.isActive;
+    const idToast = toast.loading(`${isActive ? 'Locking' : 'Unlocking'} room...`);
+    try {
+      await deleteRoom(id).unwrap();
+      toast.success(`${isActive ? 'Room locked' : 'Room unlocked'} successfully`, {
+        id: idToast,
+      });
+    } catch (error) {
+      toast.error(`Failed to ${isActive ? 'lock' : 'unlock'} room`, {
+        id: idToast,
+      });
+    }
+  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -77,13 +95,21 @@ const Action = ({ row }: { row: Row<Room> }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem>
-          <Link className="flex gap-2 w-full" to={`/slot-management/slot/${row.original?._id}`}>
-            <Eye className="w-4 h-4 text-blue-500" />
-            <span>View Information</span>
+          <Link
+            className="flex gap-2 w-full"
+            to={`/room-management/${row.original?.id}/update-room`}
+          >
+            <Pencil className="w-4 h-4 text-blue-500" />
+            <span>Update</span>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <button className="flex gap-2 w-full items-center">
+          <button
+            className="flex gap-2 w-full items-center"
+            onClick={() => {
+              handleDelete(row.original?.id);
+            }}
+          >
             {row.original?.isActive ? (
               <CrossCircledIcon className="h-4 w-4 text-red-500" />
             ) : (

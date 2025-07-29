@@ -16,9 +16,10 @@ export const teacherApi = baseApi.injectEndpoints({
     }),
     getSlotById: builder.query({
       query: (id: string) => ({
-        url: `/api/Slot/slots/${id}`,
+        url: `/api/Slot/slot/${id}`,
         method: 'GET',
       }),
+      providesTags: ['Slot'],
     }),
     getSlots: builder.query({
       query: () => `/api/Slot/slots`,

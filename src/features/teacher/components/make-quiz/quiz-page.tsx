@@ -1,16 +1,15 @@
 import  { useState } from 'react';
+import { QuestionTypePanel } from './question-type-panel';
+import { QuestionCanvas } from './question-canvas';
+import { useGetQuestionByQuizIdQuery } from './api.question';
+import { skipToken } from '@reduxjs/toolkit/query';
+import { useParams } from 'react-router-dom';
 import {
   QuestionTypeEnum,
   type Question,
   type QuestionResponse,
   type QuestionTypeInfo,
 } from './question.type';
-
-import { QuestionTypePanel } from './question-type-panel';
-import { QuestionCanvas } from './question-canvas';
-import { useGetQuestionByQuizIdQuery } from './api.question';
-import { skipToken } from '@reduxjs/toolkit/query';
-import { useParams } from 'react-router-dom';
 
 function mapQuestionDTO(dto: QuestionResponse): Question {
   const base = {

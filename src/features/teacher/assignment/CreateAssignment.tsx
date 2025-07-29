@@ -1,3 +1,7 @@
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { useForm } from 'react-hook-form';
 import {
   Dialog,
   DialogContent,
@@ -5,10 +9,6 @@ import {
   DialogTitle,
   DialogFooter,
 } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { useForm } from 'react-hook-form';
 import {
   Select,
   SelectContent,
@@ -16,8 +16,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { AssignmentEnum, type AssignmentType } from '../types/assignment';
-import { SmartDatetimeInput } from '@/components/ui/smart-datetime-input';
 import {
   Form,
   FormControl,
@@ -26,6 +24,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { AssignmentEnum, type AssignmentType } from '../types/assignment';
+import { SmartDatetimeInput } from '@/components/ui/smart-datetime-input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useGetClassesQuery } from '@/features/tedteam/api.tedteam';
 import CustomEditor from '@/components/ui/custom-editor';
@@ -58,15 +58,13 @@ export function AssignmentCreateModal({
       dueTime: new Date(),
     },
   });
-
+  const startTime = form.watch('startTime');
   const { classList, isFetching_classes } = useGetClassesQuery(undefined, {
     selectFromResult: ({ data, isFetching }) => ({
       classList: data?.data || [],
       isFetching_classes: isFetching,
     }),
   });
-
-  const startTime = form.watch('startTime');
 
   const handleFormSubmit = async (data: AssignmentForm) => {
     await onSubmit(data);

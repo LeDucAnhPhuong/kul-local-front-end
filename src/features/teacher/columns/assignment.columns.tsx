@@ -1,9 +1,10 @@
-import type { ColumnDef } from '@tanstack/react-table';
-import { format } from 'date-fns';
 import { FileText } from 'lucide-react';
 import type { Assignment } from '../types/assignment';
 import { Badge } from '@/components/ui/badge';
 import type { Class } from '@/features/class-management/columns/class-management';
+import type { ColumnDef } from '@tanstack/react-table';
+import { format } from 'date-fns';
+
 
 const GetType = (type: number) => {
   console.log('type :>> ', type);

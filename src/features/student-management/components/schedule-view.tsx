@@ -21,6 +21,20 @@ import type { Slot, UserSchedule } from '@/features/tedteam/slotInfo';
 import { transformAttendanceData } from '@/features/tedteam/teddata';
 
 // === Utils ===
+// Format ngày theo định dạng DD/MM/YYYY
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
+// Tính ngày Chủ nhật từ ngày Thứ 2
+const getSunday = (monday: Date) => {
+  const d = new Date(monday);
+  d.setDate(d.getDate() + 6);
+  return d;
+};
+// Tìm ngày Thứ 2 đầu tuần từ 1 ngày bất kỳ
 const getMonday = (date: Date) => {
   const d = new Date(date);
   const day = d.getDay();
@@ -30,19 +44,8 @@ const getMonday = (date: Date) => {
   return d;
 };
 
-const getSunday = (monday: Date) => {
-  const d = new Date(monday);
-  d.setDate(d.getDate() + 6);
-  return d;
-};
 
-const formatDate = (date: Date) =>
-  date.toLocaleDateString('en-GB', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-  });
-
+// Tạo array các tuần từ 2000 đến 2050
 const generateWeekOptions = () => {
   const weeks = [];
   const start = getMonday(new Date(2000, 0, 1));

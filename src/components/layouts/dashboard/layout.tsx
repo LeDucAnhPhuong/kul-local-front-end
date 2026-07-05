@@ -1,4 +1,5 @@
-import { Outlet } from 'react-router';
+import { Fragment, useEffect, useMemo } from 'react';
+import { Link, Outlet, useLocation } from 'react-router';
 import { toast } from 'sonner';
 
 import {
@@ -16,12 +17,67 @@ import { useAuth, UserButton, useSession } from '@clerk/clerk-react';
 
 import { AppSidebar } from './app-sidebar';
 import useRouter from '@/hooks/use-router';
-import { useEffect } from 'react';
 import { getClientCookie, setClientCookie } from '@/lib/jsCookies';
+
+const ROUTE_NAMES: Record<string, string> = {
+  dashboard: 'Dashboard',
+  'schedule-student': 'My Schedule',
+  'quizzes-student': 'Quizzes',
+  'list-news': 'News',
+  assignment: 'Assignment',
+  'academic-progress': 'Academic Progress',
+  'speaking-practice': 'Speaking Practice',
+  'view-quiz': 'Quiz',
+  schedule: 'Schedule',
+  'grade-news': 'Grade News',
+  'assignment-coach': 'Assignment',
+  'statics-quiz': 'Statistics',
+  'personal-tedteam': 'Personal Profile',
+  'register-tedteam': 'Register Ted Team',
+  'view-classlist': 'View Classes',
+  'class-management': 'Class Management',
+  'schedule-management': 'Schedule Management',
+  'room-management': 'Room Management',
+  'slot-management': 'Slot Management',
+  'account-management': 'Account Management',
+  'statics-overview': 'Statistics Overview',
+  'register-management': 'Registrations',
+  leaderboard: 'Leaderboard',
+  add: 'Add New',
+  'make-quiz': 'Make Quiz',
+  'assignment-submission': 'Submission Detail',
+  'detail-class': 'Class Detail',
+  ClassList: 'Class List',
+  'update-room': 'Update',
+  'update-slot': 'Update',
+  'update-class': 'Update',
+  'add-student': 'Add Student',
+  news: 'News Detail',
+  assignments: 'Assignment',
+};
+
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+function segmentToLabel(seg: string): string {
+  if (UUID_RE.test(seg)) return '...';
+  return (
+    ROUTE_NAMES[seg] ??
+    seg.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+  );
+}
 
 export default function DashboardLayout() {
   const { session } = useSession();
   const { getToken } = useAuth();
+  const location = useLocation();
+
+  const breadcrumbs = useMemo(() => {
+    const segments = location.pathname.split('/').filter(Boolean);
+    return segments.map((seg, i) => ({
+      label: segmentToLabel(seg),
+      path: '/' + segments.slice(0, i + 1).join('/'),
+    }));
+  }, [location.pathname]);
 
   const getAccessToken = async () => {
     try {
@@ -29,7 +85,6 @@ export default function DashboardLayout() {
       if (!token) {
         throw new Error('Failed to retrieve token');
       }
-
       setClientCookie('access_token', token);
       window.location.reload();
     } catch (error) {
@@ -58,13 +113,20 @@ export default function DashboardLayout() {
             <Separator orientation="vertical" className="h-4 mr-2" />
             <Breadcrumb>
               <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">Building Your Application</BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                </BreadcrumbItem>
+                {breadcrumbs.map((crumb, index) => (
+                  <Fragment key={crumb.path}>
+                    {index > 0 && <BreadcrumbSeparator className="hidden md:block" />}
+                    <BreadcrumbItem>
+                      {index === breadcrumbs.length - 1 ? (
+                        <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
+                      ) : (
+                        <BreadcrumbLink asChild>
+                          <Link to={crumb.path}>{crumb.label}</Link>
+                        </BreadcrumbLink>
+                      )}
+                    </BreadcrumbItem>
+                  </Fragment>
+                ))}
               </BreadcrumbList>
             </Breadcrumb>
           </div>

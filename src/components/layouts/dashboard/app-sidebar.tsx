@@ -210,7 +210,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   }, [role]);
 
   const location = useLocation();
-  console.log('🚀 ~ AppSidebar ~ location:', location);
   return (
     <Sidebar {...props}>
       <SidebarHeader>

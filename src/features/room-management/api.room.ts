@@ -33,7 +33,54 @@ export const roomApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Room'],
     }),
+    updateRoomMaintenanceStatus: builder.mutation({
+      query: ({ id, isActive, note }) => ({
+        url: `/api/Room/${id}/maintenance`,
+        method: 'PATCH',
+        body: {
+          isActive,
+          note,
+          updatedAt: new Date().toISOString(),
+          updatedBy: null,
+        },
+      }),
+      invalidatesTags: ['Room'],
+    }),
+    duplicateRoom: builder.mutation({
+      query: ({ id, name }) => ({
+        url: `/api/Room/${id}/duplicate`,
+        method: 'POST',
+        body: {
+          name,
+          createdAt: new Date().toISOString(),
+          createdBy: 'system',
+          updatedBy: 'system',
+        },
+      }),
+      invalidatesTags: ['Room'],
+    }),
+    bulkUpdateRoomCapacity: builder.mutation({
+      query: (rooms) => ({
+        url: `/api/Room/bulk-capacity`,
+        method: 'PUT',
+        body: rooms.map((room: { id: string; capacity: number }) => ({
+          _id: room.id,
+          capacity: room.capacity,
+          updatedAt: new Date().toISOString(),
+        })),
+      }),
+      invalidatesTags: ['Room'],
+    }),
   }),
 });
 
-export const { useGetRoomsQuery, useGetRoomByIdQuery, useCreateRoomMutation, useDeleteRoomMutation, useUpdateRoomMutation } = roomApi;
+export const {
+  useGetRoomsQuery,
+  useGetRoomByIdQuery,
+  useCreateRoomMutation,
+  useDeleteRoomMutation,
+  useUpdateRoomMutation,
+  useUpdateRoomMaintenanceStatusMutation,
+  useDuplicateRoomMutation,
+  useBulkUpdateRoomCapacityMutation,
+} = roomApi;

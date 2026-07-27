@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle, Clock } from 'lucide-react';
 import PairKeyQuestion from './pair-key-question';
 import { useParams } from 'react-router-dom';
 import { useGetQuestionByQuizIdQuery } from '@/features/teacher/components/make-quiz/api.question';
@@ -66,6 +66,14 @@ interface Question {
   updatedBy: string | null;
 }
 
+const QUIZ_DURATION_SECS = 45 * 60;
+
+function formatTime(secs: number): string {
+  const m = String(Math.floor(secs / 60)).padStart(2, '0');
+  const s = String(secs % 60).padStart(2, '0');
+  return `${m}:${s}`;
+}
+
 export default function QuizApp() {
   const { id } = useParams();
   const route = useRouter();
@@ -73,11 +81,13 @@ export default function QuizApp() {
   const [submitQuiz, { isLoading }] = useSubmitQuizMutation();
   const { questions, isFetching } = useGetQuestionByQuizIdQuery(id ? { id } : skipToken, {
     selectFromResult: ({ data, isFetching }) => ({
-      questions: data?.data || [], // Fallback to sample data if no data is available
+      questions: data?.data || [],
       isFetching,
     }),
   });
   const [score, setScore] = useState<number | null>(null);
+  const [timeLeft, setTimeLeft] = useState(QUIZ_DURATION_SECS);
+  const autoSubmittedRef = useRef(false);
 
   const activeQuestions: Question[] = questions.filter((q: Question) => q.isActive);
 
@@ -153,7 +163,6 @@ export default function QuizApp() {
   };
 
   const onSubmit = async () => {
-    const result = { answers };
     const toastId = toast.loading('Submitting your answers...');
     try {
       const res = await submitQuiz({
@@ -165,9 +174,42 @@ export default function QuizApp() {
     } catch (error) {
       toast.error('Failed to submit quiz. Please try again.', { id: toastId });
     }
-
-    console.log('result', result);
   };
+
+  const onSubmitRef = useRef(onSubmit);
+  onSubmitRef.current = onSubmit;
+
+  // Countdown timer — starts after questions load, stops on submission
+  useEffect(() => {
+    if (isFetching || score !== null || isLoading) return;
+
+    if (timeLeft <= 0) {
+      if (!autoSubmittedRef.current) {
+        autoSubmittedRef.current = true;
+        toast.error('⏰ Time is up! Submitting your answers automatically.');
+        onSubmitRef.current();
+      }
+      return;
+    }
+
+    if (timeLeft === 300) {
+      toast.warning('⏰ Only 5 minutes remaining!', { duration: 5000 });
+    }
+
+    const timer = setTimeout(() => setTimeLeft((prev) => prev - 1), 1000);
+    return () => clearTimeout(timer);
+  }, [isFetching, isLoading, timeLeft, score]);
+
+  const answeredCount = activeQuestions.filter((q, i) =>
+    isQuestionCompleted(q, answers[i]),
+  ).length;
+
+  const timerColorClass =
+    timeLeft <= 300
+      ? 'text-red-600 font-bold'
+      : timeLeft <= 600
+        ? 'text-yellow-600 font-semibold'
+        : 'text-green-600';
 
   const scrollToQuestion = (index: number) => {
     const element = document.getElementById(`question-${index}`);
@@ -202,9 +244,36 @@ export default function QuizApp() {
 
           <div className="lg:col-span-1">
             <Card className="sticky top-6">
-              <CardHeader>
+              <CardHeader className="pb-3">
                 <CardTitle className="text-lg">Quiz Navigation</CardTitle>
                 <CardDescription>{activeQuestions.length} questions total</CardDescription>
+
+                {/* Timer */}
+                <div className="flex items-center gap-1.5 pt-1">
+                  <Clock className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                  <span className={`text-sm font-mono ${timerColorClass}`}>
+                    {formatTime(timeLeft)}
+                  </span>
+                  <span className="text-xs text-muted-foreground">remaining</span>
+                </div>
+
+                {/* Progress */}
+                <div className="pt-1">
+                  <div className="flex justify-between text-xs text-muted-foreground mb-1">
+                    <span>{answeredCount} answered</span>
+                    <span>{activeQuestions.length - answeredCount} left</span>
+                  </div>
+                  <div className="w-full bg-gray-100 rounded-full h-1.5">
+                    <div
+                      className="bg-green-500 h-1.5 rounded-full transition-all duration-300"
+                      style={{
+                        width: activeQuestions.length
+                          ? `${(answeredCount / activeQuestions.length) * 100}%`
+                          : '0%',
+                      }}
+                    />
+                  </div>
+                </div>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
